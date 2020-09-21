@@ -1,0 +1,39 @@
+c-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #00000063;
+    overflow: hidden;
+    .cmodal-content {
+        position: relative;
+        margin: 0 auto;
+        width: 60%;
+        height: auto;
+        background-color: #fff;
+        margin-top: 10%;
+        padding: 0px 20px;
+        border-radius: 1em;
+        transition: .3s ease-in-out;
+        .cmodal-header {
+            text-align: center;
+            padding: 15px 0px;
+            border-bottom: 1px solid grey;
+        }
+
+        .cmodal-body {
+            padding: 20px 0px;
+        }
+
+        .cmodal-footer {
+            border-top: 1px solid gray;
+            padding: 20px 0px;
+
+            button {
+                margin-right: 5px;
+            }
+        }
+    }
+}
+

@@ -1,0 +1,62 @@
+header {
+    background-color: $indigo;
+    width: $percent;
+    height: 80px;
+    box-shadow: $main-shadow;
+    z-index: 3;
+    .container {
+        height: $percent;
+        .logo {
+            @include flexCenter(center);
+            color: $white;
+        }
+    }
+}
+
+div.form-group {
+    position: relative !important;
+}
+
+nav {
+    box-shadow: $main-shadow;
+    height: 50px;
+    z-index: 2;
+    .container {
+        height: $percent;
+        div.nav-container {
+            height: $percent;
+            @include flexCenter(space-between);
+            ul.left-nave {
+                @include flexCenter(flex-start);
+                li a {
+                    color: $link-color;
+                    padding-right: 20px;
+                }
+            }
+
+            ul.right-nave {
+                @include flexCenter(flex-end);
+                li a {
+                    color: $link-color;
+                    padding-left: 20px;
+                }
+            }
+        }
+    }
+}
+
+div.content-page {
+    padding: 40px 0;
+    min-height: calc(100vh - 205px);
+}
+
+footer {
+    width: $percent;
+    height: 75px;
+    background: $footer-color;
+    border-top: 1px solid $footer-color;
+    .footer-text {
+        color: $link-color;
+        @include flexCenter(center);
+    }
+}

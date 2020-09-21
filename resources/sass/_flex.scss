@@ -1,0 +1,8 @@
+@mixin flexCenter($jscontent) {
+    margin-bottom: $mb-0;
+    display: flex;
+    list-style-type: none;
+    align-items: center;
+    height: $percent;
+    justify-content: $jscontent;
+}
