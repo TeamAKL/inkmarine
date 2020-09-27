@@ -2595,7 +2595,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      employerId: 1,
+      employerId: '',
       finalModel: {}
     };
   },
@@ -92838,6 +92838,26 @@ var render = function() {
         "form-wizard",
         { attrs: { shape: "circle", color: "#20a0ff" } },
         [
+          _c(
+            "tab-content",
+            {
+              attrs: {
+                title: "Personal details",
+                icon: "ti-user",
+                "before-change": function() {
+                  return _vm.validateStep("form-one")
+                }
+              }
+            },
+            [
+              _c("form-one", {
+                ref: "form-one",
+                on: { "on-validate": _vm.mergePartialModels }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
           _c(
             "tab-content",
             {

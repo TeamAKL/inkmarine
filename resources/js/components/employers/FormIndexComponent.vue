@@ -2,9 +2,9 @@
     <div>
         <h1 class="text-center">Employeer Registeration</h1>
         <form-wizard shape="circle" color="#20a0ff">
-            <!-- <tab-content title="Personal details" icon="ti-user" :before-change="()=>validateStep('form-one')">
+            <tab-content title="Personal details" icon="ti-user" :before-change="()=>validateStep('form-one')">
                 <form-one ref="form-one" @on-validate="mergePartialModels"></form-one>
-            </tab-content> -->
+            </tab-content>
 
             <tab-content title="Additional Info" icon="ti-settings" :before-change="()=>validateStep('form-two')">
                 <form-two ref="form-two" :employerId="employerId"></form-two>
@@ -55,7 +55,7 @@ export default {
     },
     data() {
         return {
-            employerId: 1,
+            employerId: '',
             finalModel: {},
         }
     },
