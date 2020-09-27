@@ -18,7 +18,6 @@
 
             <div class="form-group prelative">
                 <label for="dob">Date Of Birth</label>
-                <!-- <input type="date" id="dob" name="dob" v-model.trim="dob" class="form-control"> -->
                 <date-picker v-model="dob" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
             </div>
 
@@ -34,15 +33,7 @@
         </form>
     </div>
 </template>
-<style scoped>
-.prelative {
-    position: relative !important;
-}
-.date-picker {
-    display: block;
-    width: 100%;
-}
-</style>
+
 <script>
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
@@ -75,7 +66,9 @@ export default {
             nationality: '',
             dob: '',
             pob: '',
-            edulevel: ''
+            edulevel: '',
+            result: '',
+            personId: ''
         }
     },
     created() {
@@ -83,18 +76,22 @@ export default {
         this.dob = moment(date).format('DD-MM-YYYY');
     },
     methods: {
-        validate() {
-            var response = axios.post('/api/save-form-one', {
+        async validate() {
+            var isValid;
+            await axios.post('/api/save-form-one', {
                 'crewcode': this.crewcode,
                 'name': this.name,
                 'nationality': this.nationality,
                 'dob': this.dob,
                 'pob': this.pob,
-                'edulevel': this.edulevel
+                'edulevel': this.edulevel,
+                'personId': this.personId
             }, {
                 headers: {'Authorization': 'Bearer '+ this.user_token}
             }).then((result) => {
-                return true;
+                this.personId = result.data.employeer.id;
+
+                isValid = true;
             }).catch((err) => {
                 if (err.response.status == 400) {
                     Toast.fire({
@@ -106,12 +103,13 @@ export default {
                         el.after($('<span style="color: red;">'+error[0]+'</span>'));
                     });
                 }
-                return false;
-                // return true;
+                isValid = false;
             });
 
-            this.$emit('on-validate', this.$data, response)
-            return response;
+            console.log(this.personId);
+
+            this.$emit('on-validate', this.personId);
+            return isValid;
         }
     }
 }

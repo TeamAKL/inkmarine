@@ -4,19 +4,19 @@
         <form-wizard shape="circle" color="#20a0ff">
             <!-- <tab-content title="Personal details" icon="ti-user" :before-change="()=>validateStep('form-one')">
                 <form-one ref="form-one" @on-validate="mergePartialModels"></form-one>
-            </tab-content>
+            </tab-content> -->
 
             <tab-content title="Additional Info" icon="ti-settings" :before-change="()=>validateStep('form-two')">
-                <form-two ref="form-two" @on-validate="mergePartialModels" :id="name"></form-two>
+                <form-two ref="form-two" :employerId="employerId"></form-two>
             </tab-content>
 
             <tab-content title="Family Member" icon="ti-id-badge" :before-change="()=>validateStep('form-four')">
-                <form-four ref="form-four" @on-validate="mergePartialModels" :id="name"></form-four>
+                <form-four ref="form-four" :employerId="employerId"></form-four>
             </tab-content>
 
-            <tab-content title="Certificate" icon="ti-files" :before-change="()=>validateStep('form-three')">
+            <!-- <tab-content title="Certificate" icon="ti-files" :before-change="()=>validateStep('form-three')">
                 <form-three ref="form-three" @on-validate="mergePartialModels" :id="name"></form-three>
-            </tab-content> -->
+            </tab-content>
 
             <tab-content title="Medical Checkup" icon="ti-clipboard" :before-change="()=>validateStep('form-five')">
                 <form-five ref="form-five" @on-validate="mergePartialModels" :id="name"></form-five>
@@ -29,7 +29,7 @@
             <tab-content title="Last step" icon="ti-check">
                 Here is your final model:
             <pre>{{finalModel}}</pre>
-            </tab-content>
+            </tab-content> -->
         </form-wizard>
     </div>
 </template>
@@ -55,7 +55,7 @@ export default {
     },
     data() {
         return {
-            name: '',
+            employerId: 1,
             finalModel: {},
         }
     },
@@ -64,11 +64,11 @@ export default {
             var refToValidate = this.$refs[name];
             return refToValidate.validate();
         },
-        mergePartialModels(model, isValid){
-        if(isValid){
-            this.name = model.name;
-            this.finalModel = Object.assign({},this.finalModel, model)
-        }
+        mergePartialModels(isValid){
+            console.log(isValid);
+            if(isValid){
+                this.employerId = isValid;
+            }
         },
     },
 

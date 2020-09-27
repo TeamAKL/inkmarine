@@ -10,6 +10,7 @@
                 <div class="cmodal-header">Add Family Member</div>
                 <div class="cmodal-body">
                     <form>
+                        <input type="text" v-model="employerId">
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input id="name" type="text" class="form-control">
@@ -49,47 +50,48 @@
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
  export  default {
-     data() {
-         return {
-             //Modal
-             czindex: -100,
-             copacity: 0,
-             cvisibility: 'hidden',
-             cstyle:  'translateY(-100%)',
-         }
-     },
-     methods: {
-         validate() {
-             return Swal.fire({
-                 title: 'Are you sure?',
-                 text: "You want to go next step ",
-                 icon: 'warning',
-                 showCancelButton: true,
-                 allowOutsideClick: false,
-                 confirmButtonColor: '#3085d6',
-                 cancelButtonColor: '#d33',
-                 confirmButtonText: 'Yes'
-             }).then((result) => {
-                 if(result.isConfirmed) {
-                     return true;
-                 } else {
-                     return false;
-                 }
-             });
-         },
-         showModal() {
-             this.copacity = 1;
-             this.cstyle = 'translateY(0)';
-             this.cvisibility = 'visible';
-             this.czindex = 3;
-         },
+    data() {
+        return {
+            //Modal
+            czindex: -100,
+            copacity: 0,
+            cvisibility: 'hidden',
+            cstyle:  'translateY(-100%)',
+        }
+    },
+    methods: {
+        validate() {
+            return Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to go next step ",
+                icon: 'warning',
+                showCancelButton: true,
+                allowOutsideClick: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                if(result.isConfirmed) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        },
+        showModal() {
+            this.copacity = 1;
+            this.cstyle = 'translateY(0)';
+            this.cvisibility = 'visible';
+            this.czindex = 3;
+        },
 
-         hideModal() {
-             this.cstyle = 'translateY(-100%)';
-             this.copacity = 0;
-             let that = this;
-             setTimeout(function(){ that.cvisibility = 'hidden'; that.czindex= -100;}, 500)
-         },
-     }
+        hideModal() {
+            this.cstyle = 'translateY(-100%)';
+            this.copacity = 0;
+            let that = this;
+            setTimeout(function(){ that.cvisibility = 'hidden'; that.czindex= -100;}, 500)
+        },
+    },
+    props: ['employerId']
  }
 </script>

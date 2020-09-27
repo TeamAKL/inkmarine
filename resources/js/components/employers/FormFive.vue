@@ -85,27 +85,38 @@
             </div>
         </div>
 
+        <img src="http://inkmarine.appmakeeasy.com/certificate_1600805374.jpeg" alt="http://inkmarine.appmakeeasy.com/">
+
         <div class="form-group">
             <div class="image-holder" v-show="images.length == 0">
+                <div class="loading-area-one" v-show="showLoading">
+                    <img src="../../../../public/loading/loading.gif" alt="">
+                </div>
                 <label for="medical-checkup" class="medicalcheckup" @dragover.prevent @drop="onDrop">
-                    <i class="wizard-icon ti-cloud-up icon-image-upload"></i>
-                    <span class="image-lable-text">Choose File or drag & drop here</span>
+                    <i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
+                    <span class="image-lable-text" v-show="!showLoading">Choose File or drag & drop here</span>
                 </label>
             </div>
 
             <div class="grid-container" @dragover.prevent @drop="onDrop" v-show="images.length >= 1">
-                <div class="gird-item-image" :key="image" v-for="image in images">
+                <div class="loading-area" v-show="showLoading">
+                    <img src="../../../../public/loading/loading.gif" alt="">
+                </div>
+                <div class="gird-item-image " :key="index" v-for="(image, index) in images">
                     <img :src="image" alt="image" class="images-img img-thumbnail">
                     <div class="image-overlay">
                         <div class="ed-holder">
                             <div class="edit-delete-area">
-                                <i class="wizard-icon ti-pencil icon-holder edit"></i>
-                                <i class="wizard-icon ti-trash icon-holder delete"></i>
+                                <label style="cursor: pointer">
+                                    <input type="file" @change="editImage(index, $event)" class="d-none" accept="image/*, .pdf">
+                                    <i class="wizard-icon ti-pencil icon-holder edit"></i>
+                                </label>
+                                <i class="wizard-icon ti-trash icon-holder delete" @click="deleteImage(index)"></i>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="gird-item-image final-grid">
+                <div class="gird-item-image final-grid" v-show="fileLoopCount < 2">
                      <label for="medical-checkup" class="medicalcheckup" @dragover.prevent @drop="onDrop">
                         <i class="wizard-icon ti-cloud-up icon-image-upload"></i>
                         <span class="image-lable-text">Choose File or drag & drop here</span>
@@ -113,7 +124,7 @@
                 </div>
             </div>
         </div>
-        <input type="file" multiple draggable="true" id="medical-checkup" @change="uploadFile">
+        <input type="file" multiple draggable="true" id="medical-checkup" @change="uploadFile" accept="image/*, .pdf">
 
     </div>
 </template>
@@ -173,7 +184,7 @@
                 left: 0;
                 background: rgba(34, 34, 34, 0.63);
                 opacity: 0;
-                transition: .6s ease-in-out;
+                transition: .3s ease-in-out;
                 .ed-holder {
                     width: 100%;
                     height: 100%;
@@ -226,6 +237,11 @@
                 }
             }
         }
+
+        .loading-area {
+            position: absolute;
+            left: 37%;
+        }
     }
 
     .images-uploaded {
@@ -236,6 +252,11 @@
     #medical-checkup {
         display: none;
     }
+
+    .loading-area-one {
+        text-align: center;
+        margin-top: 12%;
+    }
 </style>
 
 <script>
@@ -244,6 +265,8 @@ import 'sweetalert2/src/sweetalert2.scss'
 export default {
     data() {
         return {
+            showLoading: false,
+            user_token: "eyJpdiI6IjlaSHRCM1d4V0ZDd3RoNXpNUnF4MUE9PSIsInZhbHVlIjoiUkRoQm1BdTV6ZFoxcEdkaTlqcU5uOUlrZDRKdDUza0RGVHoybXNjUDlXanVIV2NsdFVpenVWSmpaWDBIdGc0a09uc2k0Qzl4cEhWbUl3UjJaTmcyOTc2UTRWSmp0RVoxdTR5YXdCelwvNmRWbUM3Z0p4T25oRzVyUnFoWmRueFRLIiwibWFjIjoiN2VhZDdkYjYzMzk1YzU2NjVmZDM1ZDQ1NjM0MzA0YmE4ZmNlOWM3MTNkNWZhZDI5ZDgxOWQyNDM4YzJlYzQ5MSJ9",
             fileMaxLenght: 2,
             fileLoopCount: 0,
             images: []
@@ -267,7 +290,7 @@ export default {
         createImage(files) {
             var vm = this;
             for (var index = 0; index < files.length; index++) {
-                if (!files[index].type.match('image.*')) {
+                if (!files[index].type.match('application/pdf') && !files[index].type.match('image.*')) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -276,11 +299,19 @@ export default {
                     })
                     return;
                 } else {
-                    if(vm.fileLoopCount <= 5) {
+                    if(vm.fileLoopCount < vm.fileMaxLenght) {
                         var reader = new FileReader();
                             reader.onload = function(event) {
                             const imageUrl = event.target.result;
-                            vm.images.push(imageUrl);
+                            vm.showLoading = true;
+                            axios.post('/api/image-upload', {
+                                'image': imageUrl
+                            }, {
+                                headers: {'Authorization': 'Bearer '+ this.user_token}
+                            }).then((res) => {
+                                vm.showLoading = false;
+                                vm.images.push(res.data.url);
+                            });
                         }
                         reader.readAsDataURL(files[index]);
                     } else {
@@ -295,16 +326,32 @@ export default {
             e.stopPropagation();
             e.preventDefault();
             var files = e.target.files || e.dataTransfer.files;
-            // this.createFile(files);
             this.createImage(files)
         },
 
-        createFile(files) {
-            // if (!file.type.match('image.*')) {
-            // alert('Select an image');
-            // return;
-            // }
-            console.log(files);
+        deleteImage(index) {
+            this.images.splice(index, 1);
+            this.fileLoopCount--;
+        },
+
+        editImage(index, e) {
+            var vm = this;
+            var files = e.target.files || e.dataTransfer.files;
+            var reader = new FileReader();
+                reader.onload = function(event) {
+                const imageUrl = event.target.result;
+                vm.showLoading = true;
+                axios.post('/api/image-upload-edit', {
+                    'image': imageUrl,
+                    'oldImage': vm.images[index]
+                }, {
+                    headers: {'Authorization': 'Bearer '+ this.user_token}
+                }).then((res) => {
+                    vm.showLoading = false;
+                    vm.images.splice(index, 1, res.data.url);
+                });
+            }
+            reader.readAsDataURL(files[0]);
         }
     }
 }

@@ -10930,6 +10930,11 @@ div.form-group {
   position: relative !important;
 }
 
+.date-picker {
+  display: block !important;
+  width: 100% !important;
+}
+
 nav {
   box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.5);
   height: 50px;

@@ -65,6 +65,18 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
         ],
 
+        'ftp' => [
+            'driver' => 'ftp',
+            'host' => 'ftp.appmakeeasy.com',
+            'username' => 'image_inkmarine@tt.appmakeeasy.com',
+            'password' => '1112019@thet',
+            'port' => 21,
+            'url' => 'http://imageinkmarine.appmakeeasy.com',
+            'passive' => true,
+            'ssl' => true,
+            'timeout' => 30,
+        ],
+
     ],
 
 ];
