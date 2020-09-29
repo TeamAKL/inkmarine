@@ -85,8 +85,6 @@
             </div>
         </div>
 
-        <img src="http://inkmarine.appmakeeasy.com/certificate_1600805374.jpeg" alt="http://inkmarine.appmakeeasy.com/">
-
         <div class="form-group">
             <div class="image-holder" v-show="images.length == 0">
                 <div class="loading-area-one" v-show="showLoading">

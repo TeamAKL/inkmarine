@@ -58,11 +58,12 @@
 
         <!-- CModal -->
         <!-- =============================== -->
-            <c-modal :style="{visibility: cvisibility, zIndex: czindex}">
+            <c-modal :style="{visibility: cvisibility, zIndex: czindex}" >
                 <div class="cmodal-content" :style="{transform: cstyle, opacity: copacity}">
                     <div class="cmodal-header">Add Certificate</div>
                     <div class="cmodal-body">
                         <form>
+                            <input type="hidden" name="employerId" v-model="employerId">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label class="typo__label" for="certificate">Certificate</label>
@@ -77,11 +78,11 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="training_date">Training Date</label>
-                                    <input type="date" name="training_date" id="training_date" class="form-control" v-model.trim="training_date">
+                                    <date-picker v-model.trim="training_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="expire_date">Expire Date</label>
-                                    <input type="date" name="expire_date" id="expire_date" class="form-control" v-model.trim="expire_date">
+                                    <date-picker v-model.trim="expire_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
                                 </div>
                             </div>
 
@@ -90,6 +91,9 @@
                                     <p>Choose Image</p>
                                     <input type="file" class="custom-file-input" id="customFile" @change="fileChange">
                                     <label class="custom-file-label" for="customFile" id="changeLabel">{{imglabel}}</label>
+                                    <div class="loading-container" v-show="showLoading">
+                                        <img src="../../../../public/loading/small_loading.gif" alt="ll" >
+                                    </div>
                                     <div class="image-container" v-if="certificateImage" @click="viewImage(certificateImage)">
                                         <img :src="certificateImage" alt="img" class="img-thumbnail">
                                         <div class="image-overlay">
@@ -107,7 +111,7 @@
                     </div>
                     <div class="cmodal-footer d-flex justify-content-end">
                         <button class="btn btn-primary" @click="hideModal">Cancel</button>
-                        <button class="btn btn-success">Add</button>
+                        <button class="btn btn-success" @click="saveCertificate">Add</button>
                     </div>
                 </div>
             </c-modal>
@@ -124,12 +128,18 @@
         left: 46%;
         font-size: 50px;
     }
-    .image-container {
+    .image-container, .loading-container {
         width: 100%;
         height: 180px;
         border: 1px solid gray;
         position: relative;
         cursor: pointer;
+    }
+
+    .loading-container img {
+        position: absolute;
+        top: 43%;
+        left: 40%;
     }
 
     .image-container img {
@@ -157,9 +167,15 @@
 import Multiselect from 'vue-multiselect'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+
+
+import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
+import moment from 'moment'
 export default {
     components: {
-        Multiselect
+        Multiselect,
+        DatePicker,
     },
     data () {
         return {
@@ -195,28 +211,37 @@ export default {
                     label: 'Action'
                 }
             ],
+
             //Modal
             czindex: -100,
             copacity: 0,
             cvisibility: 'hidden',
             cstyle:  'translateY(-100%)',
-            value: { name: 'Vue.js', language: 'JavaScript' },
+            value: { name: 'Vue.js', id: 'JavaScript' },
             options: [
-                { name: 'Vue.js', language: 'JavaScript' },
-                { name: 'Rails', language: 'Ruby' },
-                { name: 'Sinatra', language: 'Ruby' },
-                { name: 'Laravel', language: 'PHP' },
-                { name: 'Laravel', language: 'PHP' },
-                { name: 'Laravel', language: 'PHP' },
-                { name: 'Phoenix', language: 'Elixir' }
+                { name: 'Vue.js', id: 'JavaScript' },
+                { name: 'Rails', id: 'Ruby' },
+                { name: 'Sinatra', id: 'Ruby' },
+                { name: 'Laravel', id: 'PHP' },
+                { name: 'Laravel', id: 'PHP' },
+                { name: 'Laravel', id: 'PHP' },
+                { name: 'Phoenix', id: 'Elixir' }
             ],
-
+            licine_number: '',
+            training_date: '',
             certificateImage: '',
+            expire_date: '',
+            remark: '',
             imglabel: 'Choose Image..',
+            showLoading: false,
+            certificatId: null,
         }
     },
     created() {
         this.getData(this.url);
+        const date = new Date();
+        this.training_date = moment(date).format('DD-MM-YYYY');
+        this.expire_date = moment(date).format('DD-MM-YYYY');
     },
     methods: {
         validate() {
@@ -246,9 +271,11 @@ export default {
             this.cstyle = 'translateY(0)';
             this.cvisibility = 'visible';
             this.czindex = 3;
+            document.querySelector('body').style.overflow = 'hidden';
         },
 
         hideModal() {
+            document.querySelector('body').style.overflow = 'auto';
             this.cstyle = 'translateY(-100%)';
             this.copacity = 0;
             let that = this;
@@ -280,7 +307,16 @@ export default {
             var reader = new FileReader();
             var that = this;
             reader.onload = (e) => {
-                that.certificateImage = e.target.result;
+                // that.certificateImage = e.target.result;
+                that.showLoading = true;
+                axios.post('/api/image-upload', {
+                    'image': e.target.result
+                }, {
+                    headers: {'Authorization': 'Bearer '+ that.user_token}
+                }).then((res) => {
+                    that.certificateImage = res.data.url;
+                    that.showLoading = false;
+                });
             }
             reader.readAsDataURL(files[0]);
             this.imglabel = files[0].name;
@@ -301,6 +337,26 @@ export default {
                 allowOutsideClick: false
             })
         },
-    }
+
+        saveCertificate() {
+            axios.post('/api/save-certificate', {
+                'certificate_name': this.value.id,
+                'licine_number': this.licine_number,
+                'training_date': this.training_date,
+                'expire_date': this.expire_date,
+                'image': this.certificateImage,
+                'remark': this.remark,
+                'employer_id': this.employerId,
+                'certificate_id': this.certificatId
+            }, {
+                headers: {'Authorization': 'Bearer '+ this.user_token}
+            }).then(result => {
+                console.log(result);
+            }).catch(err => {
+
+            })
+        }
+    },
+    props: ['employerId']
 }
 </script>

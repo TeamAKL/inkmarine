@@ -28,3 +28,4 @@ Route::post("image-upload-edit", "HomeController@imageUploadEdit");
 
 Route::post("save-form-one", "EmployeerController@store");
 Route::post("save-form-two", "EmployeerController@storeFormTwo");
+Route::post("save-certificate", "EmployeerController@saveCertificate");

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Employeer;
 use Illuminate\Http\Request;
 use Validator;
+use App\EmployeerDetail;
 
 class EmployeerController extends Controller
 {
@@ -111,27 +112,64 @@ class EmployeerController extends Controller
     // Store  Form Two
     public function storeFormTwo(Request $req)
     {
-        // $validator = Validator::make($req->all(), [
-        //     'phone_number' => 'required',
-        //     'cell_phone_number' => 'required',
-        //     'drinking' => 'required',
-        //     'smoking' => 'required',
-        //     'rank' => 'required',
-        //     'company' => 'required',
-        //     'basic_salary' => 'required',
-        //     'home_allowance' => 'required',
-        //     'total_salary' => 'required',
-        //     'fixed_pay' => 'required',
-        //     'leave_pay' => 'required',
-        //     'onbroad_pay' => 'required',
-        //     'code' => 'required',
-        //     'pan' => 'required',
-        //     'shoe' => 'required'
-        // ]);
-        // if ($validator->fails()) {
-        //     return response()->json(['error'=>$validator->errors()], 400);
-        // }
+        $validator = Validator::make($req->all(), [
+            'phone_number' => 'required',
+            'cell_phone_number' => 'required',
+            'drinking' => 'required',
+            'smoking' => 'required',
+            'rank' => 'required',
+            'company' => 'required',
+            'basic_salary' => 'required',
+            'home_allowance' => 'required',
+            'total_salary' => 'required',
+            'fixed_pay' => 'required',
+            'leave_pay' => 'required',
+            'onbroad_pay' => 'required',
+            'code' => 'required',
+            'pants' => 'required',
+            'shoe' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 400);
+        }
 
-        return response()->json(['message' => 'success'], 200);
+        $format = date("Y-m-d", strtotime($req->deperature_date));
+        $employeer_detail = EmployeerDetail::updateOrCreate(
+            ['id' => $req->employer_detail_id, 'employer_id' => $req->employerId],
+            [
+                'deperature_date' => $format,
+                'basic_salary' => $req->basic_salary,
+                'phone_number' => $req->phone_number,
+                'cell_phone_number' => $req->cell_phone_number,
+                'drinking' => $req->drinking,
+                'smoking' => $req->smoking,
+                'rank' => $req->rank,
+                'company' => $req->company,
+                'home_allowance' => $req->home_allowance,
+                'total_salary' => $req->total_salary,
+                'fixed_pay' => $req->fixed_pay,
+                'leave_pay' => $req->leave_pay,
+                'onbroad_pay' => $req->onbroad_pay,
+                'code' => $req->code,
+                'pants' => $req->pants,
+                'shoe' => $req->shoe,
+                'employer_id' => $req->employerId,
+                'basicsalary_currency' => $req->basicsalary_currency,
+                'onbroadpay_currency' => $req->onbroadpay_currency,
+                'fixpay_currency' => $req->fixpay_currency,
+                'leavepay_currency' => $req->leavepay_currency,
+                'home_allowance_currency' => $req->shoe,
+                'total_salary_currency' => $req->total_salary_currency,
+            ]
+        );
+
+        return response()->json(['message' => 'success', 'employer_detail' => $employeer_detail], 200);
+    }
+
+
+    // Save Certificate
+    public function saveCertificate(Request $req)
+    {
+        dd($req->all());
     }
 }

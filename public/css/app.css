@@ -11012,7 +11012,7 @@ c-modal {
   right: 0;
   bottom: 0;
   background: #00000063;
-  overflow: hidden;
+  overflow: auto;
 }
 
 c-modal .cmodal-content {
