@@ -26,3 +26,11 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::get('/employer/create', function() {
     return view('employers.create');
 });
+
+//for certificates
+Route::get('/certificate/create', 'CertificateController@create');
+Route::post('/certificate', 'CertificateController@store');
+Route::get('/certificate','CertificateController@index');
+Route::get('/certificate/edit/{id}','CertificateController@edit');
+Route::put('/certificate/update','CertificateController@update');
+Route::get('/certificate/del/{id}','CertificateController@delete');
