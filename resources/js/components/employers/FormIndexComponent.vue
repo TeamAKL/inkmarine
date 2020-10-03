@@ -22,7 +22,7 @@
                 <form-five ref="form-five" ></form-five>
             </tab-content>
 
-            <!-- <tab-content title="Other Company Careers" icon="ti-briefcase" :before-change="()=>validateStep('form-six')">
+            <tab-content title="Other Company Careers" icon="ti-briefcase" :before-change="()=>validateStep('form-six')">
                 <form-six ref="form-six" @on-validate="mergePartialModels" :id="name"></form-six>
             </tab-content>
 
@@ -55,11 +55,7 @@ export default {
     },
     data() {
         return {
-<<<<<<< HEAD
             employerId: 1,
-=======
-            employerId: '1',
->>>>>>> 472a720f2fa5a0a664b1b7d693b404311729e096
             finalModel: {},
         }
     },

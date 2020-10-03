@@ -2786,11 +2786,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-<<<<<<< HEAD
       employerId: 1,
-=======
-      employerId: '1',
->>>>>>> 472a720f2fa5a0a664b1b7d693b404311729e096
       finalModel: {}
     };
   },
@@ -8448,7 +8444,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nc-modal[data-v-41f1d04c] {\r\n    overflow: auto !important;\n}\r\n", ""]);
+exports.push([module.i, "\nc-modal[data-v-41f1d04c] {\n    overflow: auto !important;\n}\n", ""]);
 
 // exports
 
@@ -8467,7 +8463,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.wizard-header {\r\n    display: none;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.wizard-header {\n    display: none;\n}\n\n", ""]);
 
 // exports
 
@@ -93310,26 +93306,14 @@ var render = function() {
             "tab-content",
             {
               attrs: {
-<<<<<<< HEAD
-                title: "Certificate",
-                icon: "ti-files",
-                "before-change": function() {
-                  return _vm.validateStep("form-three")
-=======
                 title: "Family Member",
                 icon: "ti-id-badge",
                 "before-change": function() {
                   return _vm.validateStep("form-four")
->>>>>>> 472a720f2fa5a0a664b1b7d693b404311729e096
                 }
               }
             },
             [
-<<<<<<< HEAD
-              _c("form-three", {
-                ref: "form-three",
-                attrs: { employerId: _vm.employerId }
-=======
               _c("form-four", {
                 ref: "form-four",
                 attrs: { employerId: _vm.employerId }
@@ -93337,7 +93321,7 @@ var render = function() {
             ],
             1
           ),
-          _vm._v(" "),
+          _vm._v(" -->\n\n        "),
           _c(
             "tab-content",
             {
@@ -93352,8 +93336,7 @@ var render = function() {
             [
               _c("form-three", {
                 ref: "form-three",
-                attrs: { id: _vm.name },
-                on: { "on-validate": _vm.mergePartialModels }
+                attrs: { employerId: _vm.employerId }
               })
             ],
             1
@@ -93363,29 +93346,6 @@ var render = function() {
             "tab-content",
             {
               attrs: {
-                title: "Medical Checkup",
-                icon: "ti-clipboard",
-                "before-change": function() {
-                  return _vm.validateStep("form-five")
-                }
-              }
-            },
-            [
-              _c("form-five", {
-                ref: "form-five",
-                attrs: { id: _vm.name },
-                on: { "on-validate": _vm.mergePartialModels }
->>>>>>> 472a720f2fa5a0a664b1b7d693b404311729e096
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "tab-content",
-            {
-              attrs: {
-<<<<<<< HEAD
                 title: "Medical Checkup",
                 icon: "ti-clipboard",
                 "before-change": function() {
@@ -93394,7 +93354,13 @@ var render = function() {
               }
             },
             [_c("form-five", { ref: "form-five" })],
-=======
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "tab-content",
+            {
+              attrs: {
                 title: "Other Company Careers",
                 icon: "ti-briefcase",
                 "before-change": function() {
@@ -93409,7 +93375,6 @@ var render = function() {
                 on: { "on-validate": _vm.mergePartialModels }
               })
             ],
->>>>>>> 472a720f2fa5a0a664b1b7d693b404311729e096
             1
           ),
           _vm._v(" "),
@@ -112665,8 +112630,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\capps-7\akl\InkMarine\inkmarine\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\capps-7\akl\InkMarine\inkmarine\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/thet/Thet Tun/inkmarine/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/thet/Thet Tun/inkmarine/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
