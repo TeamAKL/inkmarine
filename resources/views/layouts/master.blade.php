@@ -27,6 +27,7 @@
                 <ul class="left-nave">
                     <li><a href="{{route('home')}}">Home</a></li>
                     <li><a href="{{url('/employer/create')}}">Create</a></li>
+                    <li><a href="{{url('/certificate/create')}}">Create Certificate</a></li>
                 </ul>
                 <!-- End Left side Navbar -->
                 <!-- =================================== -->

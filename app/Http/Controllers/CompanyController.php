@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Certificate;
+use App\Company;
 use Illuminate\Http\Request;
 
-class CertificateController extends Controller
+class CompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-   
+    
 
     /**
      * Show the form for creating a new resource.
@@ -21,7 +21,7 @@ class CertificateController extends Controller
      */
     public function create()
     {
-        return view('certificate.post');
+        return view('company.post');
     }
 
     /**
@@ -32,25 +32,27 @@ class CertificateController extends Controller
      */
     public function store(Request $request)
     {
-        Certificate::create([
-            'title'=>$request->title
+        Company::create([
+            'name'=>$request->name,
+            'country'=>$request->country
+
         ]);
-        return redirect('certificate');
+        return redirect('company');
     }
 
     public function index()
     {
-        $certificates=Certificate::all();
-        return view('certificate.index',compact('certificates',$certificates));  
+        $companies=Company::all();
+        return view('company.index',compact('companies',$companies));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Certificate  $certificate
+     * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function show(Certificate $certificate)
+    public function show(Company $company)
     {
         //
     }
@@ -58,43 +60,44 @@ class CertificateController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Certificate  $certificate
+     * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $certificate=Certificate::findOrFail($id);
-        return view('certificate.edit',['certificate'=>$certificate]);
+        $company=Company::findOrFail($id);
+        return view('company.edit',['company'=>$company]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Certificate  $certificate
+     * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
     {
-        $certificate=Certificate::find($request->id);
-        $certificate->title=$request->title;
-        $certificate->save();
-       return redirect('certificate');
+        $company=Company::find($request->id);
+        $company->name=$request->name;
+        $company->country=$request->country;
+        $company->save();
+        return redirect('company');
     }
 
     public function delete($id)
     {
-       $certificate=Certificate::find($id)->delete();
-       return redirect('certificate');
+       $company=Company::find($id)->delete();
+       return redirect('company');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Certificate  $certificate
+     * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    // public function destroy(Certificate $certificate)
+    // public function destroy(Company $company)
     // {
     //     //
     // }
