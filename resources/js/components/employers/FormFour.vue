@@ -12,19 +12,19 @@
                 :columns="columns"
                 :data = "users"
                 :per-page="perPage"
+                @onTablePropsChanged="reloadTable"
             >
-                <div slot="filters" slot-scope="{ perPage }">
+                <div slot="filters" slot-scope="{ tableData, perPage }">
                     <div class="row mb-2">
                         <div class="col-md-4">
-                            <select class="form-control" v-model="tableProps.length" @change="reloadTable">
+                            <select class="form-control" v-model="tableData.length">
                                 <option :key="page" v-for="page in perPage">{{ page }}</option>
                             </select>
                         </div>
                         <div class="col-md-4 offset-md-4">
                             <input
-                                @keyup="reloadTable"
                                 class="form-control"
-                                v-model="tableProps.search"
+                                v-model="tableData.search"
                                 placeholder="Search Email or Name">
                         </div>
                     </div>
@@ -137,8 +137,7 @@ import moment from 'moment'
             cvisibility: 'hidden',
             cstyle:  'translateY(-100%)',
 
-            url: '/api/get_all_family_members_by_employer',
-            user_token: "eyJpdiI6IjlaSHRCM1d4V0ZDd3RoNXpNUnF4MUE9PSIsInZhbHVlIjoiUkRoQm1BdTV6ZFoxcEdkaTlqcU5uOUlrZDRKdDUza0RGVHoybXNjUDlXanVIV2NsdFVpenVWSmpaWDBIdGc0a09uc2k0Qzl4cEhWbUl3UjJaTmcyOTc2UTRWSmp0RVoxdTR5YXdCelwvNmRWbUM3Z0p4T25oRzVyUnFoWmRueFRLIiwibWFjIjoiN2VhZDdkYjYzMzk1YzU2NjVmZDM1ZDQ1NjM0MzA0YmE4ZmNlOWM3MTNkNWZhZDI5ZDgxOWQyNDM4YzJlYzQ5MSJ9",
+            user_token: `${process.env.MIX_APP_TOKEN}`,
             member_name: '',
             member_relation: '',
             member_phone_number: '',
@@ -240,9 +239,10 @@ import moment from 'moment'
                         icon: 'error',
                         title: 'Please fill all required fields!'
                     });
+                     $(document).find('span[class="validate-message"]').remove();
                     $.each(err.response.data.error, function (i, error) {
                         var el = $(document).find('[name="'+i+'"]');
-                        el.after($('<span style="color: red;">'+error[0]+'</span>'));
+                        el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
                     });
                 }
                 isValid = false;
@@ -256,9 +256,9 @@ import moment from 'moment'
             this.member_remark = ''
 
         },
-         getData(url = this.url, options = this.tableProps) {
-                axios.post(url, {
-                    ...options,
+         getData() {
+                axios.post('/api/get_all_family_members_by_employer', {
+                    ...this.tableProps,
                     'user_id' : this.employerId
                 }, {
                     headers:{'Authorization': 'Bearer '+ this.user_token}
@@ -267,8 +267,9 @@ import moment from 'moment'
                 });
             },
 
-            reloadTable(){
-                this.getData(this.url);
+            reloadTable(tableProps){
+               this.tableProps = tableProps;
+                this.getData(tableProps);
             },
             EditItem(item){
                this.showModal();

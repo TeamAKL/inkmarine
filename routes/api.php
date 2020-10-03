@@ -34,6 +34,10 @@ Route::post("get-certificate", "EmployeerController@getCertificate");
 Route::post("save-family-member", "FamilyMemberController@store");
 Route::post("get_all_family_members_by_employer", "FamilyMemberController@getAllFaimilyMemberByEmployerId");
 
+Route::post("save-other-company-careers","EmployeerController@saveOtherCompanyCareers"); 
+Route::post("get_all_company_careers_by_employerId", "EmployeerController@getAllCompanyCareersByEmployerId");
+
+
 
 
 
