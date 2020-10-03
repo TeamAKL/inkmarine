@@ -33,14 +33,15 @@ class HomeController extends Controller
 
     public function getalluser(Request $req)
     {
-       $users = User::orderBy('created_at', $req->dir)->paginate($req->length);
+       $users = User::orderBy('created_at', $req->dir)->paginate(2);
        if(!empty($req->search)) {
            $search = $req->search;
            $query = User::where(function($query) use ($search) {
                     $query->where('name', 'LIKE', "%{$search}%")
                     ->orWhere('email', 'LIKE', "%{$search}%");
            });
-           $users = $query->paginate($req->length);
+          // $users = $query->paginate($req->length);
+           $users = $query->paginate(2);
        }
 
         return new DataTableCollectionResource($users);

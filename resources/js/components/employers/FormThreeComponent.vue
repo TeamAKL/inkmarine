@@ -67,7 +67,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label class="typo__label" for="certificate">Certificate</label>
-                                    <multiselect v-model="value" :max-height="200" :options="options" placeholder="Select one" label="name" track-by="name" id="certificate"></multiselect>
+                                    <multiselect v-model="value" :max-height="200" :options="options" placeholder="Select one" label="name" track-by="name" id="certificate" name="certificate"></multiselect>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="licine_number">Licine Number</label>
@@ -89,7 +89,7 @@
                             <div class="form-row">
                                 <div class="custom-file col-md-6">
                                     <p>Choose Image</p>
-                                    <input type="file" class="custom-file-input" id="customFile" @change="fileChange">
+                                    <input type="file" class="custom-file-input" id="customFile" @change="fileChange" name="certificate_image">
                                     <label class="custom-file-label" for="customFile" id="changeLabel">{{imglabel}}</label>
                                     <div class="loading-container" v-show="showLoading">
                                         <img src="../../../../public/loading/small_loading.gif" alt="ll" >
@@ -168,6 +168,17 @@ import Multiselect from 'vue-multiselect'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  onOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+});
 
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
@@ -217,16 +228,8 @@ export default {
             copacity: 0,
             cvisibility: 'hidden',
             cstyle:  'translateY(-100%)',
-            value: { name: 'Vue.js', id: 'JavaScript' },
-            options: [
-                { name: 'Vue.js', id: 'JavaScript' },
-                { name: 'Rails', id: 'Ruby' },
-                { name: 'Sinatra', id: 'Ruby' },
-                { name: 'Laravel', id: 'PHP' },
-                { name: 'Laravel', id: 'PHP' },
-                { name: 'Laravel', id: 'PHP' },
-                { name: 'Phoenix', id: 'Elixir' }
-            ],
+            value: { },
+            options: [],
             licine_number: '',
             training_date: '',
             certificateImage: '',
@@ -272,6 +275,7 @@ export default {
             this.cvisibility = 'visible';
             this.czindex = 3;
             document.querySelector('body').style.overflow = 'hidden';
+            this.getCertificate();
         },
 
         hideModal() {
@@ -281,6 +285,7 @@ export default {
             let that = this;
             this.certificateImage = '';
             this.imglabel = 'Choose Image..';
+            this.clearForm();
             setTimeout(function(){ that.cvisibility = 'hidden'; that.czindex= -100;}, 500)
         },
 
@@ -338,6 +343,24 @@ export default {
             })
         },
 
+        //Get Certificate
+        getCertificate() {
+            axios.post('/api/get-certificate', {}, {
+                headers: {'Authorization': 'Bearer '+ this.user_token}
+            }).then(result => {
+                this.options = [];
+                result.data.certificates.forEach(certificate => {
+                    const optionGroup = {
+                        name: certificate.title,
+                        id: certificate.id
+                    }
+                    this.options.push(optionGroup);
+                })
+            }).catch(err => {
+
+            });
+        },
+
         saveCertificate() {
             axios.post('/api/save-certificate', {
                 'certificate_name': this.value.id,
@@ -347,14 +370,34 @@ export default {
                 'image': this.certificateImage,
                 'remark': this.remark,
                 'employer_id': this.employerId,
-                'certificate_id': this.certificatId
             }, {
                 headers: {'Authorization': 'Bearer '+ this.user_token}
             }).then(result => {
                 console.log(result);
             }).catch(err => {
+                if (err.response.status == 400) {
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Please fill all required fields!'
+                    });
+                    $(document).find('span[class="validate-message"]').remove();
+                    $.each(err.response.data.error, function (i, error) {
+                        var el = $(document).find('[name="'+i+'"]');
+                        el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
+                    });
+                }
+            });
+        },
 
-            })
+
+        // Clear Form
+        clearForm() {
+            this.value = {},
+            this.licine_number = '',
+            this.training_date = moment(new Date()).format('DD-MM-YYYY');
+            this.expire_date = moment(new Date()).format('DD-MM-YYYY');
+            this.certificateImage = '';
+            this.remark = '';
         }
     },
     props: ['employerId']

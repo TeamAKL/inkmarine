@@ -1982,8 +1982,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      url: '/api/get-all-user',
-      user_token: "eyJpdiI6IjlaSHRCM1d4V0ZDd3RoNXpNUnF4MUE9PSIsInZhbHVlIjoiUkRoQm1BdTV6ZFoxcEdkaTlqcU5uOUlrZDRKdDUza0RGVHoybXNjUDlXanVIV2NsdFVpenVWSmpaWDBIdGc0a09uc2k0Qzl4cEhWbUl3UjJaTmcyOTc2UTRWSmp0RVoxdTR5YXdCelwvNmRWbUM3Z0p4T25oRzVyUnFoWmRueFRLIiwibWFjIjoiN2VhZDdkYjYzMzk1YzU2NjVmZDM1ZDQ1NjM0MzA0YmE4ZmNlOWM3MTNkNWZhZDI5ZDgxOWQyNDM4YzJlYzQ5MSJ9",
+      user_token: "".concat("eyJpdiI6IjlaSHRCM1d4V0ZDd3RoNXpNUnF4MUE9PSIsInZhbHVlIjoiUkRoQm1BdTV6ZFoxcEdkaTlqcU5uOUlrZDRKdDUza0RGVHoybXNjUDlXanVIV2NsdFVpenVWSmpaWDBIdGc0a09uc2k0Qzl4cEhWbUl3UjJaTmcyOTc2UTRWSmp0RVoxdTR5YXdCelwvNmRWbUM3Z0p4T25oRzVyUnFoWmRueFRLIiwibWFjIjoiN2VhZDdkYjYzMzk1YzU2NjVmZDM1ZDQ1NjM0MzA0YmE4ZmNlOWM3MTNkNWZhZDI5ZDgxOWQyNDM4YzJlYzQ5MSJ9"),
       perPage: [10, 25, 100, 300],
       users: {},
       default_order_column: 'id',
@@ -2012,15 +2011,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   created: function created() {
-    this.getData(this.url);
+    this.getData();
   },
   methods: {
     getData: function getData() {
       var _this = this;
 
-      var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.url;
-      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.tableProps;
-      axios.post(url, _objectSpread({}, options), {
+      axios.post('/api/get-all-user', _objectSpread({}, this.tableProps), {
         headers: {
           'Authorization': 'Bearer ' + this.user_token
         }
@@ -2028,8 +2025,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.users = result.data;
       });
     },
-    reloadTable: function reloadTable() {
-      this.getData(this.url);
+    reloadTable: function reloadTable(tableProps) {
+      this.tableProps = tableProps;
+      this.getData(tableProps);
     }
   }
 });
@@ -3129,6 +3127,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default.a.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  onOpen: function onOpen(toast) {
+    toast.addEventListener('mouseenter', sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default.a.stopTimer);
+    toast.addEventListener('mouseleave', sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default.a.resumeTimer);
+  }
+});
 
 
 
@@ -3171,32 +3180,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       copacity: 0,
       cvisibility: 'hidden',
       cstyle: 'translateY(-100%)',
-      value: {
-        name: 'Vue.js',
-        id: 'JavaScript'
-      },
-      options: [{
-        name: 'Vue.js',
-        id: 'JavaScript'
-      }, {
-        name: 'Rails',
-        id: 'Ruby'
-      }, {
-        name: 'Sinatra',
-        id: 'Ruby'
-      }, {
-        name: 'Laravel',
-        id: 'PHP'
-      }, {
-        name: 'Laravel',
-        id: 'PHP'
-      }, {
-        name: 'Laravel',
-        id: 'PHP'
-      }, {
-        name: 'Phoenix',
-        id: 'Elixir'
-      }],
+      value: {},
+      options: [],
       licine_number: '',
       training_date: '',
       certificateImage: '',
@@ -3240,6 +3225,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.cvisibility = 'visible';
       this.czindex = 3;
       document.querySelector('body').style.overflow = 'hidden';
+      this.getCertificate();
     },
     hideModal: function hideModal() {
       document.querySelector('body').style.overflow = 'auto';
@@ -3248,6 +3234,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var that = this;
       this.certificateImage = '';
       this.imglabel = 'Choose Image..';
+      this.clearForm();
       setTimeout(function () {
         that.cvisibility = 'hidden';
         that.czindex = -100;
@@ -3310,6 +3297,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         width: 80 + '%'
       }, _defineProperty(_Swal$fire, "imageWidth", null), _defineProperty(_Swal$fire, "imageHeight", null), _defineProperty(_Swal$fire, "showCloseButton", true), _defineProperty(_Swal$fire, "showConfirmButton", false), _defineProperty(_Swal$fire, "allowOutsideClick", false), _Swal$fire));
     },
+    //Get Certificate
+    getCertificate: function getCertificate() {
+      var _this2 = this;
+
+      axios.post('/api/get-certificate', {}, {
+        headers: {
+          'Authorization': 'Bearer ' + this.user_token
+        }
+      }).then(function (result) {
+        _this2.options = [];
+        result.data.certificates.forEach(function (certificate) {
+          var optionGroup = {
+            name: certificate.title,
+            id: certificate.id
+          };
+
+          _this2.options.push(optionGroup);
+        });
+      })["catch"](function (err) {});
+    },
     saveCertificate: function saveCertificate() {
       axios.post('/api/save-certificate', {
         'certificate_name': this.value.id,
@@ -3318,15 +3325,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         'expire_date': this.expire_date,
         'image': this.certificateImage,
         'remark': this.remark,
-        'employer_id': this.employerId,
-        'certificate_id': this.certificatId
+        'employer_id': this.employerId
       }, {
         headers: {
           'Authorization': 'Bearer ' + this.user_token
         }
       }).then(function (result) {
         console.log(result);
-      })["catch"](function (err) {});
+      })["catch"](function (err) {
+        if (err.response.status == 400) {
+          Toast.fire({
+            icon: 'error',
+            title: 'Please fill all required fields!'
+          });
+          $(document).find('span[class="validate-message"]').remove();
+          $.each(err.response.data.error, function (i, error) {
+            var el = $(document).find('[name="' + i + '"]');
+            el.after($('<span style="color: red;" class="validate-message" >' + error[0] + '</span>'));
+          });
+        }
+      });
+    },
+    // Clear Form
+    clearForm: function clearForm() {
+      this.value = {}, this.licine_number = '', this.training_date = moment__WEBPACK_IMPORTED_MODULE_5___default()(new Date()).format('DD-MM-YYYY');
+      this.expire_date = moment__WEBPACK_IMPORTED_MODULE_5___default()(new Date()).format('DD-MM-YYYY');
+      this.certificateImage = '';
+      this.remark = '';
     }
   },
   props: ['employerId']
@@ -38415,60 +38440,6 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ "2397":
-/***/ (function(module, exports, __webpack_require__) {
-
-// 26.1.2 Reflect.construct(target, argumentsList [, newTarget])
-var $export = __webpack_require__("5ca1");
-var create = __webpack_require__("2aeb");
-var aFunction = __webpack_require__("d8e8");
-var anObject = __webpack_require__("cb7c");
-var isObject = __webpack_require__("d3f4");
-var fails = __webpack_require__("79e5");
-var bind = __webpack_require__("f0c1");
-var rConstruct = (__webpack_require__("7726").Reflect || {}).construct;
-
-// MS Edge supports only 2 arguments and argumentsList argument is optional
-// FF Nightly sets third argument as `new.target`, but does not create `this` from it
-var NEW_TARGET_BUG = fails(function () {
-  function F() { /* empty */ }
-  return !(rConstruct(function () { /* empty */ }, [], F) instanceof F);
-});
-var ARGS_BUG = !fails(function () {
-  rConstruct(function () { /* empty */ });
-});
-
-$export($export.S + $export.F * (NEW_TARGET_BUG || ARGS_BUG), 'Reflect', {
-  construct: function construct(Target, args /* , newTarget */) {
-    aFunction(Target);
-    anObject(args);
-    var newTarget = arguments.length < 3 ? Target : aFunction(arguments[2]);
-    if (ARGS_BUG && !NEW_TARGET_BUG) return rConstruct(Target, args, newTarget);
-    if (Target == newTarget) {
-      // w/o altered newTarget, optimization for 0-4 arguments
-      switch (args.length) {
-        case 0: return new Target();
-        case 1: return new Target(args[0]);
-        case 2: return new Target(args[0], args[1]);
-        case 3: return new Target(args[0], args[1], args[2]);
-        case 4: return new Target(args[0], args[1], args[2], args[3]);
-      }
-      // w/o altered newTarget, lot of arguments case
-      var $args = [null];
-      $args.push.apply($args, args);
-      return new (bind.apply(Target, $args))();
-    }
-    // with altered newTarget, not support built-in constructors
-    var proto = newTarget.prototype;
-    var instance = create(isObject(proto) ? proto : Object.prototype);
-    var result = Function.apply.call(Target, instance, args);
-    return isObject(result) ? result : instance;
-  }
-});
-
-
-/***/ }),
-
 /***/ "23c6":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38633,6 +38604,14 @@ module.exports = function (it) {
   if (it == undefined) throw TypeError("Can't call method on  " + it);
   return it;
 };
+
+
+/***/ }),
+
+/***/ "2621":
+/***/ (function(module, exports) {
+
+exports.f = Object.getOwnPropertySymbols;
 
 
 /***/ }),
@@ -39137,29 +39116,6 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
 
 /***/ }),
 
-/***/ "31f4":
-/***/ (function(module, exports) {
-
-// fast apply, http://jsperf.lnkit.com/fast-apply/5
-module.exports = function (fn, args, that) {
-  var un = that === undefined;
-  switch (args.length) {
-    case 0: return un ? fn()
-                      : fn.call(that);
-    case 1: return un ? fn(args[0])
-                      : fn.call(that, args[0]);
-    case 2: return un ? fn(args[0], args[1])
-                      : fn.call(that, args[0], args[1]);
-    case 3: return un ? fn(args[0], args[1], args[2])
-                      : fn.call(that, args[0], args[1], args[2]);
-    case 4: return un ? fn(args[0], args[1], args[2], args[3])
-                      : fn.call(that, args[0], args[1], args[2], args[3]);
-  } return fn.apply(that, args);
-};
-
-
-/***/ }),
-
 /***/ "32e9":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -39244,18 +39200,6 @@ var ArrayProto = Array.prototype;
 module.exports = function (it) {
   return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
 };
-
-
-/***/ }),
-
-/***/ "3846":
-/***/ (function(module, exports, __webpack_require__) {
-
-// 21.2.5.3 get RegExp.prototype.flags()
-if (__webpack_require__("9e1e") && /./g.flags != 'g') __webpack_require__("86cc").f(RegExp.prototype, 'flags', {
-  configurable: true,
-  get: __webpack_require__("0bfb")
-});
 
 
 /***/ }),
@@ -40612,39 +40556,6 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ "6b54":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-__webpack_require__("3846");
-var anObject = __webpack_require__("cb7c");
-var $flags = __webpack_require__("0bfb");
-var DESCRIPTORS = __webpack_require__("9e1e");
-var TO_STRING = 'toString';
-var $toString = /./[TO_STRING];
-
-var define = function (fn) {
-  __webpack_require__("2aba")(RegExp.prototype, TO_STRING, fn, true);
-};
-
-// 21.2.5.14 RegExp.prototype.toString()
-if (__webpack_require__("79e5")(function () { return $toString.call({ source: 'a', flags: 'b' }) != '/a/b'; })) {
-  define(function toString() {
-    var R = anObject(this);
-    return '/'.concat(R.source, '/',
-      'flags' in R ? R.flags : !DESCRIPTORS && R instanceof RegExp ? $flags.call(R) : undefined);
-  });
-// FF44- RegExp#toString has a wrong name
-} else if ($toString.name != TO_STRING) {
-  define(function toString() {
-    return $toString.call(this);
-  });
-}
-
-
-/***/ }),
-
 /***/ "6c1c":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41304,6 +41215,52 @@ var LaravelVuePagination_component = normalizeComponent(
 
 /***/ }),
 
+/***/ "7333":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// 19.1.2.1 Object.assign(target, source, ...)
+var DESCRIPTORS = __webpack_require__("9e1e");
+var getKeys = __webpack_require__("0d58");
+var gOPS = __webpack_require__("2621");
+var pIE = __webpack_require__("52a7");
+var toObject = __webpack_require__("4bf8");
+var IObject = __webpack_require__("626a");
+var $assign = Object.assign;
+
+// should work with symbols and should have deterministic property order (V8 bug)
+module.exports = !$assign || __webpack_require__("79e5")(function () {
+  var A = {};
+  var B = {};
+  // eslint-disable-next-line no-undef
+  var S = Symbol();
+  var K = 'abcdefghijklmnopqrst';
+  A[S] = 7;
+  K.split('').forEach(function (k) { B[k] = k; });
+  return $assign({}, A)[S] != 7 || Object.keys($assign({}, B)).join('') != K;
+}) ? function assign(target, source) { // eslint-disable-line no-unused-vars
+  var T = toObject(target);
+  var aLen = arguments.length;
+  var index = 1;
+  var getSymbols = gOPS.f;
+  var isEnum = pIE.f;
+  while (aLen > index) {
+    var S = IObject(arguments[index++]);
+    var keys = getSymbols ? getKeys(S).concat(getSymbols(S)) : getKeys(S);
+    var length = keys.length;
+    var j = 0;
+    var key;
+    while (length > j) {
+      key = keys[j++];
+      if (!DESCRIPTORS || isEnum.call(S, key)) T[key] = S[key];
+    }
+  } return T;
+} : $assign;
+
+
+/***/ }),
+
 /***/ "733c":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41557,6 +41514,17 @@ module.exports = __webpack_require__("584a").getIteratorMethod = function (it) {
     || it['@@iterator']
     || Iterators[classof(it)];
 };
+
+
+/***/ }),
+
+/***/ "7cdf":
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.1.2.3 Number.isInteger(number)
+var $export = __webpack_require__("5ca1");
+
+$export($export.S, 'Number', { isInteger: __webpack_require__("9c12") });
 
 
 /***/ }),
@@ -41908,6 +41876,19 @@ module.exports = function (fn, that, length) {
   return function (/* ...args */) {
     return fn.apply(that, arguments);
   };
+};
+
+
+/***/ }),
+
+/***/ "9c12":
+/***/ (function(module, exports, __webpack_require__) {
+
+// 20.1.2.3 Number.isInteger(number)
+var isObject = __webpack_require__("d3f4");
+var floor = Math.floor;
+module.exports = function isInteger(it) {
+  return !isObject(it) && isFinite(it) && floor(it) === it;
 };
 
 
@@ -43317,33 +43298,6 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 /***/ }),
 
-/***/ "c8ba":
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
 /***/ "ca5a":
 /***/ (function(module, exports) {
 
@@ -43889,39 +43843,6 @@ var meta = module.exports = {
 
 /***/ }),
 
-/***/ "f0c1":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var aFunction = __webpack_require__("d8e8");
-var isObject = __webpack_require__("d3f4");
-var invoke = __webpack_require__("31f4");
-var arraySlice = [].slice;
-var factories = {};
-
-var construct = function (F, len, args) {
-  if (!(len in factories)) {
-    for (var n = [], i = 0; i < len; i++) n[i] = 'a[' + i + ']';
-    // eslint-disable-next-line no-new-func
-    factories[len] = Function('F,a', 'return new F(' + n.join(',') + ')');
-  } return factories[len](F, args);
-};
-
-module.exports = Function.bind || function bind(that /* , ...args */) {
-  var fn = aFunction(this);
-  var partArgs = arraySlice.call(arguments, 1);
-  var bound = function (/* args... */) {
-    var args = partArgs.concat(arraySlice.call(arguments));
-    return this instanceof bound ? construct(fn, args.length, args) : invoke(fn, args, that);
-  };
-  if (isObject(fn.prototype)) bound.prototype = fn.prototype;
-  return bound;
-};
-
-
-/***/ }),
-
 /***/ "f228":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -44232,6 +44153,17 @@ module.exports = InterceptorManager;
 
 /***/ }),
 
+/***/ "f751":
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.3.1 Object.assign(target, source)
+var $export = __webpack_require__("5ca1");
+
+$export($export.S + $export.F, 'Object', { assign: __webpack_require__("7333") });
+
+
+/***/ }),
+
 /***/ "f772":
 /***/ (function(module, exports) {
 
@@ -44239,391 +44171,6 @@ module.exports = function (it) {
   return typeof it === 'object' ? it !== null : typeof it === 'function';
 };
 
-
-/***/ }),
-
-/***/ "f7fe":
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {/**
- * lodash (Custom Build) <https://lodash.com/>
- * Build: `lodash modularize exports="npm" -o ./`
- * Copyright jQuery Foundation and other contributors <https://jquery.org/>
- * Released under MIT license <https://lodash.com/license>
- * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
- * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- */
-
-/** Used as the `TypeError` message for "Functions" methods. */
-var FUNC_ERROR_TEXT = 'Expected a function';
-
-/** Used as references for various `Number` constants. */
-var NAN = 0 / 0;
-
-/** `Object#toString` result references. */
-var symbolTag = '[object Symbol]';
-
-/** Used to match leading and trailing whitespace. */
-var reTrim = /^\s+|\s+$/g;
-
-/** Used to detect bad signed hexadecimal string values. */
-var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
-
-/** Used to detect binary string values. */
-var reIsBinary = /^0b[01]+$/i;
-
-/** Used to detect octal string values. */
-var reIsOctal = /^0o[0-7]+$/i;
-
-/** Built-in method references without a dependency on `root`. */
-var freeParseInt = parseInt;
-
-/** Detect free variable `global` from Node.js. */
-var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
-
-/** Detect free variable `self`. */
-var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
-
-/** Used as a reference to the global object. */
-var root = freeGlobal || freeSelf || Function('return this')();
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/**
- * Used to resolve the
- * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
- * of values.
- */
-var objectToString = objectProto.toString;
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeMax = Math.max,
-    nativeMin = Math.min;
-
-/**
- * Gets the timestamp of the number of milliseconds that have elapsed since
- * the Unix epoch (1 January 1970 00:00:00 UTC).
- *
- * @static
- * @memberOf _
- * @since 2.4.0
- * @category Date
- * @returns {number} Returns the timestamp.
- * @example
- *
- * _.defer(function(stamp) {
- *   console.log(_.now() - stamp);
- * }, _.now());
- * // => Logs the number of milliseconds it took for the deferred invocation.
- */
-var now = function() {
-  return root.Date.now();
-};
-
-/**
- * Creates a debounced function that delays invoking `func` until after `wait`
- * milliseconds have elapsed since the last time the debounced function was
- * invoked. The debounced function comes with a `cancel` method to cancel
- * delayed `func` invocations and a `flush` method to immediately invoke them.
- * Provide `options` to indicate whether `func` should be invoked on the
- * leading and/or trailing edge of the `wait` timeout. The `func` is invoked
- * with the last arguments provided to the debounced function. Subsequent
- * calls to the debounced function return the result of the last `func`
- * invocation.
- *
- * **Note:** If `leading` and `trailing` options are `true`, `func` is
- * invoked on the trailing edge of the timeout only if the debounced function
- * is invoked more than once during the `wait` timeout.
- *
- * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
- * until to the next tick, similar to `setTimeout` with a timeout of `0`.
- *
- * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
- * for details over the differences between `_.debounce` and `_.throttle`.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Function
- * @param {Function} func The function to debounce.
- * @param {number} [wait=0] The number of milliseconds to delay.
- * @param {Object} [options={}] The options object.
- * @param {boolean} [options.leading=false]
- *  Specify invoking on the leading edge of the timeout.
- * @param {number} [options.maxWait]
- *  The maximum time `func` is allowed to be delayed before it's invoked.
- * @param {boolean} [options.trailing=true]
- *  Specify invoking on the trailing edge of the timeout.
- * @returns {Function} Returns the new debounced function.
- * @example
- *
- * // Avoid costly calculations while the window size is in flux.
- * jQuery(window).on('resize', _.debounce(calculateLayout, 150));
- *
- * // Invoke `sendMail` when clicked, debouncing subsequent calls.
- * jQuery(element).on('click', _.debounce(sendMail, 300, {
- *   'leading': true,
- *   'trailing': false
- * }));
- *
- * // Ensure `batchLog` is invoked once after 1 second of debounced calls.
- * var debounced = _.debounce(batchLog, 250, { 'maxWait': 1000 });
- * var source = new EventSource('/stream');
- * jQuery(source).on('message', debounced);
- *
- * // Cancel the trailing debounced invocation.
- * jQuery(window).on('popstate', debounced.cancel);
- */
-function debounce(func, wait, options) {
-  var lastArgs,
-      lastThis,
-      maxWait,
-      result,
-      timerId,
-      lastCallTime,
-      lastInvokeTime = 0,
-      leading = false,
-      maxing = false,
-      trailing = true;
-
-  if (typeof func != 'function') {
-    throw new TypeError(FUNC_ERROR_TEXT);
-  }
-  wait = toNumber(wait) || 0;
-  if (isObject(options)) {
-    leading = !!options.leading;
-    maxing = 'maxWait' in options;
-    maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;
-    trailing = 'trailing' in options ? !!options.trailing : trailing;
-  }
-
-  function invokeFunc(time) {
-    var args = lastArgs,
-        thisArg = lastThis;
-
-    lastArgs = lastThis = undefined;
-    lastInvokeTime = time;
-    result = func.apply(thisArg, args);
-    return result;
-  }
-
-  function leadingEdge(time) {
-    // Reset any `maxWait` timer.
-    lastInvokeTime = time;
-    // Start the timer for the trailing edge.
-    timerId = setTimeout(timerExpired, wait);
-    // Invoke the leading edge.
-    return leading ? invokeFunc(time) : result;
-  }
-
-  function remainingWait(time) {
-    var timeSinceLastCall = time - lastCallTime,
-        timeSinceLastInvoke = time - lastInvokeTime,
-        result = wait - timeSinceLastCall;
-
-    return maxing ? nativeMin(result, maxWait - timeSinceLastInvoke) : result;
-  }
-
-  function shouldInvoke(time) {
-    var timeSinceLastCall = time - lastCallTime,
-        timeSinceLastInvoke = time - lastInvokeTime;
-
-    // Either this is the first call, activity has stopped and we're at the
-    // trailing edge, the system time has gone backwards and we're treating
-    // it as the trailing edge, or we've hit the `maxWait` limit.
-    return (lastCallTime === undefined || (timeSinceLastCall >= wait) ||
-      (timeSinceLastCall < 0) || (maxing && timeSinceLastInvoke >= maxWait));
-  }
-
-  function timerExpired() {
-    var time = now();
-    if (shouldInvoke(time)) {
-      return trailingEdge(time);
-    }
-    // Restart the timer.
-    timerId = setTimeout(timerExpired, remainingWait(time));
-  }
-
-  function trailingEdge(time) {
-    timerId = undefined;
-
-    // Only invoke if we have `lastArgs` which means `func` has been
-    // debounced at least once.
-    if (trailing && lastArgs) {
-      return invokeFunc(time);
-    }
-    lastArgs = lastThis = undefined;
-    return result;
-  }
-
-  function cancel() {
-    if (timerId !== undefined) {
-      clearTimeout(timerId);
-    }
-    lastInvokeTime = 0;
-    lastArgs = lastCallTime = lastThis = timerId = undefined;
-  }
-
-  function flush() {
-    return timerId === undefined ? result : trailingEdge(now());
-  }
-
-  function debounced() {
-    var time = now(),
-        isInvoking = shouldInvoke(time);
-
-    lastArgs = arguments;
-    lastThis = this;
-    lastCallTime = time;
-
-    if (isInvoking) {
-      if (timerId === undefined) {
-        return leadingEdge(lastCallTime);
-      }
-      if (maxing) {
-        // Handle invocations in a tight loop.
-        timerId = setTimeout(timerExpired, wait);
-        return invokeFunc(lastCallTime);
-      }
-    }
-    if (timerId === undefined) {
-      timerId = setTimeout(timerExpired, wait);
-    }
-    return result;
-  }
-  debounced.cancel = cancel;
-  debounced.flush = flush;
-  return debounced;
-}
-
-/**
- * Checks if `value` is the
- * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
- * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an object, else `false`.
- * @example
- *
- * _.isObject({});
- * // => true
- *
- * _.isObject([1, 2, 3]);
- * // => true
- *
- * _.isObject(_.noop);
- * // => true
- *
- * _.isObject(null);
- * // => false
- */
-function isObject(value) {
-  var type = typeof value;
-  return !!value && (type == 'object' || type == 'function');
-}
-
-/**
- * Checks if `value` is object-like. A value is object-like if it's not `null`
- * and has a `typeof` result of "object".
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
- * @example
- *
- * _.isObjectLike({});
- * // => true
- *
- * _.isObjectLike([1, 2, 3]);
- * // => true
- *
- * _.isObjectLike(_.noop);
- * // => false
- *
- * _.isObjectLike(null);
- * // => false
- */
-function isObjectLike(value) {
-  return !!value && typeof value == 'object';
-}
-
-/**
- * Checks if `value` is classified as a `Symbol` primitive or object.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
- * @example
- *
- * _.isSymbol(Symbol.iterator);
- * // => true
- *
- * _.isSymbol('abc');
- * // => false
- */
-function isSymbol(value) {
-  return typeof value == 'symbol' ||
-    (isObjectLike(value) && objectToString.call(value) == symbolTag);
-}
-
-/**
- * Converts `value` to a number.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to process.
- * @returns {number} Returns the number.
- * @example
- *
- * _.toNumber(3.2);
- * // => 3.2
- *
- * _.toNumber(Number.MIN_VALUE);
- * // => 5e-324
- *
- * _.toNumber(Infinity);
- * // => Infinity
- *
- * _.toNumber('3.2');
- * // => 3.2
- */
-function toNumber(value) {
-  if (typeof value == 'number') {
-    return value;
-  }
-  if (isSymbol(value)) {
-    return NAN;
-  }
-  if (isObject(value)) {
-    var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
-    value = isObject(other) ? (other + '') : other;
-  }
-  if (typeof value != 'string') {
-    return value === 0 ? value : +value;
-  }
-  value = value.replace(reTrim, '');
-  var isBinary = reIsBinary.test(value);
-  return (isBinary || reIsOctal.test(value))
-    ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
-    : (reIsBadHex.test(value) ? NAN : +value);
-}
-
-module.exports = debounce;
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("c8ba")))
 
 /***/ }),
 
@@ -44669,7 +44216,6 @@ module.exports = document && document.documentElement;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
@@ -44689,27 +44235,30 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"37496f30-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/DataTable.vue?vue&type=template&id=6a120153&
-var DataTablevue_type_template_id_6a120153_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.filtersSlot)?_vm._t("filters",null,{"url":_vm.url,"perPage":_vm.perPage,"tableData":_vm.tableProps}):_c('laravel-vue-data-table-filters',{attrs:{"per-page":_vm.perPage,"table-data":_vm.tableProps,"placeholder-search":_vm.translate.placeholderSearch}}),_c('laravel-vue-table',{attrs:{"sortKey":_vm.sortKey,"columns":_vm.columns,"dir":_vm.tableProps.dir,"sortOrders":_vm.sortOrders,"table-classes":_vm.classes.table,"table-head-classes":_vm.classes['th'],"table-header-classes":_vm.classes['t-head'],"table-row-classes":_vm.classes['t-head-tr'],"table-container-classes":_vm.classes['table-container']},on:{"sort":_vm.sortBy}},[(_vm.headerSlot)?_c('template',{slot:"header"},[_vm._t("header",null,{"tableProps":_vm.tableProps})],2):_vm._e(),(_vm.bodySlot)?_c('template',{slot:"body"},[_vm._t("body",null,{"data":_vm.tableData.data})],2):_c('template',{slot:"body"},[(_vm.columns)?_c('tbody',{staticClass:"laravel-vue-datatable-tbody",class:_vm.classes['t-body']},_vm._l((_vm.tableData.data),function(item){return _c('tr',{key:item.id,staticClass:"laravel-vue-datatable-tbody-tr",class:_vm.classes['t-body-tr'],on:{"click":function($event){return _vm.$emit('row-clicked', item)}}},_vm._l((_vm.columns),function(column){return _c('td',{key:column.name,staticClass:"laravel-vue-datatable-td",class:_vm.classes.td},[_c('laravel-vue-data-table-cell',{attrs:{"value":item,"name":column.name,"meta":column.meta,"event":column.event,"classes":column.classes,"handler":column.handler,"comp":column.component}})],1)}),0)}),0):_vm._e()])],2),(_vm.paginationSlot)?_vm._t("pagination",null,{"page":_vm.page,"meta":_vm.tableData.meta,"links":_vm.tableData.links}):_c('laravel-pagination',{attrs:{"data":_vm.tableData,"size":_vm.pagination.size,"limit":_vm.pagination.limit,"align":_vm.pagination.align},on:{"pagination-change-page":_vm.paginationChangePage}},[_c('span',{attrs:{"slot":"prev-nav"},slot:"prev-nav"},[_vm._v(_vm._s(_vm.translate.previousButton))]),_c('span',{attrs:{"slot":"next-nav"},slot:"next-nav"},[_vm._v(_vm._s(_vm.translate.nextButton))])])],2)}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"7b15815a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/DataTable.vue?vue&type=template&id=2238a890&
+var DataTablevue_type_template_id_2238a890_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(_vm.filtersSlot)?_vm._t("filters",null,{"url":_vm.url,"perPage":_vm.perPage,"tableData":_vm.tableProps}):_c('laravel-vue-data-table-filters',{attrs:{"per-page":_vm.perPage,"table-data":_vm.tableProps}}),_c('laravel-vue-table',{attrs:{"sortKey":_vm.sortKey,"columns":_vm.columns,"dir":_vm.tableProps.dir,"sortOrders":_vm.sortOrders,"table-classes":_vm.classes.table,"table-head-classes":_vm.classes['th'],"table-header-classes":_vm.classes['t-head'],"table-row-classes":_vm.classes['t-head-tr'],"table-container-classes":_vm.classes['table-container']},on:{"sort":_vm.sortBy}},[(_vm.bodySlot)?_vm._t("body",null,{"data":_vm.tableData.data}):[(_vm.columns)?_c('tbody',{staticClass:"laravel-vue-datatable-tbody",class:_vm.classes['t-body']},_vm._l((_vm.tableData.data),function(item){return _c('tr',{key:item.id,staticClass:"laravel-vue-datatable-tbody-tr",class:_vm.classes['t-body-tr'],on:{"click":function($event){return _vm.$emit('rowClicked', item)}}},_vm._l((_vm.columns),function(column){return _c('td',{key:column.name,staticClass:"laravel-vue-datatable-td",class:_vm.classes.td},[_c('laravel-vue-data-table-cell',{attrs:{"value":item,"name":column.name,"meta":column.meta,"event":column.event,"classes":column.classes,"handler":column.handler,"comp":column.component}})],1)}),0)}),0):_vm._e()]],2),(_vm.paginationSlot)?_vm._t("pagination",null,{"page":_vm.page,"meta":_vm.tableData.meta,"links":_vm.tableData.links}):_c('laravel-pagination',{attrs:{"data":_vm.tableData,"size":_vm.pagination.size,"limit":_vm.pagination.limit,"align":_vm.pagination.align},on:{"pagination-change-page":_vm.paginationChangePage}},[_c('span',{attrs:{"slot":"prev-nav"},slot:"prev-nav"},[_vm._v("Previous")]),_c('span',{attrs:{"slot":"next-nav"},slot:"next-nav"},[_vm._v("Next")])])],2)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/DataTable.vue?vue&type=template&id=6a120153&
+// CONCATENATED MODULE: ./src/components/DataTable.vue?vue&type=template&id=2238a890&
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es6.number.constructor.js
-var es6_number_constructor = __webpack_require__("c5f6");
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es6.object.assign.js
+var es6_object_assign = __webpack_require__("f751");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es6.array.iterator.js
+var es6_array_iterator = __webpack_require__("cadf");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es6.object.keys.js
 var es6_object_keys = __webpack_require__("456d");
 
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es6.number.constructor.js
+var es6_number_constructor = __webpack_require__("c5f6");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es6.number.is-integer.js
+var es6_number_is_integer = __webpack_require__("7cdf");
+
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es6.array.find-index.js
 var es6_array_find_index = __webpack_require__("20d6");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es6.regexp.split.js
-var es6_regexp_split = __webpack_require__("28a5");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es6.regexp.search.js
-var es6_regexp_search = __webpack_require__("386d");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es6.function.name.js
 var es6_function_name = __webpack_require__("7f7f");
@@ -44721,14 +44270,14 @@ var web_dom_iterable = __webpack_require__("ac6a");
 var axios = __webpack_require__("bc3a");
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"37496f30-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Table.vue?vue&type=template&id=00a87866&
-var Tablevue_type_template_id_00a87866_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:_vm.tableContainerClasses},[_c('table',{staticClass:"laravel-vue-datatable",class:_vm.tableClasses},[(_vm.headerSlot)?_vm._t("header"):_c('thead',{staticClass:"laravel-vue-datatable-thead",class:_vm.tableHeaderClasses},[_c('tr',{staticClass:"laravel-vue-datatable-thead-tr",class:_vm.tableRowClasses},_vm._l((_vm.columns),function(column){return _c('laravel-vue-data-table-th',{key:column.name,attrs:{"dir":_vm.dir,"column":column,"classes":_vm.tableHeadClasses},on:{"sort":_vm.sort}})}),1)]),_vm._t("body")],2)])}
-var Tablevue_type_template_id_00a87866_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"7b15815a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Table.vue?vue&type=template&id=af772788&
+var Tablevue_type_template_id_af772788_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:_vm.tableContainerClasses},[_c('table',{staticClass:"laravel-vue-datatable",class:_vm.tableClasses},[_c('thead',{staticClass:"laravel-vue-datatable-thead",class:_vm.tableHeaderClasses},[_c('tr',{staticClass:"laravel-vue-datatable-thead-tr",class:_vm.tableRowClasses},_vm._l((_vm.columns),function(column){return _c('laravel-vue-data-table-th',{key:column.name,attrs:{"dir":_vm.dir,"column":column,"classes":_vm.tableHeadClasses},on:{"sort":_vm.sort}})}),1)]),_vm._t("default")],2)])}
+var Tablevue_type_template_id_af772788_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/Table.vue?vue&type=template&id=00a87866&
+// CONCATENATED MODULE: ./src/components/Table.vue?vue&type=template&id=af772788&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"37496f30-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/DataTableTh.vue?vue&type=template&id=55a504cc&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"7b15815a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/DataTableTh.vue?vue&type=template&id=55a504cc&
 var DataTableThvue_type_template_id_55a504cc_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('th',{key:_vm.column.name,staticClass:"laravel-vue-datatable-th",class:_vm.headerClasses(_vm.column),style:('width: ' + _vm.column.width + '%'),attrs:{"scope":"col"},on:{"click":function($event){_vm.column.orderable  ? _vm.sort(_vm.column) : null}}},[(_vm.column.orderable)?_c('div',{staticStyle:{"display":"inline-block"}},[_c('div',{staticClass:"filter-asc",class:{'active-filter-asc': _vm.column.orderable && _vm.column.name == _vm.currentSort && _vm.dir == 'asc' },staticStyle:{"width":"0","height":"0","margin-bottom":"1px","border-bottom":"5px solid #ccc","border-left":"5px solid transparent","border-right":"5px solid transparent"},style:({borderBottom: _vm.column.orderable && _vm.column.name == _vm.currentSort && _vm.dir == 'asc' ? '5px solid #a3a3a3' : '5px solid #ccc' })}),_c('div',{staticClass:"filter-desc",class:{'active-filter-desc': _vm.column.orderable && _vm.column.name == _vm.currentSort && _vm.dir == 'desc' },staticStyle:{"width":"0","height":"0","margin-top":"1px","border-top":"5px solid #ccc","border-left":"5px solid transparent","border-right":"5px solid transparent"},style:({borderTop: _vm.column.orderable && _vm.column.name == _vm.currentSort && _vm.dir == 'desc' ? '5px solid #a3a3a3' : '5px solid #ccc' })})]):_vm._e(),_vm._v("\n    "+_vm._s(_vm.column.label)+"\n")])}
 var DataTableThvue_type_template_id_55a504cc_staticRenderFns = []
 
@@ -44887,7 +44436,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functional component in vue file
+      // register for functioal component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -44930,13 +44479,6 @@ var component = normalizeComponent(
 /* harmony default export */ var DataTableTh = (component.exports);
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Table.vue?vue&type=script&lang=js&
 
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -45018,15 +44560,6 @@ var component = normalizeComponent(
     sort: function sort(column) {
       this.$emit('sort', column.name, column.columnName);
     }
-  },
-  computed: {
-    headerSlot: function headerSlot() {
-      if (this.$scopedSlots) {
-        return this.$scopedSlots.header;
-      }
-
-      return null;
-    }
   }
 });
 // CONCATENATED MODULE: ./src/components/Table.vue?vue&type=script&lang=js&
@@ -45041,8 +44574,8 @@ var component = normalizeComponent(
 
 var Table_component = normalizeComponent(
   components_Tablevue_type_script_lang_js_,
-  Tablevue_type_template_id_00a87866_render,
-  Tablevue_type_template_id_00a87866_staticRenderFns,
+  Tablevue_type_template_id_af772788_render,
+  Tablevue_type_template_id_af772788_staticRenderFns,
   false,
   null,
   null,
@@ -45051,8 +44584,11 @@ var Table_component = normalizeComponent(
 )
 
 /* harmony default export */ var Table = (Table_component.exports);
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es6.array.iterator.js
-var es6_array_iterator = __webpack_require__("cadf");
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es6.regexp.split.js
+var es6_regexp_split = __webpack_require__("28a5");
+
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es6.regexp.search.js
+var es6_regexp_search = __webpack_require__("386d");
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es6.regexp.constructor.js
 var es6_regexp_constructor = __webpack_require__("3b2b");
@@ -45061,7 +44597,6 @@ var es6_regexp_constructor = __webpack_require__("3b2b");
 var es6_regexp_replace = __webpack_require__("a481");
 
 // CONCATENATED MODULE: ./src/mixins/UrlFilters.js
-
 
 
 
@@ -45139,52 +44674,11 @@ var es6_regexp_replace = __webpack_require__("a481");
     }
   }
 });
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es6.regexp.to-string.js
-var es6_regexp_to_string = __webpack_require__("6b54");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es6.reflect.construct.js
-var es6_reflect_construct = __webpack_require__("2397");
-
 // CONCATENATED MODULE: ./node_modules/@babel/runtime-corejs2/helpers/esm/classCallCheck.js
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
-}
-// EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs2/core-js/object/create.js
-var create = __webpack_require__("4aa6");
-var create_default = /*#__PURE__*/__webpack_require__.n(create);
-
-// EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs2/core-js/object/set-prototype-of.js
-var set_prototype_of = __webpack_require__("4d16");
-var set_prototype_of_default = /*#__PURE__*/__webpack_require__.n(set_prototype_of);
-
-// CONCATENATED MODULE: ./node_modules/@babel/runtime-corejs2/helpers/esm/setPrototypeOf.js
-
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = set_prototype_of_default.a || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-
-  return _setPrototypeOf(o, p);
-}
-// CONCATENATED MODULE: ./node_modules/@babel/runtime-corejs2/helpers/esm/inherits.js
-
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-
-  subClass.prototype = create_default()(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) _setPrototypeOf(subClass, superClass);
 }
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs2/core-js/symbol/iterator.js
 var iterator = __webpack_require__("5d58");
@@ -45198,8 +44692,6 @@ var symbol_default = /*#__PURE__*/__webpack_require__.n(symbol);
 
 
 function typeof_typeof(obj) {
-  "@babel/helpers - typeof";
-
   if (typeof symbol_default.a === "function" && typeof iterator_default.a === "symbol") {
     typeof_typeof = function _typeof(obj) {
       return typeof obj;
@@ -45234,6 +44726,10 @@ function _possibleConstructorReturn(self, call) {
 var get_prototype_of = __webpack_require__("061b");
 var get_prototype_of_default = /*#__PURE__*/__webpack_require__.n(get_prototype_of);
 
+// EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs2/core-js/object/set-prototype-of.js
+var set_prototype_of = __webpack_require__("4d16");
+var set_prototype_of_default = /*#__PURE__*/__webpack_require__.n(set_prototype_of);
+
 // CONCATENATED MODULE: ./node_modules/@babel/runtime-corejs2/helpers/esm/getPrototypeOf.js
 
 
@@ -45242,6 +44738,37 @@ function getPrototypeOf_getPrototypeOf(o) {
     return o.__proto__ || get_prototype_of_default()(o);
   };
   return getPrototypeOf_getPrototypeOf(o);
+}
+// EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs2/core-js/object/create.js
+var create = __webpack_require__("4aa6");
+var create_default = /*#__PURE__*/__webpack_require__.n(create);
+
+// CONCATENATED MODULE: ./node_modules/@babel/runtime-corejs2/helpers/esm/setPrototypeOf.js
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = set_prototype_of_default.a || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+// CONCATENATED MODULE: ./node_modules/@babel/runtime-corejs2/helpers/esm/inherits.js
+
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = create_default()(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
 }
 // EXTERNAL MODULE: ./node_modules/@babel/runtime-corejs2/core-js/map.js
 var map = __webpack_require__("2d7d");
@@ -45255,9 +44782,11 @@ function _isNativeFunction(fn) {
 var construct = __webpack_require__("a5b2");
 var construct_default = /*#__PURE__*/__webpack_require__.n(construct);
 
-// CONCATENATED MODULE: ./node_modules/@babel/runtime-corejs2/helpers/esm/isNativeReflectConstruct.js
+// CONCATENATED MODULE: ./node_modules/@babel/runtime-corejs2/helpers/esm/construct.js
 
-function _isNativeReflectConstruct() {
+
+
+function isNativeReflectConstruct() {
   if (typeof Reflect === "undefined" || !construct_default.a) return false;
   if (construct_default.a.sham) return false;
   if (typeof Proxy === "function") return true;
@@ -45269,12 +44798,9 @@ function _isNativeReflectConstruct() {
     return false;
   }
 }
-// CONCATENATED MODULE: ./node_modules/@babel/runtime-corejs2/helpers/esm/construct.js
-
-
 
 function construct_construct(Parent, args, Class) {
-  if (_isNativeReflectConstruct()) {
+  if (isNativeReflectConstruct()) {
     construct_construct = construct_default.a;
   } else {
     construct_construct = function _construct(Parent, args, Class) {
@@ -45336,30 +44862,24 @@ function wrapNativeSuper_wrapNativeSuper(Class) {
 
 
 
-
-
-function _createSuper(Derived) { return function () { var Super = getPrototypeOf_getPrototypeOf(Derived), result; if (ColumnNotFoundException_isNativeReflectConstruct()) { var NewTarget = getPrototypeOf_getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function ColumnNotFoundException_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
-
-var ColumnNotFoundException_ColumnNotFoundException = /*#__PURE__*/function (_Error) {
+var ColumnNotFoundException_ColumnNotFoundException =
+/*#__PURE__*/
+function (_Error) {
   _inherits(ColumnNotFoundException, _Error);
-
-  var _super = _createSuper(ColumnNotFoundException);
 
   function ColumnNotFoundException(message) {
     var _this;
 
     _classCallCheck(this, ColumnNotFoundException);
 
-    _this = _super.call(this, message);
+    _this = _possibleConstructorReturn(this, getPrototypeOf_getPrototypeOf(ColumnNotFoundException).call(this, message));
     _this.name = 'Column Not Found Exception';
     _this.message = message;
     return _this;
   }
 
   return ColumnNotFoundException;
-}( /*#__PURE__*/wrapNativeSuper_wrapNativeSuper(Error));
+}(wrapNativeSuper_wrapNativeSuper(Error));
 
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/DataTableCell.vue?vue&type=script&lang=js&
@@ -45432,7 +44952,7 @@ var ColumnNotFoundException_ColumnNotFoundException = /*#__PURE__*/function (_Er
       columnName = this.value[this.name];
     }
 
-    if (typeof columnName === 'undefined' && !this.comp && columnName) {
+    if (typeof columnName === 'undefined' && !this.comp) {
       throw new ColumnNotFoundException_ColumnNotFoundException("The column ".concat(this.name, " was not found"));
     }
 
@@ -45461,12 +44981,12 @@ var DataTableCell_component = normalizeComponent(
 )
 
 /* harmony default export */ var DataTableCell = (DataTableCell_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"37496f30-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/DataTableFilters.vue?vue&type=template&id=79bcd9c6&
-var DataTableFiltersvue_type_template_id_79bcd9c6_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"row mb-3"},[_c('div',{staticClass:"col-md-3"},[_c('select',{directives:[{name:"model",rawName:"v-model",value:(_vm.tableData.length),expression:"tableData.length"}],staticClass:"form-control",on:{"change":function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.$set(_vm.tableData, "length", $event.target.multiple ? $$selectedVal : $$selectedVal[0])}}},_vm._l((_vm.perPage),function(records,index){return _c('option',{key:index,domProps:{"value":records}},[_vm._v("\n                "+_vm._s(records)+"\n            ")])}),0)]),_c('div',{staticClass:"col-md-3 offset-md-6"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.tableData.search),expression:"tableData.search"}],staticClass:"form-control",attrs:{"name":"name","placeholder":_vm.placeholderSearch},domProps:{"value":(_vm.tableData.search)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.tableData, "search", $event.target.value)}}})])])}
-var DataTableFiltersvue_type_template_id_79bcd9c6_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"7b15815a-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/DataTableFilters.vue?vue&type=template&id=d5f960ca&
+var DataTableFiltersvue_type_template_id_d5f960ca_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"row mb-3"},[_c('div',{staticClass:"col-md-3"},[_c('select',{directives:[{name:"model",rawName:"v-model",value:(_vm.tableData.length),expression:"tableData.length"}],staticClass:"form-control",on:{"change":function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.$set(_vm.tableData, "length", $event.target.multiple ? $$selectedVal : $$selectedVal[0])}}},_vm._l((_vm.perPage),function(records,index){return _c('option',{key:index,domProps:{"value":records}},[_vm._v("\n                "+_vm._s(records)+"\n            ")])}),0)]),_c('div',{staticClass:"col-md-3 offset-md-6"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.tableData.search),expression:"tableData.search"}],staticClass:"form-control",attrs:{"name":"name","placeholder":"Search Table"},domProps:{"value":(_vm.tableData.search)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.tableData, "search", $event.target.value)}}})])])}
+var DataTableFiltersvue_type_template_id_d5f960ca_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/DataTableFilters.vue?vue&type=template&id=79bcd9c6&
+// CONCATENATED MODULE: ./src/components/DataTableFilters.vue?vue&type=template&id=d5f960ca&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/DataTableFilters.vue?vue&type=script&lang=js&
 //
@@ -45508,10 +45028,6 @@ var DataTableFiltersvue_type_template_id_79bcd9c6_staticRenderFns = []
         return [];
       },
       required: true
-    },
-    placeholderSearch: {
-      type: String,
-      default: 'Search Table'
     }
   }
 });
@@ -45527,8 +45043,8 @@ var DataTableFiltersvue_type_template_id_79bcd9c6_staticRenderFns = []
 
 var DataTableFilters_component = normalizeComponent(
   components_DataTableFiltersvue_type_script_lang_js_,
-  DataTableFiltersvue_type_template_id_79bcd9c6_render,
-  DataTableFiltersvue_type_template_id_79bcd9c6_staticRenderFns,
+  DataTableFiltersvue_type_template_id_d5f960ca_render,
+  DataTableFiltersvue_type_template_id_d5f960ca_staticRenderFns,
   false,
   null,
   null,
@@ -45545,19 +45061,7 @@ var DataTableFilters_component = normalizeComponent(
 
 
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 //
 //
 //
@@ -45658,10 +45162,6 @@ var DataTableFilters_component = normalizeComponent(
     if (this.theme == "dark") {
       this.classes['table']['table-dark'] = true;
     }
-
-    var debounce = __webpack_require__("f7fe");
-
-    this.debounceGetData = debounce(this.getData, this.debounceDelay ? this.debounceDelay : 0);
   },
   mounted: function mounted() {
     var _this = this;
@@ -45674,24 +45174,20 @@ var DataTableFilters_component = normalizeComponent(
   watch: {
     url: {
       handler: function handler(newUrl) {
-        this.updateCurrentPage(newUrl);
-        this.debounceGetData(newUrl);
+        this.loading = false;
+        this.getData(newUrl, this.getRequestPayload);
       }
     },
     tableProps: {
       handler: function handler() {
-        //Reset current page if searching
-        if (this.tableProps.search) {
-          this.page = 1;
-        } //Check if we are using the default request otherwise emit
-
+        this.loading = false;
 
         if (this.url) {
-          this.debounceGetData();
+          this.getData(this.url, this.getRequestPayload);
         } else {
           var props = this.tableProps;
           props.page = this.page;
-          this.$emit("on-table-props-changed", props);
+          this.$emit("onTablePropsChanged", props);
         }
       },
       deep: true
@@ -45702,9 +45198,13 @@ var DataTableFilters_component = normalizeComponent(
       }
     }
   },
+  components: {
+    'laravel-vue-table': Table,
+    'laravel-vue-data-table-cell': DataTableCell,
+    'laravel-vue-data-table-filters': DataTableFilters
+  },
   data: function data() {
     return {
-      debounceGetData: null,
       tableData: {},
       sortKey: 'id',
       sortOrders: {},
@@ -45716,7 +45216,8 @@ var DataTableFilters_component = normalizeComponent(
         column: this.orderBy,
         filters: this.filters,
         length: this.perPage[0]
-      }
+      },
+      loading: false
     };
   },
   methods: {
@@ -45724,18 +45225,18 @@ var DataTableFilters_component = normalizeComponent(
       var _this2 = this;
 
       var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.url;
-      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.getRequestPayload;
-      this.$emit("loading"); //Remove any custom query string parameters
-
-      var baseUrl = url.split("?")[0];
-      axios_default.a.get(baseUrl, options).then(function (response) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      url = this.checkUrlForPagination(url);
+      this.$emit("loading");
+      axios_default.a.get(url, options).then(function (response) {
         if (response) {
           var data = response.data;
 
           if (_this2.checkTableDraw(data.payload.draw)) {
             _this2.tableData = data;
+            _this2.loading = true;
 
-            _this2.$emit("finished-loading");
+            _this2.$emit("finishedLoading");
 
             if (_this2.addFiltersToUrl) {
               _this2.updateParameters(_this2.tableProps);
@@ -45771,13 +45272,13 @@ var DataTableFilters_component = normalizeComponent(
 
       return false;
     },
-    updateCurrentPage: function updateCurrentPage(url) {
-      var params = new URL(url).searchParams;
-      var page = params.get('page');
-
-      if (page) {
-        this.page = page;
+    checkUrlForPagination: function checkUrlForPagination(url) {
+      if (Number.isInteger(url)) {
+        url = this.url + "?page=" + url;
+        return url;
       }
+
+      return url;
     },
     paginationChangePage: function paginationChangePage(page) {
       this.page = page;
@@ -45786,16 +45287,14 @@ var DataTableFilters_component = normalizeComponent(
         //Add the users pagination
         var props = this.tableProps;
         props.page = this.page;
-        this.$emit("on-table-props-changed", props);
+        this.$emit("onTablePropsChanged", props);
       } else {
-        this.getData();
+        //Add Laravel Vue Pagination
+        var url = this.url;
+        url += "?page=".concat(this.page);
+        this.getData(url, this.getRequestPayload);
       }
     }
-  },
-  components: {
-    'laravel-vue-table': Table,
-    'laravel-vue-data-table-cell': DataTableCell,
-    'laravel-vue-data-table-filters': DataTableFilters
   },
   computed: {
     paginationSlot: function paginationSlot() {
@@ -45819,20 +45318,12 @@ var DataTableFilters_component = normalizeComponent(
 
       return null;
     },
-    headerSlot: function headerSlot() {
-      if (this.$scopedSlots) {
-        return this.$scopedSlots.header;
-      }
-
-      return null;
-    },
     getRequestPayload: function getRequestPayload() {
       var payload = Object.assign({}, this.tableProps);
       delete payload.filters;
       payload = Object.assign(payload, this.tableProps.filters);
       payload = Object.assign(payload, this.tableProps.filters);
       payload.draw = this.draw;
-      payload.page = this.page;
       return {
         params: payload
       };
@@ -45869,10 +45360,6 @@ var DataTableFilters_component = normalizeComponent(
     addFiltersToUrl: {
       type: Boolean,
       default: false
-    },
-    debounceDelay: {
-      type: Number,
-      default: 0
     },
     pagination: {
       type: Object,
@@ -45921,16 +45408,6 @@ var DataTableFilters_component = normalizeComponent(
           "th": {}
         };
       }
-    },
-    translate: {
-      type: Object,
-      default: function _default() {
-        return {
-          nextButton: 'Next',
-          previousButton: 'Previous',
-          placeholderSearch: 'Search Table'
-        };
-      }
     }
   }
 });
@@ -45946,7 +45423,7 @@ var DataTableFilters_component = normalizeComponent(
 
 var DataTable_component = normalizeComponent(
   components_DataTablevue_type_script_lang_js_,
-  DataTablevue_type_template_id_6a120153_render,
+  DataTablevue_type_template_id_2238a890_render,
   staticRenderFns,
   false,
   null,
@@ -63196,6 +62673,8 @@ var map = {
 	"./bm": "./node_modules/moment/locale/bm.js",
 	"./bm.js": "./node_modules/moment/locale/bm.js",
 	"./bn": "./node_modules/moment/locale/bn.js",
+	"./bn-bd": "./node_modules/moment/locale/bn-bd.js",
+	"./bn-bd.js": "./node_modules/moment/locale/bn-bd.js",
 	"./bn.js": "./node_modules/moment/locale/bn.js",
 	"./bo": "./node_modules/moment/locale/bo.js",
 	"./bo.js": "./node_modules/moment/locale/bo.js",
@@ -63244,6 +62723,8 @@ var map = {
 	"./es": "./node_modules/moment/locale/es.js",
 	"./es-do": "./node_modules/moment/locale/es-do.js",
 	"./es-do.js": "./node_modules/moment/locale/es-do.js",
+	"./es-mx": "./node_modules/moment/locale/es-mx.js",
+	"./es-mx.js": "./node_modules/moment/locale/es-mx.js",
 	"./es-us": "./node_modules/moment/locale/es-us.js",
 	"./es-us.js": "./node_modules/moment/locale/es-us.js",
 	"./es.js": "./node_modules/moment/locale/es.js",
@@ -63821,16 +63302,16 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
     //! moment.js locale configuration
 
     var symbolMap = {
-            '1': '1',
-            '2': '2',
-            '3': '3',
-            '4': '4',
-            '5': '5',
-            '6': '6',
-            '7': '7',
-            '8': '8',
-            '9': '9',
-            '0': '0',
+            1: '1',
+            2: '2',
+            3: '3',
+            4: '4',
+            5: '5',
+            6: '6',
+            7: '7',
+            8: '8',
+            9: '9',
+            0: '0',
         },
         pluralForm = function (n) {
             return n === 0
@@ -64056,8 +63537,8 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
             yy: '%d سنوات',
         },
         week: {
-            dow: 6, // Saturday is the first day of the week.
-            doy: 12, // The week that contains Jan 12th is the first week of the year.
+            dow: 1, // Monday is the first day of the week.
+            doy: 4, // The week that contains Jan 4th is the first week of the year.
         },
     });
 
@@ -64087,16 +63568,16 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
     //! moment.js locale configuration
 
     var symbolMap = {
-            '1': '١',
-            '2': '٢',
-            '3': '٣',
-            '4': '٤',
-            '5': '٥',
-            '6': '٦',
-            '7': '٧',
-            '8': '٨',
-            '9': '٩',
-            '0': '٠',
+            1: '١',
+            2: '٢',
+            3: '٣',
+            4: '٤',
+            5: '٥',
+            6: '٦',
+            7: '٧',
+            8: '٨',
+            9: '٩',
+            0: '٠',
         },
         numberMap = {
             '١': '1',
@@ -64287,16 +63768,16 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
     //! moment.js locale configuration
 
     var symbolMap = {
-            '1': '١',
-            '2': '٢',
-            '3': '٣',
-            '4': '٤',
-            '5': '٥',
-            '6': '٦',
-            '7': '٧',
-            '8': '٨',
-            '9': '٩',
-            '0': '٠',
+            1: '١',
+            2: '٢',
+            3: '٣',
+            4: '٤',
+            5: '٥',
+            6: '٦',
+            7: '٧',
+            8: '٨',
+            9: '٩',
+            0: '٠',
         },
         numberMap = {
             '١': '1',
@@ -64824,6 +64305,8 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
             hh: '%d часа',
             d: 'ден',
             dd: '%d дена',
+            w: 'седмица',
+            ww: '%d седмици',
             M: 'месец',
             MM: '%d месеца',
             y: 'година',
@@ -64933,6 +64416,154 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 
 /***/ }),
 
+/***/ "./node_modules/moment/locale/bn-bd.js":
+/*!*********************************************!*\
+  !*** ./node_modules/moment/locale/bn-bd.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+//! moment.js locale configuration
+//! locale : Bengali (Bangladesh) [bn-bd]
+//! author : Asraf Hossain Patoary : https://github.com/ashwoolford
+
+;(function (global, factory) {
+    true ? factory(__webpack_require__(/*! ../moment */ "./node_modules/moment/moment.js")) :
+   undefined
+}(this, (function (moment) { 'use strict';
+
+    //! moment.js locale configuration
+
+    var symbolMap = {
+            1: '১',
+            2: '২',
+            3: '৩',
+            4: '৪',
+            5: '৫',
+            6: '৬',
+            7: '৭',
+            8: '৮',
+            9: '৯',
+            0: '০',
+        },
+        numberMap = {
+            '১': '1',
+            '২': '2',
+            '৩': '3',
+            '৪': '4',
+            '৫': '5',
+            '৬': '6',
+            '৭': '7',
+            '৮': '8',
+            '৯': '9',
+            '০': '0',
+        };
+
+    var bnBd = moment.defineLocale('bn-bd', {
+        months: 'জানুয়ারি_ফেব্রুয়ারি_মার্চ_এপ্রিল_মে_জুন_জুলাই_আগস্ট_সেপ্টেম্বর_অক্টোবর_নভেম্বর_ডিসেম্বর'.split(
+            '_'
+        ),
+        monthsShort: 'জানু_ফেব্রু_মার্চ_এপ্রিল_মে_জুন_জুলাই_আগস্ট_সেপ্ট_অক্টো_নভে_ডিসে'.split(
+            '_'
+        ),
+        weekdays: 'রবিবার_সোমবার_মঙ্গলবার_বুধবার_বৃহস্পতিবার_শুক্রবার_শনিবার'.split(
+            '_'
+        ),
+        weekdaysShort: 'রবি_সোম_মঙ্গল_বুধ_বৃহস্পতি_শুক্র_শনি'.split('_'),
+        weekdaysMin: 'রবি_সোম_মঙ্গল_বুধ_বৃহ_শুক্র_শনি'.split('_'),
+        longDateFormat: {
+            LT: 'A h:mm সময়',
+            LTS: 'A h:mm:ss সময়',
+            L: 'DD/MM/YYYY',
+            LL: 'D MMMM YYYY',
+            LLL: 'D MMMM YYYY, A h:mm সময়',
+            LLLL: 'dddd, D MMMM YYYY, A h:mm সময়',
+        },
+        calendar: {
+            sameDay: '[আজ] LT',
+            nextDay: '[আগামীকাল] LT',
+            nextWeek: 'dddd, LT',
+            lastDay: '[গতকাল] LT',
+            lastWeek: '[গত] dddd, LT',
+            sameElse: 'L',
+        },
+        relativeTime: {
+            future: '%s পরে',
+            past: '%s আগে',
+            s: 'কয়েক সেকেন্ড',
+            ss: '%d সেকেন্ড',
+            m: 'এক মিনিট',
+            mm: '%d মিনিট',
+            h: 'এক ঘন্টা',
+            hh: '%d ঘন্টা',
+            d: 'এক দিন',
+            dd: '%d দিন',
+            M: 'এক মাস',
+            MM: '%d মাস',
+            y: 'এক বছর',
+            yy: '%d বছর',
+        },
+        preparse: function (string) {
+            return string.replace(/[১২৩৪৫৬৭৮৯০]/g, function (match) {
+                return numberMap[match];
+            });
+        },
+        postformat: function (string) {
+            return string.replace(/\d/g, function (match) {
+                return symbolMap[match];
+            });
+        },
+
+        meridiemParse: /রাত|ভোর|সকাল|দুপুর|বিকাল|সন্ধ্যা|রাত/,
+        meridiemHour: function (hour, meridiem) {
+            if (hour === 12) {
+                hour = 0;
+            }
+            if (meridiem === 'রাত') {
+                return hour < 4 ? hour : hour + 12;
+            } else if (meridiem === 'ভোর') {
+                return hour;
+            } else if (meridiem === 'সকাল') {
+                return hour;
+            } else if (meridiem === 'দুপুর') {
+                return hour >= 3 ? hour : hour + 12;
+            } else if (meridiem === 'বিকাল') {
+                return hour + 12;
+            } else if (meridiem === 'সন্ধ্যা') {
+                return hour + 12;
+            }
+        },
+
+        meridiem: function (hour, minute, isLower) {
+            if (hour < 4) {
+                return 'রাত';
+            } else if (hour < 6) {
+                return 'ভোর';
+            } else if (hour < 12) {
+                return 'সকাল';
+            } else if (hour < 15) {
+                return 'দুপুর';
+            } else if (hour < 18) {
+                return 'বিকাল';
+            } else if (hour < 20) {
+                return 'সন্ধ্যা';
+            } else {
+                return 'রাত';
+            }
+        },
+        week: {
+            dow: 0, // Sunday is the first day of the week.
+            doy: 6, // The week that contains Jan 6th is the first week of the year.
+        },
+    });
+
+    return bnBd;
+
+})));
+
+
+/***/ }),
+
 /***/ "./node_modules/moment/locale/bn.js":
 /*!******************************************!*\
   !*** ./node_modules/moment/locale/bn.js ***!
@@ -64952,16 +64583,16 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
     //! moment.js locale configuration
 
     var symbolMap = {
-            '1': '১',
-            '2': '২',
-            '3': '৩',
-            '4': '৪',
-            '5': '৫',
-            '6': '৬',
-            '7': '৭',
-            '8': '৮',
-            '9': '৯',
-            '0': '০',
+            1: '১',
+            2: '২',
+            3: '৩',
+            4: '৪',
+            5: '৫',
+            6: '৬',
+            7: '৭',
+            8: '৮',
+            9: '৯',
+            0: '০',
         },
         numberMap = {
             '১': '1',
@@ -65090,16 +64721,16 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
     //! moment.js locale configuration
 
     var symbolMap = {
-            '1': '༡',
-            '2': '༢',
-            '3': '༣',
-            '4': '༤',
-            '5': '༥',
-            '6': '༦',
-            '7': '༧',
-            '8': '༨',
-            '9': '༩',
-            '0': '༠',
+            1: '༡',
+            2: '༢',
+            3: '༣',
+            4: '༤',
+            5: '༥',
+            6: '༦',
+            7: '༧',
+            8: '༨',
+            9: '༩',
+            0: '༠',
         },
         numberMap = {
             '༡': '1',
@@ -67560,6 +67191,8 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
             hh: '%d horas',
             d: 'un día',
             dd: '%d días',
+            w: 'una semana',
+            ww: '%d semanas',
             M: 'un mes',
             MM: '%d meses',
             y: 'un año',
@@ -67574,6 +67207,132 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
     });
 
     return esDo;
+
+})));
+
+
+/***/ }),
+
+/***/ "./node_modules/moment/locale/es-mx.js":
+/*!*********************************************!*\
+  !*** ./node_modules/moment/locale/es-mx.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+//! moment.js locale configuration
+//! locale : Spanish (Mexico) [es-mx]
+//! author : JC Franco : https://github.com/jcfranco
+
+;(function (global, factory) {
+    true ? factory(__webpack_require__(/*! ../moment */ "./node_modules/moment/moment.js")) :
+   undefined
+}(this, (function (moment) { 'use strict';
+
+    //! moment.js locale configuration
+
+    var monthsShortDot = 'ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.'.split(
+            '_'
+        ),
+        monthsShort = 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_'),
+        monthsParse = [
+            /^ene/i,
+            /^feb/i,
+            /^mar/i,
+            /^abr/i,
+            /^may/i,
+            /^jun/i,
+            /^jul/i,
+            /^ago/i,
+            /^sep/i,
+            /^oct/i,
+            /^nov/i,
+            /^dic/i,
+        ],
+        monthsRegex = /^(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre|ene\.?|feb\.?|mar\.?|abr\.?|may\.?|jun\.?|jul\.?|ago\.?|sep\.?|oct\.?|nov\.?|dic\.?)/i;
+
+    var esMx = moment.defineLocale('es-mx', {
+        months: 'enero_febrero_marzo_abril_mayo_junio_julio_agosto_septiembre_octubre_noviembre_diciembre'.split(
+            '_'
+        ),
+        monthsShort: function (m, format) {
+            if (!m) {
+                return monthsShortDot;
+            } else if (/-MMM-/.test(format)) {
+                return monthsShort[m.month()];
+            } else {
+                return monthsShortDot[m.month()];
+            }
+        },
+        monthsRegex: monthsRegex,
+        monthsShortRegex: monthsRegex,
+        monthsStrictRegex: /^(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)/i,
+        monthsShortStrictRegex: /^(ene\.?|feb\.?|mar\.?|abr\.?|may\.?|jun\.?|jul\.?|ago\.?|sep\.?|oct\.?|nov\.?|dic\.?)/i,
+        monthsParse: monthsParse,
+        longMonthsParse: monthsParse,
+        shortMonthsParse: monthsParse,
+        weekdays: 'domingo_lunes_martes_miércoles_jueves_viernes_sábado'.split('_'),
+        weekdaysShort: 'dom._lun._mar._mié._jue._vie._sáb.'.split('_'),
+        weekdaysMin: 'do_lu_ma_mi_ju_vi_sá'.split('_'),
+        weekdaysParseExact: true,
+        longDateFormat: {
+            LT: 'H:mm',
+            LTS: 'H:mm:ss',
+            L: 'DD/MM/YYYY',
+            LL: 'D [de] MMMM [de] YYYY',
+            LLL: 'D [de] MMMM [de] YYYY H:mm',
+            LLLL: 'dddd, D [de] MMMM [de] YYYY H:mm',
+        },
+        calendar: {
+            sameDay: function () {
+                return '[hoy a la' + (this.hours() !== 1 ? 's' : '') + '] LT';
+            },
+            nextDay: function () {
+                return '[mañana a la' + (this.hours() !== 1 ? 's' : '') + '] LT';
+            },
+            nextWeek: function () {
+                return 'dddd [a la' + (this.hours() !== 1 ? 's' : '') + '] LT';
+            },
+            lastDay: function () {
+                return '[ayer a la' + (this.hours() !== 1 ? 's' : '') + '] LT';
+            },
+            lastWeek: function () {
+                return (
+                    '[el] dddd [pasado a la' +
+                    (this.hours() !== 1 ? 's' : '') +
+                    '] LT'
+                );
+            },
+            sameElse: 'L',
+        },
+        relativeTime: {
+            future: 'en %s',
+            past: 'hace %s',
+            s: 'unos segundos',
+            ss: '%d segundos',
+            m: 'un minuto',
+            mm: '%d minutos',
+            h: 'una hora',
+            hh: '%d horas',
+            d: 'un día',
+            dd: '%d días',
+            w: 'una semana',
+            ww: '%d semanas',
+            M: 'un mes',
+            MM: '%d meses',
+            y: 'un año',
+            yy: '%d años',
+        },
+        dayOfMonthOrdinalParse: /\d{1,2}º/,
+        ordinal: '%dº',
+        week: {
+            dow: 0, // Sunday is the first day of the week.
+            doy: 4, // The week that contains Jan 4th is the first week of the year.
+        },
+        invalidDate: 'Fecha inválida',
+    });
+
+    return esMx;
 
 })));
 
@@ -67684,6 +67443,8 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
             hh: '%d horas',
             d: 'un día',
             dd: '%d días',
+            w: 'una semana',
+            ww: '%d semanas',
             M: 'un mes',
             MM: '%d meses',
             y: 'un año',
@@ -67807,6 +67568,8 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
             hh: '%d horas',
             d: 'un día',
             dd: '%d días',
+            w: 'una semana',
+            ww: '%d semanas',
             M: 'un mes',
             MM: '%d meses',
             y: 'un año',
@@ -68028,16 +67791,16 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
     //! moment.js locale configuration
 
     var symbolMap = {
-            '1': '۱',
-            '2': '۲',
-            '3': '۳',
-            '4': '۴',
-            '5': '۵',
-            '6': '۶',
-            '7': '۷',
-            '8': '۸',
-            '9': '۹',
-            '0': '۰',
+            1: '۱',
+            2: '۲',
+            3: '۳',
+            4: '۴',
+            5: '۵',
+            6: '۶',
+            7: '۷',
+            8: '۸',
+            9: '۹',
+            0: '۰',
         },
         numberMap = {
             '۱': '1',
@@ -68697,6 +68460,8 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
             hh: '%d heures',
             d: 'un jour',
             dd: '%d jours',
+            w: 'une semaine',
+            ww: '%d semaines',
             M: 'un mois',
             MM: '%d mois',
             y: 'un an',
@@ -69466,16 +69231,16 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
     //! moment.js locale configuration
 
     var symbolMap = {
-            '1': '૧',
-            '2': '૨',
-            '3': '૩',
-            '4': '૪',
-            '5': '૫',
-            '6': '૬',
-            '7': '૭',
-            '8': '૮',
-            '9': '૯',
-            '0': '૦',
+            1: '૧',
+            2: '૨',
+            3: '૩',
+            4: '૪',
+            5: '૫',
+            6: '૬',
+            7: '૭',
+            8: '૮',
+            9: '૯',
+            0: '૦',
         },
         numberMap = {
             '૧': '1',
@@ -69721,16 +69486,16 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
     //! moment.js locale configuration
 
     var symbolMap = {
-            '1': '१',
-            '2': '२',
-            '3': '३',
-            '4': '४',
-            '5': '५',
-            '6': '६',
-            '7': '७',
-            '8': '८',
-            '9': '९',
-            '0': '०',
+            1: '१',
+            2: '२',
+            3: '३',
+            4: '४',
+            5: '५',
+            6: '६',
+            7: '७',
+            8: '८',
+            9: '९',
+            0: '०',
         },
         numberMap = {
             '१': '1',
@@ -70025,6 +69790,7 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 //! moment.js locale configuration
 //! locale : Hungarian [hu]
 //! author : Adam Brunner : https://github.com/adambrunner
+//! author : Peter Viszt  : https://github.com/passatgt
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(/*! ../moment */ "./node_modules/moment/moment.js")) :
@@ -70083,9 +69849,10 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
         months: 'január_február_március_április_május_június_július_augusztus_szeptember_október_november_december'.split(
             '_'
         ),
-        monthsShort: 'jan_feb_márc_ápr_máj_jún_júl_aug_szept_okt_nov_dec'.split(
+        monthsShort: 'jan._feb._márc._ápr._máj._jún._júl._aug._szept._okt._nov._dec.'.split(
             '_'
         ),
+        monthsParseExact: true,
         weekdays: 'vasárnap_hétfő_kedd_szerda_csütörtök_péntek_szombat'.split('_'),
         weekdaysShort: 'vas_hét_kedd_sze_csüt_pén_szo'.split('_'),
         weekdaysMin: 'v_h_k_sze_cs_p_szo'.split('_'),
@@ -70706,6 +70473,8 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
             hh: '%d ore',
             d: 'un giorno',
             dd: '%d giorni',
+            w: 'una settimana',
+            ww: '%d settimane',
             M: 'un mese',
             MM: '%d mesi',
             y: 'un anno',
@@ -71223,16 +70992,16 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
     //! moment.js locale configuration
 
     var symbolMap = {
-            '1': '១',
-            '2': '២',
-            '3': '៣',
-            '4': '៤',
-            '5': '៥',
-            '6': '៦',
-            '7': '៧',
-            '8': '៨',
-            '9': '៩',
-            '0': '០',
+            1: '១',
+            2: '២',
+            3: '៣',
+            4: '៤',
+            5: '៥',
+            6: '៦',
+            7: '៧',
+            8: '៨',
+            9: '៩',
+            0: '០',
         },
         numberMap = {
             '១': '1',
@@ -71345,16 +71114,16 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
     //! moment.js locale configuration
 
     var symbolMap = {
-            '1': '೧',
-            '2': '೨',
-            '3': '೩',
-            '4': '೪',
-            '5': '೫',
-            '6': '೬',
-            '7': '೭',
-            '8': '೮',
-            '9': '೯',
-            '0': '೦',
+            1: '೧',
+            2: '೨',
+            3: '೩',
+            4: '೪',
+            5: '೫',
+            6: '೬',
+            7: '೭',
+            8: '೮',
+            9: '೯',
+            0: '೦',
         },
         numberMap = {
             '೧': '1',
@@ -71583,16 +71352,16 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
     //! moment.js locale configuration
 
     var symbolMap = {
-            '1': '١',
-            '2': '٢',
-            '3': '٣',
-            '4': '٤',
-            '5': '٥',
-            '6': '٦',
-            '7': '٧',
-            '8': '٨',
-            '9': '٩',
-            '0': '٠',
+            1: '١',
+            2: '٢',
+            3: '٣',
+            4: '٤',
+            5: '٥',
+            6: '٦',
+            7: '٧',
+            8: '٨',
+            9: '٩',
+            0: '٠',
         },
         numberMap = {
             '١': '1',
@@ -72864,16 +72633,16 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
     //! moment.js locale configuration
 
     var symbolMap = {
-            '1': '१',
-            '2': '२',
-            '3': '३',
-            '4': '४',
-            '5': '५',
-            '6': '६',
-            '7': '७',
-            '8': '८',
-            '9': '९',
-            '0': '०',
+            1: '१',
+            2: '२',
+            3: '३',
+            4: '४',
+            5: '५',
+            6: '६',
+            7: '७',
+            8: '८',
+            9: '९',
+            0: '०',
         },
         numberMap = {
             '१': '1',
@@ -73353,16 +73122,16 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
     //! moment.js locale configuration
 
     var symbolMap = {
-            '1': '၁',
-            '2': '၂',
-            '3': '၃',
-            '4': '၄',
-            '5': '၅',
-            '6': '၆',
-            '7': '၇',
-            '8': '၈',
-            '9': '၉',
-            '0': '၀',
+            1: '၁',
+            2: '၂',
+            3: '၃',
+            4: '၄',
+            5: '၅',
+            6: '၆',
+            7: '၇',
+            8: '၈',
+            9: '၉',
+            0: '၀',
         },
         numberMap = {
             '၁': '1',
@@ -73502,6 +73271,8 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
             hh: '%d timer',
             d: 'en dag',
             dd: '%d dager',
+            w: 'en uke',
+            ww: '%d uker',
             M: 'en måned',
             MM: '%d måneder',
             y: 'ett år',
@@ -73541,16 +73312,16 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
     //! moment.js locale configuration
 
     var symbolMap = {
-            '1': '१',
-            '2': '२',
-            '3': '३',
-            '4': '४',
-            '5': '५',
-            '6': '६',
-            '7': '७',
-            '8': '८',
-            '9': '९',
-            '0': '०',
+            1: '१',
+            2: '२',
+            3: '३',
+            4: '४',
+            5: '५',
+            6: '६',
+            7: '७',
+            8: '८',
+            9: '९',
+            0: '०',
         },
         numberMap = {
             '१': '1',
@@ -73881,6 +73652,8 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
             hh: '%d uur',
             d: 'één dag',
             dd: '%d dagen',
+            w: 'één week',
+            ww: '%d weken',
             M: 'één maand',
             MM: '%d maanden',
             y: 'één jaar',
@@ -73964,6 +73737,8 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
             hh: '%d timar',
             d: 'ein dag',
             dd: '%d dagar',
+            w: 'ei veke',
+            ww: '%d veker',
             M: 'ein månad',
             MM: '%d månader',
             y: 'eit år',
@@ -74106,16 +73881,16 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
     //! moment.js locale configuration
 
     var symbolMap = {
-            '1': '੧',
-            '2': '੨',
-            '3': '੩',
-            '4': '੪',
-            '5': '੫',
-            '6': '੬',
-            '7': '੭',
-            '8': '੮',
-            '9': '੯',
-            '0': '੦',
+            1: '੧',
+            2: '੨',
+            3: '੩',
+            4: '੪',
+            5: '੫',
+            6: '੬',
+            7: '੭',
+            8: '੮',
+            9: '੯',
+            0: '੦',
         },
         numberMap = {
             '੧': '1',
@@ -74251,7 +74026,21 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
         ),
         monthsSubjective = 'stycznia_lutego_marca_kwietnia_maja_czerwca_lipca_sierpnia_września_października_listopada_grudnia'.split(
             '_'
-        );
+        ),
+        monthsParse = [
+            /^sty/i,
+            /^lut/i,
+            /^mar/i,
+            /^kwi/i,
+            /^maj/i,
+            /^cze/i,
+            /^lip/i,
+            /^sie/i,
+            /^wrz/i,
+            /^paź/i,
+            /^lis/i,
+            /^gru/i,
+        ];
     function plural(n) {
         return n % 10 < 5 && n % 10 > 1 && ~~(n / 10) % 10 !== 1;
     }
@@ -74268,6 +74057,8 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
                 return withoutSuffix ? 'godzina' : 'godzinę';
             case 'hh':
                 return result + (plural(number) ? 'godziny' : 'godzin');
+            case 'ww':
+                return result + (plural(number) ? 'tygodnie' : 'tygodni');
             case 'MM':
                 return result + (plural(number) ? 'miesiące' : 'miesięcy');
             case 'yy':
@@ -74279,17 +74070,6 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
         months: function (momentToFormat, format) {
             if (!momentToFormat) {
                 return monthsNominative;
-            } else if (format === '') {
-                // Hack: if format empty we know this is used to generate
-                // RegExp by moment. Give then back both valid forms of months
-                // in RegExp ready format.
-                return (
-                    '(' +
-                    monthsSubjective[momentToFormat.month()] +
-                    '|' +
-                    monthsNominative[momentToFormat.month()] +
-                    ')'
-                );
             } else if (/D MMMM/.test(format)) {
                 return monthsSubjective[momentToFormat.month()];
             } else {
@@ -74297,6 +74077,9 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
             }
         },
         monthsShort: 'sty_lut_mar_kwi_maj_cze_lip_sie_wrz_paź_lis_gru'.split('_'),
+        monthsParse: monthsParse,
+        longMonthsParse: monthsParse,
+        shortMonthsParse: monthsParse,
         weekdays: 'niedziela_poniedziałek_wtorek_środa_czwartek_piątek_sobota'.split(
             '_'
         ),
@@ -74357,6 +74140,8 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
             hh: translate,
             d: '1 dzień',
             dd: '%d dni',
+            w: 'tydzień',
+            ww: translate,
             M: 'miesiąc',
             MM: translate,
             y: 'rok',
@@ -74444,6 +74229,7 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
         },
         dayOfMonthOrdinalParse: /\d{1,2}º/,
         ordinal: '%dº',
+        invalidDate: 'Data inválida',
     });
 
     return ptBr;
@@ -74513,6 +74299,8 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
             hh: '%d horas',
             d: 'um dia',
             dd: '%d dias',
+            w: 'uma semana',
+            ww: '%d semanas',
             M: 'um mês',
             MM: '%d meses',
             y: 'um ano',
@@ -74559,6 +74347,7 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
                 mm: 'minute',
                 hh: 'ore',
                 dd: 'zile',
+                ww: 'săptămâni',
                 MM: 'luni',
                 yy: 'ani',
             },
@@ -74607,6 +74396,8 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
             hh: relativeTimeWithPlural,
             d: 'o zi',
             dd: relativeTimeWithPlural,
+            w: 'o săptămână',
+            ww: relativeTimeWithPlural,
             M: 'o lună',
             MM: relativeTimeWithPlural,
             y: 'un an',
@@ -74659,6 +74450,7 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
             mm: withoutSuffix ? 'минута_минуты_минут' : 'минуту_минуты_минут',
             hh: 'час_часа_часов',
             dd: 'день_дня_дней',
+            ww: 'неделя_недели_недель',
             MM: 'месяц_месяца_месяцев',
             yy: 'год_года_лет',
         };
@@ -74799,6 +74591,8 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
             hh: relativeTimeWithPlural,
             d: 'день',
             dd: relativeTimeWithPlural,
+            w: 'неделя',
+            ww: relativeTimeWithPlural,
             M: 'месяц',
             MM: relativeTimeWithPlural,
             y: 'год',
@@ -75563,6 +75357,7 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 //! moment.js locale configuration
 //! locale : Serbian Cyrillic [sr-cyrl]
 //! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
+//! author : Stefan Crnjaković <stefan@hotmail.rs> : https://github.com/crnjakovic
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(/*! ../moment */ "./node_modules/moment/moment.js")) :
@@ -75619,10 +75414,10 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
         longDateFormat: {
             LT: 'H:mm',
             LTS: 'H:mm:ss',
-            L: 'DD.MM.YYYY',
-            LL: 'D. MMMM YYYY',
-            LLL: 'D. MMMM YYYY H:mm',
-            LLLL: 'dddd, D. MMMM YYYY H:mm',
+            L: 'D. M. YYYY.',
+            LL: 'D. MMMM YYYY.',
+            LLL: 'D. MMMM YYYY. H:mm',
+            LLLL: 'dddd, D. MMMM YYYY. H:mm',
         },
         calendar: {
             sameDay: '[данас у] LT',
@@ -75677,7 +75472,7 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
         ordinal: '%d.',
         week: {
             dow: 1, // Monday is the first day of the week.
-            doy: 7, // The week that contains Jan 7th is the first week of the year.
+            doy: 7, // The week that contains Jan 1st is the first week of the year.
         },
     });
 
@@ -75698,6 +75493,7 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 //! moment.js locale configuration
 //! locale : Serbian [sr]
 //! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
+//! author : Stefan Crnjaković <stefan@hotmail.rs> : https://github.com/crnjakovic
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(/*! ../moment */ "./node_modules/moment/moment.js")) :
@@ -75756,10 +75552,10 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
         longDateFormat: {
             LT: 'H:mm',
             LTS: 'H:mm:ss',
-            L: 'DD.MM.YYYY',
-            LL: 'D. MMMM YYYY',
-            LLL: 'D. MMMM YYYY H:mm',
-            LLLL: 'dddd, D. MMMM YYYY H:mm',
+            L: 'D. M. YYYY.',
+            LL: 'D. MMMM YYYY.',
+            LLL: 'D. MMMM YYYY. H:mm',
+            LLLL: 'dddd, D. MMMM YYYY. H:mm',
         },
         calendar: {
             sameDay: '[danas u] LT',
@@ -76109,16 +75905,16 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
     //! moment.js locale configuration
 
     var symbolMap = {
-            '1': '௧',
-            '2': '௨',
-            '3': '௩',
-            '4': '௪',
-            '5': '௫',
-            '6': '௬',
-            '7': '௭',
-            '8': '௮',
-            '9': '௯',
-            '0': '௦',
+            1: '௧',
+            2: '௨',
+            3: '௩',
+            4: '௪',
+            5: '௫',
+            6: '௬',
+            7: '௭',
+            8: '௮',
+            9: '௯',
+            0: '௦',
         },
         numberMap = {
             '௧': '1',
@@ -76477,9 +76273,14 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
     };
 
     var tg = moment.defineLocale('tg', {
-        months: 'январ_феврал_март_апрел_май_июн_июл_август_сентябр_октябр_ноябр_декабр'.split(
-            '_'
-        ),
+        months: {
+            format: 'январи_феврали_марти_апрели_майи_июни_июли_августи_сентябри_октябри_ноябри_декабри'.split(
+                '_'
+            ),
+            standalone: 'январ_феврал_март_апрел_май_июн_июл_август_сентябр_октябр_ноябр_декабр'.split(
+                '_'
+            ),
+        },
         monthsShort: 'янв_фев_мар_апр_май_июн_июл_авг_сен_окт_ноя_дек'.split('_'),
         weekdays: 'якшанбе_душанбе_сешанбе_чоршанбе_панҷшанбе_ҷумъа_шанбе'.split(
             '_'
@@ -76489,14 +76290,14 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
         longDateFormat: {
             LT: 'HH:mm',
             LTS: 'HH:mm:ss',
-            L: 'DD/MM/YYYY',
+            L: 'DD.MM.YYYY',
             LL: 'D MMMM YYYY',
             LLL: 'D MMMM YYYY HH:mm',
             LLLL: 'dddd, D MMMM YYYY HH:mm',
         },
         calendar: {
             sameDay: '[Имрӯз соати] LT',
-            nextDay: '[Пагоҳ соати] LT',
+            nextDay: '[Фардо соати] LT',
             lastDay: '[Дирӯз соати] LT',
             nextWeek: 'dddd[и] [ҳафтаи оянда соати] LT',
             lastWeek: 'dddd[и] [ҳафтаи гузашта соати] LT',
@@ -76632,6 +76433,8 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
             hh: '%d ชั่วโมง',
             d: '1 วัน',
             dd: '%d วัน',
+            w: '1 สัปดาห์',
+            ww: '%d สัปดาห์',
             M: '1 เดือน',
             MM: '%d เดือน',
             y: '1 ปี',
@@ -77067,6 +76870,8 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
             hh: '%d saat',
             d: 'bir gün',
             dd: '%d gün',
+            w: 'bir hafta',
+            ww: '%d hafta',
             M: 'bir ay',
             MM: '%d ay',
             y: 'bir yıl',
@@ -77992,6 +77797,8 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
             hh: '%d giờ',
             d: 'một ngày',
             dd: '%d ngày',
+            w: 'một tuần',
+            ww: '%d tuần',
             M: 'một tháng',
             MM: '%d tháng',
             y: 'một năm',
@@ -78297,6 +78104,8 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
             hh: '%d 小时',
             d: '1 天',
             dd: '%d 天',
+            w: '1 周',
+            ww: '%d 周',
             M: '1 个月',
             MM: '%d 个月',
             y: '1 年',
@@ -78684,7 +78493,7 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var require;//! moment.js
-//! version : 2.28.0
+//! version : 2.29.0
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -82410,7 +82219,10 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
     function calendar$1(time, formats) {
         // Support for single parameter, formats only overload to the calendar function
         if (arguments.length === 1) {
-            if (isMomentInput(arguments[0])) {
+            if (!arguments[0]) {
+                time = undefined;
+                formats = undefined;
+            } else if (isMomentInput(arguments[0])) {
                 time = arguments[0];
                 formats = undefined;
             } else if (isCalendarSpec(arguments[0])) {
@@ -84302,7 +84114,7 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 
     //! moment.js
 
-    hooks.version = '2.28.0';
+    hooks.version = '2.29.0';
 
     setHookCallback(createLocal);
 
@@ -92219,10 +92031,12 @@ var render = function() {
           data: _vm.users,
           "per-page": _vm.perPage
         },
+        on: { onTablePropsChanged: _vm.reloadTable },
         scopedSlots: _vm._u([
           {
             key: "filters",
             fn: function(ref) {
+              var tableData = ref.tableData
               var perPage = ref.perPage
               return _c("div", {}, [
                 _c("div", { staticClass: "row mb-2" }, [
@@ -92234,32 +92048,29 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.tableProps.length,
-                            expression: "tableProps.length"
+                            value: tableData.length,
+                            expression: "tableData.length"
                           }
                         ],
                         staticClass: "form-control",
                         on: {
-                          change: [
-                            function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.tableProps,
-                                "length",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            },
-                            _vm.reloadTable
-                          ]
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              tableData,
+                              "length",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
                         }
                       },
                       _vm._l(perPage, function(page) {
@@ -92277,8 +92088,8 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.tableProps.search,
-                          expression: "tableProps.search"
+                          value: tableData.search,
+                          expression: "tableData.search"
                         }
                       ],
                       staticClass: "form-control",
@@ -92286,18 +92097,13 @@ var render = function() {
                         name: "name",
                         placeholder: "Search Email or Name"
                       },
-                      domProps: { value: _vm.tableProps.search },
+                      domProps: { value: tableData.search },
                       on: {
-                        keyup: _vm.reloadTable,
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(
-                            _vm.tableProps,
-                            "search",
-                            $event.target.value
-                          )
+                          _vm.$set(tableData, "search", $event.target.value)
                         }
                       }
                     })
@@ -92347,7 +92153,7 @@ var render = function() {
                             })
                           ]),
                           _vm._v(
-                            "\n                     \n                    Edit\n                "
+                            "\n                         \n                        Edit\n                    "
                           )
                         ]
                       ),
@@ -92371,7 +92177,7 @@ var render = function() {
                             })
                           ]),
                           _vm._v(
-                            "\n                     \n                    Delete\n                "
+                            "\n                         \n                        Delete\n                    "
                           )
                         ]
                       )
@@ -92971,6 +92777,21 @@ var render = function() {
                 attrs: { employerId: _vm.employerId }
               })
             ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "tab-content",
+            {
+              attrs: {
+                title: "Medical Checkup",
+                icon: "ti-clipboard",
+                "before-change": function() {
+                  return _vm.validateStep("form-five")
+                }
+              }
+            },
+            [_c("form-five", { ref: "form-five" })],
             1
           )
         ],
@@ -93685,7 +93506,8 @@ var render = function() {
                             placeholder: "Select one",
                             label: "name",
                             "track-by": "name",
-                            id: "certificate"
+                            id: "certificate",
+                            name: "certificate"
                           },
                           model: {
                             value: _vm.value,
@@ -93792,7 +93614,11 @@ var render = function() {
                       _vm._v(" "),
                       _c("input", {
                         staticClass: "custom-file-input",
-                        attrs: { type: "file", id: "customFile" },
+                        attrs: {
+                          type: "file",
+                          id: "customFile",
+                          name: "certificate_image"
+                        },
                         on: { change: _vm.fileChange }
                       }),
                       _vm._v(" "),

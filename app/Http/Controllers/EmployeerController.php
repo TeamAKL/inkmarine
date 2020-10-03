@@ -6,7 +6,7 @@ use App\Employeer;
 use Illuminate\Http\Request;
 use Validator;
 use App\EmployeerDetail;
-
+use App\Certificate;
 class EmployeerController extends Controller
 {
     /**
@@ -170,6 +170,23 @@ class EmployeerController extends Controller
     // Save Certificate
     public function saveCertificate(Request $req)
     {
-        dd($req->all());
+        $validator = Validator::make($req->all(), [
+            'certificate' => 'required',
+            'licine_number' => 'required',
+            'certificate_image' => 'required',
+            'remark' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 400);
+        }
+
+
+    }
+
+    //Get Certificate
+    public function getCertificate(Request $req)
+    {
+        $certificates = Certificate::all();
+        return response()->json(['certificates' => $certificates], 200);
     }
 }

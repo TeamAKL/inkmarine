@@ -4,48 +4,48 @@
             :columns="columns"
             :data = "users"
             :per-page="perPage"
+            @onTablePropsChanged="reloadTable"
         >
-            <div slot="filters" slot-scope="{ perPage }">
+            <div slot="filters" slot-scope="{tableData, perPage }">
                 <div class="row mb-2">
                     <div class="col-md-4">
-                        <select class="form-control" v-model="tableProps.length" @change="reloadTable">
+                        <select class="form-control" v-model="tableData.length">
                             <option :key="page" v-for="page in perPage">{{ page }}</option>
                         </select>
                     </div>
                     <div class="col-md-4 offset-md-4">
                         <input
-                            @keyup="reloadTable"
                             name="name"
                             class="form-control"
-                            v-model="tableProps.search"
+                            v-model="tableData.search"
                             placeholder="Search Email or Name">
                     </div>
                 </div>
             </div>
             <tbody slot="body" slot-scope="{ data }">
-            <tr
-                :key="item.id"
-                v-for="item in data">
-                <td class="text-left">{{ item.id }}</td>
-                <td class="text-left">{{ item.name }}</td>
-                <td class="text-left">{{ item.email }}</td>
-                <td class="text-left">
-                    <button :class="'btn btn-xs btn-primary'" @click="EditItem(item)" title="Edit">
-                            <span>
-                                <i class="mdi mdi-grease-pencil" aria-hidden="true"></i>
-                            </span>
-                        &nbsp;
-                        Edit
-                    </button>
-                    <button :class="'btn btn-xs btn-danger'" @click="onDeleteItem(item)" title="Delete">
-                            <span>
-                                <i class="mdi mdi-delete" aria-hidden="true"></i>
-                            </span>
-                        &nbsp;
-                        Delete
-                    </button>
-                </td>
-            </tr>
+                <tr
+                    :key="item.id"
+                    v-for="item in data">
+                    <td class="text-left">{{ item.id }}</td>
+                    <td class="text-left">{{ item.name }}</td>
+                    <td class="text-left">{{ item.email }}</td>
+                    <td class="text-left">
+                        <button :class="'btn btn-xs btn-primary'" @click="EditItem(item)" title="Edit">
+                                <span>
+                                    <i class="mdi mdi-grease-pencil" aria-hidden="true"></i>
+                                </span>
+                            &nbsp;
+                            Edit
+                        </button>
+                        <button :class="'btn btn-xs btn-danger'" @click="onDeleteItem(item)" title="Delete">
+                                <span>
+                                    <i class="mdi mdi-delete" aria-hidden="true"></i>
+                                </span>
+                            &nbsp;
+                            Delete
+                        </button>
+                    </td>
+                </tr>
             </tbody>
         </data-table>
     </div>
@@ -55,8 +55,7 @@
     export default {
         data() {
             return {
-                url: '/api/get-all-user',
-                user_token: "eyJpdiI6IjlaSHRCM1d4V0ZDd3RoNXpNUnF4MUE9PSIsInZhbHVlIjoiUkRoQm1BdTV6ZFoxcEdkaTlqcU5uOUlrZDRKdDUza0RGVHoybXNjUDlXanVIV2NsdFVpenVWSmpaWDBIdGc0a09uc2k0Qzl4cEhWbUl3UjJaTmcyOTc2UTRWSmp0RVoxdTR5YXdCelwvNmRWbUM3Z0p4T25oRzVyUnFoWmRueFRLIiwibWFjIjoiN2VhZDdkYjYzMzk1YzU2NjVmZDM1ZDQ1NjM0MzA0YmE4ZmNlOWM3MTNkNWZhZDI5ZDgxOWQyNDM4YzJlYzQ5MSJ9",
+                user_token: `${process.env.MIX_APP_TOKEN}`,
                 perPage: [10, 25, 100, 300],
                 users: {},
                 default_order_column:'id',
@@ -90,12 +89,12 @@
             }
         },
         created() {
-            this.getData(this.url);
+            this.getData();
         },
         methods: {
-            getData(url = this.url, options = this.tableProps) {
-                axios.post(url, {
-                    ...options
+            getData() {
+                axios.post('/api/get-all-user', {
+                    ...this.tableProps
                 }, {
                     headers:{'Authorization': 'Bearer '+ this.user_token}
                 }).then(result => {
@@ -103,8 +102,9 @@
                 });
             },
 
-            reloadTable(){
-                this.getData(this.url);
+            reloadTable(tableProps){
+                this.tableProps = tableProps;
+                this.getData(tableProps);
             },
         }
     }
