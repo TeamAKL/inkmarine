@@ -8,7 +8,7 @@
 
             <!-- <tab-content title="Additional Info" icon="ti-settings" :before-change="()=>validateStep('form-two')">
                 <form-two ref="form-two" :employerId="employerId"></form-two>
-            </tab-content>
+            </tab-content> -->
 
             <tab-content title="Family Member" icon="ti-id-badge" :before-change="()=>validateStep('form-four')">
                 <form-four ref="form-four" :employerId="employerId"></form-four>
@@ -29,7 +29,7 @@
             <tab-content title="Last step" icon="ti-check">
                 Here is your final model:
             <pre>{{finalModel}}</pre>
-            </tab-content> -->
+            </tab-content>
         </form-wizard>
     </div>
 </template>
@@ -55,7 +55,11 @@ export default {
     },
     data() {
         return {
+<<<<<<< HEAD
             employerId: 1,
+=======
+            employerId: '1',
+>>>>>>> 472a720f2fa5a0a664b1b7d693b404311729e096
             finalModel: {},
         }
     },
