@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 use Validator;
 use App\EmployeerDetail;
 use App\Certificate;
+use App\EmployerCertificate;
+use App\OtherCompanyCareers;
+
+// use Illuminate\Support\Facades\DB;
+use DB;
+use Illuminate\Database\Eloquent\Builder;
+use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
 class EmployeerController extends Controller
 {
     /**
@@ -171,16 +178,30 @@ class EmployeerController extends Controller
     public function saveCertificate(Request $req)
     {
         $validator = Validator::make($req->all(), [
-            'certificate' => 'required',
             'licine_number' => 'required',
-            'certificate_image' => 'required',
-            'remark' => 'required'
+            'remark' => 'required',
+            'employer_id' => 'required',
+            'image' => 'required'
         ]);
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()], 400);
         }
 
-
+        $training_date = date("Y-m-d", strtotime($req->training_date));
+        $expire_date = date("Y-m-d", strtotime($req->expire_date));
+        $emp_certificate = EmployerCertificate::updateOrCreate(
+            ['id' => $req->id, 'employer_id' => $req->employer_id],
+            [
+                'employer_id' => $req->employer_id,
+                'certificate_id' => $req->certificate_name,
+                'licine_number' => $req->licine_number,
+                'training_date' => $training_date,
+                'expire_date' => $expire_date,
+                'image' => $req->image,
+                'remark' => $req->remark
+            ]
+        );
+        return response()->json(['message' => 'success', 'employerCertificate' => $emp_certificate], 200);
     }
 
     //Get Certificate
@@ -189,4 +210,66 @@ class EmployeerController extends Controller
         $certificates = Certificate::all();
         return response()->json(['certificates' => $certificates], 200);
     }
+
+    //getEmployerCertificate
+    public function getEmployerCertificate(Request $req)
+    {
+        $query = EmployerCertificate::select(DB::Raw("employer_certificates.id as id, employer_certificates.licine_number as licine_number, DATE_FORMAT(employer_certificates.training_date,'%d-%m-%Y') as training_date, DATE_FORMAT(employer_certificates.expire_date,'%d-%m-%Y') as expire_date, employer_certificates.image as image, employer_certificates.remark as remark"), "certificate_id")
+        ->with(['certificate'])
+        ->where('employer_certificates.employer_id', '=', $req->employer_id);
+        if(!empty($req->search)) {
+            $search = $req->search;
+            $query -> where('employer_certificates.licine_number', 'LIKE',"%{$search}%")
+            -> orWhere('employer_certificates.training_date', 'LIKE',"%{$search}%")
+            -> orWhere('employer_certificates.expire_date', 'LIKE',"%{$search}%")
+            ->orWhere(function($query) use ($search){
+                $query -> whereHas('certificate', function (Builder $query) use ($search) {
+                    $query->where('certificates.title', 'LIKE',"%{$search}%");
+                });
+            });
+        }
+
+        $data = $query->orderBy('created_at', $req->dir)->paginate($req->length);
+        return new DataTableCollectionResource($data);
+    }
+
+    //Delete Certificate
+    public function deleteCertificate(Request $req)
+    {
+        EmployerCertificate::where('id', '=', $req->id)->where('employer_id', '=', $req->employer_id)->delete();
+        return response()->json(['message' => 'success'], 200);
+    }
+
+    public function saveOtherCompanyCareers(Request $request){
+        $validator = Validator::make($request->all(), [
+            'rank' => 'required',
+            'grt' => 'required',
+            'kw' => 'required',
+            'company_name' => 'required',
+            'ship_name' => 'required',
+            'boarding_date' => 'required',
+            'leaving_date' => 'required',
+            'area' => 'required',
+            'company_remark' => 'required'
+
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 400);
+        }
+
+        $boarding_format = date("Y-m-d", strtotime($request->boarding_date));
+        $leaving_format = date("Y-m-d", strtotime($request->leaving_date));
+        $companyCareers = OtherCompanyCareers::updateOrCreate(
+            ['id' => $request->company_career_id],
+            ['user_id' => $request->user_id, 'rank' => $request->rank, 'grt' => $request->grt, 'kw' => $request->kw, 'company_name' => $request->company_name, 'ship_name' => $request->ship_name, 'boarding_date' => $boarding_format, 'leaving_date' => $request->$leaving_format, 'area' => $request->area, 'remark' => $request->company_remark]
+        );
+        return response()->json(["message" => "success", "companyCareers" => $companyCareers], 200);
+    }
+
+    public function getAllCompanyCareersByEmployerId(Request $request){
+        $companyCareers = OtherCompanyCareers::where('user_id', '=', $request->user_id)->paginate(2);
+         return new DataTableCollectionResource($companyCareers);
+    }
+
+
 }

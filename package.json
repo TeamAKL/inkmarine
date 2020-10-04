@@ -25,7 +25,7 @@
     },
     "dependencies": {
         "@fortawesome/vue-fontawesome": "^2.0.0",
-        "laravel-vue-datatable": "0.5.7",
+        "laravel-vue-datatable": "0.5.12",
         "moment": "^2.29.0",
         "sweetalert2": "^9.17.2",
         "vue-axios": "^2.1.5",
