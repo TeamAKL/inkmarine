@@ -30,6 +30,7 @@ Route::post("save-form-one", "EmployeerController@store");
 Route::post("save-form-two", "EmployeerController@storeFormTwo");
 Route::post("save-certificate", "EmployeerController@saveCertificate");
 Route::post("get-certificate", "EmployeerController@getCertificate");
+Route::post("get-employer-certificate", "EmployeerController@getEmployerCertificate");
 
 Route::post("save-family-member", "FamilyMemberController@store");
 Route::post("get_all_family_members_by_employer", "FamilyMemberController@getAllFaimilyMemberByEmployerId");

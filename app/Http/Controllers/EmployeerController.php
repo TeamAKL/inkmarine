@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 use Validator;
 use App\EmployeerDetail;
 use App\Certificate;
+use App\EmployerCertificate;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Builder;
+use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
 class EmployeerController extends Controller
 {
     /**
@@ -171,16 +176,30 @@ class EmployeerController extends Controller
     public function saveCertificate(Request $req)
     {
         $validator = Validator::make($req->all(), [
-            'certificate' => 'required',
             'licine_number' => 'required',
-            'certificate_image' => 'required',
-            'remark' => 'required'
+            'remark' => 'required',
+            'employer_id' => 'required',
+            'image' => 'required'
         ]);
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()], 400);
         }
 
-
+        $training_date = date("Y-m-d", strtotime($req->training_date));
+        $expire_date = date("Y-m-d", strtotime($req->expire_date));
+        $emp_certificate = EmployerCertificate::updateOrCreate(
+            ['id' => $req->id, 'employer_id' => $req->employer_id],
+            [
+                'employer_id' => $req->employer_id,
+                'certificate_id' => $req->certificate_name,
+                'licine_number' => $req->licine_number,
+                'training_date' => $training_date,
+                'expire_date' => $expire_date,
+                'image' => $req->image,
+                'remark' => $req->remark
+            ]
+        );
+        return response()->json(['message' => 'success', 'employerCertificate' => $emp_certificate], 200);
     }
 
     //Get Certificate
@@ -188,5 +207,46 @@ class EmployeerController extends Controller
     {
         $certificates = Certificate::all();
         return response()->json(['certificates' => $certificates], 200);
+    }
+
+    //getEmployerCertificate
+    public function getEmployerCertificate(Request $req)
+    {
+        $query = DB::table('employer_certificates')
+                    ->leftJoin('certificates', function($left_join) {
+                            $left_join -> on('employer_certificates.certificate_id', '=', 'certificates.id');
+                    })
+                    ->where('employer_certificates.employer_id', '=', $req->employer_id);
+                    if(!empty($req->search)){
+                        $search = $req->search;
+                        $query->where(function($query) use ($search) {
+                            $query -> where('employer_certificates.licine_number', 'LIKE',"%{$search}%")
+                            -> orWhere('employer_certificates.training_date', 'LIKE',"%{$search}%")
+                            -> orWhere('employer_certificates.expire_date', 'LIKE',"%{$search}%")
+                            -> orWhere('certificates.title', 'LIKE',"%{$search}%");
+                        });
+                    }
+        $data = $query->select(DB::Raw("certificates.title as title, employer_certificates.id as id, employer_certificates.licine_number as licine_number, employer_certificates.training_date as training_date, employer_certificates.expire_date as expire_date"))
+                                ->orderBy('id', $req->dir)
+                                ->paginate(2);
+        // $query = EmployerCertificate::with(['certificate' => function($certificate) {
+        //     $certificate->select('id','title');
+        // }])
+        // ->where('employer_certificates.employer_id', '=', $req->employer_id);
+        // if(!empty($req->search)) {
+        //     $search = $req->search;
+        //     $query -> where('employer_certificates.licine_number', 'LIKE',"%{$search}%")
+        //     -> orWhere('employer_certificates.training_date', 'LIKE',"%{$search}%")
+        //     -> orWhere('employer_certificates.expire_date', 'LIKE',"%{$search}%")
+        //     ->orWhere(function($query) use ($search){
+        //         $query -> whereHas('certificate', function (Builder $query) use ($search) {
+        //             $query->where('certificates.title', 'LIKE',"%{$search}%");
+        //         });
+        //     });
+        // }
+
+        // $data = $query->select('id', 'title')->paginate($req->length);
+        // dd($data);
+        return new DataTableCollectionResource($data);
     }
 }

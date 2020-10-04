@@ -11,20 +11,20 @@
                 :columns="columns"
                 :data = "users"
                 :per-page="perPage"
+                @onTablePropsChanged="reloadTable"
             >
-                <div slot="filters" slot-scope="{ perPage }">
+                <div slot="filters" slot-scope="{ tableData, perPage }">
                     <div class="row mb-2">
                         <div class="col-md-4">
-                            <select class="form-control" v-model="tableProps.length" @change="reloadTable">
+                            <select class="form-control" v-model="tableData.length">
                                 <option :key="page" v-for="page in perPage">{{ page }}</option>
                             </select>
                         </div>
                         <div class="col-md-4 offset-md-4">
                             <input
-                                @keyup="reloadTable"
                                 class="form-control"
-                                v-model="tableProps.search"
-                                placeholder="Search Email or Name">
+                                v-model="tableData.search"
+                                placeholder="Search...">
                         </div>
                     </div>
                 </div>
@@ -32,9 +32,10 @@
                 <tr
                     :key="item.id"
                     v-for="item in data">
-                    <td class="text-left">{{ item.id }}</td>
-                    <td class="text-left">{{ item.name }}</td>
-                    <td class="text-left">{{ item.email }}</td>
+                    <td class="text-left">{{ item.certificate.title }}</td>
+                    <td class="text-left">{{ item.licine_number }}</td>
+                    <td class="text-left">{{ item.training_date }}</td>
+                    <td class="text-left">{{ item.expire_date }}</td>
                     <td class="text-left">
                         <button :class="'btn btn-xs btn-primary'" @click="EditItem(item)" title="Edit">
                             <span>
@@ -67,7 +68,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label class="typo__label" for="certificate">Certificate</label>
-                                    <multiselect v-model="value" :max-height="200" :options="options" placeholder="Select one" label="name" track-by="name" id="certificate" name="certificate"></multiselect>
+                                    <multiselect v-model="value" :max-height="200" :options="options" placeholder="Select one" label="name" track-by="name" id="certificate" ></multiselect>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="licine_number">Licine Number</label>
@@ -89,7 +90,7 @@
                             <div class="form-row">
                                 <div class="custom-file col-md-6">
                                     <p>Choose Image</p>
-                                    <input type="file" class="custom-file-input" id="customFile" @change="fileChange" name="certificate_image">
+                                    <input type="file" class="custom-file-input" id="customFile" @change="fileChange" >
                                     <label class="custom-file-label" for="customFile" id="changeLabel">{{imglabel}}</label>
                                     <div class="loading-container" v-show="showLoading">
                                         <img src="../../../../public/loading/small_loading.gif" alt="ll" >
@@ -190,8 +191,7 @@ export default {
     },
     data () {
         return {
-            url: '/api/get-all-user',
-            user_token: "eyJpdiI6IjlaSHRCM1d4V0ZDd3RoNXpNUnF4MUE9PSIsInZhbHVlIjoiUkRoQm1BdTV6ZFoxcEdkaTlqcU5uOUlrZDRKdDUza0RGVHoybXNjUDlXanVIV2NsdFVpenVWSmpaWDBIdGc0a09uc2k0Qzl4cEhWbUl3UjJaTmcyOTc2UTRWSmp0RVoxdTR5YXdCelwvNmRWbUM3Z0p4T25oRzVyUnFoWmRueFRLIiwibWFjIjoiN2VhZDdkYjYzMzk1YzU2NjVmZDM1ZDQ1NjM0MzA0YmE4ZmNlOWM3MTNkNWZhZDI5ZDgxOWQyNDM4YzJlYzQ5MSJ9",
+            user_token: `${process.env.MIX_APP_TOKEN}`,
             perPage: [10, 25, 100],
             users: {},
             default_order_column:'id',
@@ -204,18 +204,23 @@ export default {
             },
             columns: [
                 {
-                    label: 'ID',
-                    name: 'id',
+                    label: 'Certificate',
+                    name: 'cetificates.title',
                     orderable: true,
                 },
                 {
-                    label: 'Name',
-                    name: 'name',
+                    label: 'Licine Number',
+                    name: 'employer_certificates.licine_number',
                     orderable: true,
                 },
                 {
-                    label: 'Email',
-                    name: 'email',
+                    label: 'Training Date',
+                    name: 'employer_certificates.training_date',
+                    orderable: true,
+                },
+                {
+                    label: 'Expire Date',
+                    name: 'employer_certificates.expire_date',
                     orderable: true,
                 },
                 {
@@ -237,11 +242,11 @@ export default {
             remark: '',
             imglabel: 'Choose Image..',
             showLoading: false,
-            certificatId: null,
+            employer_certificate_id: null,
         }
     },
     created() {
-        this.getData(this.url);
+        this.getEmployeCertificate();
         const date = new Date();
         this.training_date = moment(date).format('DD-MM-YYYY');
         this.expire_date = moment(date).format('DD-MM-YYYY');
@@ -289,9 +294,10 @@ export default {
             setTimeout(function(){ that.cvisibility = 'hidden'; that.czindex= -100;}, 500)
         },
 
-        getData(url = this.url, options = this.tableProps) {
-            axios.post(url, {
-                ...options
+        getEmployeCertificate() {
+            axios.post('/api/get-employer-certificate', {
+                ...this.tableProps,
+                'employer_id': this.employerId
             }, {
                 headers:{'Authorization': 'Bearer '+ this.user_token}
             }).then(result => {
@@ -299,8 +305,9 @@ export default {
             });
         },
 
-        reloadTable(){
-            this.getData(this.url);
+        reloadTable(tableProps){
+            this.tableProps = tableProps;
+            this.getEmployeCertificate(tableProps);
         },
 
         fileChange(e) {
@@ -370,10 +377,12 @@ export default {
                 'image': this.certificateImage,
                 'remark': this.remark,
                 'employer_id': this.employerId,
+                'id': this.employer_certificate_id
             }, {
                 headers: {'Authorization': 'Bearer '+ this.user_token}
             }).then(result => {
-                console.log(result);
+                this.getEmployeCertificate();
+                this.hideModal();
             }).catch(err => {
                 if (err.response.status == 400) {
                     Toast.fire({
@@ -398,6 +407,7 @@ export default {
             this.expire_date = moment(new Date()).format('DD-MM-YYYY');
             this.certificateImage = '';
             this.remark = '';
+            $(document).find('span[class="validate-message"]').remove();
         }
     },
     props: ['employerId']
