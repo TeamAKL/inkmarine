@@ -191,6 +191,7 @@ export default {
     },
     data () {
         return {
+            url: '/api/get-all-user',
             user_token: `${process.env.MIX_APP_TOKEN}`,
             perPage: [10, 25, 100],
             users: {},

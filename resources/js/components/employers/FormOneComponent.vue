@@ -60,7 +60,7 @@ export default {
     },
     data() {
         return {
-            user_token: "eyJpdiI6IjlaSHRCM1d4V0ZDd3RoNXpNUnF4MUE9PSIsInZhbHVlIjoiUkRoQm1BdTV6ZFoxcEdkaTlqcU5uOUlrZDRKdDUza0RGVHoybXNjUDlXanVIV2NsdFVpenVWSmpaWDBIdGc0a09uc2k0Qzl4cEhWbUl3UjJaTmcyOTc2UTRWSmp0RVoxdTR5YXdCelwvNmRWbUM3Z0p4T25oRzVyUnFoWmRueFRLIiwibWFjIjoiN2VhZDdkYjYzMzk1YzU2NjVmZDM1ZDQ1NjM0MzA0YmE4ZmNlOWM3MTNkNWZhZDI5ZDgxOWQyNDM4YzJlYzQ5MSJ9",
+            user_token: `${process.env.MIX_APP_TOKEN}`,
             crewcode: '',
             name: '',
             nationality: '',
@@ -98,9 +98,10 @@ export default {
                         icon: 'error',
                         title: 'Please fill all required fields!'
                     });
+                     $(document).find('span[class="validate-message"]').remove();
                     $.each(err.response.data.error, function (i, error) {
                         var el = $(document).find('[name="'+i+'"]');
-                        el.after($('<span style="color: red;">'+error[0]+'</span>'));
+                        el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
                     });
                 }
                 isValid = false;

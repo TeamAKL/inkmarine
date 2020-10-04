@@ -7,11 +7,17 @@ use Illuminate\Http\Request;
 use Validator;
 use App\EmployeerDetail;
 use App\Certificate;
+<<<<<<< HEAD
 use App\EmployerCertificate;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
+=======
+use App\OtherCompanyCareers;
+use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
+
+>>>>>>> b76c8a05e9331d368fbdd177b34ef7cac872ce3c
 class EmployeerController extends Controller
 {
     /**
@@ -249,4 +255,36 @@ class EmployeerController extends Controller
         // dd($data);
         return new DataTableCollectionResource($data);
     }
+    public function saveOtherCompanyCareers(Request $request){
+        $validator = Validator::make($request->all(), [
+            'rank' => 'required',
+            'grt' => 'required',
+            'kw' => 'required',
+            'company_name' => 'required',
+            'ship_name' => 'required',
+            'boarding_date' => 'required',
+            'leaving_date' => 'required',
+            'area' => 'required',
+            'company_remark' => 'required'
+
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 400);
+        }
+
+        $boarding_format = date("Y-m-d", strtotime($request->boarding_date));
+        $leaving_format = date("Y-m-d", strtotime($request->leaving_date));
+        $companyCareers = OtherCompanyCareers::updateOrCreate(
+            ['id' => $request->company_career_id],
+            ['user_id' => $request->user_id, 'rank' => $request->rank, 'grt' => $request->grt, 'kw' => $request->kw, 'company_name' => $request->company_name, 'ship_name' => $request->ship_name, 'boarding_date' => $boarding_format, 'leaving_date' => $request->$leaving_format, 'area' => $request->area, 'remark' => $request->company_remark]
+        );
+        return response()->json(["message" => "success", "companyCareers" => $companyCareers], 200);
+    }
+
+    public function getAllCompanyCareersByEmployerId(Request $request){
+        $companyCareers = OtherCompanyCareers::where('user_id', '=', $request->user_id)->paginate(2);
+         return new DataTableCollectionResource($companyCareers);
+    }
+
+
 }

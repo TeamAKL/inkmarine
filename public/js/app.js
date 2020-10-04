@@ -2312,7 +2312,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       showLoading: false,
-      user_token: "eyJpdiI6IjlaSHRCM1d4V0ZDd3RoNXpNUnF4MUE9PSIsInZhbHVlIjoiUkRoQm1BdTV6ZFoxcEdkaTlqcU5uOUlrZDRKdDUza0RGVHoybXNjUDlXanVIV2NsdFVpenVWSmpaWDBIdGc0a09uc2k0Qzl4cEhWbUl3UjJaTmcyOTc2UTRWSmp0RVoxdTR5YXdCelwvNmRWbUM3Z0p4T25oRzVyUnFoWmRueFRLIiwibWFjIjoiN2VhZDdkYjYzMzk1YzU2NjVmZDM1ZDQ1NjM0MzA0YmE4ZmNlOWM3MTNkNWZhZDI5ZDgxOWQyNDM4YzJlYzQ5MSJ9",
+      user_token: "".concat("eyJpdiI6IjlaSHRCM1d4V0ZDd3RoNXpNUnF4MUE9PSIsInZhbHVlIjoiUkRoQm1BdTV6ZFoxcEdkaTlqcU5uOUlrZDRKdDUza0RGVHoybXNjUDlXanVIV2NsdFVpenVWSmpaWDBIdGc0a09uc2k0Qzl4cEhWbUl3UjJaTmcyOTc2UTRWSmp0RVoxdTR5YXdCelwvNmRWbUM3Z0p4T25oRzVyUnFoWmRueFRLIiwibWFjIjoiN2VhZDdkYjYzMzk1YzU2NjVmZDM1ZDQ1NjM0MzA0YmE4ZmNlOWM3MTNkNWZhZDI5ZDgxOWQyNDM4YzJlYzQ5MSJ9"),
       fileMaxLenght: 2,
       fileLoopCount: 0,
       images: []
@@ -2566,8 +2566,7 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_0___default
       copacity: 0,
       cvisibility: 'hidden',
       cstyle: 'translateY(-100%)',
-      url: '/api/get_all_family_members_by_employer',
-      user_token: "eyJpdiI6IjlaSHRCM1d4V0ZDd3RoNXpNUnF4MUE9PSIsInZhbHVlIjoiUkRoQm1BdTV6ZFoxcEdkaTlqcU5uOUlrZDRKdDUza0RGVHoybXNjUDlXanVIV2NsdFVpenVWSmpaWDBIdGc0a09uc2k0Qzl4cEhWbUl3UjJaTmcyOTc2UTRWSmp0RVoxdTR5YXdCelwvNmRWbUM3Z0p4T25oRzVyUnFoWmRueFRLIiwibWFjIjoiN2VhZDdkYjYzMzk1YzU2NjVmZDM1ZDQ1NjM0MzA0YmE4ZmNlOWM3MTNkNWZhZDI5ZDgxOWQyNDM4YzJlYzQ5MSJ9",
+      user_token: "".concat("eyJpdiI6IjlaSHRCM1d4V0ZDd3RoNXpNUnF4MUE9PSIsInZhbHVlIjoiUkRoQm1BdTV6ZFoxcEdkaTlqcU5uOUlrZDRKdDUza0RGVHoybXNjUDlXanVIV2NsdFVpenVWSmpaWDBIdGc0a09uc2k0Qzl4cEhWbUl3UjJaTmcyOTc2UTRWSmp0RVoxdTR5YXdCelwvNmRWbUM3Z0p4T25oRzVyUnFoWmRueFRLIiwibWFjIjoiN2VhZDdkYjYzMzk1YzU2NjVmZDM1ZDQ1NjM0MzA0YmE4ZmNlOWM3MTNkNWZhZDI5ZDgxOWQyNDM4YzJlYzQ5MSJ9"),
       member_name: '',
       member_relation: '',
       member_phone_number: '',
@@ -2669,9 +2668,10 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_0___default
             icon: 'error',
             title: 'Please fill all required fields!'
           });
+          $(document).find('span[class="validate-message"]').remove();
           $.each(err.response.data.error, function (i, error) {
             var el = $(document).find('[name="' + i + '"]');
-            el.after($('<span style="color: red;">' + error[0] + '</span>'));
+            el.after($('<span style="color: red;" class="validate-message" >' + error[0] + '</span>'));
           });
         }
 
@@ -2684,9 +2684,7 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_0___default
     getData: function getData() {
       var _this2 = this;
 
-      var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.url;
-      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.tableProps;
-      axios.post(url, _objectSpread(_objectSpread({}, options), {}, {
+      axios.post('/api/get_all_family_members_by_employer', _objectSpread(_objectSpread({}, this.tableProps), {}, {
         'user_id': this.employerId
       }), {
         headers: {
@@ -2696,8 +2694,9 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_0___default
         _this2.users = result.data;
       });
     },
-    reloadTable: function reloadTable() {
-      this.getData(this.url);
+    reloadTable: function reloadTable(tableProps) {
+      this.tableProps = tableProps;
+      this.getData(tableProps);
     },
     EditItem: function EditItem(item) {
       this.showModal();
@@ -2891,7 +2890,7 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default
   },
   data: function data() {
     return {
-      user_token: "eyJpdiI6IjlaSHRCM1d4V0ZDd3RoNXpNUnF4MUE9PSIsInZhbHVlIjoiUkRoQm1BdTV6ZFoxcEdkaTlqcU5uOUlrZDRKdDUza0RGVHoybXNjUDlXanVIV2NsdFVpenVWSmpaWDBIdGc0a09uc2k0Qzl4cEhWbUl3UjJaTmcyOTc2UTRWSmp0RVoxdTR5YXdCelwvNmRWbUM3Z0p4T25oRzVyUnFoWmRueFRLIiwibWFjIjoiN2VhZDdkYjYzMzk1YzU2NjVmZDM1ZDQ1NjM0MzA0YmE4ZmNlOWM3MTNkNWZhZDI5ZDgxOWQyNDM4YzJlYzQ5MSJ9",
+      user_token: "".concat("eyJpdiI6IjlaSHRCM1d4V0ZDd3RoNXpNUnF4MUE9PSIsInZhbHVlIjoiUkRoQm1BdTV6ZFoxcEdkaTlqcU5uOUlrZDRKdDUza0RGVHoybXNjUDlXanVIV2NsdFVpenVWSmpaWDBIdGc0a09uc2k0Qzl4cEhWbUl3UjJaTmcyOTc2UTRWSmp0RVoxdTR5YXdCelwvNmRWbUM3Z0p4T25oRzVyUnFoWmRueFRLIiwibWFjIjoiN2VhZDdkYjYzMzk1YzU2NjVmZDM1ZDQ1NjM0MzA0YmE4ZmNlOWM3MTNkNWZhZDI5ZDgxOWQyNDM4YzJlYzQ5MSJ9"),
       crewcode: '',
       name: '',
       nationality: '',
@@ -2938,9 +2937,10 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default
                       icon: 'error',
                       title: 'Please fill all required fields!'
                     });
+                    $(document).find('span[class="validate-message"]').remove();
                     $.each(err.response.data.error, function (i, error) {
                       var el = $(document).find('[name="' + i + '"]');
-                      el.after($('<span style="color: red;">' + error[0] + '</span>'));
+                      el.after($('<span style="color: red;" class="validate-message" >' + error[0] + '</span>'));
                     });
                   }
 
@@ -2978,6 +2978,71 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue2_datepicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-datepicker */ "./node_modules/vue2-datepicker/index.esm.js");
+/* harmony import */ var vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue2-datepicker/index.css */ "./node_modules/vue2-datepicker/index.css");
+/* harmony import */ var vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.js */ "./node_modules/sweetalert2/dist/sweetalert2.js");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var sweetalert2_src_sweetalert2_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! sweetalert2/src/sweetalert2.scss */ "./node_modules/sweetalert2/src/sweetalert2.scss");
+/* harmony import */ var sweetalert2_src_sweetalert2_scss__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_src_sweetalert2_scss__WEBPACK_IMPORTED_MODULE_5__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3052,9 +3117,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
+
+
+
+var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  onOpen: function onOpen(toast) {
+    toast.addEventListener('mouseenter', sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.stopTimer);
+    toast.addEventListener('mouseleave', sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.resumeTimer);
+  }
+});
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    Multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0___default.a
+    DatePicker: vue2_datepicker__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
@@ -3063,51 +3144,73 @@ __webpack_require__.r(__webpack_exports__);
       copacity: 0,
       cvisibility: 'hidden',
       cstyle: 'translateY(-100%)',
-      company: {
-        name: 'AKL',
-        language: 'JavaScript'
+      user_token: "".concat("eyJpdiI6IjlaSHRCM1d4V0ZDd3RoNXpNUnF4MUE9PSIsInZhbHVlIjoiUkRoQm1BdTV6ZFoxcEdkaTlqcU5uOUlrZDRKdDUza0RGVHoybXNjUDlXanVIV2NsdFVpenVWSmpaWDBIdGc0a09uc2k0Qzl4cEhWbUl3UjJaTmcyOTc2UTRWSmp0RVoxdTR5YXdCelwvNmRWbUM3Z0p4T25oRzVyUnFoWmRueFRLIiwibWFjIjoiN2VhZDdkYjYzMzk1YzU2NjVmZDM1ZDQ1NjM0MzA0YmE4ZmNlOWM3MTNkNWZhZDI5ZDgxOWQyNDM4YzJlYzQ5MSJ9"),
+      rank: '',
+      grt: '',
+      kw: '',
+      company_name: '',
+      ship_name: '',
+      boarding_date: '',
+      leaving_date: '',
+      area: '',
+      company_remark: '',
+      company_career_id: null,
+      perPage: [10, 25, 100],
+      users: {},
+      default_order_column: 'id',
+      default_order_dir: 'desc',
+      tableProps: {
+        search: '',
+        length: 10,
+        column: 'id',
+        dir: 'desc'
       },
-      companies: [{
-        name: 'Mycareers',
-        language: 'JavaScript'
+      columns: [{
+        label: 'Rank',
+        name: 'rank',
+        orderable: true
       }, {
-        name: 'AKL',
-        language: 'Ruby'
+        label: 'Company Name',
+        name: 'company_name'
       }, {
-        name: 'ITVISIONHUB',
-        language: 'Ruby'
+        label: 'Ship Name',
+        name: 'ship_name'
       }, {
-        name: 'Laravel',
-        language: 'PHP'
+        label: 'Boarding Date',
+        name: 'boarding_date'
       }, {
-        name: 'Laravel',
-        language: 'PHP'
+        label: 'Leaving Date',
+        name: 'leaving_date'
       }, {
-        name: 'Laravel',
-        language: 'PHP'
-      }, {
-        name: 'Phoenix',
-        language: 'Elixir'
-      }],
-      ship: {
-        name: 'Titanic',
-        language: 'english'
-      },
-      ships: [{
-        name: 'Titanic',
-        language: 'english'
-      }],
-      shiptype: {
-        name: 'motor',
-        language: 'english'
-      },
-      shiptypes: [{
-        name: 'hello',
-        language: 'lsls'
+        label: 'Action'
       }]
     };
   },
+  created: function created() {
+    var date = new Date();
+    this.boarding_date = moment__WEBPACK_IMPORTED_MODULE_3___default()(date).format('DD-MM-YYYY');
+    this.leaving_date = moment__WEBPACK_IMPORTED_MODULE_3___default()(date).format('DD-MM-YYYY');
+    this.getData();
+  },
   methods: {
+    validate: function validate() {
+      return sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
+        title: 'Are you sure?',
+        text: "You want to go next step ",
+        icon: 'warning',
+        showCancelButton: true,
+        allowOutsideClick: false,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+    },
     showModal: function showModal() {
       this.copacity = 1;
       this.cstyle = 'translateY(0)';
@@ -3122,8 +3225,84 @@ __webpack_require__.r(__webpack_exports__);
         that.cvisibility = 'hidden';
         that.czindex = -100;
       }, 500);
+    },
+    save: function save() {
+      var _this = this;
+
+      axios.post('/api/save-other-company-careers', {
+        'rank': this.rank,
+        'grt': this.grt,
+        'kw': this.kw,
+        'company_name': this.company_name,
+        'ship_name': this.ship_name,
+        'boarding_date': this.boarding_date,
+        'leaving_date': this.leaving_date,
+        'area': this.area,
+        'company_remark': this.company_remark,
+        'company_career_id': this.company_career_id,
+        'user_id': this.employerId
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + this.user_token
+        }
+      }).then(function (result) {
+        console.log(result);
+
+        _this.hideModal();
+
+        _this.getData();
+      })["catch"](function (err) {
+        if (err.response.status == 400) {
+          Toast.fire({
+            icon: 'error',
+            title: 'Please fill all required fields!'
+          });
+          $(document).find('span[class="validate-message"]').remove();
+          $.each(err.response.data.error, function (i, error) {
+            var el = $(document).find('[name="' + i + '"]');
+            el.after($('<span style="color: red;" class="validate-message" >' + error[0] + '</span>'));
+          });
+        }
+
+        isValid = false;
+      });
+    },
+    clearForm: function clearForm() {
+      this.rank = '', this.grt = '', this.kw = '', this.company_name = '', this.ship_name = '', this.company_name = '', this.boarding_date = '', this.leaving_date = '', this.area = '', this.company_remark = '';
+    },
+    getData: function getData() {
+      var _this2 = this;
+
+      axios.post('/api/get_all_company_careers_by_employerId', _objectSpread(_objectSpread({}, this.tableProps), {}, {
+        'user_id': this.employerId
+      }), {
+        headers: {
+          'Authorization': 'Bearer ' + this.user_token
+        }
+      }).then(function (result) {
+        _this2.users = result.data;
+      });
+    },
+    reloadTable: function reloadTable(tableProps) {
+      this.tableProps = tableProps;
+      this.getData(tableProps);
+    },
+    EditItem: function EditItem(item) {
+      this.showModal();
+      this.company_career_id = item.id;
+      this.rank = item.rank;
+      this.grt = item.grt;
+      this.kw = item.kw;
+      this.ship_name = item.ship_name;
+      this.company_name = item.company_name;
+      this.boarding_date = moment__WEBPACK_IMPORTED_MODULE_3___default()(item.boarding_date).format('DD-MM-YYYY');
+      this.leaving_date = moment__WEBPACK_IMPORTED_MODULE_3___default()(item.leaving_date).format('DD-MM-YYYY');
+      this.area = item.area;
+      this.company_remark = item.remark;
+      this.user_id = item.employerId;
     }
-  }
+  },
+  props: ['employerId']
 });
 
 /***/ }),
@@ -3344,6 +3523,7 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default
   },
   data: function data() {
     return {
+      url: '/api/get-all-user',
       user_token: "".concat("eyJpdiI6IjlaSHRCM1d4V0ZDd3RoNXpNUnF4MUE9PSIsInZhbHVlIjoiUkRoQm1BdTV6ZFoxcEdkaTlqcU5uOUlrZDRKdDUza0RGVHoybXNjUDlXanVIV2NsdFVpenVWSmpaWDBIdGc0a09uc2k0Qzl4cEhWbUl3UjJaTmcyOTc2UTRWSmp0RVoxdTR5YXdCelwvNmRWbUM3Z0p4T25oRzVyUnFoWmRueFRLIiwibWFjIjoiN2VhZDdkYjYzMzk1YzU2NjVmZDM1ZDQ1NjM0MzA0YmE4ZmNlOWM3MTNkNWZhZDI5ZDgxOWQyNDM4YzJlYzQ5MSJ9"),
       perPage: [10, 25, 100],
       users: {},
@@ -3774,7 +3954,7 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default
   },
   data: function data() {
     return {
-      user_token: "eyJpdiI6IjlaSHRCM1d4V0ZDd3RoNXpNUnF4MUE9PSIsInZhbHVlIjoiUkRoQm1BdTV6ZFoxcEdkaTlqcU5uOUlrZDRKdDUza0RGVHoybXNjUDlXanVIV2NsdFVpenVWSmpaWDBIdGc0a09uc2k0Qzl4cEhWbUl3UjJaTmcyOTc2UTRWSmp0RVoxdTR5YXdCelwvNmRWbUM3Z0p4T25oRzVyUnFoWmRueFRLIiwibWFjIjoiN2VhZDdkYjYzMzk1YzU2NjVmZDM1ZDQ1NjM0MzA0YmE4ZmNlOWM3MTNkNWZhZDI5ZDgxOWQyNDM4YzJlYzQ5MSJ9",
+      user_token: "".concat("eyJpdiI6IjlaSHRCM1d4V0ZDd3RoNXpNUnF4MUE9PSIsInZhbHVlIjoiUkRoQm1BdTV6ZFoxcEdkaTlqcU5uOUlrZDRKdDUza0RGVHoybXNjUDlXanVIV2NsdFVpenVWSmpaWDBIdGc0a09uc2k0Qzl4cEhWbUl3UjJaTmcyOTc2UTRWSmp0RVoxdTR5YXdCelwvNmRWbUM3Z0p4T25oRzVyUnFoWmRueFRLIiwibWFjIjoiN2VhZDdkYjYzMzk1YzU2NjVmZDM1ZDQ1NjM0MzA0YmE4ZmNlOWM3MTNkNWZhZDI5ZDgxOWQyNDM4YzJlYzQ5MSJ9"),
       phone_number: '',
       cell_phone_number: '',
       drinking: '',
@@ -3882,9 +4062,10 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default
                       icon: 'error',
                       title: 'Please fill all required fields!'
                     });
+                    $(document).find('span[class="validate-message"]').remove();
                     $.each(err.response.data.error, function (i, error) {
                       var el = $(document).find('[name="' + i + '"]');
-                      el.after($('<span style="color: red;">' + error[0] + '</span>'));
+                      el.after($('<span style="color: red;" class="validate-message" >' + error[0] + '</span>'));
                     });
                   }
 
@@ -93494,10 +93675,12 @@ var render = function() {
               data: _vm.users,
               "per-page": _vm.perPage
             },
+            on: { onTablePropsChanged: _vm.reloadTable },
             scopedSlots: _vm._u([
               {
                 key: "filters",
                 fn: function(ref) {
+                  var tableData = ref.tableData
                   var perPage = ref.perPage
                   return _c("div", {}, [
                     _c("div", { staticClass: "row mb-2" }, [
@@ -93509,33 +93692,29 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.tableProps.length,
-                                expression: "tableProps.length"
+                                value: tableData.length,
+                                expression: "tableData.length"
                               }
                             ],
                             staticClass: "form-control",
                             on: {
-                              change: [
-                                function($event) {
-                                  var $$selectedVal = Array.prototype.filter
-                                    .call($event.target.options, function(o) {
-                                      return o.selected
-                                    })
-                                    .map(function(o) {
-                                      var val =
-                                        "_value" in o ? o._value : o.value
-                                      return val
-                                    })
-                                  _vm.$set(
-                                    _vm.tableProps,
-                                    "length",
-                                    $event.target.multiple
-                                      ? $$selectedVal
-                                      : $$selectedVal[0]
-                                  )
-                                },
-                                _vm.reloadTable
-                              ]
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  tableData,
+                                  "length",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
                             }
                           },
                           _vm._l(perPage, function(page) {
@@ -93553,24 +93732,19 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.tableProps.search,
-                              expression: "tableProps.search"
+                              value: tableData.search,
+                              expression: "tableData.search"
                             }
                           ],
                           staticClass: "form-control",
                           attrs: { placeholder: "Search Email or Name" },
-                          domProps: { value: _vm.tableProps.search },
+                          domProps: { value: tableData.search },
                           on: {
-                            keyup: _vm.reloadTable,
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.$set(
-                                _vm.tableProps,
-                                "search",
-                                $event.target.value
-                              )
+                              _vm.$set(tableData, "search", $event.target.value)
                             }
                           }
                         })
@@ -93936,41 +94110,6 @@ var render = function() {
             "tab-content",
             {
               attrs: {
-                title: "Certificate",
-                icon: "ti-files",
-                "before-change": function() {
-                  return _vm.validateStep("form-three")
-                }
-              }
-            },
-            [
-              _c("form-three", {
-                ref: "form-three",
-                attrs: { employerId: _vm.employerId }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "tab-content",
-            {
-              attrs: {
-                title: "Medical Checkup",
-                icon: "ti-clipboard",
-                "before-change": function() {
-                  return _vm.validateStep("form-five")
-                }
-              }
-            },
-            [_c("form-five", { ref: "form-five" })],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "tab-content",
-            {
-              attrs: {
                 title: "Other Company Careers",
                 icon: "ti-briefcase",
                 "before-change": function() {
@@ -93981,7 +94120,7 @@ var render = function() {
             [
               _c("form-six", {
                 ref: "form-six",
-                attrs: { id: _vm.name },
+                attrs: { employerId: _vm.employerId },
                 on: { "on-validate": _vm.mergePartialModels }
               })
             ],
@@ -94227,10 +94366,190 @@ var render = function() {
   return _c(
     "div",
     [
+      _c("div", { staticClass: "d-flex justify-content-end mb-3" }, [
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", on: { click: _vm.showModal } },
+          [_vm._v("Add Company Career")]
+        )
+      ]),
+      _vm._v(" "),
       _c(
-        "button",
-        { staticClass: "btn btn-primary", on: { click: _vm.showModal } },
-        [_vm._v("Add Family Member")]
+        "div",
+        { staticClass: "container" },
+        [
+          _c("data-table", {
+            attrs: {
+              columns: _vm.columns,
+              data: _vm.users,
+              "per-page": _vm.perPage
+            },
+            on: { onTablePropsChanged: _vm.reloadTable },
+            scopedSlots: _vm._u([
+              {
+                key: "filters",
+                fn: function(ref) {
+                  var tableData = ref.tableData
+                  var perPage = ref.perPage
+                  return _c("div", {}, [
+                    _c("div", { staticClass: "row mb-2" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: tableData.length,
+                                expression: "tableData.length"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  tableData,
+                                  "length",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          _vm._l(perPage, function(page) {
+                            return _c("option", { key: page }, [
+                              _vm._v(_vm._s(page))
+                            ])
+                          }),
+                          0
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4 offset-md-4" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: tableData.search,
+                              expression: "tableData.search"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { placeholder: "Search Email or Name" },
+                          domProps: { value: tableData.search },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(tableData, "search", $event.target.value)
+                            }
+                          }
+                        })
+                      ])
+                    ])
+                  ])
+                }
+              },
+              {
+                key: "body",
+                fn: function(ref) {
+                  var data = ref.data
+                  return _c(
+                    "tbody",
+                    {},
+                    _vm._l(data, function(item) {
+                      return _c("tr", { key: item.id }, [
+                        _c("td", { staticClass: "text-left" }, [
+                          _vm._v(_vm._s(item.rank))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-left" }, [
+                          _vm._v(_vm._s(item.company_name))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-left" }, [
+                          _vm._v(_vm._s(item.ship_name))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-left" }, [
+                          _vm._v(_vm._s(item.boarding_date))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-left" }, [
+                          _vm._v(_vm._s(item.leaving_date))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-left" }, [
+                          _c(
+                            "button",
+                            {
+                              class: "btn btn-xs btn-primary",
+                              attrs: { title: "Edit" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.EditItem(item)
+                                }
+                              }
+                            },
+                            [
+                              _c("span", [
+                                _c("i", {
+                                  staticClass: "mdi mdi-grease-pencil",
+                                  attrs: { "aria-hidden": "true" }
+                                })
+                              ]),
+                              _vm._v(
+                                "\n                         \n                        Edit\n                    "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              class: "btn btn-xs btn-danger",
+                              attrs: { title: "Delete" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.onDeleteItem(item)
+                                }
+                              }
+                            },
+                            [
+                              _c("span", [
+                                _c("i", {
+                                  staticClass: "mdi mdi-delete",
+                                  attrs: { "aria-hidden": "true" }
+                                })
+                              ]),
+                              _vm._v(
+                                "\n                         \n                        Delete\n                    "
+                              )
+                            ]
+                          )
+                        ])
+                      ])
+                    }),
+                    0
+                  )
+                }
+              }
+            ])
+          })
+        ],
+        1
       ),
       _vm._v(" "),
       _c(
@@ -94245,7 +94564,7 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "cmodal-header" }, [
-                _vm._v("Add Family Member")
+                _vm._v("Add Company Careers")
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "cmodal-body" }, [
@@ -94254,8 +94573,29 @@ var render = function() {
                     _c("label", { attrs: { for: "" } }, [_vm._v("Rank")]),
                     _vm._v(" "),
                     _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.trim",
+                          value: _vm.rank,
+                          expression: "rank",
+                          modifiers: { trim: true }
+                        }
+                      ],
                       staticClass: "form-control",
-                      attrs: { type: "text" }
+                      attrs: { type: "text", id: "rank", name: "rank" },
+                      domProps: { value: _vm.rank },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.rank = $event.target.value.trim()
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
                     })
                   ]),
                   _vm._v(" "),
@@ -94263,8 +94603,29 @@ var render = function() {
                     _c("label", { attrs: { for: "" } }, [_vm._v("GRT")]),
                     _vm._v(" "),
                     _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.trim",
+                          value: _vm.grt,
+                          expression: "grt",
+                          modifiers: { trim: true }
+                        }
+                      ],
                       staticClass: "form-control",
-                      attrs: { type: "text" }
+                      attrs: { type: "text", id: "grt", name: "grt" },
+                      domProps: { value: _vm.grt },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.grt = $event.target.value.trim()
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
                     })
                   ]),
                   _vm._v(" "),
@@ -94272,8 +94633,107 @@ var render = function() {
                     _c("label", { attrs: { for: "" } }, [_vm._v("KW")]),
                     _vm._v(" "),
                     _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.trim",
+                          value: _vm.kw,
+                          expression: "kw",
+                          modifiers: { trim: true }
+                        }
+                      ],
                       staticClass: "form-control",
-                      attrs: { type: "text" }
+                      attrs: { type: "text", id: "kw", name: "kw" },
+                      domProps: { value: _vm.kw },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.kw = $event.target.value.trim()
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-row" }, [
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c(
+                      "label",
+                      { staticClass: "typo__label", attrs: { for: "" } },
+                      [_vm._v("Company")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.trim",
+                          value: _vm.company_name,
+                          expression: "company_name",
+                          modifiers: { trim: true }
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "company_name",
+                        name: "company_name"
+                      },
+                      domProps: { value: _vm.company_name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.company_name = $event.target.value.trim()
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c(
+                      "label",
+                      { staticClass: "typo__label", attrs: { for: "" } },
+                      [_vm._v("Ship Name")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.trim",
+                          value: _vm.ship_name,
+                          expression: "ship_name",
+                          modifiers: { trim: true }
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "ship_name",
+                        name: "ship_name"
+                      },
+                      domProps: { value: _vm.ship_name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.ship_name = $event.target.value.trim()
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
                     })
                   ])
                 ]),
@@ -94283,26 +94743,19 @@ var render = function() {
                     "div",
                     { staticClass: "form-group col-md-4" },
                     [
-                      _c(
-                        "label",
-                        { staticClass: "typo__label", attrs: { for: "" } },
-                        [_vm._v("Company")]
-                      ),
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Boarding Date")
+                      ]),
                       _vm._v(" "),
-                      _c("multiselect", {
-                        attrs: {
-                          "max-height": 200,
-                          options: _vm.companies,
-                          placeholder: "Select one",
-                          label: "name",
-                          "track-by": "name"
-                        },
+                      _c("date-picker", {
+                        staticClass: "date-picker",
+                        attrs: { valueType: "format", format: "DD-MM-YYYY" },
                         model: {
-                          value: _vm.company,
+                          value: _vm.boarding_date,
                           callback: function($$v) {
-                            _vm.company = $$v
+                            _vm.boarding_date = $$v
                           },
-                          expression: "company"
+                          expression: "boarding_date"
                         }
                       })
                     ],
@@ -94313,92 +94766,52 @@ var render = function() {
                     "div",
                     { staticClass: "form-group col-md-4" },
                     [
-                      _c(
-                        "label",
-                        { staticClass: "typo__label", attrs: { for: "" } },
-                        [_vm._v("Ship Name")]
-                      ),
+                      _c("label", { attrs: { for: "" } }, [
+                        _vm._v("Leaving Date")
+                      ]),
                       _vm._v(" "),
-                      _c("multiselect", {
-                        attrs: {
-                          "max-height": 200,
-                          options: _vm.ships,
-                          placeholder: "Select one",
-                          label: "name",
-                          "track-by": "name"
-                        },
+                      _c("date-picker", {
+                        staticClass: "date-picker",
+                        attrs: { valueType: "format", format: "DD-MM-YYYY" },
                         model: {
-                          value: _vm.ship,
+                          value: _vm.leaving_date,
                           callback: function($$v) {
-                            _vm.ship = $$v
+                            _vm.leaving_date = $$v
                           },
-                          expression: "ship"
+                          expression: "leaving_date"
                         }
                       })
                     ],
                     1
                   ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "form-group col-md-4" },
-                    [
-                      _c(
-                        "label",
-                        { staticClass: "typo__label", attrs: { for: "" } },
-                        [_vm._v("Ship Name")]
-                      ),
-                      _vm._v(" "),
-                      _c("multiselect", {
-                        attrs: {
-                          "max-height": 200,
-                          options: _vm.shiptypes,
-                          placeholder: "Select one",
-                          label: "name",
-                          "track-by": "name"
-                        },
-                        model: {
-                          value: _vm.shiptype,
-                          callback: function($$v) {
-                            _vm.shiptype = $$v
-                          },
-                          expression: "shiptype"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-row" }, [
-                  _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "" } }, [
-                      _vm._v("Boarding Date")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: { type: "date" }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c("label", { attrs: { for: "" } }, [
-                      _vm._v("Leaving Date")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: { type: "date" }
-                    })
-                  ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group col-md-4" }, [
                     _c("label", { attrs: { for: "" } }, [_vm._v("Area")]),
                     _vm._v(" "),
                     _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.trim",
+                          value: _vm.area,
+                          expression: "area",
+                          modifiers: { trim: true }
+                        }
+                      ],
                       staticClass: "form-control",
-                      attrs: { type: "text" }
+                      attrs: { type: "text", id: "area", name: "area" },
+                      domProps: { value: _vm.area },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.area = $event.target.value.trim()
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
                     })
                   ])
                 ]),
@@ -94407,8 +94820,34 @@ var render = function() {
                   _c("label", { attrs: { for: "" } }, [_vm._v("Remark")]),
                   _vm._v(" "),
                   _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model.trim",
+                        value: _vm.company_remark,
+                        expression: "company_remark",
+                        modifiers: { trim: true }
+                      }
+                    ],
                     staticClass: "form-control",
-                    attrs: { name: "", id: "", cols: "30", rows: "8" }
+                    attrs: {
+                      name: "company_remark",
+                      id: "company_remark",
+                      cols: "30",
+                      rows: "6"
+                    },
+                    domProps: { value: _vm.company_remark },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.company_remark = $event.target.value.trim()
+                      },
+                      blur: function($event) {
+                        return _vm.$forceUpdate()
+                      }
+                    }
                   })
                 ])
               ]),
@@ -94426,9 +94865,11 @@ var render = function() {
                     [_vm._v("Cancel")]
                   ),
                   _vm._v(" "),
-                  _c("button", { staticClass: "btn btn-success" }, [
-                    _vm._v("Add")
-                  ])
+                  _c(
+                    "button",
+                    { staticClass: "btn btn-success", on: { click: _vm.save } },
+                    [_vm._v("Add")]
+                  )
                 ]
               )
             ]
