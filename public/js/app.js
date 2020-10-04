@@ -94110,6 +94110,61 @@ var render = function() {
             "tab-content",
             {
               attrs: {
+                title: "Family Member",
+                icon: "ti-id-badge",
+                "before-change": function() {
+                  return _vm.validateStep("form-four")
+                }
+              }
+            },
+            [
+              _c("form-four", {
+                ref: "form-four",
+                attrs: { employerId: _vm.employerId }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "tab-content",
+            {
+              attrs: {
+                title: "Certificate",
+                icon: "ti-files",
+                "before-change": function() {
+                  return _vm.validateStep("form-three")
+                }
+              }
+            },
+            [
+              _c("form-three", {
+                ref: "form-three",
+                attrs: { employerId: _vm.employerId }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "tab-content",
+            {
+              attrs: {
+                title: "Medical Checkup",
+                icon: "ti-clipboard",
+                "before-change": function() {
+                  return _vm.validateStep("form-five")
+                }
+              }
+            },
+            [_c("form-five", { ref: "form-five" })],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "tab-content",
+            {
+              attrs: {
                 title: "Other Company Careers",
                 icon: "ti-briefcase",
                 "before-change": function() {

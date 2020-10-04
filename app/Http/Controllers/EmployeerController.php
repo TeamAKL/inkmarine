@@ -7,17 +7,13 @@ use Illuminate\Http\Request;
 use Validator;
 use App\EmployeerDetail;
 use App\Certificate;
-<<<<<<< HEAD
 use App\EmployerCertificate;
+use App\OtherCompanyCareers;
 
-use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\DB;
+use DB;
 use Illuminate\Database\Eloquent\Builder;
 use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
-=======
-use App\OtherCompanyCareers;
-use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
-
->>>>>>> b76c8a05e9331d368fbdd177b34ef7cac872ce3c
 class EmployeerController extends Controller
 {
     /**
@@ -218,41 +214,24 @@ class EmployeerController extends Controller
     //getEmployerCertificate
     public function getEmployerCertificate(Request $req)
     {
-        $query = DB::table('employer_certificates')
-                    ->leftJoin('certificates', function($left_join) {
-                            $left_join -> on('employer_certificates.certificate_id', '=', 'certificates.id');
-                    })
-                    ->where('employer_certificates.employer_id', '=', $req->employer_id);
-                    if(!empty($req->search)){
-                        $search = $req->search;
-                        $query->where(function($query) use ($search) {
-                            $query -> where('employer_certificates.licine_number', 'LIKE',"%{$search}%")
-                            -> orWhere('employer_certificates.training_date', 'LIKE',"%{$search}%")
-                            -> orWhere('employer_certificates.expire_date', 'LIKE',"%{$search}%")
-                            -> orWhere('certificates.title', 'LIKE',"%{$search}%");
-                        });
-                    }
-        $data = $query->select(DB::Raw("certificates.title as title, employer_certificates.id as id, employer_certificates.licine_number as licine_number, employer_certificates.training_date as training_date, employer_certificates.expire_date as expire_date"))
-                                ->orderBy('id', $req->dir)
-                                ->paginate(2);
-        // $query = EmployerCertificate::with(['certificate' => function($certificate) {
-        //     $certificate->select('id','title');
-        // }])
-        // ->where('employer_certificates.employer_id', '=', $req->employer_id);
-        // if(!empty($req->search)) {
-        //     $search = $req->search;
-        //     $query -> where('employer_certificates.licine_number', 'LIKE',"%{$search}%")
-        //     -> orWhere('employer_certificates.training_date', 'LIKE',"%{$search}%")
-        //     -> orWhere('employer_certificates.expire_date', 'LIKE',"%{$search}%")
-        //     ->orWhere(function($query) use ($search){
-        //         $query -> whereHas('certificate', function (Builder $query) use ($search) {
-        //             $query->where('certificates.title', 'LIKE',"%{$search}%");
-        //         });
-        //     });
-        // }
+        // $query = EmployerCertificate::select("id", "licine_number", "certificate_id")
+        $query = EmployerCertificate::select(DB::Raw("employer_certificates.id as id, employer_certificates.licine_number as licine_number, DATE_FORMAT(employer_certificates.training_date,'%d/%m/%Y') as training_date, DATE_FORMAT(employer_certificates.expire_date,'%d/%m/%Y') as expire_date"), "certificate_id")
+        ->with(['certificate'])
+        ->where('employer_certificates.employer_id', '=', $req->employer_id);
+        if(!empty($req->search)) {
+            $search = $req->search;
+            $query -> where('employer_certificates.licine_number', 'LIKE',"%{$search}%")
+            -> orWhere('employer_certificates.training_date', 'LIKE',"%{$search}%")
+            -> orWhere('employer_certificates.expire_date', 'LIKE',"%{$search}%")
+            ->orWhere(function($query) use ($search){
+                $query -> whereHas('certificate', function (Builder $query) use ($search) {
+                    $query->where('certificates.title', 'LIKE',"%{$search}%");
+                });
+            });
+        }
 
-        // $data = $query->select('id', 'title')->paginate($req->length);
-        // dd($data);
+        $data = $query->paginate($req->length);
+        // $data = $query->paginate($req->length);
         return new DataTableCollectionResource($data);
     }
     public function saveOtherCompanyCareers(Request $request){

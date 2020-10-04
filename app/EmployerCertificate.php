@@ -11,6 +11,6 @@ class EmployerCertificate extends Model
 
     public function certificate()
     {
-        return $this->belongsTo(\App\Certificate::class);
+        return $this->belongsTo('App\Certificate', 'certificate_id', 'id');
     }
 }
