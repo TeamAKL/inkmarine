@@ -10,9 +10,9 @@
                 <form-two ref="form-two" :employerId="employerId"></form-two>
             </tab-content> -->
 
-            <tab-content title="Family Member" icon="ti-id-badge" :before-change="()=>validateStep('form-four')">
+            <!-- <tab-content title="Family Member" icon="ti-id-badge" :before-change="()=>validateStep('form-four')">
                 <form-four ref="form-four" :employerId="employerId"></form-four>
-            </tab-content>
+            </tab-content> -->
 
             <tab-content title="Certificate" icon="ti-files" :before-change="()=>validateStep('form-three')">
                 <form-three ref="form-three"  :employerId="employerId"></form-three>
@@ -24,6 +24,10 @@
 
             <tab-content title="Other Company Careers" icon="ti-briefcase" :before-change="()=>validateStep('form-six')">
                 <form-six ref="form-six" @on-validate="mergePartialModels" :employerId="employerId"></form-six>
+            </tab-content>
+
+            <tab-content title="TTC" icon="ti-files" :before-change="()=>validateStep('form-seven')">
+                <form-seven ref="form-seven"  :employerId="employerId"></form-seven>
             </tab-content>
 
             <tab-content title="Last step" icon="ti-check">
@@ -42,6 +46,7 @@ import FormThree from './FormThreeComponent'
 import FormFour from './FormFour'
 import FormFive from './FormFive'
 import FormSix from './FormSix'
+import FormSeven from './FormSeven'
 
 export default {
     components: {
@@ -51,7 +56,8 @@ export default {
         "form-three": FormThree,
         "form-four": FormFour,
         "form-five": FormFive,
-        "form-six": FormSix
+        "form-six": FormSix,
+        'form-seven': FormSeven
     },
     data() {
         return {

@@ -37,14 +37,14 @@
                     <td class="text-left">{{ item.training_date }}</td>
                     <td class="text-left">{{ item.expire_date }}</td>
                     <td class="text-left">
-                        <button :class="'btn btn-xs btn-primary'" @click="EditItem(item)" title="Edit">
+                        <button :class="'btn btn-xs btn-primary'" @click="editCertificate(item)" title="Edit">
                             <span>
                                 <i class="mdi mdi-grease-pencil" aria-hidden="true"></i>
                             </span>
                             &nbsp;
                             Edit
                         </button>
-                        <button :class="'btn btn-xs btn-danger'" @click="onDeleteItem(item)" title="Delete">
+                        <button :class="'btn btn-xs btn-danger'" @click="deleteCertificate(item)" title="Delete">
                             <span>
                                 <i class="mdi mdi-delete" aria-hidden="true"></i>
                             </span>
@@ -400,6 +400,44 @@ export default {
         },
 
 
+        // Edit Certificate
+        editCertificate(certificate) {
+            this.showModal();
+            this.value = {id: certificate.certificate_id, name: certificate.certificate.title},
+            this.licine_number = certificate.licine_number,
+            this.training_date = certificate.training_date;
+            this.expire_date = certificate.expire_date;
+            this.certificateImage = certificate.image;
+            this.remark = certificate.remark;
+            this.employer_certificate_id = certificate.id;
+        },
+
+        // Delete Certificate
+        deleteCertificate(certificate) {
+            const vm = this;
+            return Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to delete " + certificate.certificate.title,
+                icon: 'warning',
+                showCancelButton: true,
+                allowOutsideClick: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Delete'
+            }).then((result) => {
+                if(result.isConfirmed) {
+                    axios.post('/api/delete-certificate', {
+                        id: certificate.id,
+                        employer_id: this.employerId
+                    }, {
+                        headers: {'Authorization': 'Bearer '+ this.user_token}
+                    }).then(response => {
+                        vm.getEmployeCertificate();
+                    })
+                }
+            });
+        },
+
         // Clear Form
         clearForm() {
             this.value = {},
@@ -408,6 +446,7 @@ export default {
             this.expire_date = moment(new Date()).format('DD-MM-YYYY');
             this.certificateImage = '';
             this.remark = '';
+            this.employer_certificate_id = null;
             $(document).find('span[class="validate-message"]').remove();
         }
     },

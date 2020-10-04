@@ -2730,6 +2730,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _FormFour__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./FormFour */ "./resources/js/components/employers/FormFour.vue");
 /* harmony import */ var _FormFive__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FormFive */ "./resources/js/components/employers/FormFive.vue");
 /* harmony import */ var _FormSix__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./FormSix */ "./resources/js/components/employers/FormSix.vue");
+/* harmony import */ var _FormSeven__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./FormSeven */ "./resources/js/components/employers/FormSeven.vue");
 //
 //
 //
@@ -2766,6 +2767,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 
 
 
@@ -2781,7 +2787,8 @@ __webpack_require__.r(__webpack_exports__);
     "form-three": _FormThreeComponent__WEBPACK_IMPORTED_MODULE_3__["default"],
     "form-four": _FormFour__WEBPACK_IMPORTED_MODULE_4__["default"],
     "form-five": _FormFive__WEBPACK_IMPORTED_MODULE_5__["default"],
-    "form-six": _FormSix__WEBPACK_IMPORTED_MODULE_6__["default"]
+    "form-six": _FormSix__WEBPACK_IMPORTED_MODULE_6__["default"],
+    'form-seven': _FormSeven__WEBPACK_IMPORTED_MODULE_7__["default"]
   },
   data: function data() {
     return {
@@ -3731,12 +3738,54 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default
         }
       });
     },
+    // Edit Certificate
+    editCertificate: function editCertificate(certificate) {
+      this.showModal();
+      this.value = {
+        id: certificate.certificate_id,
+        name: certificate.certificate.title
+      }, this.licine_number = certificate.licine_number, this.training_date = certificate.training_date;
+      this.expire_date = certificate.expire_date;
+      this.certificateImage = certificate.image;
+      this.remark = certificate.remark;
+      this.employer_certificate_id = certificate.id;
+    },
+    // Delete Certificate
+    deleteCertificate: function deleteCertificate(certificate) {
+      var _this4 = this;
+
+      var vm = this;
+      return sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
+        title: 'Are you sure?',
+        text: "You want to delete " + certificate.certificate.title,
+        icon: 'warning',
+        showCancelButton: true,
+        allowOutsideClick: false,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Delete'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          axios.post('/api/delete-certificate', {
+            id: certificate.id,
+            employer_id: _this4.employerId
+          }, {
+            headers: {
+              'Authorization': 'Bearer ' + _this4.user_token
+            }
+          }).then(function (response) {
+            vm.getEmployeCertificate();
+          });
+        }
+      });
+    },
     // Clear Form
     clearForm: function clearForm() {
       this.value = {}, this.licine_number = '', this.training_date = moment__WEBPACK_IMPORTED_MODULE_5___default()(new Date()).format('DD-MM-YYYY');
       this.expire_date = moment__WEBPACK_IMPORTED_MODULE_5___default()(new Date()).format('DD-MM-YYYY');
       this.certificateImage = '';
       this.remark = '';
+      this.employer_certificate_id = null;
       $(document).find('span[class="validate-message"]').remove();
     }
   },
@@ -94110,26 +94159,6 @@ var render = function() {
             "tab-content",
             {
               attrs: {
-                title: "Family Member",
-                icon: "ti-id-badge",
-                "before-change": function() {
-                  return _vm.validateStep("form-four")
-                }
-              }
-            },
-            [
-              _c("form-four", {
-                ref: "form-four",
-                attrs: { employerId: _vm.employerId }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "tab-content",
-            {
-              attrs: {
                 title: "Certificate",
                 icon: "ti-files",
                 "before-change": function() {
@@ -94177,6 +94206,26 @@ var render = function() {
                 ref: "form-six",
                 attrs: { employerId: _vm.employerId },
                 on: { "on-validate": _vm.mergePartialModels }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "tab-content",
+            {
+              attrs: {
+                title: "TTC",
+                icon: "ti-files",
+                "before-change": function() {
+                  return _vm.validateStep("form-seven")
+                }
+              }
+            },
+            [
+              _c("form-seven", {
+                ref: "form-seven",
+                attrs: { employerId: _vm.employerId }
               })
             ],
             1
@@ -94395,6 +94444,30 @@ var render = function() {
       ])
     ])
   ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/employers/FormSeven.vue?vue&type=template&id=d1dafb52&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/employers/FormSeven.vue?vue&type=template&id=d1dafb52& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [_vm._v("\n    hello\n")])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -95089,7 +95162,7 @@ var render = function() {
                               attrs: { title: "Edit" },
                               on: {
                                 click: function($event) {
-                                  return _vm.EditItem(item)
+                                  return _vm.editCertificate(item)
                                 }
                               }
                             },
@@ -95113,7 +95186,7 @@ var render = function() {
                               attrs: { title: "Delete" },
                               on: {
                                 click: function($event) {
-                                  return _vm.onDeleteItem(item)
+                                  return _vm.deleteCertificate(item)
                                 }
                               }
                             },
@@ -113474,6 +113547,59 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormOneComponent_vue_vue_type_template_id_0ce045dd___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormOneComponent_vue_vue_type_template_id_0ce045dd___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/employers/FormSeven.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/employers/FormSeven.vue ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _FormSeven_vue_vue_type_template_id_d1dafb52___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormSeven.vue?vue&type=template&id=d1dafb52& */ "./resources/js/components/employers/FormSeven.vue?vue&type=template&id=d1dafb52&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _FormSeven_vue_vue_type_template_id_d1dafb52___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _FormSeven_vue_vue_type_template_id_d1dafb52___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/employers/FormSeven.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/employers/FormSeven.vue?vue&type=template&id=d1dafb52&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/employers/FormSeven.vue?vue&type=template&id=d1dafb52& ***!
+  \****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormSeven_vue_vue_type_template_id_d1dafb52___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./FormSeven.vue?vue&type=template&id=d1dafb52& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/employers/FormSeven.vue?vue&type=template&id=d1dafb52&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormSeven_vue_vue_type_template_id_d1dafb52___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FormSeven_vue_vue_type_template_id_d1dafb52___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

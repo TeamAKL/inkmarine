@@ -214,8 +214,7 @@ class EmployeerController extends Controller
     //getEmployerCertificate
     public function getEmployerCertificate(Request $req)
     {
-        // $query = EmployerCertificate::select("id", "licine_number", "certificate_id")
-        $query = EmployerCertificate::select(DB::Raw("employer_certificates.id as id, employer_certificates.licine_number as licine_number, DATE_FORMAT(employer_certificates.training_date,'%d/%m/%Y') as training_date, DATE_FORMAT(employer_certificates.expire_date,'%d/%m/%Y') as expire_date"), "certificate_id")
+        $query = EmployerCertificate::select(DB::Raw("employer_certificates.id as id, employer_certificates.licine_number as licine_number, DATE_FORMAT(employer_certificates.training_date,'%d-%m-%Y') as training_date, DATE_FORMAT(employer_certificates.expire_date,'%d-%m-%Y') as expire_date, employer_certificates.image as image, employer_certificates.remark as remark"), "certificate_id")
         ->with(['certificate'])
         ->where('employer_certificates.employer_id', '=', $req->employer_id);
         if(!empty($req->search)) {
@@ -230,10 +229,17 @@ class EmployeerController extends Controller
             });
         }
 
-        $data = $query->paginate($req->length);
-        // $data = $query->paginate($req->length);
+        $data = $query->orderBy('created_at', $req->dir)->paginate($req->length);
         return new DataTableCollectionResource($data);
     }
+
+    //Delete Certificate
+    public function deleteCertificate(Request $req)
+    {
+        EmployerCertificate::where('id', '=', $req->id)->where('employer_id', '=', $req->employer_id)->delete();
+        return response()->json(['message' => 'success'], 200);
+    }
+
     public function saveOtherCompanyCareers(Request $request){
         $validator = Validator::make($request->all(), [
             'rank' => 'required',

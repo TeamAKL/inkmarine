@@ -31,11 +31,12 @@ Route::post("save-form-two", "EmployeerController@storeFormTwo");
 Route::post("save-certificate", "EmployeerController@saveCertificate");
 Route::post("get-certificate", "EmployeerController@getCertificate");
 Route::post("get-employer-certificate", "EmployeerController@getEmployerCertificate");
+Route::post("delete-certificate", "EmployeerController@deleteCertificate");
 
 Route::post("save-family-member", "FamilyMemberController@store");
 Route::post("get_all_family_members_by_employer", "FamilyMemberController@getAllFaimilyMemberByEmployerId");
 
-Route::post("save-other-company-careers","EmployeerController@saveOtherCompanyCareers"); 
+Route::post("save-other-company-careers","EmployeerController@saveOtherCompanyCareers");
 Route::post("get_all_company_careers_by_employerId", "EmployeerController@getAllCompanyCareersByEmployerId");
 
 
