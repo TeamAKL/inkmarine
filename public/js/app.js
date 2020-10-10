@@ -2043,10 +2043,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.js */ "./node_modules/sweetalert2/dist/sweetalert2.js");
-/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var sweetalert2_src_sweetalert2_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2/src/sweetalert2.scss */ "./node_modules/sweetalert2/src/sweetalert2.scss");
-/* harmony import */ var sweetalert2_src_sweetalert2_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_src_sweetalert2_scss__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.js */ "./node_modules/sweetalert2/dist/sweetalert2.js");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var sweetalert2_src_sweetalert2_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2/src/sweetalert2.scss */ "./node_modules/sweetalert2/src/sweetalert2.scss");
+/* harmony import */ var sweetalert2_src_sweetalert2_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_src_sweetalert2_scss__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue2_datepicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue2-datepicker */ "./node_modules/vue2-datepicker/index.esm.js");
+/* harmony import */ var vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue2-datepicker/index.css */ "./node_modules/vue2-datepicker/index.css");
+/* harmony import */ var vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -2306,23 +2319,122 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
+
+var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default.a.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  onOpen: function onOpen(toast) {
+    toast.addEventListener('mouseenter', sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default.a.stopTimer);
+    toast.addEventListener('mouseleave', sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default.a.resumeTimer);
+  }
+});
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    DatePicker: vue2_datepicker__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
   data: function data() {
     return {
       showLoading: false,
       user_token: "".concat("eyJpdiI6IjlaSHRCM1d4V0ZDd3RoNXpNUnF4MUE9PSIsInZhbHVlIjoiUkRoQm1BdTV6ZFoxcEdkaTlqcU5uOUlrZDRKdDUza0RGVHoybXNjUDlXanVIV2NsdFVpenVWSmpaWDBIdGc0a09uc2k0Qzl4cEhWbUl3UjJaTmcyOTc2UTRWSmp0RVoxdTR5YXdCelwvNmRWbUM3Z0p4T25oRzVyUnFoWmRueFRLIiwibWFjIjoiN2VhZDdkYjYzMzk1YzU2NjVmZDM1ZDQ1NjM0MzA0YmE4ZmNlOWM3MTNkNWZhZDI5ZDgxOWQyNDM4YzJlYzQ5MSJ9"),
-      fileMaxLenght: 2,
+      fileMaxLenght: 23,
       fileLoopCount: 0,
-      images: []
+      images: [],
+      med_date: '',
+      height: '',
+      weight: '',
+      checst: '',
+      tooth: '',
+      tooth_state: '',
+      color_blindness: '',
+      blood_type: '',
+      xray: '',
+      sight_left: '',
+      sight_right: '',
+      hearing_left: '',
+      hearing_right: '',
+      hospital: '',
+      decision: '',
+      medicalCheckupId: null
     };
+  },
+  created: function created() {
+    var date = new Date();
+    this.med_date = moment__WEBPACK_IMPORTED_MODULE_5___default()(date).format('DD-MM-YYYY');
   },
   methods: {
     validate: function validate() {
-      var isValid = true;
-      this.$emit('on-validate', this.$data, isValid);
-      return isValid;
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var isValid;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.post('/api/save-medical-checkup', {
+                  'employerId': _this.employerId,
+                  'images': _this.images,
+                  'med_date': _this.med_date,
+                  'height': _this.height,
+                  'weight': _this.weight,
+                  'checst': _this.checst,
+                  'tooth': _this.tooth,
+                  'tooth_state': _this.tooth_state,
+                  'color_blindness': _this.color_blindness,
+                  'blood_type': _this.blood_type,
+                  'xray': _this.xray,
+                  'sight_right': _this.sight_right,
+                  'sight_left': _this.sight_left,
+                  'hearing_right': _this.hearing_right,
+                  'hearing_left': _this.hearing_left,
+                  'hospital': _this.hospital,
+                  'decision': _this.decision,
+                  'medicalCheckupId': _this.medicalCheckupId
+                }, {
+                  headers: {
+                    'Authorization': 'Bearer ' + _this.user_token
+                  }
+                }).then(function (result) {
+                  console.log(result.data);
+                  _this.medicalCheckupId = result.data.mde.id;
+                  isValid = true;
+                  $(document).find('span[class="validate-message"]').remove();
+                })["catch"](function (err) {
+                  if (err.response.status == 400) {
+                    Toast.fire({
+                      icon: 'error',
+                      title: 'Please fill all required fields!'
+                    });
+                    $(document).find('span[class="validate-message"]').remove();
+                    $.each(err.response.data.error, function (i, error) {
+                      var el = $(document).find('[name="' + i + '"]');
+                      el.after($('<span style="color: red;" class="validate-message" >' + error[0] + '</span>'));
+                    });
+                  }
+
+                  isValid = false;
+                });
+
+              case 2:
+                return _context.abrupt("return", isValid);
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     },
     uploadFile: function uploadFile(e) {
       var files = e.target.files || e.dataTransfer.files;
@@ -2334,7 +2446,7 @@ __webpack_require__.r(__webpack_exports__);
 
       for (var index = 0; index < files.length; index++) {
         if (!files[index].type.match('application/pdf') && !files[index].type.match('image.*')) {
-          sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+          sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'Please only select Image!',
@@ -2349,7 +2461,8 @@ __webpack_require__.r(__webpack_exports__);
               var imageUrl = event.target.result;
               vm.showLoading = true;
               axios.post('/api/image-upload', {
-                'image': imageUrl
+                'image': imageUrl,
+                'folder': 'medicalcheckup/'
               }, {
                 headers: {
                   'Authorization': 'Bearer ' + this.user_token
@@ -2376,8 +2489,15 @@ __webpack_require__.r(__webpack_exports__);
       this.createImage(files);
     },
     deleteImage: function deleteImage(index) {
-      this.images.splice(index, 1);
-      this.fileLoopCount--;
+      var _this2 = this;
+
+      axios.post('/api/image-delete', {
+        'image': this.images[index]
+      }).then(function (res) {
+        _this2.images.splice(index, 1);
+
+        _this2.fileLoopCount--;
+      });
     },
     editImage: function editImage(index, e) {
       var vm = this;
@@ -2389,7 +2509,8 @@ __webpack_require__.r(__webpack_exports__);
         vm.showLoading = true;
         axios.post('/api/image-upload-edit', {
           'image': imageUrl,
-          'oldImage': vm.images[index]
+          'oldImage': vm.images[index],
+          'folder': 'medicalcheckup/'
         }, {
           headers: {
             'Authorization': 'Bearer ' + this.user_token
@@ -2402,7 +2523,8 @@ __webpack_require__.r(__webpack_exports__);
 
       reader.readAsDataURL(files[0]);
     }
-  }
+  },
+  props: ['employerId']
 });
 
 /***/ }),
@@ -2822,23 +2944,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.js */ "./node_modules/sweetalert2/dist/sweetalert2.js");
-/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var sweetalert2_src_sweetalert2_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2/src/sweetalert2.scss */ "./node_modules/sweetalert2/src/sweetalert2.scss");
-/* harmony import */ var sweetalert2_src_sweetalert2_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_src_sweetalert2_scss__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var vue2_datepicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue2-datepicker */ "./node_modules/vue2-datepicker/index.esm.js");
-/* harmony import */ var vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue2-datepicker/index.css */ "./node_modules/vue2-datepicker/index.css");
-/* harmony import */ var vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 //
 //
 //
@@ -2875,26 +2980,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-
-
-var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default.a.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true,
-  onOpen: function onOpen(toast) {
-    toast.addEventListener('mouseenter', sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default.a.stopTimer);
-    toast.addEventListener('mouseleave', sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default.a.resumeTimer);
-  }
-});
-
-
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    DatePicker: vue2_datepicker__WEBPACK_IMPORTED_MODULE_3__["default"]
-  },
   data: function data() {
     return {
       user_token: "".concat("eyJpdiI6IjlaSHRCM1d4V0ZDd3RoNXpNUnF4MUE9PSIsInZhbHVlIjoiUkRoQm1BdTV6ZFoxcEdkaTlqcU5uOUlrZDRKdDUza0RGVHoybXNjUDlXanVIV2NsdFVpenVWSmpaWDBIdGc0a09uc2k0Qzl4cEhWbUl3UjJaTmcyOTc2UTRWSmp0RVoxdTR5YXdCelwvNmRWbUM3Z0p4T25oRzVyUnFoWmRueFRLIiwibWFjIjoiN2VhZDdkYjYzMzk1YzU2NjVmZDM1ZDQ1NjM0MzA0YmE4ZmNlOWM3MTNkNWZhZDI5ZDgxOWQyNDM4YzJlYzQ5MSJ9"),
@@ -2903,71 +2989,37 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default
       nationality: '',
       dob: '',
       pob: '',
-      edulevel: '',
-      result: '',
-      personId: ''
+      edulevel: ''
     };
-  },
-  created: function created() {
-    var date = new Date();
-    this.dob = moment__WEBPACK_IMPORTED_MODULE_5___default()(date).format('DD-MM-YYYY');
   },
   methods: {
     validate: function validate() {
-      var _this = this;
+      var response = axios.post('/api/save-form-one', {
+        'crewcode': this.crewcode,
+        'name': this.name,
+        'nationality': this.nationality,
+        'dob': this.dob,
+        'pob': this.pob,
+        'edulevel': this.edulevel
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + this.user_token
+        }
+      }).then(function (result) {
+        return true;
+      })["catch"](function (err) {
+        if (err.response.status == 400) {
+          $.each(err.response.data.error, function (i, error) {
+            var el = $(document).find('[name="' + i + '"]');
+            el.after($('<span style="color: red;">' + error[0] + '</span>'));
+          });
+        } // return false;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var isValid;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return axios.post('/api/save-form-one', {
-                  'crewcode': _this.crewcode,
-                  'name': _this.name,
-                  'nationality': _this.nationality,
-                  'dob': _this.dob,
-                  'pob': _this.pob,
-                  'edulevel': _this.edulevel,
-                  'personId': _this.personId
-                }, {
-                  headers: {
-                    'Authorization': 'Bearer ' + _this.user_token
-                  }
-                }).then(function (result) {
-                  _this.personId = result.data.employeer.id;
-                  isValid = true;
-                })["catch"](function (err) {
-                  if (err.response.status == 400) {
-                    Toast.fire({
-                      icon: 'error',
-                      title: 'Please fill all required fields!'
-                    });
-                    $(document).find('span[class="validate-message"]').remove();
-                    $.each(err.response.data.error, function (i, error) {
-                      var el = $(document).find('[name="' + i + '"]');
-                      el.after($('<span style="color: red;" class="validate-message" >' + error[0] + '</span>'));
-                    });
-                  }
 
-                  isValid = false;
-                });
-
-              case 2:
-                console.log(_this.personId);
-
-                _this.$emit('on-validate', _this.personId);
-
-                return _context.abrupt("return", isValid);
-
-              case 5:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
+        return true;
+      });
+      this.$emit('on-validate', this.$data, response);
+      return response;
     }
   }
 });
@@ -3506,6 +3558,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3658,7 +3724,8 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default
         // that.certificateImage = e.target.result;
         that.showLoading = true;
         axios.post('/api/image-upload', {
-          'image': e.target.result
+          'image': e.target.result,
+          'folder': 'certificates/'
         }, {
           headers: {
             'Authorization': 'Bearer ' + that.user_token
@@ -4103,8 +4170,9 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default
                     'Authorization': 'Bearer ' + _this.user_token
                   }
                 }).then(function (result) {
-                  console.log(result);
+                  _this.employer_detail_id = result.data.employer_detail.id;
                   isValid = true;
+                  $(document).find('span[class="validate-message"]').remove();
                 })["catch"](function (err) {
                   if (err.response.status == 400) {
                     Toast.fire({
@@ -8608,7 +8676,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".eye-icon[data-v-e52ec3b6] {\n  color: #fff;\n  position: absolute;\n  top: 46%;\n  left: 46%;\n  font-size: 50px;\n}\n.image-container[data-v-e52ec3b6], .loading-container[data-v-e52ec3b6] {\n  width: 100%;\n  height: 180px;\n  border: 1px solid gray;\n  position: relative;\n  cursor: pointer;\n}\n.loading-container img[data-v-e52ec3b6] {\n  position: absolute;\n  top: 43%;\n  left: 40%;\n}\n.image-container img[data-v-e52ec3b6] {\n  width: 100%;\n  height: 100%;\n}\n.image-overlay[data-v-e52ec3b6] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: #000000bf;\n  opacity: 0;\n}\n.image-container:hover .image-overlay[data-v-e52ec3b6] {\n  opacity: 1;\n}", ""]);
+exports.push([module.i, ".eye-icon[data-v-e52ec3b6] {\n  color: #fff;\n  position: absolute;\n  top: 46%;\n  left: 46%;\n  font-size: 50px;\n}\n.image-container[data-v-e52ec3b6], .loading-container[data-v-e52ec3b6] {\n  width: 100%;\n  height: 180px;\n  border: 1px solid gray;\n  position: relative;\n  cursor: pointer;\n}\n.loading-container img[data-v-e52ec3b6] {\n  position: absolute;\n  top: 43%;\n  left: 40%;\n}\n.image-container img[data-v-e52ec3b6] {\n  width: 100%;\n  height: 100%;\n}\n.image-overlay[data-v-e52ec3b6] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: #000000bf;\n  opacity: 0;\n}\n.image-overlay .footer-overlay[data-v-e52ec3b6] {\n  background: #ece7e7;\n  position: absolute;\n  bottom: 0;\n  width: 100%;\n  text-align: center;\n}\n.image-container:hover .image-overlay[data-v-e52ec3b6] {\n  opacity: 1;\n}", ""]);
 
 // exports
 
@@ -93321,17 +93389,410 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("div", { staticClass: "form-row" }, [
+      _c(
+        "div",
+        { staticClass: "form-group col-md-4" },
+        [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Date")]),
+          _vm._v(" "),
+          _c("date-picker", {
+            staticClass: "date-picker",
+            attrs: { valueType: "format", format: "DD-MM-YYYY" },
+            model: {
+              value: _vm.med_date,
+              callback: function($$v) {
+                _vm.med_date = typeof $$v === "string" ? $$v.trim() : $$v
+              },
+              expression: "med_date"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group col-md-4" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Height")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model.trim",
+              value: _vm.height,
+              expression: "height",
+              modifiers: { trim: true }
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", name: "height" },
+          domProps: { value: _vm.height },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.height = $event.target.value.trim()
+            },
+            blur: function($event) {
+              return _vm.$forceUpdate()
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group col-md-4" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Weight")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model.trim",
+              value: _vm.weight,
+              expression: "weight",
+              modifiers: { trim: true }
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", name: "weight" },
+          domProps: { value: _vm.weight },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.weight = $event.target.value.trim()
+            },
+            blur: function($event) {
+              return _vm.$forceUpdate()
+            }
+          }
+        })
+      ])
+    ]),
     _vm._v(" "),
-    _vm._m(1),
+    _c("div", { staticClass: "form-row" }, [
+      _c("div", { staticClass: "form-group col-md-4" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Checst")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.checst,
+              expression: "checst"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", name: "checst" },
+          domProps: { value: _vm.checst },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.checst = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group col-md-4" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Tooth")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.tooth,
+              expression: "tooth"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", name: "tooth" },
+          domProps: { value: _vm.tooth },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.tooth = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group col-md-4" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Tooth State")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.tooth_state,
+              expression: "tooth_state"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", name: "tooth_state" },
+          domProps: { value: _vm.tooth_state },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.tooth_state = $event.target.value
+            }
+          }
+        })
+      ])
+    ]),
     _vm._v(" "),
-    _vm._m(2),
+    _c("div", { staticClass: "form-row" }, [
+      _c("div", { staticClass: "form-group col-md-4" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Color Blindness")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.color_blindness,
+              expression: "color_blindness"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", name: "color_blindness" },
+          domProps: { value: _vm.color_blindness },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.color_blindness = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group col-md-4" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Blood Type")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.blood_type,
+              expression: "blood_type"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", name: "blood_type" },
+          domProps: { value: _vm.blood_type },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.blood_type = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group col-md-4" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Xray")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.xray,
+              expression: "xray"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", name: "xray" },
+          domProps: { value: _vm.xray },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.xray = $event.target.value
+            }
+          }
+        })
+      ])
+    ]),
     _vm._v(" "),
-    _vm._m(3),
+    _c("div", { staticClass: "form-row" }, [
+      _c("div", { staticClass: "form-group col-md-6" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Sight ( Left )")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.sight_left,
+              expression: "sight_left"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", name: "sight_left" },
+          domProps: { value: _vm.sight_left },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.sight_left = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group col-md-6" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Sight ( Right )")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.sight_right,
+              expression: "sight_right"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", name: "sight_right" },
+          domProps: { value: _vm.sight_right },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.sight_right = $event.target.value
+            }
+          }
+        })
+      ])
+    ]),
     _vm._v(" "),
-    _vm._m(4),
+    _c("div", { staticClass: "form-row" }, [
+      _c("div", { staticClass: "form-group col-md-6" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Hearing ( Left )")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.hearing_left,
+              expression: "hearing_left"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", name: "hearing_left" },
+          domProps: { value: _vm.hearing_left },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.hearing_left = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group col-md-6" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Hearing ( Right )")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.hearing_right,
+              expression: "hearing_right"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", name: "hearing_right" },
+          domProps: { value: _vm.hearing_right },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.hearing_right = $event.target.value
+            }
+          }
+        })
+      ])
+    ]),
     _vm._v(" "),
-    _vm._m(5),
+    _c("div", { staticClass: "form-row" }, [
+      _c("div", { staticClass: "form-group col-md-6" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Hospital")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.hospital,
+              expression: "hospital"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", name: "hospital" },
+          domProps: { value: _vm.hospital },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.hospital = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group col-md-6" }, [
+        _c("label", { attrs: { for: "" } }, [_vm._v("Decision")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.decision,
+              expression: "decision"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", name: "decision" },
+          domProps: { value: _vm.decision },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.decision = $event.target.value
+            }
+          }
+        })
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "form-group" }, [
       _c(
@@ -93506,8 +93967,8 @@ var render = function() {
                 {
                   name: "show",
                   rawName: "v-show",
-                  value: _vm.fileLoopCount < 2,
-                  expression: "fileLoopCount < 2"
+                  value: _vm.fileLoopCount < _vm.fileMaxLenght,
+                  expression: "fileLoopCount < fileMaxLenght"
                 }
               ],
               staticClass: "gird-item-image final-grid"
@@ -93554,134 +94015,7 @@ var render = function() {
     })
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-row" }, [
-      _c("div", { staticClass: "form-group col-md-4" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("Date")]),
-        _vm._v(" "),
-        _c("input", { staticClass: "form-control", attrs: { type: "date" } })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group col-md-4" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("Height")]),
-        _vm._v(" "),
-        _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group col-md-4" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("Weight")]),
-        _vm._v(" "),
-        _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-row" }, [
-      _c("div", { staticClass: "form-group col-md-4" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("Checst")]),
-        _vm._v(" "),
-        _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group col-md-4" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("Tooth")]),
-        _vm._v(" "),
-        _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group col-md-4" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("Tooth State")]),
-        _vm._v(" "),
-        _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-row" }, [
-      _c("div", { staticClass: "form-group col-md-4" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("Color Bindness")]),
-        _vm._v(" "),
-        _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group col-md-4" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("Blood Type")]),
-        _vm._v(" "),
-        _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group col-md-4" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("Xray")]),
-        _vm._v(" "),
-        _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-row" }, [
-      _c("div", { staticClass: "form-group col-md-6" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("Sight ( Left )")]),
-        _vm._v(" "),
-        _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group col-md-6" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("Sight ( Right )")]),
-        _vm._v(" "),
-        _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-row" }, [
-      _c("div", { staticClass: "form-group col-md-6" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("Hearing ( Left )")]),
-        _vm._v(" "),
-        _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group col-md-6" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("Hearing ( Right )")]),
-        _vm._v(" "),
-        _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-row" }, [
-      _c("div", { staticClass: "form-group col-md-6" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("Hopspital")]),
-        _vm._v(" "),
-        _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group col-md-6" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("Decision")]),
-        _vm._v(" "),
-        _c("input", { staticClass: "form-control", attrs: { type: "text" } })
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -94186,7 +94520,12 @@ var render = function() {
                 }
               }
             },
-            [_c("form-five", { ref: "form-five" })],
+            [
+              _c("form-five", {
+                ref: "form-five",
+                attrs: { employerId: _vm.employerId }
+              })
+            ],
             1
           ),
           _vm._v(" "),
@@ -94360,26 +94699,35 @@ var render = function() {
         })
       ]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "form-group prelative" },
-        [
-          _c("label", { attrs: { for: "dob" } }, [_vm._v("Date Of Birth")]),
-          _vm._v(" "),
-          _c("date-picker", {
-            staticClass: "date-picker",
-            attrs: { valueType: "format", format: "DD-MM-YYYY" },
-            model: {
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "dob" } }, [_vm._v("Date Of Birth")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model.trim",
               value: _vm.dob,
-              callback: function($$v) {
-                _vm.dob = $$v
-              },
-              expression: "dob"
+              expression: "dob",
+              modifiers: { trim: true }
             }
-          })
-        ],
-        1
-      ),
+          ],
+          staticClass: "form-control",
+          attrs: { type: "date", id: "dob", name: "dob" },
+          domProps: { value: _vm.dob },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.dob = $event.target.value.trim()
+            },
+            blur: function($event) {
+              return _vm.$forceUpdate()
+            }
+          }
+        })
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
         _c("label", { attrs: { for: "pob" } }, [_vm._v("Place Of Birth")]),

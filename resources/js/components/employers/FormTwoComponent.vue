@@ -249,15 +249,16 @@ export default {
             }, {
                 headers: {'Authorization': 'Bearer '+ this.user_token}
             }).then(result => {
-                console.log(result);
+                this.employer_detail_id = result.data.employer_detail.id;
                 isValid = true;
+                $(document).find('span[class="validate-message"]').remove();
             }).catch(err => {
                 if (err.response.status == 400) {
                     Toast.fire({
                         icon: 'error',
                         title: 'Please fill all required fields!'
                     });
-                     $(document).find('span[class="validate-message"]').remove();
+                    $(document).find('span[class="validate-message"]').remove();
                     $.each(err.response.data.error, function (i, error) {
                         var el = $(document).find('[name="'+i+'"]');
                           el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
