@@ -2,7 +2,7 @@
     <div>
         <h1 class="text-center">Employeer Registeration</h1>
         <form-wizard shape="circle" color="#20a0ff">
-            <tab-content title="Personal details" icon="ti-user" :before-change="()=>validateStep('form-one')">
+            <!-- <tab-content title="Personal details" icon="ti-user" :before-change="()=>validateStep('form-one')">
                 <form-one ref="form-one" @on-validate="mergePartialModels"></form-one>
             </tab-content>
 
@@ -28,6 +28,14 @@
 
             <tab-content title="Seaman Book No" icon="ti-files" :before-change="()=>validateStep('form-seven')">
                 <form-seven ref="form-seven"  :employerId="employerId"></form-seven>
+            </tab-content> -->
+
+             <tab-content title="PASSPORT" icon="ti-files" :before-change="()=>validateStep('form-eight')">
+                <form-eight ref="form-eight"  :employerId="employerId"></form-eight>
+            </tab-content>
+
+            <tab-content title="ALLINONE" icon="ti-files" :before-change="()=>validateStep('form-ten')">
+                <form-ten ref="form-ten"  :employerId="employerId"></form-ten>
             </tab-content>
 
             <tab-content title="Last step" icon="ti-check">
@@ -47,7 +55,8 @@ import FormFour from './FormFour'
 import FormFive from './FormFive'
 import FormSix from './FormSix'
 import FormSeven from './FormSeven'
-
+import FormEight from './FormEight'
+import FormTen from './FormTen'
 export default {
     components: {
         ThemifyIcon,
@@ -57,7 +66,9 @@ export default {
         "form-four": FormFour,
         "form-five": FormFive,
         "form-six": FormSix,
-        'form-seven': FormSeven
+        'form-seven': FormSeven,
+        'form-eight': FormEight,
+        'form-ten' : FormTen
     },
     data() {
         return {

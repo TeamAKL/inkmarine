@@ -45,3 +45,6 @@ Route::post("delete-family-member", "FamilyMemberController@deleteFamilyMember")
 
 Route::post('save-medical-checkup', 'EmployeerController@saveMedicalCheckup');
 Route::post('save-cbn', 'EmployeerController@saveCemanBook');
+Route::post('save-passport', 'EmployeerController@savePassport');
+Route::post('save-all-in-one', 'EmployeerController@saveAllInOne');
+

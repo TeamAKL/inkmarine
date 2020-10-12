@@ -1,14 +1,17 @@
-<!-- ==================== PASSPORT ===================== -->
+<!-- ==================== All In One ===================== -->
 <!-- Image 27 -->
 <template>
 	<div>
 		<div class="form-group">
-			<label for="passport">Passport</label>
-			<input type="text" name="passport" id="passport" v-model="passport" class="form-control">
+			<label for="coc">C.O.C</label>
+			<input type="text" name="coc" id="coc" v-model="coc" class="form-control">
+
+			<label for="gmbss">GMBSS</label>
+			<input type="text" name="gmbss" id="gmbss" v-model="gmbss" class="form-control">
 		</div>
 		<!-- Image Container -->
 		<div class="form-group">
-			<div class="image-holder" v-show="passport_images.length == 0">
+			<div class="image-holder" v-show="all_images.length == 0">
 				<div class="loading-area-one" v-show="showLoading">
 					<img src="../../../../public/loading/loading.gif" alt="">
 				</div>
@@ -18,11 +21,11 @@
 				</label>
 			</div>
 
-			<div class="grid-container" @dragover.prevent @drop="onDrop" v-show="passport_images.length >= 1">
+			<div class="grid-container" @dragover.prevent @drop="onDrop" v-show="all_images.length >= 1">
 				<div class="loading-area" v-show="showLoading">
 					<img src="../../../../public/loading/loading.gif" alt="">
 				</div>
-				<div class="gird-item-image " :key="index" v-for="(image, index) in passport_images">
+				<div class="gird-item-image " :key="index" v-for="(image, index) in all_images">
 					<img :src="image" alt="image" class="images-img img-thumbnail">
 					<div class="image-overlay">
 						<div class="ed-holder">
@@ -64,27 +67,29 @@
 	export default {
 		data() {
 			return {
-				passport: '',
-				passport_id: null,
+				coc: '',
+				gmbss: '',
+				all_in_one_id: null,
 				user_token: `${process.env.MIX_APP_TOKEN}`,
-				passport_images: [],
+				all_images: [],
 				showLoading: false,
-				fileMaxLenght: 27,
+				fileMaxLenght: 15,
 				fileLoopCount: 0,
 			}
 		},
 		methods: {
 			async validate() {
 				var isValid;
-				await axios.post('/api/save-passport', {
-					"passport": this.passport,
-					"passport_images": this.passport_images,
-					'passport_id': this.passport_id,
+				await axios.post('/api/save-all-in-one', {
+					"coc": this.coc,
+					"gmbss": this.gmbss,
+					"all_images": this.all_images,
+					'all_in_one_id': this.all_in_one_id,
 					'employer_id': this.employerId
 				}, {
 					headers: {'Authorization': 'Bearer '+ this.user_token}
 				}).then(result => {
-					this.passport_id = result.data.passport;
+					this.all_in_one_id = result.data.all_in_one;
 					isValid = true;
 					$(document).find('span[class="validate-message"]').remove();
 				}).catch(err => {
@@ -130,13 +135,13 @@
 								vm.showLoading = true;
 								axios.post('/api/image-upload', {
 									'image': imageUrl,
-									'folder': 'passports/'
+									'folder': 'allInOne/'
 								}, {
 									headers: {'Authorization': 'Bearer '+ this.user_token}
 								}).then((res) => {
                                     console.log('helo');
 									vm.showLoading = false;
-									vm.passport_images.push(res.data.url);
+									vm.all_images.push(res.data.url);
 								});
 							}
 							reader.readAsDataURL(files[index]);
@@ -157,9 +162,9 @@
 
 			deletePassportImage(index) {
 				axios.post('/api/image-delete', {
-					'image': this.passport_images[index],
+					'image': this.all_images[index],
 				}).then(res => {
-					this.passport_images.splice(index, 1);
+					this.all_images.splice(index, 1);
 					this.fileLoopCount--;
 				});
 			},
@@ -173,13 +178,13 @@
 					vm.showLoading = true;
 					axios.post('/api/image-upload-edit', {
 						'image': imageUrl,
-						'oldImage': vm.passport_images[index],
-						'folder': 'passports/'
+						'oldImage': vm.all_images[index],
+						'folder': 'allInOne/'
 					}, {
 						headers: {'Authorization': 'Bearer '+ this.user_token}
 					}).then((res) => {
 						vm.showLoading = false;
-						vm.passport_images.splice(index, 1, res.data.url);
+						vm.all_images.splice(index, 1, res.data.url);
 					});
 				}
 				reader.readAsDataURL(files[0]);

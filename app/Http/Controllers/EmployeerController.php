@@ -11,6 +11,8 @@ use App\EmployerCertificate;
 use App\OtherCompanyCareers;
 use App\MedicalCheckup;
 use App\CemanBookNumber;
+use App\Passport;
+use App\AllInOne;
 
 // use Illuminate\Support\Facades\DB;
 use DB;
@@ -346,5 +348,50 @@ class EmployeerController extends Controller
         );
         return response()->json(['message' => 'success', 'cbn' => $cbn], 200);
     }
+
+    //Passport
+    public function savePassport(Request $req)
+    {
+        // dd($req->all());
+        $validator = Validator::make($req->all(), [
+            'passport' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 400);
+        }
+
+        $images = json_encode($req->passport_images);
+
+        $passport = Passport::updateOrCreate(
+            ['id' => $req->passport_id, 'employer_id' => $req->employer_id],
+            ['employer_id' => $req->employer_id, 'images' => $images, 'passport_no' => $req->passport]
+        );
+        return response()->json(['message' => 'success', 'passport' => $passport], 200);
+    }
+
+     //All-in-One
+     public function saveAllInOne(Request $req)
+     {
+         // dd($req->all());
+         $validator = Validator::make($req->all(), [
+             'coc' => 'required',
+             'gmbss' => 'required'
+         ]);
+         if ($validator->fails()) {
+             return response()->json(['error'=>$validator->errors()], 400);
+         }
+ 
+         $images = json_encode($req->all_images);
+ 
+         $allInOne = AllInOne::updateOrCreate(
+             ['id' => $req->all_in_one_id, 'employer_id' => $req->employer_id],
+             ['employer_id' => $req->employer_id, 'images' => $images, 'coc' => $req->coc, 'gmbss' => $req->gmbss]
+         );
+         return response()->json(['message' => 'success', 'all_in_one' => $allInOne], 200);
+     }
+
+    
+
+    
 
 }
