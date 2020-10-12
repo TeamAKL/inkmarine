@@ -94552,66 +94552,6 @@ var render = function() {
             "tab-content",
             {
               attrs: {
-                title: "Personal details",
-                icon: "ti-user",
-                "before-change": function() {
-                  return _vm.validateStep("form-one")
-                }
-              }
-            },
-            [
-              _c("form-one", {
-                ref: "form-one",
-                on: { "on-validate": _vm.mergePartialModels }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "tab-content",
-            {
-              attrs: {
-                title: "Additional Info",
-                icon: "ti-settings",
-                "before-change": function() {
-                  return _vm.validateStep("form-two")
-                }
-              }
-            },
-            [
-              _c("form-two", {
-                ref: "form-two",
-                attrs: { employerId: _vm.employerId }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "tab-content",
-            {
-              attrs: {
-                title: "Family Member",
-                icon: "ti-id-badge",
-                "before-change": function() {
-                  return _vm.validateStep("form-four")
-                }
-              }
-            },
-            [
-              _c("form-four", {
-                ref: "form-four",
-                attrs: { employerId: _vm.employerId }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "tab-content",
-            {
-              attrs: {
                 title: "Certificate",
                 icon: "ti-files",
                 "before-change": function() {
