@@ -24,6 +24,7 @@ use Illuminate\Http\Request;
 Route::post("get-all-user", 'HomeController@getalluser');
 Route::post("image-upload", "HomeController@imageUpload");
 Route::post("image-upload-edit", "HomeController@imageUploadEdit");
+Route::post("image-delete", "HomeController@imageDelte");
 
 
 Route::post("save-form-one", "EmployeerController@store");
@@ -42,11 +43,5 @@ Route::post("get_all_company_careers_by_employerId", "EmployeerController@getAll
 Route::post("delete-company-career", "EmployeerController@deleteCompanyCareer");
 Route::post("delete-family-member", "FamilyMemberController@deleteFamilyMember");
 
-
-
-
-
-
-
-
-
+Route::post('save-medical-checkup', 'EmployeerController@saveMedicalCheckup');
+Route::post('save-cbn', 'EmployeerController@saveCemanBook');

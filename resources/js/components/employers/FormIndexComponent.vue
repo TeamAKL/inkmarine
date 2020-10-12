@@ -2,13 +2,13 @@
     <div>
         <h1 class="text-center">Employeer Registeration</h1>
         <form-wizard shape="circle" color="#20a0ff">
-            <!-- <tab-content title="Personal details" icon="ti-user" :before-change="()=>validateStep('form-one')">
+            <tab-content title="Personal details" icon="ti-user" :before-change="()=>validateStep('form-one')">
                 <form-one ref="form-one" @on-validate="mergePartialModels"></form-one>
-            </tab-content> -->
+            </tab-content>
 
-            <!-- <tab-content title="Additional Info" icon="ti-settings" :before-change="()=>validateStep('form-two')">
+            <tab-content title="Additional Info" icon="ti-settings" :before-change="()=>validateStep('form-two')">
                 <form-two ref="form-two" :employerId="employerId"></form-two>
-            </tab-content> -->
+            </tab-content>
 
             <tab-content title="Family Member" icon="ti-id-badge" :before-change="()=>validateStep('form-four')">
                 <form-four ref="form-four" :employerId="employerId"></form-four>
@@ -19,14 +19,14 @@
             </tab-content>
 
             <tab-content title="Medical Checkup" icon="ti-clipboard" :before-change="()=>validateStep('form-five')">
-                <form-five ref="form-five" ></form-five>
+                <form-five ref="form-five" :employerId="employerId"></form-five>
             </tab-content>
 
             <tab-content title="Other Company Careers" icon="ti-briefcase" :before-change="()=>validateStep('form-six')">
                 <form-six ref="form-six" @on-validate="mergePartialModels" :employerId="employerId"></form-six>
             </tab-content>
 
-            <tab-content title="TTC" icon="ti-files" :before-change="()=>validateStep('form-seven')">
+            <tab-content title="Seaman Book No" icon="ti-files" :before-change="()=>validateStep('form-seven')">
                 <form-seven ref="form-seven"  :employerId="employerId"></form-seven>
             </tab-content>
 
