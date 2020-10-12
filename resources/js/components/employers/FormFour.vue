@@ -252,7 +252,7 @@ import moment from 'moment'
             this.member_name = '',
             this.member_relation = '',
             this.member_phone_number = '',
-            this.member_dob = '',
+            this.member_dob = moment(new Date()).format('DD-MM-YYYY');
             this.member_remark = ''
 
         },
@@ -281,6 +281,32 @@ import moment from 'moment'
                this.user_id = item.employerId;
                this.family_member_id = item.id;
             }, 
+
+         // Delete Family Members
+        onDeleteItem(member) {
+            const vm = this;
+            return Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to delete " + member.name,
+                icon: 'warning',
+                showCancelButton: true,
+                allowOutsideClick: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Delete'
+            }).then((result) => {
+                if(result.isConfirmed) {
+                    axios.post('/api/delete-family-member', {
+                        id: member.id,
+                        employer_id: this.employerId
+                    }, {
+                        headers: {'Authorization': 'Bearer '+ this.user_token}
+                    }).then(response => {
+                        vm.getData();
+                    })
+                }
+            });
+        },
     },
     
     props: ['employerId']

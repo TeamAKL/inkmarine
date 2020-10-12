@@ -39,6 +39,13 @@ Route::post("get_all_family_members_by_employer", "FamilyMemberController@getAll
 Route::post("save-other-company-careers","EmployeerController@saveOtherCompanyCareers");
 Route::post("get_all_company_careers_by_employerId", "EmployeerController@getAllCompanyCareersByEmployerId");
 
+Route::post("delete-company-career", "EmployeerController@deleteCompanyCareer");
+Route::post("delete-family-member", "FamilyMemberController@deleteFamilyMember");
+
+
+
+
+
 
 
 

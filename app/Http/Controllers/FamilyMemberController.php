@@ -106,4 +106,9 @@ class FamilyMemberController extends Controller
         $familyMembers = FamilyMember::where('user_id', '=', $request->user_id)->paginate(2);
          return new DataTableCollectionResource($familyMembers);
     }
+
+    public function deleteFamilyMember(Request $request){
+        FamilyMember::where('id', '=', $request->id)->where('user_id', '=', $request->employer_id)->delete();
+        return response()->json(['message' => 'success'], 200);
+    }
 }

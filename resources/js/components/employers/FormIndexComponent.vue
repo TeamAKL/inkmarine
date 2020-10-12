@@ -10,9 +10,9 @@
                 <form-two ref="form-two" :employerId="employerId"></form-two>
             </tab-content> -->
 
-            <!-- <tab-content title="Family Member" icon="ti-id-badge" :before-change="()=>validateStep('form-four')">
+            <tab-content title="Family Member" icon="ti-id-badge" :before-change="()=>validateStep('form-four')">
                 <form-four ref="form-four" :employerId="employerId"></form-four>
-            </tab-content> -->
+            </tab-content>
 
             <tab-content title="Certificate" icon="ti-files" :before-change="()=>validateStep('form-three')">
                 <form-three ref="form-three"  :employerId="employerId"></form-three>

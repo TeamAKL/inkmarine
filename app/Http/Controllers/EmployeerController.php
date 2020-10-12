@@ -271,5 +271,10 @@ class EmployeerController extends Controller
          return new DataTableCollectionResource($companyCareers);
     }
 
+    public function deleteCompanyCareer(Request $request){
+        OtherCompanyCareers::where('id', '=', $request->id)->where('user_id', '=', $request->employer_id)->delete();
+        return response()->json(['message' => 'success'], 200);
+    }
+
 
 }
