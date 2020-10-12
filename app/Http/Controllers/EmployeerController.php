@@ -10,6 +10,7 @@ use App\Certificate;
 use App\EmployerCertificate;
 use App\OtherCompanyCareers;
 use App\MedicalCheckup;
+use App\CemanBookNumber;
 
 // use Illuminate\Support\Facades\DB;
 use DB;
@@ -320,6 +321,25 @@ class EmployeerController extends Controller
             ]
         );
         return response()->json(['message' => 'success', 'mde' => $medical_checkup], 200);
+    }
+
+    //CemanBookNumber
+    public function saveCemanBook(Request $req)
+    {
+        $validator = Validator::make($req->all(), [
+            'cbn' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 400);
+        }
+
+        $images = json_encode($req->cbn_images);
+
+        $cbn = CemanBookNumber::updateOrCreate(
+            ['id' => $req->cbn_id, 'employer_id' => $req->employer_id],
+            ['employer_id' => $req->employer_id, 'images' => $images, 'cbn' => $req->cbn]
+        );
+        return response()->json(['message' => 'success', 'cbn' => $cbn], 200);
     }
 
 }

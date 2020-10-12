@@ -14,19 +14,19 @@
                 <form-four ref="form-four" :employerId="employerId"></form-four>
             </tab-content> -->
 
-            <tab-content title="Certificate" icon="ti-files" :before-change="()=>validateStep('form-three')">
+            <!-- <tab-content title="Certificate" icon="ti-files" :before-change="()=>validateStep('form-three')">
                 <form-three ref="form-three"  :employerId="employerId"></form-three>
-            </tab-content>
+            </tab-content> -->
 
-            <tab-content title="Medical Checkup" icon="ti-clipboard" :before-change="()=>validateStep('form-five')">
+            <!-- <tab-content title="Medical Checkup" icon="ti-clipboard" :before-change="()=>validateStep('form-five')">
                 <form-five ref="form-five" :employerId="employerId"></form-five>
             </tab-content>
 
             <tab-content title="Other Company Careers" icon="ti-briefcase" :before-change="()=>validateStep('form-six')">
                 <form-six ref="form-six" @on-validate="mergePartialModels" :employerId="employerId"></form-six>
-            </tab-content>
+            </tab-content> -->
 
-            <tab-content title="TTC" icon="ti-files" :before-change="()=>validateStep('form-seven')">
+            <tab-content title="Seaman Book No" icon="ti-files" :before-change="()=>validateStep('form-seven')">
                 <form-seven ref="form-seven"  :employerId="employerId"></form-seven>
             </tab-content>
 

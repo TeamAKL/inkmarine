@@ -41,3 +41,5 @@ Route::post("save-other-company-careers","EmployeerController@saveOtherCompanyCa
 Route::post("get_all_company_careers_by_employerId", "EmployeerController@getAllCompanyCareersByEmployerId");
 
 Route::post('save-medical-checkup', 'EmployeerController@saveMedicalCheckup');
+
+Route::post('save-cbn', 'EmployeerController@saveCemanBook');
