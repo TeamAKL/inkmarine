@@ -24,7 +24,7 @@
   </tbody>
 </table>
 
-<!-- <a class="btn btn-danger" href="{{url('certificate/create')}}">Create</a> -->
+<a class="btn btn-success" href="{{url('certificate/create')}}" style="padding: 5px 30px;">Create</a>
 
    </div>
 @endsection
