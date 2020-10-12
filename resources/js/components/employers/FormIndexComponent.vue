@@ -19,7 +19,7 @@
             </tab-content>
 
             <tab-content title="Medical Checkup" icon="ti-clipboard" :before-change="()=>validateStep('form-five')">
-                <form-five ref="form-five" ></form-five>
+                <form-five ref="form-five" :employerId="employerId"></form-five>
             </tab-content>
 
             <tab-content title="Other Company Careers" icon="ti-briefcase" :before-change="()=>validateStep('form-six')">

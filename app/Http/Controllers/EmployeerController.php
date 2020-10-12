@@ -9,6 +9,7 @@ use App\EmployeerDetail;
 use App\Certificate;
 use App\EmployerCertificate;
 use App\OtherCompanyCareers;
+use App\MedicalCheckup;
 
 // use Illuminate\Support\Facades\DB;
 use DB;
@@ -268,8 +269,57 @@ class EmployeerController extends Controller
 
     public function getAllCompanyCareersByEmployerId(Request $request){
         $companyCareers = OtherCompanyCareers::where('user_id', '=', $request->user_id)->paginate(2);
-         return new DataTableCollectionResource($companyCareers);
+        return new DataTableCollectionResource($companyCareers);
     }
 
+    // saveMedicalCheckup
+    public function saveMedicalCheckup(Request $req)
+    {
+        $validator = Validator::make($req->all(), [
+            'med_date' => 'required',
+            'height' => 'required',
+            'weight' => 'required',
+            'checst' => 'required',
+            'tooth' => 'required',
+            'tooth_state' => 'required',
+            'color_blindness' => 'required',
+            'blood_type' => 'required',
+            'xray' => 'required',
+            'sight_right' => 'required',
+            'sight_left' => 'required',
+            'hearing_right' => 'required',
+            'hearing_left' => 'required',
+            'hospital' => 'required',
+            'decision' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 400);
+        }
+        $images = json_encode($req->images);
+        $date = date("Y-m-d", strtotime($req->med_date));
+        $medical_checkup = MedicalCheckup::updateOrCreate(
+            ['id' => $req->medicalCheckupId, 'employer_id' => $req->employerId],
+            [
+                'employer_id' => $req->employerId,
+                'images' => $images,
+                'med_date' => $date,
+                'weight' => $req->weight,
+                'height' => $req->height,
+                'tooth' => $req->tooth,
+                'tooth_state' => $req->tooth_state,
+                'color_blindness' => $req->color_blindness,
+                'blood_type' => $req->blood_type,
+                'xray' => $req->xray,
+                'checst' => $req->checst,
+                'sight_right' => $req->sight_right,
+                'sight_left' => $req->sight_left,
+                'hearing_left' => $req->hearing_left,
+                'hearing_right' => $req->hearing_right,
+                'hospital' => $req->hospital,
+                'decision' => $req->decision,
+            ]
+        );
+        return response()->json(['message' => 'success', 'mde' => $medical_checkup], 200);
+    }
 
 }

@@ -12,20 +12,20 @@ use Illuminate\Support\Facades\File;
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+    * Create a new controller instance.
+    *
+    * @return void
+    */
     public function __construct()
     {
-//         $this->middleware('auth');
+        //         $this->middleware('auth');
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+    * Show the application dashboard.
+    *
+    * @return \Illuminate\Contracts\Support\Renderable
+    */
     public function index()
     {
         return view('home');
@@ -33,16 +33,16 @@ class HomeController extends Controller
 
     public function getalluser(Request $req)
     {
-       $users = User::orderBy('created_at', $req->dir)->paginate(2);
-       if(!empty($req->search)) {
-           $search = $req->search;
-           $query = User::where(function($query) use ($search) {
-                    $query->where('name', 'LIKE', "%{$search}%")
-                    ->orWhere('email', 'LIKE', "%{$search}%");
-           });
-          // $users = $query->paginate($req->length);
-           $users = $query->paginate(2);
-       }
+        $users = User::orderBy('created_at', $req->dir)->paginate(2);
+        if(!empty($req->search)) {
+            $search = $req->search;
+            $query = User::where(function($query) use ($search) {
+                $query->where('name', 'LIKE', "%{$search}%")
+                ->orWhere('email', 'LIKE', "%{$search}%");
+            });
+            // $users = $query->paginate($req->length);
+            $users = $query->paginate(2);
+        }
 
         return new DataTableCollectionResource($users);
     }
@@ -56,29 +56,42 @@ class HomeController extends Controller
             'dob' => 'required',
             'pob' => 'required',
             'edulevel' => 'required'
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 400);
+            ]);
+            if ($validator->fails()) {
+                return response()->json(['error'=>$validator->errors()], 400);
+            }
+            return response()->json(["message" => "success"], 200);
         }
-        return response()->json(["message" => "success"], 200);
+
+        public function imageUpload(Request $req)
+        {
+            $url = $this->upload($req->image, $req->folder);
+            return response()->json(['url' => $url], 200);
+        }
+
+        public function imageUploadEdit(Request $req)
+        {
+            $oldFile = str_replace('/images/', '', parse_url($req->oldImage, PHP_URL_PATH));
+            Storage::disk('public')->delete($oldFile);
+            $url = $this->upload($req->image, $req->folder);
+            return response()->json(['url' => $url], 200);
+        }
+
+        public function imageDelte(Request $req)
+        {
+            $oldFile = str_replace('/images/', '', parse_url($req->image, PHP_URL_PATH));
+            Storage::disk('public')->delete($oldFile);
+        }
+
+        public function upload($image, $folder) {
+            $name = 'medicalcheckup_'.rand(1, 999).'.'.explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
+            $filePath = $folder.$name;
+            $fileContent = file_get_contents($image);
+            $exists = Storage::disk('public')->exists($filePath);
+            if($exists)
+                Storage::disk('public')->delete($filePath);
+            Storage::disk('public')->put($filePath, $fileContent);
+            $url = Storage::disk('public')->url($filePath);
+            return $url;
+        }
     }
-
-    public function imageUpload(Request $req)
-    {
-        $image = $req->image;
-        $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
-        $filePath = 'certificate_'.$name;
-        $exists = Storage::disk('ftp')->exists($filePath);
-        if($exists)
-            Storage::disk('ftp')->delete($filePath);
-        $files = Storage::disk('ftp')->put($filePath, file_get_contents($image));
-        $file_store_path = Storage::disk('ftp')->url($filePath);
-        return response()->json(['url' => $file_store_path], 200);
-        // certificate_1600885659.png
-    }
-
-    // public function imageUploadEdit(Request $req)
-    // {
-
-    // }
-}
