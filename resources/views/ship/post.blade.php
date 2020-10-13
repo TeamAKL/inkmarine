@@ -9,11 +9,11 @@
               @csrf
               <div class="form-group row">
                 <label for="name" class="col-md-4 col-form-label" style="padding-left:15%;">Ship Name :</label>
-                <input type="text" class="form-control col-md-6" id="ship_name" name="ship_name" placeholder="Enter Ship Name">
+                <input type="text" class="form-control col-md-6" id="ship_name" name="ship_name" placeholder="Enter Ship Name" required>
               </div>
               <div class="form-group row">
                 <label for="country" class="col-md-4 col-form-label" style="padding-left:15%;">Ship Type :</label>
-                <input type="text" class="form-control col-md-6" id="ship_type" name="ship_type" placeholder="Enter Ship Type">
+                <input type="text" class="form-control col-md-6" id="ship_type" name="ship_type" placeholder="Enter Ship Type" required>
               </div>
               <div class="form-group row">
                 <label for="company" class="col-md-4 col-form-label" style="padding-left:15%;">Company :</label>
@@ -30,15 +30,15 @@
               </div>
               <div class="form-group row">
                 <label for="grt" class="col-md-4 col-form-label" style="padding-left:15%;">GRT :</label>
-                <input type="text" class="form-control col-md-6" id="grt" name="grt" placeholder="Enter Grt">
+                <input type="text" class="form-control col-md-6" id="grt" name="grt" placeholder="Enter Grt" required>
               </div>
               <div class="form-group row">
                 <label for="kw" class="col-md-4 col-form-label" style="padding-left:15%;">KW :</label>
-                <input type="text" class="form-control col-md-6" id="kw" name="kw" placeholder="Enter Kw">
+                <input type="text" class="form-control col-md-6" id="kw" name="kw" placeholder="Enter Kw" required>
               </div>
               <div class="form-group row">
                 <label for="area" class="col-md-4 col-form-label" style="padding-left:15%;">Area :</label>
-                <input type="text" class="form-control col-md-6" id="area" name="area" placeholder="Area">
+                <input type="text" class="form-control col-md-6" id="area" name="area" placeholder="Area" required>
               </div>
 
               <button type="submit" class="btn btn-primary" style="margin-left:68.3%;padding:7px 25px;">Add Ship</button>

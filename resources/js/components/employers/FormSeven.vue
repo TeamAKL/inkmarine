@@ -3,7 +3,7 @@
 <template>
 	<div>
 		<div class="form-group">
-			<label for="cbn">Ceman Book No</label>
+			<label for="cbn">Seaman Book No</label>
 			<input type="text" name="cbn" id="cbn" v-model="cbn" class="form-control">
 		</div>
 		<!-- Image Container -->
@@ -12,7 +12,7 @@
 				<div class="loading-area-one" v-show="showLoading">
 					<img src="../../../../public/loading/loading.gif" alt="">
 				</div>
-				<label for="medical-checkup" class="medicalcheckup" @dragover.prevent @drop="onDrop">
+				<label for="ctc" class="medicalcheckup" @dragover.prevent @drop="onDrop">
 					<i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
 					<span class="image-lable-text" v-show="!showLoading">Choose File or drag & drop here</span>
 				</label>
@@ -37,14 +37,15 @@
 					</div>
 				</div>
 				<div class="gird-item-image final-grid" v-show="fileLoopCount < fileMaxLenght">
-					<label for="medical-checkup" class="medicalcheckup" @dragover.prevent @drop="onDrop">
+					<label for="ctc" class="medicalcheckup" @dragover.prevent @drop="onDrop">
 						<i class="wizard-icon ti-cloud-up icon-image-upload"></i>
 						<span class="image-lable-text">Choose File or drag & drop here</span>
 					</label>
 				</div>
 			</div>
-		</div>
-		<input type="file" multiple draggable="true" id="medical-checkup" @change="uploadFile" accept="image/*, .pdf">
+		</div>resources/js/components/employers/FormEight.vue
+
+		<input type="file" multiple draggable="true" id="ctc" @change="uploadFile" accept="image/*, .pdf">
 	</div>
 </template>
 <script>
