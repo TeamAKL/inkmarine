@@ -282,8 +282,8 @@ export default {
             this.company_name = '',
             this.ship_name = '',
             this.company_name = '',
-            this.boarding_date = '',
-            this.leaving_date = '',
+            this.boarding_date = moment(new Date()).format('DD-MM-YYYY');
+            this.leaving_date = moment(new Date()).format('DD-MM-YYYY');
             this.area = '',
             this.company_remark = ''
 
@@ -318,6 +318,33 @@ export default {
                this.user_id = item.employerId;
               
             }, 
+
+        // Delete Company Career
+        onDeleteItem(company) {
+            const vm = this;
+            return Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to delete " + company.rank,
+                icon: 'warning',
+                showCancelButton: true,
+                allowOutsideClick: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Delete'
+            }).then((result) => {
+                if(result.isConfirmed) {
+                    axios.post('/api/delete-company-career', {
+                        id: company.id,
+                        employer_id: this.employerId
+                    }, {
+                        headers: {'Authorization': 'Bearer '+ this.user_token}
+                    }).then(response => {
+                        vm.getData();
+                    })
+                }
+            });
+        },
+           
     },
 
    props: ['employerId']   
