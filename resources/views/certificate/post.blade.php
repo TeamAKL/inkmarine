@@ -12,10 +12,12 @@
                     <form action="{{url('certificate')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
-                            <label for="title" class="col-md-4 col-form-label text-md-right">Certificate Title</label>
+                            <label for="title" class="col-md-3 offset-md-1 col-form-label text-md-right">Certificate Title</label>
                             <input type="text" class="form-control col-md-6" id="title" name="title" placeholder="Enter title" required>
                         </div>
-                        <button type="submit" class="btn btn-primary" style="margin-left:67%;">Add Certificate</button>
+                        <div class="row">
+                           <button type="submit" class="btn btn-primary col-md-3 offset-md-7">Add Certificate</button>
+                        </div>
                     </form>
                 </div>
             </div>

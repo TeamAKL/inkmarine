@@ -17,6 +17,11 @@
             z-index:1;
             background-color:#d0dae0;
         }
+        .navbar-light .navbar-nav a.nav-link:hover{
+            color:#000046;
+           opacity: 1;
+           /* background-color:#ffffff; */
+        }
     </style>
 </head>
 <body>
@@ -28,7 +33,7 @@
     </header>
     <!-- End Main Header -->
     <!-- Second Nav Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav">
         <span class="navbar-toggler-icon"></span>
         </button>
@@ -52,7 +57,7 @@
                 <ul class="right-nave navbar-nav">
                     @guest
                     <li class="nav-item"><a class="nav-link" href="{{route('login')}}">Login</a></li>
-                    <li><a href="{{route('register')}}">Register</a></li> 
+                    <li class="nav-item"><a class="nav-link" href="{{route('register')}}">Register</a></li> 
                     @else
                     <!-- <li>
                         <a id="navbarDropdown" class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -106,7 +111,22 @@
     <!-- ===================================== -->
 
     <!-- JavaScript -->
-    <!-- ========================================= -->
+    
     <script src="{{mix('js/app.js')}}"></script>
+    <script>
+    $(document).ready(function() {
+	// jQuery code
+    if ($(window).width() > 992) {
+        $(window).scroll(function(){  
+            if ($(this).scrollTop() > 40) {
+                 $('.navbar').css('height', '70px');
+                 
+            }else{
+                $('.navbar').css('height', 'auto');
+            }   
+        });
+     } 
+    });
+   </script>
 </body>
 </html>
