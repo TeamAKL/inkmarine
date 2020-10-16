@@ -18,7 +18,7 @@
 
             <div class="form-group">
                 <label for="dob">Date Of Birth</label>
-                <input type="date" id="dob" name="dob" v-model.trim="dob" class="form-control">
+                <date-picker v-model.trim="dob" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
             </div>
 
             <div class="form-group">
@@ -35,7 +35,26 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  onOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+});
+import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
+import moment from 'moment'
 export default {
+    components: {
+        DatePicker
+    },
     data() {
         return {
             user_token: `${process.env.MIX_APP_TOKEN}`,
@@ -44,35 +63,47 @@ export default {
             nationality: '',
             dob: '',
             pob: '',
-            edulevel: ''
+            edulevel: '',
+            result: '',
+            personId: ''
         }
     },
+    created() {
+        const date = new Date();
+        this.dob = moment(date).format('DD-MM-YYYY');
+    },
     methods: {
-        validate() {
-            var response = axios.post('/api/save-form-one', {
+        async validate() {
+            var isValid;
+            await axios.post('/api/save-form-one', {
                 'crewcode': this.crewcode,
                 'name': this.name,
                 'nationality': this.nationality,
                 'dob': this.dob,
                 'pob': this.pob,
-                'edulevel': this.edulevel
+                'edulevel': this.edulevel,
+                'personId': this.personId
             }, {
                 headers: {'Authorization': 'Bearer '+ this.user_token}
             }).then((result) => {
-                    return true;
+                this.personId = result.data.employeer.id;
+                isValid = true;
             }).catch((err) => {
                 if (err.response.status == 400) {
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Please fill all required fields!'
+                    });
                     $.each(err.response.data.error, function (i, error) {
                         var el = $(document).find('[name="'+i+'"]');
                         el.after($('<span style="color: red;">'+error[0]+'</span>'));
                     });
                 }
-                // return false;
-                return true;
-            })
-
-            this.$emit('on-validate', this.$data, response)
-            return response;
+                isValid = false;
+            });
+            console.log(this.personId);
+            this.$emit('on-validate', this.personId);
+            return isValid;
         }
     }
 }

@@ -249,6 +249,7 @@ export default {
             }, {
                 headers: {'Authorization': 'Bearer '+ this.user_token}
             }).then(result => {
+                console.log(result);
                 this.employer_detail_id = result.data.employer_detail.id;
                 isValid = true;
                 $(document).find('span[class="validate-message"]').remove();

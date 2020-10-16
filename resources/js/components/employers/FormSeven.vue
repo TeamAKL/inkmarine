@@ -3,7 +3,7 @@
 <template>
 	<div>
 		<div class="form-group">
-			<label for="cbn">Ceman Book No</label>
+			<label for="cbn">Seaman Book No</label>
 			<input type="text" name="cbn" id="cbn" v-model="cbn" class="form-control">
 		</div>
 		<!-- Image Container -->
@@ -12,7 +12,7 @@
 				<div class="loading-area-one" v-show="showLoading">
 					<img src="../../../../public/loading/loading.gif" alt="">
 				</div>
-				<label for="form-seven" class="medicalcheckup" @dragover.prevent @drop="onDropFormSeven">
+				<label for="ctc" class="medicalcheckup" @dragover.prevent @drop="onDropFormSeven">
 					<i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
 					<span class="image-lable-text" v-show="!showLoading">Choose File or drag & drop here</span>
 				</label>
@@ -36,15 +36,16 @@
 						</div>
 					</div>
 				</div>
-				<div class="gird-item-image final-grid" v-show="countfile < maxLength">
-					<label for="form-seven" class="medicalcheckup" @dragover.prevent @drop="onDropFormSeven">
+				<div class="gird-item-image final-grid" v-show="countfile < fileMaxLenght">
+					<label for="ctc" class="medicalcheckup" @dragover.prevent @drop="onDropFormSeven">
 						<i class="wizard-icon ti-cloud-up icon-image-upload"></i>
 						<span class="image-lable-text">Choose File or drag & drop here</span>
 					</label>
 				</div>
 			</div>
 		</div>
-		<input type="file" multiple draggable="true" id="form-seven" @change="uploadFileFormSeven" accept="image/*, .pdf">
+
+		<input type="file" multiple draggable="true" id="ctc" @change="uploadFileFormSeven" accept="image/*, .pdf">
 	</div>
 </template>
 <script>
@@ -69,7 +70,7 @@
 				user_token: `${process.env.MIX_APP_TOKEN}`,
 				cbn_images: [],
 				showLoading: false,
-				maxLength: 20,
+				fileMaxLenght: 20,
 				countfile: 0,
 			}
 		},
@@ -123,7 +124,7 @@
 						})
 						return;
 					} else {
-						if(vm.countfile < vm.maxLength) {
+						if(vm.countfile < vm.fileMaxLenght) {
 							var reader = new FileReader();
 							reader.onload = function(event) {
 								const imageUrl = event.target.result;

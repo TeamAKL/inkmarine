@@ -13,7 +13,7 @@
                         @csrf
                         <div class="form-group row">
                             <label for="title" class="col-md-4 col-form-label text-md-right">Certificate Title</label>
-                            <input type="text" class="form-control col-md-6" id="title" name="title" placeholder="Enter title">
+                            <input type="text" class="form-control col-md-6" id="title" name="title" placeholder="Enter title" required>
                         </div>
                         <button type="submit" class="btn btn-primary" style="margin-left:67%;">Add Certificate</button>
                     </form>

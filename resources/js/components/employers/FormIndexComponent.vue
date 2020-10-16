@@ -2,7 +2,7 @@
     <div>
         <h1 class="text-center">Employeer Registeration</h1>
         <form-wizard shape="circle" color="#20a0ff">
-            <!-- <tab-content title="Personal details" icon="ti-user" :before-change="()=>validateStep('form-one')">
+            <tab-content title="Personal details" icon="ti-user" :before-change="()=>validateStep('form-one')">
                 <form-one ref="form-one" @on-validate="mergePartialModels"></form-one>
             </tab-content>
 
@@ -12,23 +12,23 @@
 
             <tab-content title="Family Member" icon="ti-id-badge" :before-change="()=>validateStep('form-four')">
                 <form-four ref="form-four" :employerId="employerId"></form-four>
-            </tab-content> -->
+            </tab-content>
 
-            <!-- tab-content title="Certificate" icon="ti-files" :before-change="()=>validateStep('form-three')">
+            <tab-content title="Certificate" icon="ti-files" :before-change="()=>validateStep('form-three')">
                 <form-three ref="form-three"  :employerId="employerId"></form-three>
-            </tab-content> -->
+            </tab-content>
 
             <tab-content title="Medical Checkup" icon="ti-clipboard" :before-change="()=>validateStep('form-five')">
                 <form-five ref="form-five" :employerId="employerId"></form-five>
             </tab-content>
 
-            <!-- <tab-content title="Other Company Careers" icon="ti-briefcase" :before-change="()=>validateStep('form-six')">
+            <tab-content title="Other Company Careers" icon="ti-briefcase" :before-change="()=>validateStep('form-six')">
                 <form-six ref="form-six" @on-validate="mergePartialModels" :employerId="employerId"></form-six>
-            </tab-content> -->
+            </tab-content>
 
             <tab-content title="Seaman Book No" icon="ti-files" :before-change="()=>validateStep('form-seven')">
                 <form-seven ref="form-seven"  :employerId="employerId"></form-seven>
-            </tab-content> 
+            </tab-content>
 
              <tab-content title="PASSPORT" icon="ti-files" :before-change="()=>validateStep('form-eight')">
                 <form-eight ref="form-eight"  :employerId="employerId"></form-eight>
@@ -72,7 +72,7 @@ export default {
     },
     data() {
         return {
-            employerId: 1,
+            employerId: '',
             finalModel: {},
         }
     },
@@ -81,8 +81,7 @@ export default {
             var refToValidate = this.$refs[name];
             return refToValidate.validate();
         },
-        mergePartialModels(isValid){
-            console.log(isValid);
+         mergePartialModels(isValid){
             if(isValid){
                 this.employerId = isValid;
             }

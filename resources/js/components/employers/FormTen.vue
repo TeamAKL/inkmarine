@@ -15,7 +15,7 @@
 				<div class="loading-area-one" v-show="showLoading">
 					<img src="../../../../public/loading/loading.gif" alt="">
 				</div>
-				<label for="medical-checkup" class="medicalcheckup" @dragover.prevent @drop="onDrop">
+				<label for="all-in-one" class="medicalcheckup" @dragover.prevent @drop="onDrop">
 					<i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
 					<span class="image-lable-text" v-show="!showLoading">Choose File or drag & drop here</span>
 				</label>
@@ -40,14 +40,14 @@
 					</div>
 				</div>
 				<div class="gird-item-image final-grid" v-show="fileLoopCount < fileMaxLenght">
-					<label for="medical-checkup" class="medicalcheckup" @dragover.prevent @drop="onDrop">
+					<label for="all-in-one" class="medicalcheckup" @dragover.prevent @drop="onDrop">
 						<i class="wizard-icon ti-cloud-up icon-image-upload"></i>
 						<span class="image-lable-text">Choose File or drag & drop here</span>
 					</label>
 				</div>
 			</div>
 		</div>
-		<input type="file" multiple draggable="true" id="medical-checkup" @change="uploadPassportFile" accept="image/*, .pdf">
+		<input type="file" multiple draggable="true" id="all-in-one" @change="uploadPassportFile" accept="image/*, .pdf">
 	</div>
 </template>
 <script>

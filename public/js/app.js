@@ -3067,7 +3067,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      employerId: 1,
+      employerId: '',
       finalModel: {}
     };
   },
@@ -3077,8 +3077,6 @@ __webpack_require__.r(__webpack_exports__);
       return refToValidate.validate();
     },
     mergePartialModels: function mergePartialModels(isValid) {
-      console.log(isValid);
-
       if (isValid) {
         this.employerId = isValid;
       }
@@ -3097,6 +3095,23 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.js */ "./node_modules/sweetalert2/dist/sweetalert2.js");
+/* harmony import */ var sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var sweetalert2_src_sweetalert2_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2/src/sweetalert2.scss */ "./node_modules/sweetalert2/src/sweetalert2.scss");
+/* harmony import */ var sweetalert2_src_sweetalert2_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert2_src_sweetalert2_scss__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue2_datepicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue2-datepicker */ "./node_modules/vue2-datepicker/index.esm.js");
+/* harmony import */ var vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue2-datepicker/index.css */ "./node_modules/vue2-datepicker/index.css");
+/* harmony import */ var vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -3133,7 +3148,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
+var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default.a.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  onOpen: function onOpen(toast) {
+    toast.addEventListener('mouseenter', sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default.a.stopTimer);
+    toast.addEventListener('mouseleave', sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default.a.resumeTimer);
+  }
+});
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    DatePicker: vue2_datepicker__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
   data: function data() {
     return {
       user_token: "".concat("eyJpdiI6IjlaSHRCM1d4V0ZDd3RoNXpNUnF4MUE9PSIsInZhbHVlIjoiUkRoQm1BdTV6ZFoxcEdkaTlqcU5uOUlrZDRKdDUza0RGVHoybXNjUDlXanVIV2NsdFVpenVWSmpaWDBIdGc0a09uc2k0Qzl4cEhWbUl3UjJaTmcyOTc2UTRWSmp0RVoxdTR5YXdCelwvNmRWbUM3Z0p4T25oRzVyUnFoWmRueFRLIiwibWFjIjoiN2VhZDdkYjYzMzk1YzU2NjVmZDM1ZDQ1NjM0MzA0YmE4ZmNlOWM3MTNkNWZhZDI5ZDgxOWQyNDM4YzJlYzQ5MSJ9"),
@@ -3142,37 +3176,70 @@ __webpack_require__.r(__webpack_exports__);
       nationality: '',
       dob: '',
       pob: '',
-      edulevel: ''
+      edulevel: '',
+      result: '',
+      personId: ''
     };
+  },
+  created: function created() {
+    var date = new Date();
+    this.dob = moment__WEBPACK_IMPORTED_MODULE_5___default()(date).format('DD-MM-YYYY');
   },
   methods: {
     validate: function validate() {
-      var response = axios.post('/api/save-form-one', {
-        'crewcode': this.crewcode,
-        'name': this.name,
-        'nationality': this.nationality,
-        'dob': this.dob,
-        'pob': this.pob,
-        'edulevel': this.edulevel
-      }, {
-        headers: {
-          'Authorization': 'Bearer ' + this.user_token
-        }
-      }).then(function (result) {
-        return true;
-      })["catch"](function (err) {
-        if (err.response.status == 400) {
-          $.each(err.response.data.error, function (i, error) {
-            var el = $(document).find('[name="' + i + '"]');
-            el.after($('<span style="color: red;">' + error[0] + '</span>'));
-          });
-        } // return false;
+      var _this = this;
 
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var isValid;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.post('/api/save-form-one', {
+                  'crewcode': _this.crewcode,
+                  'name': _this.name,
+                  'nationality': _this.nationality,
+                  'dob': _this.dob,
+                  'pob': _this.pob,
+                  'edulevel': _this.edulevel,
+                  'personId': _this.personId
+                }, {
+                  headers: {
+                    'Authorization': 'Bearer ' + _this.user_token
+                  }
+                }).then(function (result) {
+                  _this.personId = result.data.employeer.id;
+                  isValid = true;
+                })["catch"](function (err) {
+                  if (err.response.status == 400) {
+                    Toast.fire({
+                      icon: 'error',
+                      title: 'Please fill all required fields!'
+                    });
+                    $.each(err.response.data.error, function (i, error) {
+                      var el = $(document).find('[name="' + i + '"]');
+                      el.after($('<span style="color: red;">' + error[0] + '</span>'));
+                    });
+                  }
 
-        return true;
-      });
-      this.$emit('on-validate', this.$data, response);
-      return response;
+                  isValid = false;
+                });
+
+              case 2:
+                console.log(_this.personId);
+
+                _this.$emit('on-validate', _this.personId);
+
+                return _context.abrupt("return", isValid);
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     }
   }
 });
@@ -3249,6 +3316,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default.a.mixin({
@@ -3270,7 +3338,7 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default
       user_token: "".concat("eyJpdiI6IjlaSHRCM1d4V0ZDd3RoNXpNUnF4MUE9PSIsInZhbHVlIjoiUkRoQm1BdTV6ZFoxcEdkaTlqcU5uOUlrZDRKdDUza0RGVHoybXNjUDlXanVIV2NsdFVpenVWSmpaWDBIdGc0a09uc2k0Qzl4cEhWbUl3UjJaTmcyOTc2UTRWSmp0RVoxdTR5YXdCelwvNmRWbUM3Z0p4T25oRzVyUnFoWmRueFRLIiwibWFjIjoiN2VhZDdkYjYzMzk1YzU2NjVmZDM1ZDQ1NjM0MzA0YmE4ZmNlOWM3MTNkNWZhZDI5ZDgxOWQyNDM4YzJlYzQ5MSJ9"),
       cbn_images: [],
       showLoading: false,
-      maxLength: 20,
+      fileMaxLenght: 20,
       countfile: 0
     };
   },
@@ -3343,7 +3411,7 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default
           });
           return;
         } else {
-          if (vm.countfile < vm.maxLength) {
+          if (vm.countfile < vm.fileMaxLenght) {
             var reader = new FileReader();
 
             reader.onload = function (event) {
@@ -4838,6 +4906,7 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default
                     'Authorization': 'Bearer ' + _this.user_token
                   }
                 }).then(function (result) {
+                  console.log(result);
                   _this.employer_detail_id = result.data.employer_detail.id;
                   isValid = true;
                   $(document).find('span[class="validate-message"]').remove();
@@ -94076,7 +94145,7 @@ var render = function() {
             "label",
             {
               staticClass: "medicalcheckup",
-              attrs: { for: "medical-checkup" },
+              attrs: { for: "ppt" },
               on: {
                 dragover: function($event) {
                   $event.preventDefault()
@@ -94218,7 +94287,7 @@ var render = function() {
                 "label",
                 {
                   staticClass: "medicalcheckup",
-                  attrs: { for: "medical-checkup" },
+                  attrs: { for: "ppt" },
                   on: {
                     dragover: function($event) {
                       $event.preventDefault()
@@ -94248,7 +94317,7 @@ var render = function() {
         type: "file",
         multiple: "",
         draggable: "true",
-        id: "medical-checkup",
+        id: "ppt",
         accept: "image/*, .pdf"
       },
       on: { change: _vm.uploadPassportFile }
@@ -95382,6 +95451,86 @@ var render = function() {
             "tab-content",
             {
               attrs: {
+                title: "Personal details",
+                icon: "ti-user",
+                "before-change": function() {
+                  return _vm.validateStep("form-one")
+                }
+              }
+            },
+            [
+              _c("form-one", {
+                ref: "form-one",
+                on: { "on-validate": _vm.mergePartialModels }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "tab-content",
+            {
+              attrs: {
+                title: "Additional Info",
+                icon: "ti-settings",
+                "before-change": function() {
+                  return _vm.validateStep("form-two")
+                }
+              }
+            },
+            [
+              _c("form-two", {
+                ref: "form-two",
+                attrs: { employerId: _vm.employerId }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "tab-content",
+            {
+              attrs: {
+                title: "Family Member",
+                icon: "ti-id-badge",
+                "before-change": function() {
+                  return _vm.validateStep("form-four")
+                }
+              }
+            },
+            [
+              _c("form-four", {
+                ref: "form-four",
+                attrs: { employerId: _vm.employerId }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "tab-content",
+            {
+              attrs: {
+                title: "Certificate",
+                icon: "ti-files",
+                "before-change": function() {
+                  return _vm.validateStep("form-three")
+                }
+              }
+            },
+            [
+              _c("form-three", {
+                ref: "form-three",
+                attrs: { employerId: _vm.employerId }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "tab-content",
+            {
+              attrs: {
                 title: "Medical Checkup",
                 icon: "ti-clipboard",
                 "before-change": function() {
@@ -95393,6 +95542,27 @@ var render = function() {
               _c("form-five", {
                 ref: "form-five",
                 attrs: { employerId: _vm.employerId }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "tab-content",
+            {
+              attrs: {
+                title: "Other Company Careers",
+                icon: "ti-briefcase",
+                "before-change": function() {
+                  return _vm.validateStep("form-six")
+                }
+              }
+            },
+            [
+              _c("form-six", {
+                ref: "form-six",
+                attrs: { employerId: _vm.employerId },
+                on: { "on-validate": _vm.mergePartialModels }
               })
             ],
             1
@@ -95587,35 +95757,26 @@ var render = function() {
         })
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "dob" } }, [_vm._v("Date Of Birth")]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model.trim",
+      _c(
+        "div",
+        { staticClass: "form-group" },
+        [
+          _c("label", { attrs: { for: "dob" } }, [_vm._v("Date Of Birth")]),
+          _vm._v(" "),
+          _c("date-picker", {
+            staticClass: "date-picker",
+            attrs: { valueType: "format", format: "DD-MM-YYYY" },
+            model: {
               value: _vm.dob,
-              expression: "dob",
-              modifiers: { trim: true }
+              callback: function($$v) {
+                _vm.dob = typeof $$v === "string" ? $$v.trim() : $$v
+              },
+              expression: "dob"
             }
-          ],
-          staticClass: "form-control",
-          attrs: { type: "date", id: "dob", name: "dob" },
-          domProps: { value: _vm.dob },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.dob = $event.target.value.trim()
-            },
-            blur: function($event) {
-              return _vm.$forceUpdate()
-            }
-          }
-        })
-      ]),
+          })
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
         _c("label", { attrs: { for: "pob" } }, [_vm._v("Place Of Birth")]),
@@ -95705,7 +95866,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "cbn" } }, [_vm._v("Ceman Book No")]),
+      _c("label", { attrs: { for: "cbn" } }, [_vm._v("Seaman Book No")]),
       _vm._v(" "),
       _c("input", {
         directives: [
@@ -95772,7 +95933,7 @@ var render = function() {
             "label",
             {
               staticClass: "medicalcheckup",
-              attrs: { for: "form-seven" },
+              attrs: { for: "ctc" },
               on: {
                 dragover: function($event) {
                   $event.preventDefault()
@@ -95903,8 +96064,8 @@ var render = function() {
                 {
                   name: "show",
                   rawName: "v-show",
-                  value: _vm.countfile < _vm.maxLength,
-                  expression: "countfile < maxLength"
+                  value: _vm.countfile < _vm.fileMaxLenght,
+                  expression: "countfile < fileMaxLenght"
                 }
               ],
               staticClass: "gird-item-image final-grid"
@@ -95914,7 +96075,7 @@ var render = function() {
                 "label",
                 {
                   staticClass: "medicalcheckup",
-                  attrs: { for: "form-seven" },
+                  attrs: { for: "ctc" },
                   on: {
                     dragover: function($event) {
                       $event.preventDefault()
@@ -95944,7 +96105,7 @@ var render = function() {
         type: "file",
         multiple: "",
         draggable: "true",
-        id: "form-seven",
+        id: "ctc",
         accept: "image/*, .pdf"
       },
       on: { change: _vm.uploadFileFormSeven }
@@ -96605,7 +96766,7 @@ var render = function() {
             "label",
             {
               staticClass: "medicalcheckup",
-              attrs: { for: "medical-checkup" },
+              attrs: { for: "all-in-one" },
               on: {
                 dragover: function($event) {
                   $event.preventDefault()
@@ -96747,7 +96908,7 @@ var render = function() {
                 "label",
                 {
                   staticClass: "medicalcheckup",
-                  attrs: { for: "medical-checkup" },
+                  attrs: { for: "all-in-one" },
                   on: {
                     dragover: function($event) {
                       $event.preventDefault()
@@ -96777,7 +96938,7 @@ var render = function() {
         type: "file",
         multiple: "",
         draggable: "true",
-        id: "medical-checkup",
+        id: "all-in-one",
         accept: "image/*, .pdf"
       },
       on: { change: _vm.uploadPassportFile }

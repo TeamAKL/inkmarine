@@ -123,6 +123,7 @@ class EmployeerController extends Controller
     // Store  Form Two
     public function storeFormTwo(Request $req)
     {
+
         $validator = Validator::make($req->all(), [
             'phone_number' => 'required',
             'cell_phone_number' => 'required',
@@ -143,7 +144,6 @@ class EmployeerController extends Controller
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()], 400);
         }
-
         $format = date("Y-m-d", strtotime($req->deperature_date));
         $employeer_detail = EmployeerDetail::updateOrCreate(
             ['id' => $req->employer_detail_id, 'employer_id' => $req->employerId],
@@ -380,9 +380,9 @@ class EmployeerController extends Controller
          if ($validator->fails()) {
              return response()->json(['error'=>$validator->errors()], 400);
          }
- 
+
          $images = json_encode($req->all_images);
- 
+
          $allInOne = AllInOne::updateOrCreate(
              ['id' => $req->all_in_one_id, 'employer_id' => $req->employer_id],
              ['employer_id' => $req->employer_id, 'images' => $images, 'coc' => $req->coc, 'gmbss' => $req->gmbss]
@@ -390,8 +390,8 @@ class EmployeerController extends Controller
          return response()->json(['message' => 'success', 'all_in_one' => $allInOne], 200);
      }
 
-    
 
-    
+
+
 
 }

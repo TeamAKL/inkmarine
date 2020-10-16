@@ -11190,3 +11190,7 @@ c-modal .cmodal-content .cmodal-footer button {
   margin-top: 12%;
 }
 
+input[multiple=multiple] {
+  display: none;
+}
+
