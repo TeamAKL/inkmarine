@@ -2,12 +2,17 @@
 <!-- Image 27 -->
 <template>
 	<div>
-		<div class="form-group">
-			<label for="coc">C.O.C</label>
+		<div class="form-row">
+			<div class="form-group col-md-12">
+					<label for="coc">C.O.C</label>
 			<input type="text" name="coc" id="coc" v-model="coc" class="form-control">
-
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-12">
 			<label for="gmbss">GMBSS</label>
 			<input type="text" name="gmbss" id="gmbss" v-model="gmbss" class="form-control">
+			</div>
 		</div>
 		<!-- Image Container -->
 		<div class="form-group">

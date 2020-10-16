@@ -2769,7 +2769,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
@@ -3676,6 +3675,7 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_4___default
         that.cvisibility = 'hidden';
         that.czindex = -100;
       }, 500);
+      this.clearForm();
     },
     save: function save() {
       var _this = this;
@@ -3810,6 +3810,11 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
 //
 //
 //
@@ -94509,27 +94514,6 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "cmodal-body" }, [
                 _c("form", [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.employerId,
-                        expression: "employerId"
-                      }
-                    ],
-                    attrs: { type: "text" },
-                    domProps: { value: _vm.employerId },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.employerId = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
                     _c("label", { attrs: { for: "name" } }, [_vm._v("Name")]),
                     _vm._v(" "),
@@ -95520,6 +95504,84 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "cmodal-body" }, [
                 _c("div", { staticClass: "form-row" }, [
+                  _c("div", { staticClass: "form-group col-md-6" }, [
+                    _c(
+                      "label",
+                      { staticClass: "typo__label", attrs: { for: "" } },
+                      [_vm._v("Company")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.trim",
+                          value: _vm.company_name,
+                          expression: "company_name",
+                          modifiers: { trim: true }
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "company_name",
+                        name: "company_name"
+                      },
+                      domProps: { value: _vm.company_name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.company_name = $event.target.value.trim()
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-6" }, [
+                    _c(
+                      "label",
+                      { staticClass: "typo__label", attrs: { for: "" } },
+                      [_vm._v("Ship Name")]
+                    ),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.trim",
+                          value: _vm.ship_name,
+                          expression: "ship_name",
+                          modifiers: { trim: true }
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        id: "ship_name",
+                        name: "ship_name"
+                      },
+                      domProps: { value: _vm.ship_name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.ship_name = $event.target.value.trim()
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-row" }, [
                   _c("div", { staticClass: "col-md-4 form-group" }, [
                     _c("label", { attrs: { for: "" } }, [_vm._v("Rank")]),
                     _vm._v(" "),
@@ -95602,84 +95664,6 @@ var render = function() {
                             return
                           }
                           _vm.kw = $event.target.value.trim()
-                        },
-                        blur: function($event) {
-                          return _vm.$forceUpdate()
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-row" }, [
-                  _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c(
-                      "label",
-                      { staticClass: "typo__label", attrs: { for: "" } },
-                      [_vm._v("Company")]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model.trim",
-                          value: _vm.company_name,
-                          expression: "company_name",
-                          modifiers: { trim: true }
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        id: "company_name",
-                        name: "company_name"
-                      },
-                      domProps: { value: _vm.company_name },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.company_name = $event.target.value.trim()
-                        },
-                        blur: function($event) {
-                          return _vm.$forceUpdate()
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group col-md-4" }, [
-                    _c(
-                      "label",
-                      { staticClass: "typo__label", attrs: { for: "" } },
-                      [_vm._v("Ship Name")]
-                    ),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model.trim",
-                          value: _vm.ship_name,
-                          expression: "ship_name",
-                          modifiers: { trim: true }
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        id: "ship_name",
-                        name: "ship_name"
-                      },
-                      domProps: { value: _vm.ship_name },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.ship_name = $event.target.value.trim()
                         },
                         blur: function($event) {
                           return _vm.$forceUpdate()
@@ -95854,54 +95838,60 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "coc" } }, [_vm._v("C.O.C")]),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.coc,
-            expression: "coc"
-          }
-        ],
-        staticClass: "form-control",
-        attrs: { type: "text", name: "coc", id: "coc" },
-        domProps: { value: _vm.coc },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+    _c("div", { staticClass: "form-row" }, [
+      _c("div", { staticClass: "form-group col-md-12" }, [
+        _c("label", { attrs: { for: "coc" } }, [_vm._v("C.O.C")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.coc,
+              expression: "coc"
             }
-            _vm.coc = $event.target.value
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "gmbss" } }, [_vm._v("GMBSS")]),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.gmbss,
-            expression: "gmbss"
-          }
-        ],
-        staticClass: "form-control",
-        attrs: { type: "text", name: "gmbss", id: "gmbss" },
-        domProps: { value: _vm.gmbss },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", name: "coc", id: "coc" },
+          domProps: { value: _vm.coc },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.coc = $event.target.value
             }
-            _vm.gmbss = $event.target.value
           }
-        }
-      })
+        })
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-row" }, [
+      _c("div", { staticClass: "form-group col-md-12" }, [
+        _c("label", { attrs: { for: "gmbss" } }, [_vm._v("GMBSS")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.gmbss,
+              expression: "gmbss"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", name: "gmbss", id: "gmbss" },
+          domProps: { value: _vm.gmbss },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.gmbss = $event.target.value
+            }
+          }
+        })
+      ])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "form-group" }, [

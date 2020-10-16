@@ -64,6 +64,17 @@
             <div class="cmodal-content" :style="{transform: cstyle, opacity: copacity}">
                 <div class="cmodal-header">Add Company Careers</div>
                 <div class="cmodal-body">
+                     <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="typo__label" for="">Company</label>
+                             <input type="text" class="form-control" id="company_name" name="company_name"  v-model.trim="company_name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="typo__label" for="">Ship Name</label>
+                             <input type="text" class="form-control" id="ship_name" name="ship_name"  v-model.trim="ship_name">
+                        </div>
+                    </div>
+
                     <div class="form-row">
                         <div class="col-md-4 form-group">
                             <label for="">Rank</label>
@@ -76,17 +87,6 @@
                         <div class="col-md-4 form-group">
                             <label for="">KW</label>
                             <input type="text" class="form-control" id="kw" name="kw"  v-model.trim="kw">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label class="typo__label" for="">Company</label>
-                             <input type="text" class="form-control" id="company_name" name="company_name"  v-model.trim="company_name">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label class="typo__label" for="">Ship Name</label>
-                             <input type="text" class="form-control" id="ship_name" name="ship_name"  v-model.trim="ship_name">
                         </div>
                     </div>
 
@@ -238,7 +238,8 @@ export default {
             this.cstyle = 'translateY(-100%)';
             this.copacity = 0;
             let that = this;
-            setTimeout(function(){ that.cvisibility = 'hidden'; that.czindex= -100;}, 500)
+            setTimeout(function(){ that.cvisibility = 'hidden'; that.czindex= -100;}, 500);
+            this.clearForm();
         },
         save() {
              axios.post('/api/save-other-company-careers', {

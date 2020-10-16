@@ -65,7 +65,6 @@
                 <div class="cmodal-header">Add Family Member</div>
                 <div class="cmodal-body">
                     <form>
-                        <input type="text" v-model="employerId">
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" class="form-control" id="member_name" name="member_name"  v-model.trim="member_name">

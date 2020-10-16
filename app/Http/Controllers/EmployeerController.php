@@ -247,8 +247,8 @@ class EmployeerController extends Controller
     public function saveOtherCompanyCareers(Request $request){
         $validator = Validator::make($request->all(), [
             'rank' => 'required',
-            'grt' => 'required',
-            'kw' => 'required',
+            'grt' => 'required|integer',
+            'kw' => 'required|integer',
             'company_name' => 'required',
             'ship_name' => 'required',
             'boarding_date' => 'required',
@@ -265,7 +265,7 @@ class EmployeerController extends Controller
         $leaving_format = date("Y-m-d", strtotime($request->leaving_date));
         $companyCareers = OtherCompanyCareers::updateOrCreate(
             ['id' => $request->company_career_id],
-            ['user_id' => $request->user_id, 'rank' => $request->rank, 'grt' => $request->grt, 'kw' => $request->kw, 'company_name' => $request->company_name, 'ship_name' => $request->ship_name, 'boarding_date' => $boarding_format, 'leaving_date' => $request->$leaving_format, 'area' => $request->area, 'remark' => $request->company_remark]
+            ['user_id' => $request->user_id, 'rank' => $request->rank, 'grt' => $request->grt, 'kw' => $request->kw, 'company_name' => $request->company_name, 'ship_name' => $request->ship_name, 'boarding_date' => $boarding_format, 'leaving_date' => $leaving_format, 'area' => $request->area, 'remark' => $request->company_remark]
         );
         return response()->json(["message" => "success", "companyCareers" => $companyCareers], 200);
     }
@@ -374,8 +374,8 @@ class EmployeerController extends Controller
      {
          // dd($req->all());
          $validator = Validator::make($req->all(), [
-             'coc' => 'required',
-             'gmbss' => 'required'
+             'coc' => 'required|integer',
+             'gmbss' => 'required|integer'
          ]);
          if ($validator->fails()) {
              return response()->json(['error'=>$validator->errors()], 400);

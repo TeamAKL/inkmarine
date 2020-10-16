@@ -16,7 +16,7 @@ class CreatePassportsTable extends Migration
         Schema::create('passports', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('employer_id');
-            $table->bigInteger('passport_no');
+            $table->string('passport_no');
             $table->text('images');
             $table->timestamps();
         });
