@@ -4196,7 +4196,7 @@ input[type=button].btn-block {
 
 .custom-file-label {
   position: absolute;
-  top: 0;
+  top: 33px;
   right: 0;
   left: 0;
   z-index: 1;
@@ -11188,5 +11188,9 @@ c-modal .cmodal-content .cmodal-footer button {
 .loading-area-one {
   text-align: center;
   margin-top: 12%;
+}
+
+input[multiple=multiple] {
+  display: none;
 }
 

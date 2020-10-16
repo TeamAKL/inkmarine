@@ -23,6 +23,7 @@ use Illuminate\Http\Request;
 
 Route::post("get-all-user", 'HomeController@getalluser');
 Route::post("image-upload", "HomeController@imageUpload");
+Route::post("image-upload-form-seven", "HomeController@imageUpload");
 Route::post("image-upload-edit", "HomeController@imageUploadEdit");
 Route::post("image-delete", "HomeController@imageDelte");
 

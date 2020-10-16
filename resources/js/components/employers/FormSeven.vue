@@ -3,7 +3,7 @@
 <template>
 	<div>
 		<div class="form-group">
-			<label for="cbn">Ceman Book No</label>
+			<label for="cbn">Seaman Book No</label>
 			<input type="text" name="cbn" id="cbn" v-model="cbn" class="form-control">
 		</div>
 		<!-- Image Container -->
@@ -12,13 +12,13 @@
 				<div class="loading-area-one" v-show="showLoading">
 					<img src="../../../../public/loading/loading.gif" alt="">
 				</div>
-				<label for="medical-checkup" class="medicalcheckup" @dragover.prevent @drop="onDrop">
+				<label for="ctc" class="medicalcheckup" @dragover.prevent @drop="onDropFormSeven">
 					<i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
 					<span class="image-lable-text" v-show="!showLoading">Choose File or drag & drop here</span>
 				</label>
 			</div>
 
-			<div class="grid-container" @dragover.prevent @drop="onDrop" v-show="cbn_images.length >= 1">
+			<div class="grid-container" @dragover.prevent @drop="onDropFormSeven" v-show="cbn_images.length >= 1">
 				<div class="loading-area" v-show="showLoading">
 					<img src="../../../../public/loading/loading.gif" alt="">
 				</div>
@@ -36,15 +36,16 @@
 						</div>
 					</div>
 				</div>
-				<div class="gird-item-image final-grid" v-show="fileLoopCount < fileMaxLenght">
-					<label for="medical-checkup" class="medicalcheckup" @dragover.prevent @drop="onDrop">
+				<div class="gird-item-image final-grid" v-show="countfile < fileMaxLenght">
+					<label for="ctc" class="medicalcheckup" @dragover.prevent @drop="onDropFormSeven">
 						<i class="wizard-icon ti-cloud-up icon-image-upload"></i>
 						<span class="image-lable-text">Choose File or drag & drop here</span>
 					</label>
 				</div>
 			</div>
 		</div>
-		<input type="file" multiple draggable="true" id="medical-checkup" @change="uploadFile" accept="image/*, .pdf">
+
+		<input type="file" multiple draggable="true" id="ctc" @change="uploadFileFormSeven" accept="image/*, .pdf">
 	</div>
 </template>
 <script>
@@ -70,7 +71,7 @@
 				cbn_images: [],
 				showLoading: false,
 				fileMaxLenght: 20,
-				fileLoopCount: 0,
+				countfile: 0,
 			}
 		},
 		methods: {
@@ -104,14 +105,14 @@
 
 				return isValid;
 			},
-			uploadFile(e) {
+			uploadFileFormSeven(e) {
 				var files = e.target.files || e.dataTransfer.files;
 				if (!files.length)
 					return;
-				this.createImage(files)
+				this.createImageFormSeven(files)
 			},
 
-			createImage(files) {
+			createImageFormSeven(files) {
 				var vm = this;
 				for (var index = 0; index < files.length; index++) {
 					if (!files[index].type.match('application/pdf') && !files[index].type.match('image.*')) {
@@ -123,12 +124,12 @@
 						})
 						return;
 					} else {
-						if(vm.fileLoopCount < vm.fileMaxLenght) {
+						if(vm.countfile < vm.fileMaxLenght) {
 							var reader = new FileReader();
 							reader.onload = function(event) {
 								const imageUrl = event.target.result;
 								vm.showLoading = true;
-								axios.post('/api/image-upload', {
+								axios.post('/api/image-upload-form-seven', {
 									'image': imageUrl,
 									'folder': 'cemanbookno/'
 								}, {
@@ -142,16 +143,16 @@
 						} else {
 							return false;
 						}
-						vm.fileLoopCount++;
+						vm.countfile++;
 					}
 				}
 			},
 
-			onDrop: function(e) {
+			onDropFormSeven: function(e) {
 				e.stopPropagation();
 				e.preventDefault();
 				var files = e.target.files || e.dataTransfer.files;
-				this.createImage(files)
+				this.createImageFormSeven(files)
 			},
 
 			deleteImage(index) {

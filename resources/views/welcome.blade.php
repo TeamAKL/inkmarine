@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{mix('css/app.css')}}">
     <title>{{ config('app.name', 'INK Marine Co.,Ltd.') }}</title>
     <style>
-       .left-nave,.right-nave a{
+        ul.left-nave li a,ul.right-nave li a{
                 color: #000000;
                 font-weight: 600;
                 text-decoration: none;
@@ -31,6 +31,10 @@
             text-align:left;
             margin-left:45px;
         }
+        .navbar{
+            z-index:1;
+            background-color:#d0dae0;
+        }
     </style>
 </head>
 <body>
@@ -42,53 +46,51 @@
     </header>
     <!-- End Main Header -->
     <!-- Second Nav Bar -->
-    <nav>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav">
+        <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="container">
-            <div class="nav-container">
+            <div class="nav-container collapse navbar-collapse">
                 <!-- Left Side NavBar -->
-                <ul class="left-nave">
+                <ul class="left-nave navbar-nav">
                     @guest
-                    <li><a href="{{ url('/') }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
                     @else
-                    <li><a href="{{ url('/') }}">Home</a></li>
-                    <li><a href="{{url('/employer/create')}}">Create</a></li>
-                    <li><a href="{{url('/company')}}">Companies</a></li>
-                    <li><a href="{{url('/ship')}}">Ships</a></li>
-                    <li><a href="{{url('/certificate')}}">Certificates</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url('/home') }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url('/employer/create')}}">Create</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url('/company')}}">Companies</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url('/ship')}}">Ships</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url('/certificate')}}">Certificates</a></li>
                     @endguest
                 </ul>
                 <!-- End Left side Navbar -->
 
                 <!-- Right Side NavBar -->
-                <ul class="right-nave">
+                <ul class="right-nave navbar-nav">
                     @guest
-                    <li><a href="{{route('login')}}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('login')}}">Login</a></li>
                     <!-- <li><a href="{{route('register')}}">Register</a></li>  -->
                     @else
-                    <li>
-                        <a id="navbarDropdown" class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
-                        </a>
-
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
+                    <li class="nav-item dropdown">
+                        <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown"> {{ Auth::user()->name }}</a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                            </a>
-
+                            document.getElementById('logout-form').submit();"> 
+                            {{ __('Logout') }}</a></li>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
-                        </div>
+                        </ul>
                     </li>
                     @endguest
-            </ul>
-            <!-- End Right Side Nav bar -->
+                </ul>
+                <!-- End Right Side Nav bar -->
             
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
 <div class="container content-page">
         <div class="module-title">
@@ -101,7 +103,7 @@
                 <p>Website : www.inkmarinemyanmar.com</p>
                 <p>Skype : +959-259255539</p>
                 <p>Office Tel : <!--+959-43040201,+951-299181+959-43183687-->+951 299 181, +959 430 40 201, +959 957 543 326</p>
-                <p>HP : +959-259255539</p>
+                <p style="height:500px;">HP : +959-259255539</p>
             </div>
         </div>
 </div>

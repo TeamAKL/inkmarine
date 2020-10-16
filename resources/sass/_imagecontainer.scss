@@ -1,128 +1,132 @@
 .image-holder {
-        position: relative;
+    position: relative;
+    width: 100%;
+    height: 280px;
+    border: 2px dotted gray;
+    .medicalcheckup {
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
-        height: 280px;
-        border: 2px dotted gray;
-        .medicalcheckup {
-            cursor: pointer;
+        height: 100%;
+        .icon-image-upload {
+            width: 4%;
+            height: 14%;
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            .icon-image-upload {
-                width: 4%;
-                height: 14%;
-                position: absolute;
-                top: 36%;
-                left: 50%;
-                font-size: 40px;
-            }
-            .image-lable-text {
-                position: absolute;
-                top: 55%;
-                left: 42%;
-            }
+            top: 36%;
+            left: 50%;
+            font-size: 40px;
         }
-
+        .image-lable-text {
+            position: absolute;
+            top: 55%;
+            left: 42%;
+        }
     }
 
-    .grid-container {
-        min-height: 280px;
-        width: 100%;
-        border: 2px dotted gray;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 200px));
-        grid-template-rows: repeat(auto-fit, minmax(180px, 200px));
-        grid-auto-rows: 200px;
-        grid-gap: 10px;
-        align-content: center;
-        justify-content: center;
-        .gird-item-image {
-            position: relative;
-            cursor: pointer;
-            .images-img {
+}
+
+.grid-container {
+    min-height: 280px;
+    width: 100%;
+    border: 2px dotted gray;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 200px));
+    grid-template-rows: repeat(auto-fit, minmax(180px, 200px));
+    grid-auto-rows: 200px;
+    grid-gap: 10px;
+    align-content: center;
+    justify-content: center;
+    .gird-item-image {
+        position: relative;
+        cursor: pointer;
+        .images-img {
+            width: 100%;
+            height: 100%;
+        }
+        .image-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(34, 34, 34, 0.63);
+            opacity: 0;
+            transition: .3s ease-in-out;
+            .ed-holder {
                 width: 100%;
                 height: 100%;
-            }
-            .image-overlay {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                top: 0;
-                left: 0;
-                background: rgba(34, 34, 34, 0.63);
-                opacity: 0;
-                transition: .3s ease-in-out;
-                .ed-holder {
+                position: relative;
+                background: transparent;
+                display: flex;
+                justify-content: space-evenly;
+                .edit-delete-area {
+                    align-self: flex-end;
+                    height: 32px;
                     width: 100%;
-                    height: 100%;
-                    position: relative;
-                    background: transparent;
-                    display: flex;
-                    justify-content: space-evenly;
-                    .edit-delete-area {
-                        align-self: flex-end;
-                        height: 32px;
-                        width: 100%;
-                        background: #ffffffb0;
-                        text-align: center;
-                        padding-top: 6px;
-                        .icon-holder {
-                            font-size: 20px;
-                            color: black;
-                        }
-                        .edit:hover {
-                            color: blue;
-                        }
-                        .delete:hover {
-                            color: red;
-                        }
+                    background: #ffffffb0;
+                    text-align: center;
+                    padding-top: 6px;
+                    .icon-holder {
+                        font-size: 20px;
+                        color: black;
+                    }
+                    .edit:hover {
+                        color: blue;
+                    }
+                    .delete:hover {
+                        color: red;
                     }
                 }
             }
-            &:hover .image-overlay {
-                opacity: 1;
+        }
+        &:hover .image-overlay {
+            opacity: 1;
+        }
+    }
+    .final-grid {
+        border: thin dotted gray;
+        background: rgba(114, 112, 112, 0.205);
+        position: relative;
+        .medicalcheckup {
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            .icon-image-upload {
+                font-size: 32px;
+            }
+            .image-lable-text {
+                text-align: center;
             }
         }
-        .final-grid {
-            border: thin dotted gray;
-            background: rgba(114, 112, 112, 0.205);
-            position: relative;
-            .medicalcheckup {
-                cursor: pointer;
-                width: 100%;
-                height: 100%;
-                margin-bottom: 0;
-                display: flex;
-                align-items: center;
-                flex-direction: column;
-                justify-content: center;
-                .icon-image-upload {
-                    font-size: 32px;
-                }
-                .image-lable-text {
-                    text-align: center;
-                }
-            }
-        }
-
-        .loading-area {
-            position: absolute;
-            left: 37%;
-        }
     }
 
-    .images-uploaded {
-        width: 200px;
-        height: 300px;
+    .loading-area {
+        position: absolute;
+        left: 37%;
     }
+}
 
-    #medical-checkup {
-        display: none;
-    }
+.images-uploaded {
+    width: 200px;
+    height: 300px;
+}
 
-    .loading-area-one {
-        text-align: center;
-        margin-top: 12%;
-    }
+#medical-checkup {
+    display: none;
+}
+
+.loading-area-one {
+    text-align: center;
+    margin-top: 12%;
+}
+
+input[multiple='multiple'] {
+    display: none;
+}
