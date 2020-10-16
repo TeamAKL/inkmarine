@@ -31,7 +31,7 @@ class CreateMedicalCheckupsTable extends Migration
             $table->string('hearing_right');
             $table->string('hospital');
             $table->string('decision');
-            $table->string('images');
+            $table->longText('images');
             $table->timestamps();
         });
     }

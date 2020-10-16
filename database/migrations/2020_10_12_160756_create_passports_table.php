@@ -17,7 +17,7 @@ class CreatePassportsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('employer_id');
             $table->string('passport_no');
-            $table->text('images');
+            $table->longText('images');
             $table->timestamps();
         });
     }

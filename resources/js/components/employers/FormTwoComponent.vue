@@ -1,6 +1,5 @@
 <template>
     <div>
-        <input type="hidden" v-model="employerId">
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="phone_number">Phone Number </label>

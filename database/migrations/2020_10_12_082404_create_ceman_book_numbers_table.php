@@ -17,7 +17,7 @@ class CreateCemanBookNumbersTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('employer_id');
             $table->string('cbn');
-            $table->text('images');
+            $table->longText('images');
             $table->timestamps();
         });
     }

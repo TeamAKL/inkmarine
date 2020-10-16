@@ -18,7 +18,7 @@ class CreateAllInOnesTable extends Migration
             $table->bigInteger('employer_id');
             $table->bigInteger('coc');
             $table->bigInteger('gmbss');
-            $table->text('images');
+            $table->longText('images');
             $table->timestamps();
         });
     }

@@ -20,7 +20,7 @@ class CreateEmployerCertificatesTable extends Migration
             $table->string('licine_number');
             $table->timestamp('training_date');
             $table->timestamp('expire_date')->useCurrent();
-            $table->string('image');
+            $table->longText('image');
             $table->text('remark');
             $table->timestamps();
         });

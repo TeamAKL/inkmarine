@@ -112,7 +112,13 @@
 					isValid = false;
 				});
 
-				return isValid;
+				// return isValid;
+				Swal.fire({
+	                title: 'Woo!',
+	                text: "Successfully Complete!",
+	                icon: 'success',
+	                allowOutsideClick: false,
+	            });
 			},
 			uploadPassportFile(e) {
 				var files = e.target.files || e.dataTransfer.files;
@@ -144,7 +150,6 @@
 								}, {
 									headers: {'Authorization': 'Bearer '+ this.user_token}
 								}).then((res) => {
-                                    console.log('helo');
 									vm.showLoading = false;
 									vm.all_images.push(res.data.url);
 								});
