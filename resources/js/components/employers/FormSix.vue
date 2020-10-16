@@ -257,8 +257,8 @@ export default {
             }, {
                 headers: {'Authorization': 'Bearer '+ this.user_token}
             }).then(result => {
-                console.log(result);
                this.hideModal();
+               $(document).find('span[class="validate-message"]').remove();
                this.getData();
             }).catch(err => {
                 if (err.response.status == 400) {

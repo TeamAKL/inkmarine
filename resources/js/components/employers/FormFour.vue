@@ -231,6 +231,7 @@ import moment from 'moment'
             }).then(result => {
                 console.log(result);
                this.hideModal();
+               $(document).find('span[class="validate-message"]').remove();
                this.getData();
             }).catch(err => {
                 if (err.response.status == 400) {
