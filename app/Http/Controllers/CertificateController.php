@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Certificate;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
 
 class CertificateController extends Controller
 {
@@ -32,16 +33,17 @@ class CertificateController extends Controller
      */
     public function store(Request $request)
     {
-        Certificate::create([
-            'title'=>$request->title
-        ]);
-        return redirect('certificate');
+        Certificate::updateOrCreate(
+            ['id' => $request->id],
+            ['title'=>$request->title]
+        );
+        return response()->json(['message' => "success"], 200);
     }
 
     public function index()
     {
-        $certificates=Certificate::all();
-        return view('certificate.index',compact('certificates',$certificates));  
+        // $certificates=Certificate::all();
+        return view('certificate.index');  
     }
 
     /**
@@ -82,20 +84,26 @@ class CertificateController extends Controller
        return redirect('certificate');
     }
 
-    public function delete($id)
+    public function delete(Request $req)
     {
-       $certificate=Certificate::find($id)->delete();
-       return redirect('certificate');
+       $certificate=Certificate::find($req->id)->delete();
+       return response()->json(['message' => "success"], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Certificate  $certificate
-     * @return \Illuminate\Http\Response
-     */
-    // public function destroy(Certificate $certificate)
-    // {
-    //     //
-    // }
+    /** 
+     * GET ALL CERTIFICATE
+    */
+    public function getAllCertificate(Request $req)
+    {
+        $certificates=Certificate::all();
+        return Datatables::of($certificates)
+        ->addColumn('action', function($data) {
+            $html = "<button class='btn btn-primary edit-btn' data-id='$data->id' data-title='$data->title' data-toggle='modal' data-target='#certificate-modal'>Edit</button>
+                    <button class='btn btn-danger delete-btn' data-id='$data->id'>Delete</button>";
+            return $html;
+        })
+        ->rawColumns(['action'])
+        ->make(true);
+    }
+
 }

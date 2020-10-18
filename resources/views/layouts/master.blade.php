@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="_token" content="{{ csrf_token() }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{mix('css/app.css')}}">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+    
     <title>{{ config('app.name', 'INK Marine Co.,Ltd.') }}</title>
     <style>
         ul.left-nave li a,ul.right-nave li a{
@@ -19,8 +23,8 @@
         }
         .navbar-light .navbar-nav a.nav-link:hover{
             color:#000046;
-           opacity: 1;
-           /* background-color:#ffffff; */
+            opacity: 1;
+            /* background-color:#ffffff; */
         }
     </style>
 </head>
@@ -35,7 +39,7 @@
     <!-- Second Nav Bar -->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav">
-        <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="container">
             <div class="nav-container collapse navbar-collapse">
@@ -57,7 +61,7 @@
                 <ul class="right-nave navbar-nav">
                     @guest
                     <li class="nav-item"><a class="nav-link" href="{{route('login')}}">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{route('register')}}">Register</a></li> 
+                    <li class="nav-item"><a class="nav-link" href="{{route('register')}}">Register</a></li>
                     @else
                     <!-- <li>
                         <a id="navbarDropdown" class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -80,8 +84,8 @@
                         <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown"> {{ Auth::user()->name }}</a>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li><a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();"> 
+                                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}</a></li>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
@@ -89,10 +93,10 @@
                         </ul>
                     </li>
                     @endguest
-               </ul>
-               <!-- End Right Side Nav bar -->
-            
-           </div>
+                </ul>
+                <!-- End Right Side Nav bar -->
+
+            </div>
         </div>
     </nav>
     <!-- End Second Bar -->
@@ -111,22 +115,30 @@
     <!-- ===================================== -->
 
     <!-- JavaScript -->
-    
+
     <script src="{{mix('js/app.js')}}"></script>
+    <!-- DataTables -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+    <!-- Modal -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script>
-    $(document).ready(function() {
-	// jQuery code
-    if ($(window).width() > 992) {
-        $(window).scroll(function(){  
-            if ($(this).scrollTop() > 40) {
-                 $('.navbar').css('height', '70px');
-                 
-            }else{
-                $('.navbar').css('height', 'auto');
-            }   
+        $(document).ready(function() {
+        	// jQuery code
+            if ($(window).width() > 992) {
+                $(window).scroll(function(){
+                    if ($(this).scrollTop() > 40) {
+                     $('.navbar').css('height', '70px');
+
+                 }else{
+                    $('.navbar').css('height', 'auto');
+                }
+            });
+            }
         });
-     } 
-    });
-   </script>
+    </script>
+    @stack('scripts')
 </body>
 </html>

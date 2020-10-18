@@ -166,6 +166,8 @@ return [
          * Package Service Providers...
          *
          */
+        // Yajra Dataabel
+        Yajra\DataTables\DataTablesServiceProvider::class,
         // Laravel Vue DataTable
         JamesDordoy\LaravelVueDatatable\Providers\LaravelVueDatatableServiceProvider::class,
 
@@ -228,6 +230,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Datatables' => Yajra\Datatables\Facades\Datatables::class,
 
     ],
 

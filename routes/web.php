@@ -28,12 +28,12 @@ Route::get('/employer/create', function() {
 });
 
 //for certificates
-Route::get('/certificate/create', 'CertificateController@create');
-Route::post('/certificate', 'CertificateController@store');
+// Route::get('/certificate/create', 'CertificateController@create');
+// Route::post('/certificate', 'CertificateController@store');
 Route::get('/certificate','CertificateController@index');
-Route::get('/certificate/edit/{id}','CertificateController@edit');
-Route::put('/certificate/update','CertificateController@update');
-Route::get('/certificate/del/{id}','CertificateController@delete');
+// Route::get('/certificate/edit/{id}','CertificateController@edit');
+// Route::put('/certificate/update','CertificateController@update');
+// Route::get('/certificate/del/{id}','CertificateController@delete');
 
 //for company
 Route::get('/company/create', 'CompanyController@create');

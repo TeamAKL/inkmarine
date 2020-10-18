@@ -49,3 +49,6 @@ Route::post('save-cbn', 'EmployeerController@saveCemanBook');
 Route::post('save-passport', 'EmployeerController@savePassport');
 Route::post('save-all-in-one', 'EmployeerController@saveAllInOne');
 
+//Certificate
+Route::post('get-all-certificate', 'CertificateController@getAllCertificate');
+Route::post('certificate-delete', 'CertificateController@delete');
