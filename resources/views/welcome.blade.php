@@ -57,7 +57,7 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav">
         <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="container">
+        <div class="container" id="main_nav">
             <div class="nav-container collapse navbar-collapse">
                 <!-- Left Side NavBar -->
                 <ul class="left-nave navbar-nav">

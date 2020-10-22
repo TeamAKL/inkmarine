@@ -1,4 +1,4 @@
-@extends('layouts.master')
+<!-- @extends('layouts.master')
 @section('content')
   <div class="container">
     <div class="row justify-content-center">
@@ -23,8 +23,7 @@
                   <option value="{{$company->id}}">{{$company->name}}</option>
                 @endforeach
 
-                  <!-- <option>2</option>
-                  <option>3</option> -->
+                
                 </select>
               
               </div>
@@ -50,4 +49,4 @@
       </div>
     </div>
   </div>
-@endsection
+@endsection -->

@@ -1,4 +1,4 @@
-@extends('layouts.master')
+<!-- @extends('layouts.master')
 @section('content')
   <div class="container">
   <form action="{{url('ship/update')}}" method="post">
@@ -23,8 +23,7 @@
       <option value="{{$company->id}}">{{$company->name}}</option>
      @endforeach
 
-      <!-- <option>2</option>
-      <option>3</option> -->
+      
     </select>
    
   </div>
@@ -44,4 +43,4 @@
   <button type="submit" class="btn btn-primary">Edit Ship</button>
 </form>
   </div>
-@endsection
+@endsection -->
