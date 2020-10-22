@@ -26,9 +26,11 @@
                 <tr
                     :key="item.id"
                     v-for="item in data">
-                    <td class="text-left">{{ item.id }}</td>
+                    <td class="text-left">{{ item.crew_code }}</td>
                     <td class="text-left">{{ item.name }}</td>
-                    <td class="text-left">{{ item.email }}</td>
+                    <td class="text-left">{{ item.employeer_details.phone_number }}</td>
+                    <td class="text-left">{{ item.employeer_details.rank }}</td>
+                    <td class="text-left">{{ item.employeer_details.deperature_date }}</td>
                     <td class="text-left">
                         <button :class="'btn btn-xs btn-primary'" @click="EditItem(item)" title="Edit">
                                 <span>
@@ -44,6 +46,7 @@
                             &nbsp;
                             Delete
                         </button>
+                        <a :href="'detail/'+item.id" class="btn btn-success">Detail</a>
                     </td>
                 </tr>
             </tbody>
@@ -68,8 +71,8 @@
                 },
                 columns: [
                     {
-                        label: 'ID',
-                        name: 'id',
+                        label: 'Crew Code',
+                        name: 'crew_code',
                         orderable: true,
                     },
                     {
@@ -78,8 +81,23 @@
                         orderable: true,
                     },
                     {
-                        label: 'Email',
-                        name: 'email',
+                        label: 'Phone',
+                        name: 'employeer_details.phone_number',
+                        orderable: true,
+                    },
+                    {
+                        label: 'Rank',
+                        name: 'employeer_details.rank',
+                        orderable: true,
+                    },
+                    // {
+                    //     label: 'Ship Name',
+                    //     name: 'email',
+                    //     orderable: true,
+                    // },
+                    {
+                        label: 'Deperature Date',
+                        name: 'employeer_details.deperature_date',
                         orderable: true,
                     },
                     {

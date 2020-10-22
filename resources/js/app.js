@@ -18,11 +18,13 @@ Vue.use(VueFormWizard)
 
 
 import ExampleComponent from './components/ExampleComponent.vue';
+import DetailComponent from './components/DetailComponent.vue';
 import FormIndexComponent from './components/employers/FormIndexComponent.vue';
 const app = new Vue({
     el: '#app',
     components: {
         "ExampleComponent": ExampleComponent,
-        "FormIndex": FormIndexComponent
+        "FormIndex": FormIndexComponent,
+        "Detail": DetailComponent
     }
 });

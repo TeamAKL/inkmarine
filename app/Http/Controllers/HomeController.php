@@ -9,6 +9,9 @@ use Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
+use App\Employeer;
+use App\EmployeerDetail;
+
 class HomeController extends Controller
 {
     /**
@@ -33,18 +36,20 @@ class HomeController extends Controller
 
     public function getalluser(Request $req)
     {
-        $users = User::orderBy('created_at', $req->dir)->paginate(2);
-        if(!empty($req->search)) {
-            $search = $req->search;
-            $query = User::where(function($query) use ($search) {
-                $query->where('name', 'LIKE', "%{$search}%")
-                ->orWhere('email', 'LIKE', "%{$search}%");
-            });
-            // $users = $query->paginate($req->length);
-            $users = $query->paginate(2);
-        }
+        $employers = Employeer::with('employeer_details')->paginate($req->length);
+        return new DataTableCollectionResource($employers);
+        // $users = User::orderBy('created_at', $req->dir)->paginate(2);
+        // if(!empty($req->search)) {
+        //     $search = $req->search;
+        //     $query = User::where(function($query) use ($search) {
+        //         $query->where('name', 'LIKE', "%{$search}%")
+        //         ->orWhere('email', 'LIKE', "%{$search}%");
+        //     });
+        //     // $users = $query->paginate($req->length);
+        //     $users = $query->paginate(2);
+        // }
 
-        return new DataTableCollectionResource($users);
+        // return new DataTableCollectionResource($users);
     }
 
     public function saveFormOne(Request $req)

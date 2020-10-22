@@ -51,3 +51,7 @@ Route::get('/ship','ShipController@index');
 Route::get('/ship/edit/{id}','ShipController@edit');
 Route::put('/ship/update','ShipController@update');
 Route::get('/ship/del/{id}','ShipController@delete');
+
+Route::get('detail/{id}', function() {
+	return view('detail');
+});
