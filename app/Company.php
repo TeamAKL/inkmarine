@@ -9,4 +9,7 @@ class Company extends Model
     protected $fillable = [
         'name', 'country',
     ];
+    protected $guarded = [];
+    protected $table = "companies";
+
 }

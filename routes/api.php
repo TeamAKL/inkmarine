@@ -52,3 +52,11 @@ Route::post('save-all-in-one', 'EmployeerController@saveAllInOne');
 //Certificate
 Route::post('get-all-certificate', 'CertificateController@getAllCertificate');
 Route::post('certificate-delete', 'CertificateController@delete');
+
+//company
+Route::post('get-all-company', 'CompanyController@getAllCompany');
+Route::post('company-delete', 'CompanyController@delete');
+
+//ship
+Route::post('get-all-ship', 'ShipController@getAllShip');
+Route::post('ship-delete', 'ShipController@delete');

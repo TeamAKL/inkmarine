@@ -1,4 +1,4 @@
-@extends('layouts.master')
+<!-- @extends('layouts.master')
 @section('content')
   <div class="container">
   <form action="{{url('company/update')}}" method="post">
@@ -17,4 +17,4 @@
   <button type="submit" class="btn btn-primary">Edit Company</button>
 </form>
   </div>
-@endsection
+@endsection -->

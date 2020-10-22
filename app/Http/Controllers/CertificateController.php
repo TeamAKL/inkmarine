@@ -20,10 +20,10 @@ class CertificateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('certificate.post');
-    }
+    // public function create()
+    // {
+    //     return view('certificate.post');
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -36,7 +36,7 @@ class CertificateController extends Controller
         Certificate::updateOrCreate(
             ['id' => $request->id],
             ['title'=>$request->title]
-        );
+        ); 
         return response()->json(['message' => "success"], 200);
     }
 
@@ -63,26 +63,26 @@ class CertificateController extends Controller
      * @param  \App\Certificate  $certificate
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $certificate=Certificate::findOrFail($id);
-        return view('certificate.edit',['certificate'=>$certificate]);
-    }
+    // public function edit($id)
+    // {
+    //     $certificate=Certificate::findOrFail($id);
+    //     return view('certificate.edit',['certificate'=>$certificate]);
+    // }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Certificate  $certificate
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
-    {
-        $certificate=Certificate::find($request->id);
-        $certificate->title=$request->title;
-        $certificate->save();
-       return redirect('certificate');
-    }
+    // /**
+    //  * Update the specified resource in storage.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @param  \App\Certificate  $certificate
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function update(Request $request)
+    // {
+    //     $certificate=Certificate::find($request->id);
+    //     $certificate->title=$request->title;
+    //     $certificate->save();
+    //    return redirect('certificate');
+    // }
 
     public function delete(Request $req)
     {

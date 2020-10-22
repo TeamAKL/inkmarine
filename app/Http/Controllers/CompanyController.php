@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
+
 
 class CompanyController extends Controller
 {
@@ -19,10 +21,10 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('company.post');
-    }
+    // public function create()
+    // {
+    //     return view('company.post');
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -31,13 +33,13 @@ class CompanyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        Company::create([
-            'name'=>$request->name,
-            'country'=>$request->country
-
-        ]);
-        return redirect('company');
+    {   
+        // dd($request);
+        Company::updateOrCreate(
+            ['id' => $request->id,'name' =>$request->name],
+            ['country' =>$request->country]
+        ); 
+        return response()->json(['message' => "success"], 200);
     }
 
     public function index()
@@ -63,32 +65,45 @@ class CompanyController extends Controller
      * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    // public function edit($id)
+    // {
+    //     $company=Company::findOrFail($id);
+    //     return view('company.edit',['company'=>$company]);
+    // }
+
+    // /**
+    //  * Update the specified resource in storage.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @param  \App\Company  $company
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function update(Request $request)
+    // {
+    //     $company=Company::find($request->id);
+    //     $company->name=$request->name;
+    //     $company->country=$request->country;
+    //     $company->save();
+    //     return redirect('company');
+    // }
+
+    public function delete(Request $req)
     {
-        $company=Company::findOrFail($id);
-        return view('company.edit',['company'=>$company]);
+       $company=Company::find($req->id)->delete();
+       return response()->json(['message' => "success"], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Company  $company
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
+    public function getAllCompany(Request $req)
     {
-        $company=Company::find($request->id);
-        $company->name=$request->name;
-        $company->country=$request->country;
-        $company->save();
-        return redirect('company');
-    }
-
-    public function delete($id)
-    {
-       $company=Company::find($id)->delete();
-       return redirect('company');
+        $companies=Company::all();
+        return Datatables::of($companies)
+        ->addColumn('action', function($data) {
+            $html = "<button class='btn btn-primary edit-btn' data-id='$data->id' data-name='$data->name' data-country='$data->country' data-toggle='modal' data-target='#company-modal'>Edit</button>
+                    <button class='btn btn-danger delete-btn' data-id='$data->id'>Delete</button>";
+            return $html;
+        })
+        ->rawColumns(['action'])
+        ->make(true);
     }
 
     /**
