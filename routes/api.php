@@ -60,3 +60,7 @@ Route::post('company-delete', 'CompanyController@delete');
 //ship
 Route::post('get-all-ship', 'ShipController@getAllShip');
 Route::post('ship-delete', 'ShipController@delete');
+
+//Employer Detail
+Route::post('get-person-detail', 'DetailController@personDetail');
+Route::post('get-familymember', 'DetailController@familyMember');
