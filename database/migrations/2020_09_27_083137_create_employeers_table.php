@@ -21,6 +21,7 @@ class CreateEmployeersTable extends Migration
             $table->timestamp('date_of_birth');
             $table->string('place_of_birth');
             $table->string('education_level');
+            $table->string('ship');
             $table->timestamps();
         });
     }

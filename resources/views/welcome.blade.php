@@ -41,6 +41,12 @@
            /* background-color:#ffffff; */
 
         }
+        .navbar-nav > .active{
+            background:#6574cd;
+        }
+        .navbar-nav > .active >a{
+            color:white !important;
+        }
 
     </style>
 </head>
@@ -62,13 +68,13 @@
                 <!-- Left Side NavBar -->
                 <ul class="left-nave navbar-nav">
                     @guest
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
+                    <li class="{{ (request()->is('/')) ? 'active' : '' }}"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
                     @else
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/home') }}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{url('/employer/create')}}">Create</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{url('/company')}}">Companies</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{url('/ship')}}">Ships</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{url('/certificate')}}">Certificates</a></li>
+                    <li class="{{ Request::url() == route('home') ? 'active' : '' }}"><a class="nav-link" href="{{ url('/home') }}">Home</a></li>
+                    <li class="{{ (request()->is('employer/create')) ? 'active' : '' }}"><a class="nav-link" href="{{url('/employer/create')}}">Create</a></li>
+                    <li class="{{ (request()->is('company')) ? 'active' : '' }}"><a class="nav-link" href="{{url('/company')}}">Companies</a></li>
+                    <li class="{{ (request()->is('ship')) ? 'active' : '' }}"><a class="nav-link" href="{{url('/ship')}}">Ships</a></li>
+                    <li class="{{ (request()->is('certificate')) ? 'active' : '' }}"><a class="nav-link" href="{{url('/certificate')}}">Certificates</a></li>
                     @endguest
                 </ul>
                 <!-- End Left side Navbar -->
@@ -76,13 +82,14 @@
                 <!-- Right Side NavBar -->
                 <ul class="right-nave navbar-nav">
                     @guest
-                    <li class="nav-item"><a class="nav-link" href="{{route('login')}}">Login</a></li>
+                    <li class="{{ (request()->is('login')) ? 'active' : '' }}"><a class="nav-link" href="{{route('login')}}">Login</a></li>
                     <!-- <li><a href="{{route('register')}}">Register</a></li>  -->
                     @else
                     <li class="nav-item dropdown">
                         <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown"> {{ Auth::user()->name }}</a>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <li><a class="dropdown-item" href="{{ route('logout') }}"
+                            <li>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();"> 
                             {{ __('Logout') }}</a></li>
