@@ -16,6 +16,10 @@ import VueFormWizard from 'vue-form-wizard'
 import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 Vue.use(VueFormWizard)
 
+//modal
+import VModal from 'vue-js-modal'
+Vue.use(VModal, { dialog: true });
+
 
 import ExampleComponent from './components/ExampleComponent.vue';
 import DetailComponent from './components/DetailComponent.vue';
