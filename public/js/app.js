@@ -3339,6 +3339,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default.a.mixin({
@@ -3368,6 +3372,7 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default
       dob: '',
       pob: '',
       edulevel: '',
+      ship: '',
       result: '',
       personId: ''
     };
@@ -3394,6 +3399,7 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default
                   'dob': _this.dob,
                   'pob': _this.pob,
                   'edulevel': _this.edulevel,
+                  'ship': _this.ship,
                   'personId': _this.personId
                 }, {
                   headers: {
@@ -96230,8 +96236,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("form", { attrs: { action: "" } }, [
-      _c("div", { staticClass: "form-group" }, [
+    _c("div", { staticClass: "form-row" }, [
+      _c("div", { staticClass: "form-group col-md-12" }, [
         _c("label", { attrs: { for: "crewcode" } }, [_vm._v("Crew Code")]),
         _vm._v(" "),
         _c("input", {
@@ -96261,7 +96267,7 @@ var render = function() {
         })
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
+      _c("div", { staticClass: "form-group col-md-12" }, [
         _c("label", { attrs: { for: "name" } }, [_vm._v("Name")]),
         _vm._v(" "),
         _c("input", {
@@ -96291,7 +96297,7 @@ var render = function() {
         })
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
+      _c("div", { staticClass: "form-group col-md-12" }, [
         _c("label", { attrs: { for: "nationality" } }, [_vm._v("Nationality")]),
         _vm._v(" "),
         _c("input", {
@@ -96323,7 +96329,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "form-group" },
+        { staticClass: "form-group col-md-12" },
         [
           _c("label", { attrs: { for: "dob" } }, [_vm._v("Date Of Birth")]),
           _vm._v(" "),
@@ -96342,7 +96348,7 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
+      _c("div", { staticClass: "form-group col-md-12" }, [
         _c("label", { attrs: { for: "pob" } }, [_vm._v("Place Of Birth")]),
         _vm._v(" "),
         _c("input", {
@@ -96372,7 +96378,7 @@ var render = function() {
         })
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
+      _c("div", { staticClass: "form-group col-md-12" }, [
         _c("label", { attrs: { for: "edulevel" } }, [
           _vm._v("Education Level")
         ]),
@@ -96396,6 +96402,36 @@ var render = function() {
                 return
               }
               _vm.edulevel = $event.target.value.trim()
+            },
+            blur: function($event) {
+              return _vm.$forceUpdate()
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group col-md-12" }, [
+        _c("label", { attrs: { for: "ship" } }, [_vm._v("Ship")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model.trim",
+              value: _vm.ship,
+              expression: "ship",
+              modifiers: { trim: true }
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", id: "ship", name: "ship" },
+          domProps: { value: _vm.ship },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.ship = $event.target.value.trim()
             },
             blur: function($event) {
               return _vm.$forceUpdate()
