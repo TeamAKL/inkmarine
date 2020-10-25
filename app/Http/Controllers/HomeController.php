@@ -89,7 +89,7 @@ class HomeController extends Controller
         }
 
         public function upload($image, $folder) {
-            $name = 'medicalcheckup_'.rand(1, 999).'.'.explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
+            $name = 'inkmarine_'.rand(1, 999).'.'.explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
             $filePath = $folder.$name;
             $fileContent = file_get_contents($image);
             $exists = Storage::disk('public')->exists($filePath);
