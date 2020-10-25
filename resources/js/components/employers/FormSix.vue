@@ -58,13 +58,15 @@
                 </tbody>
             </data-table>
         </div>
-        <!-- CModal -->
-        <!-- =============================== -->
-        <c-modal :style="{visibility: cvisibility, zIndex: czindex}">
-            <div class="cmodal-content" :style="{transform: cstyle, opacity: copacity}">
-                <div class="cmodal-header">Add Company Careers</div>
-                <div class="cmodal-body">
-                     <div class="form-row">
+
+        <!-- Modal -->
+		<modal name="company_career_modal" :clickToClose="false" height="auto" class="company_career_modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>Add Company Careers</h5>
+				</div>
+				<div class="modal-body">
+                    <div class="form-row">
                         <div class="form-group col-md-6">
                             <label class="typo__label" for="">Company</label>
                              <input type="text" class="form-control" id="company_name" name="company_name"  v-model.trim="company_name">
@@ -109,16 +111,21 @@
                         <label for="">Remark</label>
                         <textarea name="company_remark" id="company_remark" v-model.trim="company_remark" cols="30" rows="6" class="form-control"></textarea>
                     </div>
-
-                </div>
-                <div class="cmodal-footer d-flex justify-content-end">
+				</div>
+                 <div class="modal-footer d-flex justify-content-end">
                     <button class="btn btn-primary" @click="hideModal">Cancel</button>
                     <button class="btn btn-success"  @click="save">Add</button>
                 </div>
-            </div>
-        </c-modal>
+			</div>
+		</modal>
     </div>
 </template>
+
+<style scoped>
+.company_career_modal {
+    overflow: auto !important;
+}
+</style>
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <script>
@@ -228,19 +235,13 @@ export default {
             });
         },
         showModal() {
-            this.copacity = 1;
-            this.cstyle = 'translateY(0)';
-            this.cvisibility = 'visible';
-            this.czindex = 3;
-        },
+           this.$modal.show('company_career_modal');
+            },
 
-        hideModal() {
-            this.cstyle = 'translateY(-100%)';
-            this.copacity = 0;
-            let that = this;
-            setTimeout(function(){ that.cvisibility = 'hidden'; that.czindex= -100;}, 500);
-            this.clearForm();
-        },
+            hideModal() {
+                this.$modal.hide('company_career_modal');
+                this.clearForm();
+                },
         save() {
              axios.post('/api/save-other-company-careers', {
                 'rank': this.rank,

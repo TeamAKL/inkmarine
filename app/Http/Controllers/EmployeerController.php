@@ -60,7 +60,8 @@ class EmployeerController extends Controller
             'nationality' => 'required',
             'dob' => 'required',
             'pob' => 'required',
-            'edulevel' => 'required'
+            'edulevel' => 'required',
+            'ship'=>'required'
         ]);
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()], 400);
@@ -69,7 +70,7 @@ class EmployeerController extends Controller
         $format = date("Y-m-d", strtotime($req->dob));
         $employeer = Employeer::updateOrCreate(
             ['id' => $req->personId, 'crew_code' => $req->crewcode],
-            ['crew_code' => $req->crewcode, 'name' => $req->name, 'nationality' => $req->nationality, 'date_of_birth' => $format, 'place_of_birth' => $req->pob, 'education_level' => $req->edulevel]
+            ['crew_code' => $req->crewcode, 'name' => $req->name, 'nationality' => $req->nationality, 'date_of_birth' => $format, 'place_of_birth' => $req->pob, 'education_level' => $req->edulevel, 'ship'=>$req->ship]
         );
         return response()->json(["message" => "success", "employeer" => $employeer], 200);
     }

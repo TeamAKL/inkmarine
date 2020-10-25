@@ -58,13 +58,14 @@
             </data-table>
         </div>
 
-        <!-- CModal -->
-        <!-- =============================== -->
-        <c-modal :style="{visibility: cvisibility, zIndex: czindex}">
-            <div class="cmodal-content" :style="{transform: cstyle, opacity: copacity}">
-                <div class="cmodal-header">Add Family Member</div>
-                <div class="cmodal-body">
-                    <form>
+        <!-- Modal -->
+		<modal name="family_member_modal" :clickToClose="false" height="auto" class="family_member_modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>Add Family Member</h5>
+				</div>
+				<div class="modal-body">
+					<form>
                         <div class="form-group">
                             <label for="name">Name</label>
                             <input type="text" class="form-control" id="member_name" name="member_name"  v-model.trim="member_name">
@@ -90,17 +91,17 @@
                             <textarea name="member_remark" id="member_remark" v-model.trim="member_remark" cols="30" rows="6" class="form-control"></textarea>
                         </div>
                     </form>
-                </div>
-                <div class="cmodal-footer d-flex justify-content-end">
+				</div>
+                <div class="modal-footer d-flex justify-content-end">
                     <button class="btn btn-primary" @click="hideModal">Cancel</button>
                     <button class="btn btn-success" @click="save">Add</button>
                 </div>
-            </div>
-        </c-modal>
+			</div>
+		</modal>
     </div>
 </template>
 <style scoped>
-c-modal {
+.family_member_modal {
     overflow: auto !important;
 }
 </style>
@@ -202,20 +203,14 @@ import moment from 'moment'
                 }
             });
         },
-        showModal() {
-            this.copacity = 1;
-            this.cstyle = 'translateY(0)';
-            this.cvisibility = 'visible';
-            this.czindex = 3;
-        },
+         showModal() {
+           this.$modal.show('family_member_modal');
+            },
 
-        hideModal() {
-            this.cstyle = 'translateY(-100%)';
-            this.copacity = 0;
-            let that = this;
-            this.clearForm();
-            setTimeout(function(){ that.cvisibility = 'hidden'; that.czindex= -100;}, 500)
-        },
+            hideModal() {
+                this.$modal.hide('family_member_modal');
+                this.clearForm();
+                },
 
         save() {
              axios.post('/api/save-family-member', {

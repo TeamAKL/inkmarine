@@ -57,13 +57,14 @@
     </data-table>
 </div>
 
-<!-- CModal -->
-<!-- =============================== -->
-<c-modal :style="{visibility: cvisibility, zIndex: czindex}" >
-    <div class="cmodal-content" :style="{transform: cstyle, opacity: copacity}">
-        <div class="cmodal-header">Add Certificate</div>
-        <div class="cmodal-body">
-            <form>
+<!-- Modal -->
+		<modal name="certificate_modal" :clickToClose="false" height="auto" class="certificate_modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>Add Certificate</h5>
+				</div>
+				<div class="modal-body">
+                    <form>
                 <input type="hidden" name="employerId" v-model="employerId">
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -116,15 +117,13 @@
 
                 </div>
             </form>
-        </div>
-        <div class="cmodal-footer d-flex justify-content-end">
+				</div>
+               <div class="modal-footer d-flex justify-content-end">
             <button class="btn btn-primary" @click="hideModal">Cancel</button>
             <button class="btn btn-success" @click="saveCertificate">Add</button>
         </div>
-    </div>
-</c-modal>
-<!-- End CModal -->
-<!-- =============================== -->
+			</div>
+		</modal>
 </div>
 </template>
 
@@ -174,6 +173,10 @@
 
 .image-container:hover .image-overlay {
     opacity: 1;
+}
+
+.certificate_modal {
+    overflow: auto !important;
 }
 </style>
 
@@ -290,23 +293,12 @@
         },
 
         showModal() {
-            this.copacity = 1;
-            this.cstyle = 'translateY(0)';
-            this.cvisibility = 'visible';
-            this.czindex = 3;
-            document.querySelector('body').style.overflow = 'hidden';
-                this.getCertificate();
+           this.$modal.show('certificate_modal');
             },
 
             hideModal() {
-                document.querySelector('body').style.overflow = 'auto';
-                    this.cstyle = 'translateY(-100%)';
-                    this.copacity = 0;
-                    let that = this;
-                    this.certificateImage = '';
-                    this.imglabel = 'Choose Image..';
-                    this.clearForm();
-                        setTimeout(function(){ that.cvisibility = 'hidden'; that.czindex= -100;}, 500)
+                this.$modal.hide('certificate_modal');
+                this.clearForm();
                 },
 
                 getEmployeCertificate() {
@@ -463,8 +455,9 @@
             this.remark = '';
             this.employer_certificate_id = null;
             $(document).find('span[class="validate-message"]').remove();
-        }
+        },
     },
+			
     props: ['employerId']
 }
 </script>
