@@ -4963,8 +4963,6 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default
   },
   methods: {
     validate: function validate() {
-      // var isValid = true;
-      // this.$emit('on-validate', this.$data, isValid)
       return sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
         title: 'Are you sure?',
         text: "You want to go next step ",
@@ -4983,6 +4981,7 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default
       });
     },
     showModal: function showModal() {
+      this.getCertificate();
       this.$modal.show('certificate_modal');
     },
     hideModal: function hideModal() {
@@ -5018,7 +5017,6 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default
       var that = this;
 
       reader.onload = function (e) {
-        // that.certificateImage = e.target.result;
         that.showLoading = true;
         axios.post('/api/image-upload', {
           'image': e.target.result,
@@ -5048,7 +5046,6 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default
         width: 80 + '%'
       }, _defineProperty(_Swal$fire, "imageWidth", null), _defineProperty(_Swal$fire, "imageHeight", null), _defineProperty(_Swal$fire, "showCloseButton", true), _defineProperty(_Swal$fire, "showConfirmButton", false), _defineProperty(_Swal$fire, "allowOutsideClick", false), _Swal$fire));
     },
-    //Get Certificate
     getCertificate: function getCertificate() {
       var _this2 = this;
 
@@ -10050,7 +10047,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.family_member_modal[data-v-41f1d04c] {\r\n    overflow: auto !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.family_member_modal[data-v-41f1d04c] {\n    overflow: auto !important;\n}\n", ""]);
 
 // exports
 
@@ -10069,7 +10066,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.wizard-header {\r\n    display: none;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.wizard-header {\n    display: none;\n}\n\n", ""]);
 
 // exports
 
@@ -10088,7 +10085,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.company_career_modal[data-v-2c9d1da8] {\r\n    overflow: auto !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.company_career_modal[data-v-2c9d1da8] {\n    overflow: auto !important;\n}\n", ""]);
 
 // exports
 
@@ -117687,8 +117684,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\capps-7\akl\InkMarine\inkmarine\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\capps-7\akl\InkMarine\inkmarine\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/thet/Thet Tun/inkmarine/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/thet/Thet Tun/inkmarine/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

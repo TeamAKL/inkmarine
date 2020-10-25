@@ -58,13 +58,13 @@
 </div>
 
 <!-- Modal -->
-		<modal name="certificate_modal" :clickToClose="false" height="auto" class="certificate_modal">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5>Add Certificate</h5>
-				</div>
-				<div class="modal-body">
-                    <form>
+<modal name="certificate_modal" :clickToClose="false" height="auto" class="certificate_modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5>Add Certificate</h5>
+        </div>
+        <div class="modal-body">
+            <form>
                 <input type="hidden" name="employerId" v-model="employerId">
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -100,30 +100,30 @@
                             <img :src="certificateImage" alt="img" class="img-thumbnail">
                             <div class="image-overlay">
                                 <i class="wizard-icon ti-eye eye-icon"></i>
-                                <!-- <div class="footer-overlay">
-                                    <label style="cursor: pointer">
-                                        <input type="file" @change="editImage(index, $event)" class="d-none" accept="image/*, .pdf">
-                                        <i class="wizard-icon ti-pencil icon-holder edit"></i>
-                                    </label>
-                                    <i class="wizard-icon ti-trash icon-holder delete" @click="deleteImage(index)"></i>
-                                </div> -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="remark">Remark</label>
-                        <textarea name="remark" id="remark" cols="30" rows="10" v-model.trim="remark" class="form-control"></textarea>
-                    </div>
+<!-- <div class="footer-overlay">
+<label style="cursor: pointer">
+<input type="file" @change="editImage(index, $event)" class="d-none" accept="image/*, .pdf">
+<i class="wizard-icon ti-pencil icon-holder edit"></i>
+</label>
+<i class="wizard-icon ti-trash icon-holder delete" @click="deleteImage(index)"></i>
+</div> -->
+</div>
+</div>
+</div>
+<div class="form-group col-md-6">
+    <label for="remark">Remark</label>
+    <textarea name="remark" id="remark" cols="30" rows="10" v-model.trim="remark" class="form-control"></textarea>
+</div>
 
-                </div>
-            </form>
-				</div>
-               <div class="modal-footer d-flex justify-content-end">
-            <button class="btn btn-primary" @click="hideModal">Cancel</button>
-            <button class="btn btn-success" @click="saveCertificate">Add</button>
-        </div>
-			</div>
-		</modal>
+</div>
+</form>
+</div>
+<div class="modal-footer d-flex justify-content-end">
+    <button class="btn btn-primary" @click="hideModal">Cancel</button>
+    <button class="btn btn-success" @click="saveCertificate">Add</button>
+</div>
+</div>
+</modal>
 </div>
 </template>
 
@@ -187,16 +187,16 @@
     import 'sweetalert2/src/sweetalert2.scss'
 
     const Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      onOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
-});
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        onOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
 
     import DatePicker from 'vue2-datepicker';
     import 'vue2-datepicker/index.css';
@@ -246,99 +246,97 @@
                 }
                 ],
 
-            //Modal
-            czindex: -100,
-            copacity: 0,
-            cvisibility: 'hidden',
-            cstyle:  'translateY(-100%)',
-            value: { },
-            options: [],
-            licine_number: '',
-            training_date: '',
-            certificateImage: '',
-            expire_date: '',
-            remark: '',
-            imglabel: 'Choose Image..',
-            showLoading: false,
-            employer_certificate_id: null,
-        }
-    },
-    created() {
-        this.getEmployeCertificate();
-        const date = new Date();
-        this.training_date = moment(date).format('DD-MM-YYYY');
+                //Modal
+                czindex: -100,
+                copacity: 0,
+                cvisibility: 'hidden',
+                cstyle:  'translateY(-100%)',
+                value: { },
+                options: [],
+                licine_number: '',
+                training_date: '',
+                certificateImage: '',
+                expire_date: '',
+                remark: '',
+                imglabel: 'Choose Image..',
+                showLoading: false,
+                employer_certificate_id: null,
+            }
+        },
+        created() {
+            this.getEmployeCertificate();
+            const date = new Date();
+            this.training_date = moment(date).format('DD-MM-YYYY');
             this.expire_date = moment(date).format('DD-MM-YYYY');
         },
         methods: {
             validate() {
-            // var isValid = true;
-            // this.$emit('on-validate', this.$data, isValid)
-            return Swal.fire({
-                title: 'Are you sure?',
-                text: "You want to go next step ",
-                icon: 'warning',
-                showCancelButton: true,
-                allowOutsideClick: false,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes'
-            }).then((result) => {
-                if(result.isConfirmed) {
-                    return true;
-                } else {
-                    return false;
-                }
-            });
+                return Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You want to go next step ",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                });
 
-        },
+            },
 
-        showModal() {
-           this.$modal.show('certificate_modal');
+            showModal() {
+                this.getCertificate();
+                this.$modal.show('certificate_modal');
             },
 
             hideModal() {
                 this.$modal.hide('certificate_modal');
                 this.clearForm();
-                },
+            },
 
-                getEmployeCertificate() {
-                    axios.post('/api/get-employer-certificate', {
-                        ...this.tableProps,
-                        'employer_id': this.employerId
-                    }, {
-                        headers:{'Authorization': 'Bearer '+ this.user_token}
-                    }).then(result => {
-                        this.users = result.data;
-                    });
-                },
-
-                reloadTable(tableProps){
-                    this.tableProps = tableProps;
-                    this.getEmployeCertificate(tableProps);
-                },
-
-                fileChange(e) {
-                    var files = e.target.files || e.dataTransfer.files;
-                    if (!files.length) {
-                        return;
-                    }
-                    let label = $(document).find('[id="changeLabel"]');
-                    var reader = new FileReader();
-                    var that = this;
-                    reader.onload = (e) => {
-                // that.certificateImage = e.target.result;
-                that.showLoading = true;
-                axios.post('/api/image-upload', {
-                    'image': e.target.result,
-                    'folder': 'certificates/'
+            getEmployeCertificate() {
+                axios.post('/api/get-employer-certificate', {
+                    ...this.tableProps,
+                    'employer_id': this.employerId
                 }, {
-                    headers: {'Authorization': 'Bearer '+ that.user_token}
-                }).then((res) => {
-                    that.certificateImage = res.data.url;
-                    that.showLoading = false;
+                    headers:{'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
+                    this.users = result.data;
                 });
-            }
-            reader.readAsDataURL(files[0]);
+            },
+
+            reloadTable(tableProps){
+                this.tableProps = tableProps;
+                this.getEmployeCertificate(tableProps);
+            },
+
+            fileChange(e) {
+                var files = e.target.files || e.dataTransfer.files;
+                if (!files.length) {
+                    return;
+                }
+                let label = $(document).find('[id="changeLabel"]');
+                var reader = new FileReader();
+                var that = this;
+                reader.onload = (e) => {
+                    that.showLoading = true;
+                    axios.post('/api/image-upload', {
+                        'image': e.target.result,
+                        'folder': 'certificates/'
+                    }, {
+                        headers: {'Authorization': 'Bearer '+ that.user_token}
+                    }).then((res) => {
+                        that.certificateImage = res.data.url;
+                        that.showLoading = false;
+                    });
+                }
+                reader.readAsDataURL(files[0]);
                 this.imglabel = files[0].name;
             },
 
@@ -358,106 +356,105 @@
                 })
             },
 
-        //Get Certificate
-        getCertificate() {
-            axios.post('/api/get-certificate', {}, {
-                headers: {'Authorization': 'Bearer '+ this.user_token}
-            }).then(result => {
-                this.options = [];
-                result.data.certificates.forEach(certificate => {
-                    const optionGroup = {
-                        name: certificate.title,
-                        id: certificate.id
-                    }
-                    this.options.push(optionGroup);
-                })
-            }).catch(err => {
+            getCertificate() {
+                axios.post('/api/get-certificate', {}, {
+                    headers: {'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
+                    this.options = [];
+                    result.data.certificates.forEach(certificate => {
+                        const optionGroup = {
+                            name: certificate.title,
+                            id: certificate.id
+                        }
+                        this.options.push(optionGroup);
+                    })
+                }).catch(err => {
 
-            });
-        },
-
-        saveCertificate() {
-            axios.post('/api/save-certificate', {
-                'certificate_name': this.value.id,
-                'licine_number': this.licine_number,
-                'training_date': this.training_date,
-                'expire_date': this.expire_date,
-                'image': this.certificateImage,
-                'remark': this.remark,
-                'employer_id': this.employerId,
-                'id': this.employer_certificate_id
-            }, {
-                headers: {'Authorization': 'Bearer '+ this.user_token}
-            }).then(result => {
-                this.getEmployeCertificate();
-                this.hideModal();
-            }).catch(err => {
-                if (err.response.status == 400) {
-                    Toast.fire({
-                        icon: 'error',
-                        title: 'Please fill all required fields!'
-                    });
-                    $(document).find('span[class="validate-message"]').remove();
-                    $.each(err.response.data.error, function (i, error) {
-                        var el = $(document).find('[name="'+i+'"]');
-                        el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
-                    });
-                }
-            });
-        },
-
-
-        // Edit Certificate
-        editCertificate(certificate) {
-            this.showModal();
-                this.value = {id: certificate.certificate_id, name: certificate.certificate.title},
-                this.licine_number = certificate.licine_number,
-                this.training_date = certificate.training_date;
-                this.expire_date = certificate.expire_date;
-                this.certificateImage = certificate.image;
-                this.remark = certificate.remark;
-                this.employer_certificate_id = certificate.id;
+                });
             },
 
-        // Delete Certificate
-        deleteCertificate(certificate) {
-            const vm = this;
-            return Swal.fire({
-                title: 'Are you sure?',
-                text: "You want to delete " + certificate.certificate.title,
-                icon: 'warning',
-                showCancelButton: true,
-                allowOutsideClick: false,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Delete'
-            }).then((result) => {
-                if(result.isConfirmed) {
-                    axios.post('/api/delete-certificate', {
-                        id: certificate.id,
-                        employer_id: this.employerId
-                    }, {
-                        headers: {'Authorization': 'Bearer '+ this.user_token}
-                    }).then(response => {
-                        vm.getEmployeCertificate();
-                    })
-                }
-            });
-        },
+            saveCertificate() {
+                axios.post('/api/save-certificate', {
+                    'certificate_name': this.value.id,
+                    'licine_number': this.licine_number,
+                    'training_date': this.training_date,
+                    'expire_date': this.expire_date,
+                    'image': this.certificateImage,
+                    'remark': this.remark,
+                    'employer_id': this.employerId,
+                    'id': this.employer_certificate_id
+                }, {
+                    headers: {'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
+                    this.getEmployeCertificate();
+                    this.hideModal();
+                }).catch(err => {
+                    if (err.response.status == 400) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Please fill all required fields!'
+                        });
+                        $(document).find('span[class="validate-message"]').remove();
+                        $.each(err.response.data.error, function (i, error) {
+                            var el = $(document).find('[name="'+i+'"]');
+                            el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
+                        });
+                    }
+                });
+            },
 
-        // Clear Form
-        clearForm() {
-            this.value = {},
-            this.licine_number = '',
-            this.training_date = moment(new Date()).format('DD-MM-YYYY');
-            this.expire_date = moment(new Date()).format('DD-MM-YYYY');
-            this.certificateImage = '';
-            this.remark = '';
-            this.employer_certificate_id = null;
-            $(document).find('span[class="validate-message"]').remove();
-        },
-    },
-			
-    props: ['employerId']
+
+// Edit Certificate
+editCertificate(certificate) {
+    this.showModal();
+    this.value = {id: certificate.certificate_id, name: certificate.certificate.title},
+    this.licine_number = certificate.licine_number,
+    this.training_date = certificate.training_date;
+    this.expire_date = certificate.expire_date;
+    this.certificateImage = certificate.image;
+    this.remark = certificate.remark;
+    this.employer_certificate_id = certificate.id;
+},
+
+// Delete Certificate
+deleteCertificate(certificate) {
+    const vm = this;
+    return Swal.fire({
+        title: 'Are you sure?',
+        text: "You want to delete " + certificate.certificate.title,
+        icon: 'warning',
+        showCancelButton: true,
+        allowOutsideClick: false,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Delete'
+    }).then((result) => {
+        if(result.isConfirmed) {
+            axios.post('/api/delete-certificate', {
+                id: certificate.id,
+                employer_id: this.employerId
+            }, {
+                headers: {'Authorization': 'Bearer '+ this.user_token}
+            }).then(response => {
+                vm.getEmployeCertificate();
+            })
+        }
+    });
+},
+
+// Clear Form
+clearForm() {
+    this.value = {},
+    this.licine_number = '',
+    this.training_date = moment(new Date()).format('DD-MM-YYYY');
+    this.expire_date = moment(new Date()).format('DD-MM-YYYY');
+    this.certificateImage = '';
+    this.remark = '';
+    this.employer_certificate_id = null;
+    $(document).find('span[class="validate-message"]').remove();
+},
+},
+
+props: ['employerId']
 }
 </script>
