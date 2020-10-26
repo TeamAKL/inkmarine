@@ -111,14 +111,13 @@
 					}
 					isValid = false;
 				});
-
-				// return isValid;
 				Swal.fire({
 	                title: 'Woo!',
 	                text: "Successfully Complete!",
 	                icon: 'success',
 	                allowOutsideClick: false,
 	            });
+	            return isValid;
 			},
 			uploadPassportFile(e) {
 				var files = e.target.files || e.dataTransfer.files;

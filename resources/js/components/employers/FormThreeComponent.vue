@@ -386,7 +386,7 @@
                 }, {
                     headers: {'Authorization': 'Bearer '+ this.user_token}
                 }).then(result => {
-                    this.getEmployeCertificate();
+                    this.getCertificate();
                     this.hideModal();
                 }).catch(err => {
                     if (err.response.status == 400) {

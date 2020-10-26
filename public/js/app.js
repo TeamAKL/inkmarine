@@ -4565,15 +4565,15 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default
                 });
 
               case 2:
-                // return isValid;
                 sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
                   title: 'Woo!',
                   text: "Successfully Complete!",
                   icon: 'success',
                   allowOutsideClick: false
                 });
+                return _context.abrupt("return", isValid);
 
-              case 3:
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -5082,7 +5082,7 @@ var Toast = sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default
           'Authorization': 'Bearer ' + this.user_token
         }
       }).then(function (result) {
-        _this3.getEmployeCertificate();
+        _this3.getCertificate();
 
         _this3.hideModal();
       })["catch"](function (err) {

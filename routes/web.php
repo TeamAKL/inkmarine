@@ -25,7 +25,7 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
 Route::get('/employer/create', function() {
     return view('employers.create');
-});
+})->middleware('auth');
 
 //for certificates
 Route::post('/certificate', 'CertificateController@store');
@@ -43,4 +43,4 @@ Route::get('/ship','ShipController@index');
 
 Route::get('detail/{id}', function() {
 	return view('detail');
-});
+})->middleware('auth');
