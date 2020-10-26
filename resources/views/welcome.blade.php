@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="module-title">
-        <h2 class="title"><span>INK Marine Co.,Ltd. Crew Management Database System</span></h2>			
+        <h2 class="title"><span>INK Marine Co.,Ltd. Crew Management Database System</span></h2>
     </div>
     <div class="module-content">
         <div class="custom">
@@ -21,13 +21,13 @@
 <script>
     $(document).ready(function() {
 	// jQuery code
-    $(window).scroll(function(){  
+    $(window).scroll(function(){
         if ($(this).scrollTop() > 40) {
            $('.navbar').css('height', '70px');
 
        }else{
         $('.navbar').css('height', 'auto');
-    }   
+    }
 });
 });
 </script>
