@@ -72,7 +72,7 @@
                         <multiselect v-model="value" :max-height="200" :options="options" placeholder="Select one" label="name" track-by="name" id="certificate" ></multiselect>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="licine_number">Licine Number</label>
+                        <label for="licine_number">License Number</label>
                         <input type="text" class="form-control" name="licine_number" id="licine_number" v-model.trim="licine_number">
                     </div>
                 </div>
@@ -88,7 +88,7 @@
                     </div>
                 </div>
 
-                <div class="form-row">
+                <div class="form-group row">
                     <div class="custom-file col-md-6">
                         <p>Choose Image</p>
                         <input type="file" class="custom-file-input" id="customFile" @change="fileChange" >

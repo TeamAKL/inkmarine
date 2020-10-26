@@ -12,6 +12,7 @@
                 font-weight: 600;
                 text-decoration: none;
                 text-transform: uppercase;
+                padding:5px 15px !important;
             }
         .content-page{
             /* margin: 50px 0 0 15%; */
@@ -46,6 +47,7 @@
         }
         .navbar-nav > .active >a{
             color:white !important;
+            padding:5px 15px;
         }
 
     </style>
