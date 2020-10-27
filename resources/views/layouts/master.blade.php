@@ -46,7 +46,7 @@
     <!-- Second Nav Bar -->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_nav">
-        <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="container" id="main_nav">
             <div class="nav-container collapse navbar-collapse">
@@ -74,8 +74,8 @@
                         <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown"> {{ Auth::user()->name }}</a>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li><a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();"> 
+                                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();"> 
                             {{ __('Logout') }}</a></li>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
@@ -85,7 +85,7 @@
                     @endguest
                 </ul>
                 <!-- End Right Side Nav bar -->
-            
+
             </div>
         </div>
     </nav>
@@ -107,29 +107,25 @@
     <!-- JavaScript -->
 
     <script src="{{mix('js/app.js')}}"></script>
-    <!-- DataTables -->
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
-
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
     <script>
         $(document).ready(function() {
-        	// jQuery code
-            if ($(window).width() > 992) {
-                $(window).scroll(function(){
-                    if ($(this).scrollTop() > 40) {
-                     $('.navbar').css('height', '70px');
+            $(window).scroll(function(){
+                if ($(this).scrollTop() > 40) {
+                    $('.navbar').css('height', '70px');
 
-                 }else{
+                }else{
                     $('.navbar').css('height', 'auto');
                 }
             });
-            }
+
+            $("h5[data-target='#collapseOne']").on("click", function() {
+                $(".card-header").removeClass("bgColor");
+                $(this).parent().addClass("bgColor");
+            })
 
         });
-
 
     </script>
     @stack('scripts')

@@ -2509,6 +2509,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2566,10 +2584,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.expired_date = moment__WEBPACK_IMPORTED_MODULE_5___default()(date).format('DD-MM-YYYY');
     this.other_boarding_date = moment__WEBPACK_IMPORTED_MODULE_5___default()(date).format('DD-MM-YYYY');
     this.other_leaving_date = moment__WEBPACK_IMPORTED_MODULE_5___default()(date).format('DD-MM-YYYY');
-    this.getData();
   },
   methods: {
-    personDetail: function personDetail(evn) {
+    personDetail: function personDetail() {
       var _this = this;
 
       this.loading = true;
@@ -2588,6 +2605,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     familyMember: function familyMember(evn) {
       var _this2 = this;
 
+      this.addClass(evn.target);
       this.loading = true;
       axios.post('/api/get-familymember', {
         user_id: this.id
@@ -2600,18 +2618,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this2.family_members = result.data.family_members;
       });
     },
-    editFamilyMember: function editFamilyMember(member) {
-      console.log(member);
-      this.$modal.show('family_member');
-    },
-    hide: function hide() {
-      this.$modal.hide('family_member');
-      this.$modal.hide('certificate');
-      this.$modal.hide('other_company');
-    },
     certificate: function certificate(evn) {
       var _this3 = this;
 
+      this.addClass(evn.target);
       this.loading = true;
       axios.post('/api/get-employer-certificate', {
         employer_id: this.id
@@ -2623,6 +2633,115 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this3.loading = false;
         _this3.certificates = result.data.certificates;
       });
+    },
+    medicalC: function medicalC(evn) {
+      var _this4 = this;
+
+      this.addClass(evn.target);
+      this.loading = true;
+      axios.post('/api/get-meidicalcheckup', {
+        employer_id: this.id
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + this.user_token
+        }
+      }).then(function (result) {
+        if (result.data.medicalcheckup != null) {
+          _this4.loading = false;
+          _this4.medicalcheckup = result.data.medicalcheckup;
+          _this4.medical_images = JSON.parse(result.data.medicalcheckup.images);
+        } else {
+          _this4.medicalcheckup = false;
+        }
+      });
+    },
+    otherCompanyCareer: function otherCompanyCareer(evn) {
+      var _this5 = this;
+
+      this.addClass(evn.target);
+      this.loading = true;
+      axios.post('/api/get-other-company', {
+        employer_id: this.id
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + this.user_token
+        }
+      }).then(function (result) {
+        _this5.loading = false;
+        _this5.othercompanies = result.data.othercompanies;
+      });
+    },
+    seamanBook: function seamanBook(evn) {
+      var _this6 = this;
+
+      this.addClass(evn.target);
+      this.loading = true;
+      axios.post('/api/get-seaman-book', {
+        employer_id: this.id
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + this.user_token
+        }
+      }).then(function (result) {
+        if (result.data.seamanbook != null) {
+          _this6.loading = false;
+          _this6.seamanbook = result.data.seamanbook;
+          _this6.seamanImages = JSON.parse(result.data.seamanbook.images);
+        } else {
+          _this6.seamanbook = false;
+        }
+      });
+    },
+    getPassport: function getPassport(evn) {
+      var _this7 = this;
+
+      this.addClass(evn.target);
+      this.loading = true;
+      axios.post('/api/get-passport', {
+        employer_id: this.id
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + this.user_token
+        }
+      }).then(function (result) {
+        if (result.data.passports != null) {
+          _this7.loading = false;
+          _this7.passports = result.data.passports;
+          _this7.passport_images = JSON.parse(result.data.passports.images);
+        } else {
+          _this7.passports = false;
+        }
+      });
+    },
+    getAllinone: function getAllinone(evn) {
+      var _this8 = this;
+
+      this.addClass(evn.target);
+      this.loading = true;
+      axios.post('/api/get-allinone', {
+        employer_id: this.id
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + this.user_token
+        }
+      }).then(function (result) {
+        if (result.data.allinone != null) {
+          _this8.loading = false;
+          _this8.allinone = result.data.allinone;
+          _this8.allinone_images = JSON.parse(result.data.allinone.images);
+        } else {
+          _this8.allinone = false;
+        }
+      });
+    },
+    editFamilyMember: function editFamilyMember(member) {
+      console.log(member);
+      this.$modal.show('family_member');
+    },
+    hide: function hide() {
+      this.$modal.hide('family_member');
+      this.$modal.hide('certificate');
+      this.$modal.hide('other_company');
     },
     editCertificate: function editCertificate(certificate) {
       console.log(certificate);
@@ -2669,88 +2788,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         width: 80 + '%'
       }, _defineProperty(_Swal$fire, "imageWidth", null), _defineProperty(_Swal$fire, "imageHeight", null), _defineProperty(_Swal$fire, "showCloseButton", true), _defineProperty(_Swal$fire, "showConfirmButton", false), _defineProperty(_Swal$fire, "allowOutsideClick", false), _Swal$fire));
     },
-    medicalC: function medicalC() {
-      var _this4 = this;
-
-      this.loading = true;
-      axios.post('/api/get-meidicalcheckup', {
-        employer_id: this.id
-      }, {
-        headers: {
-          'Authorization': 'Bearer ' + this.user_token
-        }
-      }).then(function (result) {
-        _this4.loading = false;
-        _this4.medicalcheckup = result.data.medicalcheckup;
-        _this4.medical_images = JSON.parse(result.data.medicalcheckup.images);
-      });
-    },
-    otherCompanyCareer: function otherCompanyCareer() {
-      var _this5 = this;
-
-      this.loading = true;
-      axios.post('/api/get-other-company', {
-        employer_id: this.id
-      }, {
-        headers: {
-          'Authorization': 'Bearer ' + this.user_token
-        }
-      }).then(function (result) {
-        _this5.loading = false;
-        _this5.othercompanies = result.data.othercompanies;
-      });
-    },
     editOtherCompany: function editOtherCompany(other_company) {
       console.log(other_company);
       this.$modal.show('other_company');
     },
-    seamanBook: function seamanBook() {
-      var _this6 = this;
-
-      this.loading = true;
-      axios.post('/api/get-seaman-book', {
-        employer_id: this.id
-      }, {
-        headers: {
-          'Authorization': 'Bearer ' + this.user_token
-        }
-      }).then(function (result) {
-        _this6.loading = false;
-        _this6.seamanbook = result.data.seamanbook;
-        _this6.seamanImages = JSON.parse(result.data.seamanbook.images);
-      });
-    },
-    getPassport: function getPassport() {
-      var _this7 = this;
-
-      this.loading = true;
-      axios.post('/api/get-passport', {
-        employer_id: this.id
-      }, {
-        headers: {
-          'Authorization': 'Bearer ' + this.user_token
-        }
-      }).then(function (result) {
-        _this7.loading = false;
-        _this7.passports = result.data.passports;
-        _this7.passport_images = JSON.parse(result.data.passports.images);
-      });
-    },
-    getAllinone: function getAllinone() {
-      var _this8 = this;
-
-      this.loading = true;
-      axios.post('/api/get-allinone', {
-        employer_id: this.id
-      }, {
-        headers: {
-          'Authorization': 'Bearer ' + this.user_token
-        }
-      }).then(function (result) {
-        _this8.loading = false;
-        _this8.allinone = result.data.allinone;
-        _this8.allinone_images = JSON.parse(result.data.allinone.images);
-      });
+    addClass: function addClass(current) {
+      $(".card-header").removeClass("bgColor");
+      $(current).parent().toggleClass("bgColor");
     }
   }
 });
@@ -10249,7 +10293,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".certificate-image[data-v-52b34611] {\n  width: 166px;\n  height: 64px;\n}\n.card-header h5[data-v-52b34611] {\n  cursor: pointer;\n}\n.wd-70[data-v-52b34611] {\n  width: 70%;\n}\n.image-show-area[data-v-52b34611] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(180px, 200px));\n  grid-template-rows: repeat(auto-fit, minmax(180px, 200px));\n  grid-auto-rows: 200px;\n  grid-gap: 10px;\n}\n.image-show-area img[data-v-52b34611] {\n  height: 100% !important;\n}\n.eye-icon[data-v-52b34611] {\n  color: #fff;\n  position: absolute;\n  top: 46%;\n  left: 46%;\n  font-size: 50px;\n}\n.image-container[data-v-52b34611], .loading-container[data-v-52b34611] {\n  width: 100%;\n  height: 180px;\n  border: 1px solid gray;\n  position: relative;\n  cursor: pointer;\n}\n.loading-container img[data-v-52b34611] {\n  position: absolute;\n  top: 43%;\n  left: 40%;\n}\n.image-container img[data-v-52b34611] {\n  width: 100%;\n  height: 100%;\n}\n.image-overlay[data-v-52b34611] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: #000000bf;\n  opacity: 0;\n}\n.image-overlay .footer-overlay[data-v-52b34611] {\n  background: #ece7e7;\n  position: absolute;\n  bottom: 0;\n  width: 100%;\n  text-align: center;\n}\n.image-container:hover .image-overlay[data-v-52b34611] {\n  opacity: 1;\n}", ""]);
+exports.push([module.i, ".bgcolor[data-v-52b34611] {\n  background: red;\n}\n.certificate-image[data-v-52b34611] {\n  width: 166px;\n  height: 64px;\n}\n.card-header h5[data-v-52b34611] {\n  cursor: pointer;\n}\n.wd-70[data-v-52b34611] {\n  width: 70%;\n}\n.image-show-area[data-v-52b34611] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(180px, 200px));\n  grid-template-rows: repeat(auto-fit, minmax(180px, 200px));\n  grid-auto-rows: 200px;\n  grid-gap: 10px;\n}\n.image-show-area img[data-v-52b34611] {\n  height: 100% !important;\n}\n.eye-icon[data-v-52b34611] {\n  color: #fff;\n  position: absolute;\n  top: 46%;\n  left: 46%;\n  font-size: 50px;\n}\n.image-container[data-v-52b34611], .loading-container[data-v-52b34611] {\n  width: 100%;\n  height: 180px;\n  border: 1px solid gray;\n  position: relative;\n  cursor: pointer;\n}\n.loading-container img[data-v-52b34611] {\n  position: absolute;\n  top: 43%;\n  left: 40%;\n}\n.image-container img[data-v-52b34611] {\n  width: 100%;\n  height: 100%;\n}\n.image-overlay[data-v-52b34611] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: #000000bf;\n  opacity: 0;\n}\n.image-overlay .footer-overlay[data-v-52b34611] {\n  background: #ece7e7;\n  position: absolute;\n  bottom: 0;\n  width: 100%;\n  text-align: center;\n}\n.image-container:hover .image-overlay[data-v-52b34611] {\n  opacity: 1;\n}\n.bgColor[data-v-52b34611] {\n  background: #6574cd;\n  color: #fff;\n}", ""]);
 
 // exports
 
@@ -10345,7 +10389,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.family_member_modal[data-v-41f1d04c] {\r\n    overflow: auto !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.family_member_modal[data-v-41f1d04c] {\n    overflow: auto !important;\n}\n", ""]);
 
 // exports
 
@@ -10364,7 +10408,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.wizard-header {\r\n    display: none;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.wizard-header {\n    display: none;\n}\n\n", ""]);
 
 // exports
 
@@ -10383,7 +10427,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.company_career_modal[data-v-2c9d1da8] {\r\n    overflow: auto !important;\n}\r\n", ""]);
+exports.push([module.i, "\n.company_career_modal[data-v-2c9d1da8] {\n    overflow: auto !important;\n}\n", ""]);
 
 // exports
 
@@ -94851,7 +94895,30 @@ var render = function() {
     [
       _c("div", { attrs: { id: "accordion" } }, [
         _c("div", { staticClass: "card" }, [
-          _vm._m(0),
+          _c(
+            "div",
+            { staticClass: "card-header bgColor", attrs: { id: "headingOne" } },
+            [
+              _c(
+                "h5",
+                {
+                  staticClass: "mb-0",
+                  attrs: {
+                    "data-toggle": "collapse",
+                    "data-target": "#collapseOne",
+                    "aria-expanded": "true",
+                    "aria-controls": "collapseOne"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.personDetail($event)
+                    }
+                  }
+                },
+                [_vm._v("\n\t\t\t\t\tPerson Detail\n\t\t\t\t")]
+              )
+            ]
+          ),
           _vm._v(" "),
           _c(
             "div",
@@ -94956,7 +95023,7 @@ var render = function() {
                   },
                   on: { click: _vm.familyMember }
                 },
-                [_vm._v("\n\t\t\t\t\t\tFamily Member\n\t\t\t\t\t")]
+                [_vm._v("\n\t\t\t\t\tFamily Member\n\t\t\t\t")]
               )
             ]
           ),
@@ -94986,7 +95053,7 @@ var render = function() {
                       ]
                     )
                   : _c("table", { staticClass: "table table-hover" }, [
-                      _vm._m(1),
+                      _vm._m(0),
                       _vm._v(" "),
                       _c(
                         "tbody",
@@ -95056,7 +95123,7 @@ var render = function() {
                   },
                   on: { click: _vm.certificate }
                 },
-                [_vm._v("\n\t\t\t\t\t\tCertificate\n\t\t\t\t\t")]
+                [_vm._v("\n\t\t\t\t\tCertificate\n\t\t\t\t")]
               )
             ]
           ),
@@ -95086,7 +95153,7 @@ var render = function() {
                       ]
                     )
                   : _c("table", { staticClass: "table table-hover" }, [
-                      _vm._m(2),
+                      _vm._m(1),
                       _vm._v(" "),
                       _c(
                         "tbody",
@@ -95173,7 +95240,7 @@ var render = function() {
                   },
                   on: { click: _vm.medicalC }
                 },
-                [_vm._v("\n\t\t\t\t\t\tMedical Checkup\n\t\t\t\t\t")]
+                [_vm._v("\n\t\t\t\t\tMedical Checkup\n\t\t\t\t")]
               )
             ]
           ),
@@ -95190,135 +95257,164 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "card-body" }, [
-                _vm.loading
-                  ? _c(
-                      "div",
-                      { staticClass: "d-flex justify-content-center" },
-                      [
-                        _c("img", {
-                          attrs: {
-                            src: __webpack_require__(/*! ../../../public/loading/dataload.gif */ "./public/loading/dataload.gif")
-                          }
-                        })
-                      ]
-                    )
-                  : _c("div", [
-                      _c("table", { staticClass: "table table-hover" }, [
-                        _c("tbody", [
-                          _c("tr", [
-                            _c("th", [_vm._v("Date:")]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm.medicalcheckup.med_date))
-                            ]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Height:")]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm.medicalcheckup.height))
-                            ]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Weight:")]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm.medicalcheckup.weight))
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.medicalcheckup,
+                        expression: "medicalcheckup"
+                      }
+                    ]
+                  },
+                  [
+                    _vm.loading
+                      ? _c(
+                          "div",
+                          { staticClass: "d-flex justify-content-center" },
+                          [
+                            _c("img", {
+                              attrs: {
+                                src: __webpack_require__(/*! ../../../public/loading/dataload.gif */ "./public/loading/dataload.gif")
+                              }
+                            })
+                          ]
+                        )
+                      : _c("div", [
+                          _c("table", { staticClass: "table table-hover" }, [
+                            _c("tbody", [
+                              _c("tr", [
+                                _c("th", [_vm._v("Date:")]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(_vm.medicalcheckup.med_date))
+                                ]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Height:")]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(_vm.medicalcheckup.height))
+                                ]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Weight:")]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(_vm.medicalcheckup.weight))
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("tr", [
+                                _c("th", [_vm._v("Checst:")]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(_vm.medicalcheckup.checst))
+                                ]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Tooth:")]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(_vm.medicalcheckup.tooth))
+                                ]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Tooth State:")]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(_vm.medicalcheckup.tooth_state))
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("tr", [
+                                _c("th", [_vm._v("Color Blindness:")]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    _vm._s(_vm.medicalcheckup.color_blindness)
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Blood Type:")]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(_vm.medicalcheckup.blood_type))
+                                ]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("XRay:")]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(_vm.medicalcheckup.xray))
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("tr", [
+                                _c("th", [_vm._v("Hospital: ")]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(_vm.medicalcheckup.hospital))
+                                ]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Decision:")]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(_vm.medicalcheckup.decision))
+                                ]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Sight (Left):")]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(_vm.medicalcheckup.sight_left))
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("tr", [
+                                _c("th", [_vm._v("Hearing (Left)")]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    _vm._s(_vm.medicalcheckup.hearing_left)
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Hearing (Right)")]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    _vm._s(_vm.medicalcheckup.hearing_right)
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("th", [_vm._v("Sight (Right):")]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(_vm.medicalcheckup.sight_right))
+                                ])
+                              ])
                             ])
                           ]),
                           _vm._v(" "),
-                          _c("tr", [
-                            _c("th", [_vm._v("Checst:")]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm.medicalcheckup.checst))
-                            ]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Tooth:")]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm.medicalcheckup.tooth))
-                            ]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Tooth State:")]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm.medicalcheckup.tooth_state))
-                            ])
-                          ]),
+                          _c("hr"),
                           _vm._v(" "),
-                          _c("tr", [
-                            _c("th", [_vm._v("Color Blindness:")]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm.medicalcheckup.color_blindness))
-                            ]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Blood Type:")]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm.medicalcheckup.blood_type))
-                            ]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("XRay:")]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.medicalcheckup.xray))])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("th", [_vm._v("Hospital: ")]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm.medicalcheckup.hospital))
-                            ]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Decision:")]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm.medicalcheckup.decision))
-                            ]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Sight (Left):")]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm.medicalcheckup.sight_left))
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("th", [_vm._v("Hearing (Left)")]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm.medicalcheckup.hearing_left))
-                            ]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Hearing (Right)")]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm.medicalcheckup.hearing_right))
-                            ]),
-                            _vm._v(" "),
-                            _c("th", [_vm._v("Sight (Right):")]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm.medicalcheckup.sight_right))
-                            ])
-                          ])
+                          _c(
+                            "div",
+                            { staticClass: "image-show-area" },
+                            _vm._l(_vm.medical_images, function(image) {
+                              return _c("img", {
+                                key: image,
+                                staticClass: "img-thumbnail",
+                                attrs: {
+                                  src: image,
+                                  alt: "medicalcheckupImage"
+                                }
+                              })
+                            }),
+                            0
+                          )
                         ])
-                      ]),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "image-show-area" },
-                        _vm._l(_vm.medical_images, function(image) {
-                          return _c("img", {
-                            staticClass: "img-thumbnail",
-                            attrs: { src: image, alt: "medicalcheckupImage" }
-                          })
-                        }),
-                        0
-                      )
-                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(2)
               ])
             ]
           )
@@ -95344,7 +95440,7 @@ var render = function() {
                   },
                   on: { click: _vm.otherCompanyCareer }
                 },
-                [_vm._v("\n\t\t\t\t\t\tOther Company Careers\n\t\t\t\t\t")]
+                [_vm._v("\n\t\t\t\t\tOther Company Careers\n\t\t\t\t")]
               )
             ]
           ),
@@ -95458,7 +95554,7 @@ var render = function() {
                   },
                   on: { click: _vm.seamanBook }
                 },
-                [_vm._v("\n\t\t\t\t\t\tSeaman Book\n\t\t\t\t\t")]
+                [_vm._v("\n\t\t\t\t\tSeaman Book\n\t\t\t\t")]
               )
             ]
           ),
@@ -95475,45 +95571,66 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "card-body" }, [
-                _vm.loading
-                  ? _c(
-                      "div",
-                      { staticClass: "d-flex justify-content-center" },
-                      [
-                        _c("img", {
-                          attrs: {
-                            src: __webpack_require__(/*! ../../../public/loading/dataload.gif */ "./public/loading/dataload.gif")
-                          }
-                        })
-                      ]
-                    )
-                  : _c("div", [
-                      _c("table", { staticClass: "table table-hover" }, [
-                        _c("tbody", [
-                          _c("tr", [
-                            _c("th", { staticClass: "wd-70" }, [
-                              _vm._v("SeaMan Book:")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.seamanbook.cbn))])
-                          ])
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.semanbook,
+                        expression: "semanbook"
+                      }
+                    ]
+                  },
+                  [
+                    _vm.loading
+                      ? _c(
+                          "div",
+                          { staticClass: "d-flex justify-content-center" },
+                          [
+                            _c("img", {
+                              attrs: {
+                                src: __webpack_require__(/*! ../../../public/loading/dataload.gif */ "./public/loading/dataload.gif")
+                              }
+                            })
+                          ]
+                        )
+                      : _c("div", [
+                          _c("table", { staticClass: "table table-hover" }, [
+                            _c("tbody", [
+                              _c("tr", [
+                                _c("th", { staticClass: "wd-70" }, [
+                                  _vm._v("SeaMan Book:")
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(_vm.seamanbook.cbn))])
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("hr"),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "image-show-area" },
+                            _vm._l(_vm.seamanImages, function(image) {
+                              return _c("img", {
+                                key: image,
+                                staticClass: "img-thumbnail",
+                                attrs: {
+                                  src: image,
+                                  alt: "medicalcheckupImage"
+                                }
+                              })
+                            }),
+                            0
+                          )
                         ])
-                      ]),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "image-show-area" },
-                        _vm._l(_vm.seamanImages, function(image) {
-                          return _c("img", {
-                            staticClass: "img-thumbnail",
-                            attrs: { src: image, alt: "medicalcheckupImage" }
-                          })
-                        }),
-                        0
-                      )
-                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(4)
               ])
             ]
           )
@@ -95536,7 +95653,7 @@ var render = function() {
                   },
                   on: { click: _vm.getPassport }
                 },
-                [_vm._v("\n\t\t\t\t\t\tPassport\n\t\t\t\t\t")]
+                [_vm._v("\n\t\t\t\t\tPassport\n\t\t\t\t")]
               )
             ]
           ),
@@ -95553,47 +95670,68 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "card-body" }, [
-                _vm.loading
-                  ? _c(
-                      "div",
-                      { staticClass: "d-flex justify-content-center" },
-                      [
-                        _c("img", {
-                          attrs: {
-                            src: __webpack_require__(/*! ../../../public/loading/dataload.gif */ "./public/loading/dataload.gif")
-                          }
-                        })
-                      ]
-                    )
-                  : _c("div", [
-                      _c("table", { staticClass: "table table-hover" }, [
-                        _c("tbody", [
-                          _c("tr", [
-                            _c("th", { staticClass: "wd-70" }, [
-                              _vm._v("Passport Number:")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(_vm.passports.passport_no))
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.passports,
+                        expression: "passports"
+                      }
+                    ]
+                  },
+                  [
+                    _vm.loading
+                      ? _c(
+                          "div",
+                          { staticClass: "d-flex justify-content-center" },
+                          [
+                            _c("img", {
+                              attrs: {
+                                src: __webpack_require__(/*! ../../../public/loading/dataload.gif */ "./public/loading/dataload.gif")
+                              }
+                            })
+                          ]
+                        )
+                      : _c("div", [
+                          _c("table", { staticClass: "table table-hover" }, [
+                            _c("tbody", [
+                              _c("tr", [
+                                _c("th", { staticClass: "wd-70" }, [
+                                  _vm._v("Passport Number:")
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(_vm.passports.passport_no))
+                                ])
+                              ])
                             ])
-                          ])
+                          ]),
+                          _vm._v(" "),
+                          _c("hr"),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "image-show-area" },
+                            _vm._l(_vm.passport_images, function(image) {
+                              return _c("img", {
+                                key: image,
+                                staticClass: "img-thumbnail",
+                                attrs: {
+                                  src: image,
+                                  alt: "medicalcheckupImage"
+                                }
+                              })
+                            }),
+                            0
+                          )
                         ])
-                      ]),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "image-show-area" },
-                        _vm._l(_vm.passport_images, function(image) {
-                          return _c("img", {
-                            staticClass: "img-thumbnail",
-                            attrs: { src: image, alt: "medicalcheckupImage" }
-                          })
-                        }),
-                        0
-                      )
-                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(5)
               ])
             ]
           )
@@ -95616,7 +95754,7 @@ var render = function() {
                   },
                   on: { click: _vm.getAllinone }
                 },
-                [_vm._v("\n\t\t\t\t\t\tAllinone\n\t\t\t\t\t")]
+                [_vm._v("\n\t\t\t\t\tAllinone\n\t\t\t\t")]
               )
             ]
           ),
@@ -95633,53 +95771,74 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "card-body" }, [
-                _vm.loading
-                  ? _c(
-                      "div",
-                      { staticClass: "d-flex justify-content-center" },
-                      [
-                        _c("img", {
-                          attrs: {
-                            src: __webpack_require__(/*! ../../../public/loading/dataload.gif */ "./public/loading/dataload.gif")
-                          }
-                        })
-                      ]
-                    )
-                  : _c("div", [
-                      _c("table", { staticClass: "table table-hover" }, [
-                        _c("tbody", [
-                          _c("tr", [
-                            _c("th", { staticClass: "wd-70" }, [
-                              _vm._v("C.O.C:")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.allinone.coc))])
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.allinone,
+                        expression: "allinone"
+                      }
+                    ]
+                  },
+                  [
+                    _vm.loading
+                      ? _c(
+                          "div",
+                          { staticClass: "d-flex justify-content-center" },
+                          [
+                            _c("img", {
+                              attrs: {
+                                src: __webpack_require__(/*! ../../../public/loading/dataload.gif */ "./public/loading/dataload.gif")
+                              }
+                            })
+                          ]
+                        )
+                      : _c("div", [
+                          _c("table", { staticClass: "table table-hover" }, [
+                            _c("tbody", [
+                              _c("tr", [
+                                _c("th", { staticClass: "wd-70" }, [
+                                  _vm._v("C.O.C:")
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(_vm.allinone.coc))])
+                              ]),
+                              _vm._v(" "),
+                              _c("tr", [
+                                _c("th", { staticClass: "wd-70" }, [
+                                  _vm._v("GMBSS:")
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(_vm.allinone.gmbss))])
+                              ])
+                            ])
                           ]),
                           _vm._v(" "),
-                          _c("tr", [
-                            _c("th", { staticClass: "wd-70" }, [
-                              _vm._v("GMBSS:")
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(_vm.allinone.gmbss))])
-                          ])
+                          _c("hr"),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "image-show-area" },
+                            _vm._l(_vm.allinone_images, function(image) {
+                              return _c("img", {
+                                key: image,
+                                staticClass: "img-thumbnail",
+                                attrs: {
+                                  src: image,
+                                  alt: "medicalcheckupImage"
+                                }
+                              })
+                            }),
+                            0
+                          )
                         ])
-                      ]),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "image-show-area" },
-                        _vm._l(_vm.allinone_images, function(image) {
-                          return _c("img", {
-                            staticClass: "img-thumbnail",
-                            attrs: { src: image, alt: "medicalcheckupImage" }
-                          })
-                        }),
-                        0
-                      )
-                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(6)
               ])
             ]
           )
@@ -96283,30 +96442,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "card-header", attrs: { id: "headingOne" } },
-      [
-        _c(
-          "h5",
-          {
-            staticClass: "mb-0",
-            attrs: {
-              "data-toggle": "collapse",
-              "data-target": "#collapseOne",
-              "aria-expanded": "true",
-              "aria-controls": "collapseOne"
-            }
-          },
-          [_vm._v("\n\t\t\t\t\t\tPerson Detail\n\t\t\t\t\t")]
-        )
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
@@ -96345,6 +96480,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "d-flex justify-content-center" }, [
+      _c("button", { staticClass: "btn btn-success" }, [_vm._v("Create")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
         _c("th", [_vm._v("Rank")]),
@@ -96361,6 +96504,30 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th")
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "d-flex justify-content-center" }, [
+      _c("button", { staticClass: "btn btn-success" }, [_vm._v("Create")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "d-flex justify-content-center" }, [
+      _c("button", { staticClass: "btn btn-success" }, [_vm._v("Create")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "d-flex justify-content-center" }, [
+      _c("button", { staticClass: "btn btn-success" }, [_vm._v("Create")])
     ])
   }
 ]
@@ -118555,8 +118722,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Lenovo\Desktop\inkmarine\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Lenovo\Desktop\inkmarine\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/thet/Thet Tun/inkmarine/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/thet/Thet Tun/inkmarine/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
