@@ -218,7 +218,11 @@
 						<div class="d-flex justify-content-center" v-if="loading">
 							<img src="../../../public/loading/dataload.gif">
 						</div>
-						<table class="table table-hover" v-else>
+						<div v-else>
+							<div class="d-flex justify-content-end mb-3">
+								<button type="button" class="btn btn-success" id="add-member" @click="showOtherCompanyCareer" >Add</button>
+							</div>
+								<table class="table table-hover">
 							<thead>
 								<tr>
 									<th>Rank</th>
@@ -231,13 +235,13 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr :key="other_comapny.id" v-for="other_comapny in othercompanies">
-									<td>{{other_comapny.rank}}</td>
-									<td>{{other_comapny.company_name}}</td>
-									<td>{{other_comapny.ship_name}}</td>
-									<td>{{other_comapny.area}}</td>
-									<td>{{other_comapny.boarding_date}}</td>
-									<td>{{other_comapny.leaving_date}}</td>
+								<tr :key="other_company.id" v-for="other_company in othercompanies">
+									<td>{{other_company.rank}}</td>
+									<td>{{other_company.company_name}}</td>
+									<td>{{other_company.ship_name}}</td>
+									<td>{{other_company.area}}</td>
+									<td>{{other_company.boarding_date}}</td>
+									<td>{{other_company.leaving_date}}</td>
 									<td>
 										<a href="javascript:void(0)" class="btn btn-primary btn-sm" @click="editOtherCompany(other_company)">Edit</a>
 										<a href="javascript:void(0)" class="btn btn-danger btn-sm" @click="deleteOtherCompany(other_company)">Delete</a>
@@ -245,6 +249,8 @@
 								</tr>
 							</tbody>
 						</table>
+						</div>
+					
 					</div>
 				</div>
 			</div>
@@ -784,60 +790,64 @@
 					</div>
 				</div>
 			</div>
-		</modal>
+		</modal> 
 		<!--Other company career Modal -->
 		<modal name="other_company" :clickToClose="false" height="auto" class="company_career_modal">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Other Company Career</h5>
-					<button type="button" class="close" @click="hide" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
+					<h5>Add Company Careers</h5>
 				</div>
 				<div class="modal-body">
-					<form>
-						<div class="form-group row">
-							<label for="other_rank" class="col-sm-4 col-form-label">Rank :</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="other_rank" name="other_rank">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="other_company_name" class="col-sm-4 col-form-label">Company Name :</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="company_name" name="company_name">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="other_ship_name" class="col-sm-4 col-form-label">Ship Name :</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="ship_name" name="ship_name">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="other_area" class="col-sm-4 col-form-label">Area :</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="other_area" name="other_area">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="other_boarding_date" class="col-sm-4 col-form-label">Boarding Date :</label>
-							<div class="col-sm-8">
-								<date-picker v-model="other_boarding_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="other_leaving_date" class="col-sm-4 col-form-label">Leaving Date :</label>
-							<div class="col-sm-8">
-								<date-picker v-model="other_leaving_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
-							</div>
-						</div>
-					</form>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="typo__label" for="">Company</label>
+                             <input type="text" class="form-control" id="company_name" name="company_name"  v-model.trim="company_name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="typo__label" for="">Ship Name</label>
+                             <input type="text" class="form-control" id="ship_name" name="ship_name"  v-model.trim="ship_name">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-4 form-group">
+                            <label for="">Rank</label>
+                            <input type="text" class="form-control" id="rank" name="rank"  v-model.trim="rank">
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="">GRT</label>
+                            <input type="text" class="form-control" id="grt" name="grt"  v-model.trim="grt">
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="">KW</label>
+                            <input type="text" class="form-control" id="kw" name="kw"  v-model.trim="kw">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="">Boarding Date</label>
+                             <date-picker v-model="boarding_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="">Leaving Date</label>
+                            <date-picker v-model="leaving_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="">Area</label>
+                            <input type="text" class="form-control" id="area" name="area"  v-model.trim="area">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Remark</label>
+                        <textarea name="company_remark" id="company_remark" v-model.trim="company_remark" cols="30" rows="6" class="form-control"></textarea>
+                    </div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" @click="hide" >Close</button>
-					<button type="button" class="btn btn-success" id="create-certificate" @click="hide" >Save</button>
-				</div>
+                 <div class="modal-footer d-flex justify-content-end">
+                    <button class="btn btn-primary" @click="hideOtherCompanyCareer">Cancel</button>
+                    <button class="btn btn-success"  @click="saveOtherCompanyCareer">Add</button>
+                </div>
 			</div>
 		</modal>
 
@@ -1055,7 +1065,18 @@
                 member_phone_number: '',
                 member_dob: '',
                 member_remark: '',
-                family_member_id: null,
+				family_member_id: null,
+				//OtherCompanyCareer
+				rank: '',
+            	grt: '',
+            	kw: '',
+            	company_name: '',
+            	ship_name: '',
+            	boarding_date: '',
+            	leaving_date: '',
+            	area: '',
+            	company_remark: '',
+            	company_career_id: null,
 			}
 		},
 		created() {
@@ -1068,8 +1089,8 @@
 			this.member_dob = moment(date).format('DD-MM-YYYY');
 			this.training_date = moment(date).format('DD-MM-YYYY');
 			this.expired_date = moment(date).format('DD-MM-YYYY');
-			this.other_boarding_date = moment(date).format('DD-MM-YYYY');
-			this.other_leaving_date = moment(date).format('DD-MM-YYYY');
+			this.leaving_date = moment(date).format('DD-MM-YYYY');
+			this.boarding_date = moment(date).format('DD-MM-YYYY');
 			this.med_date = moment(date).format('DD-MM-YYYY');
 
 		},
@@ -1131,8 +1152,7 @@
 				});
 			},
 
-			otherCompanyCareer(evn) {
-				this.addClass(evn.target);
+			otherCompanyCareer() {
 				this.loading = true;
 				axios.post('/api/get-other-company', {
 					employer_id: this.id
@@ -1199,7 +1219,7 @@
 					
 				});
 			},
-            //Family Member
+           /* Start Family Member */
 			editFamilyMember(item) {
 				console.log(item.employerId);
 			   this.showFamilyMember();
@@ -1256,7 +1276,33 @@
 			},
 			showFamilyMember() {
 		    this.$modal.show('family_member');
-            },
+			},
+			  // Delete Family Members
+            deleteFamilyMember(member) {
+            const vm = this;
+            return Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to delete " + member.name,
+                icon: 'warning',
+                showCancelButton: true,
+                allowOutsideClick: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Delete'
+            }).then((result) => {
+                if(result.isConfirmed) {
+                    axios.post('/api/delete-family-member', {
+                        id: member.id,
+                        employer_id: this.id
+                    }, {
+                        headers: {'Authorization': 'Bearer '+ this.user_token}
+                    }).then(response => {
+                        vm.familyMember();
+                    })
+                }
+            });
+		},
+		/* End Family Member */
 			createMedicalCheckup(medical_checkup) {
 				console.log(medical_checkup);
 				this.$modal.show('medical_checkup');
@@ -1343,18 +1389,105 @@
 
 
 			hide() {
-				this.$modal.hide('other_company');
 				this.$modal.hide('medical_checkup');
 				this.$modal.hide('seaman_book');
 				this.$modal.hide('passport');
 				this.$modal.hide('all_in_one');
 
 			},
-
-			editOtherCompany(other_company) {
-				console.log(other_company);
+			/* Start Other Company Career */
+			editOtherCompany(item) {
+				console.log(item);
+			   this.showOtherCompanyCareer();
+			   this.company_career_id = item.id;
+               this.rank = item.rank;
+               this.grt = item.grt;
+               this.kw = item.kw;
+               this.ship_name = item.ship_name;
+               this.company_name = item.company_name;
+               this.boarding_date =item.boarding_date;
+               this.leaving_date = item.leaving_date;
+               this.area = item.area;
+               this.company_remark = item.remark;
+               this.user_id = this.id;
+			},
+			showOtherCompanyCareer(){
 				this.$modal.show('other_company');
 			},
+			hideOtherCompanyCareer(){
+				this.rank = '',
+            	this.grt = '',
+            	this.kw = '',
+            	this.company_name = '',
+            	this.ship_name = '',
+            	this.company_name = '',
+            	this.boarding_date = moment(new Date()).format('DD-MM-YYYY');
+            	this.leaving_date = moment(new Date()).format('DD-MM-YYYY');
+            	this.area = '',
+				this.company_remark = '',
+				this.$modal.hide('other_company');
+			},
+			saveOtherCompanyCareer(){
+			  
+			   axios.post('/api/save-other-company-careers', {
+                'rank': this.rank,
+                'grt': this.grt,
+                'kw': this.kw,
+                'company_name': this.company_name,
+                'ship_name': this.ship_name,
+                'boarding_date': this.boarding_date,
+                'leaving_date':this.leaving_date,
+                'area': this.area,
+                'company_remark':this.company_remark,
+                'company_career_id' : this.company_career_id,
+                'user_id':this.id,
+            }, {
+                headers: {'Authorization': 'Bearer '+ this.user_token}
+            }).then(result => {
+               this.hideOtherCompanyCareer();
+               $(document).find('span[class="validate-message"]').remove();
+               this.otherCompanyCareer();
+            }).catch(err => {
+                if (err.response.status == 400) {
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Please fill all required fields!'
+                    });
+                     $(document).find('span[class="validate-message"]').remove();
+                    $.each(err.response.data.error, function (i, error) {
+                        var el = $(document).find('[name="'+i+'"]');
+                        el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
+                    });
+                }
+                isValid = false;
+            });
+			},
+			// Delete Company Career
+         deleteOtherCompany(company) {
+            const vm = this;
+            return Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to delete " + company.rank,
+                icon: 'warning',
+                showCancelButton: true,
+                allowOutsideClick: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Delete'
+            }).then((result) => {
+                if(result.isConfirmed) {
+                    axios.post('/api/delete-company-career', {
+                        id: company.id,
+                        employer_id: this.id
+                    }, {
+                        headers: {'Authorization': 'Bearer '+ this.user_token}
+                    }).then(response => {
+                        vm.otherCompanyCareer();
+                    })
+                }
+            });
+		},
+		/* End Other Company Career */
 			createSeamanBook(seaman_book) {
 				console.log(seaman_book);
 				this.$modal.show('seaman_book');
