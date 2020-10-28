@@ -94,33 +94,39 @@
 						<div class="d-flex justify-content-center" v-if="loading">
 							<img src="../../../public/loading/dataload.gif">
 						</div>
-						<table class="table table-hover" v-else>
-							<thead>
-								<tr>
-									<th scope="col">Name</th>
-									<th scope="col">License Number</th>
-									<th scope="col">Training Date</th>
-									<th scope="col">Expire Date</th>
-									<th>Image</th>
-									<th scope="col">Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr :key="certificate.id" v-for="certificate in certificates">
-									<td>{{certificate.name}}</td>
-									<td>{{certificate.licine_number}}</td>
-									<td>{{certificate.training_date}}</td>
-									<td>{{certificate.expire_date}}</td>
-									<td>
-										<img :src="certificate.image" alt="Certificate Image" class="certificate-image">
-									</td>
-									<td>
-										<a href="javascript:void(0)" class="btn btn-primary btn-sm" @click="editCertificate(certificate)">Edit</a>
-										<a href="javascript:void(0)" class="btn btn-danger btn-sm" @click="deleteCertificate(certificate)">Delete</a>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+						<div v-else>
+							<div class="d-flex justify-content-end mb-3">
+								<button class="btn btn-success" @click="addCertificate">Add</button>
+							</div>
+							
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th scope="col">Name</th>
+										<th scope="col">License Number</th>
+										<th scope="col">Training Date</th>
+										<th scope="col">Expire Date</th>
+										<th>Image</th>
+										<th scope="col">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr :key="certificate.id" v-for="certificate in certificates">
+										<td>{{certificate.name}}</td>
+										<td>{{certificate.licine_number}}</td>
+										<td>{{certificate.training_date}}</td>
+										<td>{{certificate.expire_date}}</td>
+										<td>
+											<img :src="certificate.image" alt="Certificate Image" class="certificate-image">
+										</td>
+										<td>
+											<a href="javascript:void(0)" class="btn btn-primary btn-sm" @click="editCertificate(certificate)">Edit</a>
+											<a href="javascript:void(0)" class="btn btn-danger btn-sm" @click="deleteCertificate(certificate)">Delete</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -400,41 +406,37 @@
 				</div>
 				<div class="modal-body">
 					<form >
-						<div class="form-group row">
-							<label for="certificate_name" class="col-sm-4 col-form-label">Certificate Name :</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="certificate_name" name="certificate_name">
-							</div>
+						<div class="form-group">
+							<label class="typo__label" for="certificate">Certificate</label>
+							<multiselect v-model="value" :max-height="200" :options="options" placeholder="Select one" label="name" track-by="name" id="certificate" ></multiselect>
 						</div>
-						<div class="form-group row">
-							<label for="license_no" class="col-sm-4 col-form-label">License Number :</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="license_no" name="license_no">
-							</div>
+						<div class="form-group">
+							<label for="licine_number">License Number</label>
+							<input type="text" class="form-control" name="licine_number" id="licine_number" v-model.trim="licine_number">
 						</div>
-						<div class="form-group row">
-							<label for="training_date" class="col-sm-4 col-form-label">Training Date :</label>
-							<div class="col-sm-8">
-								<date-picker v-model="training_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
-							</div>
+						<div class="form-group">
+							<label for="training_date">Training Date</label>
+							<date-picker v-model.trim="training_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
 						</div>
-						<div class="form-group row">
-							<label for="expired_date" class="col-sm-4 col-form-label">Expired Date :</label>
-							<div class="col-sm-8">
-								<date-picker v-model="expired_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
-							</div>
+						<div class="form-group">
+							<label for="expire_date">Expire Date</label>
+							<date-picker v-model.trim="expire_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
 						</div>
-						<div class="form-group row">
-							<div class="custom-file col-sm-4">
+						<div class="form-group">
+							<label for="remark">Remark</label>
+							<textarea name="remark" id="remark" cols="30" rows="10" v-model.trim="remark" class="form-control"></textarea>
+						</div>
+						<div class="form-group">
+							<div class="custom-file">
 								<p>Choose Image</p>
 								<input type="file" class="custom-file-input" id="customFile" @change="fileChange" >
 								<label class="custom-file-label" for="customFile" id="changeLabel">{{imglabel}}</label>
 
 							</div>
-							<div class="loading-container col-sm-8" v-show="showLoading">
-								<!-- <img src="../../../../public/loading/small_loading.gif" alt="ll" > -->
+							<div class="loading-container " v-show="showLoading">
+								<img src="../../../public/loading/small_loading.gif" alt="ll" >
 							</div>
-							<div class="image-container col-sm-8" v-if="certificateImage" @click="viewImage(certificateImage)">
+							<div class="image-container " v-if="certificateImage" @click="viewImage(certificateImage)">
 								<img :src="certificateImage" alt="img" class="img-thumbnail">
 								<div class="image-overlay">
 									<i class="wizard-icon ti-eye eye-icon"></i>
@@ -444,8 +446,8 @@
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" @click="hide" >Close</button>
-					<button type="button" class="btn btn-success" id="create-certificate" @click="hide" >Save</button>
+					<button type="button" class="btn btn-primary" @click="hideCertificate" >Close</button>
+					<button type="button" class="btn btn-success" id="create-certificate" @click="saveCertificate" >Save</button>
 				</div>
 			</div>
 
@@ -463,8 +465,8 @@
 					<div class="modal-body">
 						<div class="form-row">
 							<div class="form-group col-sm-6">
-							<label for="date">Date</label>
-							<date-picker v-model.trim="med_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+								<label for="date">Date</label>
+								<date-picker v-model.trim="med_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
 							</div>
 							<div class="form-group col-sm-6">
 								<label for="">Height</label>
@@ -473,8 +475,8 @@
 						</div>
 						<div class="form-row">
 							<div class="form-group col-sm-6">
-							<label for="">Chest</label>
-							<input type="text" class="form-control" name="chest" v-model="checst">
+								<label for="">Chest</label>
+								<input type="text" class="form-control" name="chest" v-model="checst">
 							</div>
 							<div class="form-group col-sm-6">
 								<label for="">Tooth</label>
@@ -841,7 +843,7 @@
 	background: red;
 }
 .medical_checkup,.seaman_book,
-.passport,.all_in_one
+.passport,.all_in_one, .certificate_modal
 {
 	overflow-y: auto;
 }
@@ -955,11 +957,7 @@
 				allinone: {},
 				allinone_images: {},
 
-				//Modal
-				czindex: -100,
-				copacity: 0,
-				cvisibility: 'hidden',
-				cstyle:  'translateY(-100%)',
+				//Modal Certificate
 				value: { },
 				options: [],
 				licine_number: '',
@@ -970,6 +968,31 @@
 				imglabel: 'Choose Image..',
 				showLoading: false,
 				employer_certificate_id: null,
+				columns: [
+				{
+					label: 'Certificate',
+					name: 'cetificates.title',
+					orderable: true,
+				},
+				{
+					label: 'Licine Number',
+					name: 'employer_certificates.licine_number',
+					orderable: true,
+				},
+				{
+					label: 'Training Date',
+					name: 'employer_certificates.training_date',
+					orderable: true,
+				},
+				{
+					label: 'Expire Date',
+					name: 'employer_certificates.expire_date',
+					orderable: true,
+				},
+				{
+					label: 'Action'
+				}
+				],
 
 				//medicalcheckup_photo
 				showLoading: false,
@@ -1032,7 +1055,7 @@
 			this.expired_date = moment(date).format('DD-MM-YYYY');
 			this.other_boarding_date = moment(date).format('DD-MM-YYYY');
 			this.other_leaving_date = moment(date).format('DD-MM-YYYY');
-		    this.med_date = moment(date).format('DD-MM-YYYY');
+			this.med_date = moment(date).format('DD-MM-YYYY');
 
 		},
 		methods: {
@@ -1062,8 +1085,8 @@
 				});
 			},
 
-			certificate(evn) {
-				this.addClass(evn.target);
+			certificate() {
+				// this.addClass(evn.target);
 				this.loading = true;
 				axios.post('/api/get-employer-certificate-detail', {
 					employer_id: this.id
@@ -1191,7 +1214,7 @@
 					} else {
 						if(vm.fileLoopCount < vm.fileMaxLenght) {
 							var reader = new FileReader();
-								reader.onload = function(event) {
+							reader.onload = function(event) {
 								const imageUrl = event.target.result;
 								vm.showLoading = true;
 								axios.post('/api/image-upload', {
@@ -1233,7 +1256,7 @@
 				var vm = this;
 				var files = e.target.files || e.dataTransfer.files;
 				var reader = new FileReader();
-					reader.onload = function(event) {
+				reader.onload = function(event) {
 					const imageUrl = event.target.result;
 					vm.showLoading = true;
 					axios.post('/api/image-upload-edit', {
@@ -1253,58 +1276,12 @@
 
 			hide() {
 				this.$modal.hide('family_member');
-				this.$modal.hide('certificate');
 				this.$modal.hide('other_company');
 				this.$modal.hide('medical_checkup');
 				this.$modal.hide('seaman_book');
 				this.$modal.hide('passport');
-                this.$modal.hide('all_in_one');
+				this.$modal.hide('all_in_one');
 
-			},
-
-			editCertificate(certificate) {
-				console.log(certificate);
-				this.$modal.show('certificate');
-			},
-
-			fileChange(e) {
-				var files = e.target.files || e.dataTransfer.files;
-				if (!files.length) {
-					return;
-				}
-				let label = $(document).find('[id="changeLabel"]');
-				var reader = new FileReader();
-				var that = this;
-				reader.onload = (e) => {
-					that.showLoading = true;
-					axios.post('/api/image-upload', {
-						'image': e.target.result,
-						'folder': 'certificates/'
-					}, {
-						headers: {'Authorization': 'Bearer '+ that.user_token}
-					}).then((res) => {
-						that.certificateImage = res.data.url;
-						that.showLoading = false;
-					});
-				}
-				reader.readAsDataURL(files[0]);
-				this.imglabel = files[0].name;
-			},
-
-			viewImage(image) {
-				var img = image;
-				Swal.fire({
-					imageUrl: img,
-					imageWidth: 400,
-					imageHeight: 200,
-					imageAlt: 'Custom image',
-					width: 80 + '%',
-					imageWidth: null,
-					imageHeight: null,
-					showCloseButton: true,
-					showConfirmButton: false,
-					allowOutsideClick: false
-				})
 			},
 
 			editOtherCompany(other_company) {
@@ -1428,7 +1405,7 @@
 								}, {
 									headers: {'Authorization': 'Bearer '+ this.user_token}
 								}).then((res) => {
-                                    console.log('helo');
+									console.log('helo');
 									vm.showLoading = false;
 									vm.passport_images.push(res.data.url);
 								});
@@ -1562,11 +1539,127 @@
 				reader.readAsDataURL(files[0]);
 			},
 
-
 			addClass(current) {
 				$(".card-header").removeClass("bgColor");
 				$(current).parent().toggleClass("bgColor");
-			}
+			},
+
+			// CERTIFICATE BY TT
+			hideCertificate() {
+				this.$modal.hide('certificate');
+				this.value = {},
+				this.licine_number = '',
+				this.training_date = moment(new Date()).format('DD-MM-YYYY');
+				this.expire_date = moment(new Date()).format('DD-MM-YYYY');
+				this.certificateImage = '';
+				this.remark = '';
+				this.employer_certificate_id = null;
+				$(document).find('span[class="validate-message"]').remove();
+			},
+
+			addCertificate() {
+				this.getCertificate();
+				this.$modal.show('certificate');
+			},
+
+			editCertificate(certificate) {
+				this.value = {id: certificate.certificate_id, name: certificate.name},
+				this.licine_number = certificate.licine_number,
+				this.training_date = certificate.training_date;
+				this.expire_date = certificate.expire_date;
+				this.certificateImage = certificate.image;
+				this.remark = certificate.remark;
+				this.employer_certificate_id = certificate.id;
+				this.$modal.show('certificate');
+			},
+
+			saveCertificate() {
+				axios.post('/api/save-certificate', {
+					'certificate_name': this.value.id,
+					'licine_number': this.licine_number,
+					'training_date': this.training_date,
+					'expire_date': this.expire_date,
+					'image': this.certificateImage,
+					'remark': this.remark,
+					'employer_id': this.id,
+					'id': this.employer_certificate_id
+				}, {
+					headers: {'Authorization': 'Bearer '+ this.user_token}
+				}).then(result => {
+					this.employer_certificate_id = null;
+					this.hideCertificate();
+					this.certificate();
+				}).catch(err => {
+					if (err.response.status == 400) {
+						Toast.fire({
+							icon: 'error',
+							title: 'Please fill all required fields!'
+						});
+						$(document).find('span[class="validate-message"]').remove();
+						$.each(err.response.data.error, function (i, error) {
+							var el = $(document).find('[name="'+i+'"]');
+							el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
+						});
+					}
+				});
+			},
+
+			fileChange(e) {
+				var files = e.target.files || e.dataTransfer.files;
+				if (!files.length) {
+					return;
+				}
+				let label = $(document).find('[id="changeLabel"]');
+				var reader = new FileReader();
+				var that = this;
+				reader.onload = (e) => {
+					that.showLoading = true;
+					axios.post('/api/image-upload', {
+						'image': e.target.result,
+						'folder': 'certificates/'
+					}, {
+						headers: {'Authorization': 'Bearer '+ that.user_token}
+					}).then((res) => {
+						that.certificateImage = res.data.url;
+						that.showLoading = false;
+					});
+				}
+				reader.readAsDataURL(files[0]);
+				this.imglabel = files[0].name;
+			},
+
+			viewImage(image) {
+				var img = image;
+				Swal.fire({
+					imageUrl: img,
+					imageWidth: 400,
+					imageHeight: 200,
+					imageAlt: 'Custom image',
+					width: 80 + '%',
+					imageWidth: null,
+					imageHeight: null,
+					showCloseButton: true,
+					showConfirmButton: false,
+					allowOutsideClick: false
+				})
+			},
+
+			getCertificate() {
+				axios.post('/api/get-certificate', {}, {
+					headers: {'Authorization': 'Bearer '+ this.user_token}
+				}).then(result => {
+					this.options = [];
+					result.data.certificates.forEach(certificate => {
+						const optionGroup = {
+							name: certificate.title,
+							id: certificate.id
+						}
+						this.options.push(optionGroup);
+					})
+				}).catch(err => {
+
+				});
+			},
 		}
 	}
 </script>
