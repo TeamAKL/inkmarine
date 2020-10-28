@@ -224,10 +224,10 @@ import moment from 'moment'
             }, {
                 headers: {'Authorization': 'Bearer '+ this.user_token}
             }).then(result => {
-                console.log(result);
                this.hideModal();
                $(document).find('span[class="validate-message"]').remove();
                this.getData();
+               this.family_member_id = null;
             }).catch(err => {
                 if (err.response.status == 400) {
                     Toast.fire({

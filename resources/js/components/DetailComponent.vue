@@ -451,7 +451,7 @@
 
 		</modal>
 		<!-- medical checkup -->
-		<modal name="medical_checkup" :clickToClose="false" height="auto" class="medical_checkup">
+		<modal name="medical_checkup" :clickToClose="false" :height="auto" class="medical_checkup">
 			<div class="modal-dialog modal-fluid">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -840,11 +840,11 @@
 .bgcolor {
 	background: red;
 }
-.medical_checkup,.seaman_book,
-.passport,.all_in_one
-{
-	overflow-y: auto;
-}
+// .medical_checkup,.seaman_book,
+// .passport,.all_in_one
+// {
+// 	overflow-y: auto;
+// }
 .certificate-image {
 	width: 166px;
 	height: 64px;
@@ -993,6 +993,7 @@
 				hospital: '',
 				decision: '',
 				medicalCheckupId: null,
+				
 				//seaman book
 				seaman_no: '',
 				cbn_id: null,
@@ -1009,6 +1010,7 @@
 				showLoading: false,
 				fileMaxLenght: 27,
 				fileLoopCount: 0,
+
 				//allinone
 				coc: '',
 				gmbss: '',
