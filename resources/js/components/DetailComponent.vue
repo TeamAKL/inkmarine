@@ -51,6 +51,7 @@
 					<h5 class="mb-0" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" @click="familyMember">
 						Family Member
 					</h5>
+					<button type="button" class="btn btn-success" id="add-member" @click="showFamilyMember" >Add</button>
 				</div>
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
 					<div class="card-body">
@@ -350,41 +351,42 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">Family Member</h5>
-					<button type="button" class="close" @click="hide" aria-label="Close">
+					<button type="button" class="close" @click="hideFamilyMember" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body">
-					<form >
-						<div class="form-group row">
-							<label for="fam_name" class="col-sm-4 col-form-label">Name :</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="fam_name" name="fam_name">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="relationship" class="col-sm-4 col-form-label">Relationship :</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="relationship" name="relationship">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="fam_phone_no" class="col-sm-4 col-form-label">Phone no :</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="fam_phone_no" name="fam_phone_no">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="fam_date_birth" class="col-sm-4 col-form-label">Date Of Birth :</label>
-							<div class="col-sm-8">
-								<date-picker v-model="fam_date_birth" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
-							</div>
-						</div>
-					</form>
+					<form>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="member_name" name="member_name"  v-model.trim="member_name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="relation">Relationship</label>
+                            <input type="text" class="form-control" id="member_relation" name="member_relation" v-model.trim="member_relation" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone_number">Phone Number</label>
+                            <input type="text" class="form-control" id="member_phone_number" name="member_phone_number" v-model.trim="member_phone_number" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dob">Date Of Birth</label>
+                            <date-picker v-model="member_dob" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="remark">Remark</label>
+                            <textarea name="member_remark" id="member_remark" v-model.trim="member_remark" cols="30" rows="6" class="form-control"></textarea>
+                        </div>
+                    </form>
+
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" @click="hide" >Close</button>
-					<button type="button" class="btn btn-success" id="create-certificate" @click="hide" >Save</button>
+					<button type="button" class="btn btn-primary" @click="hideFamilyMember" >Close</button>
+					<button type="button" class="btn btn-success" id="create-certificate" @click="saveFamilyMember" >Save</button>
 				</div>
 			</div>
 
@@ -1018,6 +1020,14 @@
 				showLoading: false,
 				fileMaxLenght: 15,
 				fileLoopCount: 0,
+				//FamilyMember
+				user_token: `${process.env.MIX_APP_TOKEN}`,
+                member_name: '',
+                member_relation: '',
+                member_phone_number: '',
+                member_dob: '',
+                member_remark: '',
+                family_member_id: null,
 			}
 		},
 		created() {
@@ -1027,7 +1037,7 @@
 			this.personDetail();
 
 			const date = new Date();
-			this.fam_date_birth = moment(date).format('DD-MM-YYYY');
+			this.member_dob = moment(date).format('DD-MM-YYYY');
 			this.training_date = moment(date).format('DD-MM-YYYY');
 			this.expired_date = moment(date).format('DD-MM-YYYY');
 			this.other_boarding_date = moment(date).format('DD-MM-YYYY');
@@ -1049,8 +1059,8 @@
 				});
 			},
 
-			familyMember(evn) {
-				this.addClass(evn.target);
+			familyMember() {
+				//this.addClass(evn.target);
 				this.loading = true;
 				axios.post('/api/get-familymember', {
 					user_id: this.id
@@ -1161,11 +1171,64 @@
 					
 				});
 			},
-
-			editFamilyMember(member) {
-				console.log(member);
-				this.$modal.show('family_member');
+            //Family Member
+			editFamilyMember(item) {
+				console.log(item.employerId);
+			   this.showFamilyMember();
+			   this.$modal.show('family_member');
+			   this.member_name = item.name;
+               this.member_relation = item.relationship;
+               this.member_phone_number = item.phone_number;
+               this.member_dob = moment(item.dob).format('DD-MM-YYYY');
+               this.member_remark = item.remark;
+               this.user_id = this.id;
+               this.family_member_id = item.id;
 			},
+			saveFamilyMember(){
+				axios.post('/api/save-family-member', {
+                'member_name': this.member_name,
+                'member_relation': this.member_relation,
+                'member_phone_number': this.member_phone_number,
+                'member_dob': this.member_dob,
+                'member_remark': this.member_remark,
+                'family_member_id': this.family_member_id,
+                'user_id':this.id,
+            }, {
+                headers: {'Authorization': 'Bearer '+ this.user_token}
+            }).then(result => {
+
+               this.hideFamilyMember();
+               $(document).find('span[class="validate-message"]').remove();
+               this.familyMember();
+               this.family_member_id = null;
+            }).catch(err => {
+                if (err.response.status == 400) {
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Please fill all required fields!'
+                    });
+                     $(document).find('span[class="validate-message"]').remove();
+                    $.each(err.response.data.error, function (i, error) {
+                        var el = $(document).find('[name="'+i+'"]');
+                        el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
+                    });
+                }
+                isValid = false;
+            });
+
+			},
+			hideFamilyMember(){
+
+            this.member_name = '',
+            this.member_relation = '',
+            this.member_phone_number = '',
+            this.member_dob = moment(new Date()).format('DD-MM-YYYY');
+			this.member_remark = '',
+			this.$modal.hide('family_member');
+			},
+			showFamilyMember() {
+		    this.$modal.show('family_member');
+            },
 			createMedicalCheckup(medical_checkup) {
 				console.log(medical_checkup);
 				this.$modal.show('medical_checkup');
@@ -1252,7 +1315,6 @@
 
 
 			hide() {
-				this.$modal.hide('family_member');
 				this.$modal.hide('certificate');
 				this.$modal.hide('other_company');
 				this.$modal.hide('medical_checkup');
