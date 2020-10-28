@@ -188,7 +188,7 @@
 							</div>
 						</div>
 						<div class="d-flex justify-content-center">
-							<button class="btn btn-success">Create</button>
+							<button class="btn btn-success" @click="createMedicalCheckup(medical_checkup)">Create</button>
 						</div>
 					</div>
 				</div>
@@ -265,7 +265,7 @@
 							</div>
 						</div>
 						<div class="d-flex justify-content-center">
-							<button class="btn btn-success">Create</button>
+							<button class="btn btn-success" @click="createSeamanBook(seaman_book)">Create</button>
 						</div>
 					</div>
 				</div>
@@ -299,7 +299,7 @@
 							</div>
 						</div>
 						<div class="d-flex justify-content-center">
-							<button class="btn btn-success">Create</button>
+							<button class="btn btn-success" @click="createPassport(passport)">Create</button>
 						</div>
 					</div>
 				</div>
@@ -337,7 +337,7 @@
 							</div>
 						</div>
 						<div class="d-flex justify-content-center">
-							<button class="btn btn-success">Create</button>
+							<button class="btn btn-success" @click="createAllInOne(allinone)">Create</button>
 						</div>
 					</div>
 				</div>
@@ -450,6 +450,332 @@
 			</div>
 
 		</modal>
+		<!-- medical checkup -->
+		<modal name="medical_checkup" :clickToClose="false" height="auto" class="medical_checkup">
+			<div class="modal-dialog modal-fluid">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Medical Checkup</h5>
+						<button type="button" class="close" @click="hide" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-row">
+							<div class="form-group col-sm-6">
+							<label for="date">Date</label>
+							<date-picker v-model.trim="med_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="">Height</label>
+								<input type="text" class="form-control"  name="height" v-model.trim="height">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-sm-6">
+							<label for="">Chest</label>
+							<input type="text" class="form-control" name="chest" v-model="checst">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="">Tooth</label>
+								<input type="text" class="form-control" name="tooth" v-model="tooth">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-sm-6">
+								<label for="">Tooth State</label>
+								<input type="text" class="form-control" name="tooth_state" v-model="tooth_state">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="">Color Blindness</label>
+								<input type="text" class="form-control" name="color_blindness" v-model="color_blindness">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-sm-6">
+								<label for="">Blood Type</label>
+								<input type="text" class="form-control" name="blood_type" v-model="blood_type">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="">Xray</label>
+								<input type="text" class="form-control" name="xray" v-model="xray">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-sm-6">
+								<label for="">Sight ( Left )</label>
+								<input type="text" class="form-control" name="sight_left" v-model="sight_left">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="">Sight ( Right )</label>
+								<input type="text" class="form-control" name="sight_right" v-model="sight_right">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-sm-6">
+								<label for="">Hearing ( Left )</label>
+								<input type="text" class="form-control" name="hearing_left" v-model="hearing_left">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="">Hearing ( Right )</label>
+								<input type="text" class="form-control" name="hearing_right" v-model="hearing_right">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-sm-6">
+								<label for="">Hospital</label>
+								<input type="text" class="form-control" name="hospital" v-model="hospital">
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="">Decision</label>
+								<input type="text" class="form-control" name="decision" v-model="decision">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="image-holder" v-show="images.length == 0">
+								<div class="loading-area-one" v-show="showLoading">
+									<!-- <img src="../../../../public/loading/loading.gif" alt=""> -->
+								</div>
+								<label for="medical-checkup" class="medicalcheckup" @dragover.prevent @drop="onDrop">
+									<i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
+									<span class="image-lable-text" v-show="!showLoading">Choose File Here</span>
+								</label>
+							</div>
+
+							<div class="grid-container" @dragover.prevent @drop="onDrop" v-show="images.length >= 1">
+								<div class="loading-area" v-show="showLoading">
+									<!-- <img src="../../../../public/loading/loading.gif" alt=""> -->
+								</div>
+								<div class="gird-item-image " :key="index" v-for="(image, index) in images">
+									<img :src="image" alt="image" class="images-img img-thumbnail">
+									<div class="image-overlay">
+										<div class="ed-holder">
+											<div class="edit-delete-area">
+												<label style="cursor: pointer">
+													<input type="file" @change="editImage(index, $event)" class="d-none" accept="image/*, .pdf">
+													<i class="wizard-icon ti-pencil icon-holder edit"></i>
+												</label>
+												<i class="wizard-icon ti-trash icon-holder delete" @click="deleteImage(index)"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="gird-item-image final-grid" v-show="fileLoopCount < fileMaxLenght">
+									<label for="medical-checkup" class="medicalcheckup" @dragover.prevent @drop="onDrop">
+										<i class="wizard-icon ti-cloud-up icon-image-upload"></i>
+										<span class="image-lable-text">Choose File Here</span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<input type="file" multiple draggable="true" id="medical-checkup" @change="uploadFile" accept="image/*, .pdf">
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" @click="hide" >Close</button>
+							<button type="button" class="btn btn-success" id="create_medical_checkup" @click="hide" >Save</button>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</modal>
+		<!-- seaman book -->
+		<modal name="seaman_book" :clickToClose="false" height="auto" class="seaman_book">
+			<div class="modal-dialog modal-fluid">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Seaman Book </h5>
+						<button type="button" class="close" @click="hide" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					
+					<div class="modal-body">
+						<div class="form-group row">
+							<label for="seaman" class="col-sm-4 col-form-label">Seanam Book No :</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="seaman_no" name="seaman_no">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="image-holder" v-show="cbn_images.length == 0">
+								<div class="loading-area-one" v-show="showLoading">
+									<!-- <img src="../../../../public/loading/loading.gif" alt=""> -->
+								</div>
+								<label for="ctc" class="medicalcheckup" @dragover.prevent @drop="onDropSeaman">
+									<i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
+									<span class="image-lable-text" v-show="!showLoading">Choose File Here</span>
+								</label>
+							</div>
+
+							<div class="grid-container" @dragover.prevent @drop="onDropSeaman" v-show="cbn_images.length >= 1">
+								<div class="loading-area" v-show="showLoading">
+									<!-- <img src="../../../../public/loading/loading.gif" alt=""> -->
+								</div>
+								<div class="gird-item-image " :key="index" v-for="(image, index) in cbn_images">
+									<img :src="image" alt="image" class="images-img img-thumbnail">
+									<div class="image-overlay">
+										<div class="ed-holder">
+											<div class="edit-delete-area">
+												<label style="cursor: pointer">
+													<input type="file" @change="editImageSeaman(index, $event)" class="d-none" accept="image/*, .pdf">
+													<i class="wizard-icon ti-pencil icon-holder edit"></i>
+												</label>
+												<i class="wizard-icon ti-trash icon-holder delete" @click="deleteImageSeaman(index)"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="gird-item-image final-grid" v-show="countfile < fileMaxLenght">
+									<label for="ctc" class="medicalcheckup" @dragover.prevent @drop="onDropSeaman">
+										<i class="wizard-icon ti-cloud-up icon-image-upload"></i>
+										<span class="image-lable-text">Choose File Here</span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<input type="file" multiple draggable="true" id="ctc" @change="uploadFileFormSeven" accept="image/*, .pdf">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" @click="hide" >Close</button>
+						<button type="button" class="btn btn-success" id="create-seamanbook" @click="hide" >Save</button>
+					</div>
+				</div>
+			</div>
+		</modal>
+		<!-- passport -->
+		<modal name="passport" :clickToClose="false" height="auto" class="passport">
+			<div class="modal-dialog modal-fluid">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Passport </h5>
+						<button type="button" class="close" @click="hide" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					
+					<div class="modal-body">
+						<div class="form-group row">
+							<label for="passport" class="col-sm-4 col-form-label">Passport No :</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="passport" name="passport">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="image-holder" v-show="passport_images.length == 0">
+								<div class="loading-area-one" v-show="showLoading">
+									<!-- <img src="../../../../public/loading/loading.gif" alt=""> -->
+								</div>
+								<label for="ppt" class="medicalcheckup" @dragover.prevent @drop="onDropPassport">
+									<i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
+									<span class="image-lable-text" v-show="!showLoading">Choose File Here</span>
+								</label>
+							</div>
+
+							<div class="grid-container" @dragover.prevent @drop="onDropPassport" v-show="passport_images.length >= 1">
+								<div class="loading-area" v-show="showLoading">
+									<!-- <img src="../../../../public/loading/loading.gif" alt=""> -->
+								</div>
+								<div class="gird-item-image " :key="index" v-for="(image, index) in passport_images">
+									<img :src="image" alt="image" class="images-img img-thumbnail">
+									<div class="image-overlay">
+										<div class="ed-holder">
+											<div class="edit-delete-area">
+												<label style="cursor: pointer">
+													<input type="file" @change="editPassportImage(index, $event)" class="d-none" accept="image/*, .pdf">
+													<i class="wizard-icon ti-pencil icon-holder edit"></i>
+												</label>
+												<i class="wizard-icon ti-trash icon-holder delete" @click="deletePassportImage(index)"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="gird-item-image final-grid" v-show="fileLoopCount < fileMaxLenght">
+									<label for="ppt" class="medicalcheckup" @dragover.prevent @drop="onDropPassport">
+										<i class="wizard-icon ti-cloud-up icon-image-upload"></i>
+										<span class="image-lable-text">Choose File Here</span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<input type="file" multiple draggable="true" id="ppt" @change="uploadPassportFile" accept="image/*, .pdf">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" @click="hide" >Close</button>
+						<button type="button" class="btn btn-success" id="create-seamanbook" @click="hide" >Save</button>
+					</div>
+				</div>
+			</div>
+		</modal>
+		<!-- all_in_one -->
+		<modal name="all_in_one" :clickToClose="false" height="auto" class="all_in_one">
+			<div class="modal-dialog modal-fluid">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">All In One </h5>
+						<button type="button" class="close" @click="hide" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					
+					<div class="modal-body">
+						<div class="form-group row">
+							<label for="coc" class="col-sm-4 col-form-label">C.O.C :</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="coc" name="coc">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="gmbss" class="col-sm-4 col-form-label">GMBSS :</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="gmbss" name="gmbss">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="image-holder" v-show="all_images.length == 0">
+								<div class="loading-area-one" v-show="showLoading">
+									<!-- <img src="../../../../public/loading/loading.gif" alt=""> -->
+								</div>
+								<label for="all-in-one" class="medicalcheckup" @dragover.prevent @drop="onDropAllInOne">
+									<i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
+									<span class="image-lable-text" v-show="!showLoading">Choose File Here</span>
+								</label>
+							</div>
+
+							<div class="grid-container" @dragover.prevent @drop="onDropAllInOne" v-show="all_images.length >= 1">
+								<div class="loading-area" v-show="showLoading">
+									<!-- <img src="../../../../public/loading/loading.gif" alt=""> -->
+								</div>
+								<div class="gird-item-image " :key="index" v-for="(image, index) in all_images">
+									<img :src="image" alt="image" class="images-img img-thumbnail">
+									<div class="image-overlay">
+										<div class="ed-holder">
+											<div class="edit-delete-area">
+												<label style="cursor: pointer">
+													<input type="file" @change="editAllInOneImage(index, $event)" class="d-none" accept="image/*, .pdf">
+													<i class="wizard-icon ti-pencil icon-holder edit"></i>
+												</label>
+												<i class="wizard-icon ti-trash icon-holder delete" @click="deleteAllInOneImage(index)"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="gird-item-image final-grid" v-show="fileLoopCount < fileMaxLenght">
+									<label for="all-in-one" class="medicalcheckup" @dragover.prevent @drop="onDropAllInOne">
+										<i class="wizard-icon ti-cloud-up icon-image-upload"></i>
+										<span class="image-lable-text">Choose File Here</span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<input type="file" multiple draggable="true" id="all-in-one" @change="uploadAllInOneFile" accept="image/*, .pdf">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" @click="hide" >Close</button>
+						<button type="button" class="btn btn-success" id="create-seamanbook" @click="hide" >Save</button>
+					</div>
+				</div>
+			</div>
+		</modal>
 		<!--Other company career Modal -->
 		<modal name="other_company" :clickToClose="false" height="auto" class="company_career_modal">
 			<div class="modal-content">
@@ -513,6 +839,11 @@
 <style lang="scss" scoped>
 .bgcolor {
 	background: red;
+}
+.medical_checkup,.seaman_book,
+.passport,.all_in_one
+{
+	overflow-y: auto;
 }
 .certificate-image {
 	width: 166px;
@@ -639,6 +970,54 @@
 				imglabel: 'Choose Image..',
 				showLoading: false,
 				employer_certificate_id: null,
+
+				//medicalcheckup_photo
+				showLoading: false,
+				user_token: `${process.env.MIX_APP_TOKEN}`,
+				fileMaxLenght: 23,
+				fileLoopCount: 0,
+				images: [],
+				med_date: '',
+				height: '',
+				weight: '',
+				checst: '',
+				tooth: '',
+				tooth_state: '',
+				color_blindness: '',
+				blood_type: '',
+				xray: '',
+				sight_left: '',
+				sight_right: '',
+				hearing_left: '',
+				hearing_right: '',
+				hospital: '',
+				decision: '',
+				medicalCheckupId: null,
+				//seaman book
+				seaman_no: '',
+				cbn_id: null,
+				user_token: `${process.env.MIX_APP_TOKEN}`,
+				cbn_images: [],
+				showLoading: false,
+				fileMaxLenght: 20,
+				countfile: 0,
+				//passport
+				passport: '',
+				passport_id: null,
+				user_token: `${process.env.MIX_APP_TOKEN}`,
+				passport_images: [],
+				showLoading: false,
+				fileMaxLenght: 27,
+				fileLoopCount: 0,
+				//allinone
+				coc: '',
+				gmbss: '',
+				all_in_one_id: null,
+				user_token: `${process.env.MIX_APP_TOKEN}`,
+				all_images: [],
+				showLoading: false,
+				fileMaxLenght: 15,
+				fileLoopCount: 0,
 			}
 		},
 		created() {
@@ -653,6 +1032,8 @@
 			this.expired_date = moment(date).format('DD-MM-YYYY');
 			this.other_boarding_date = moment(date).format('DD-MM-YYYY');
 			this.other_leaving_date = moment(date).format('DD-MM-YYYY');
+		    this.med_date = moment(date).format('DD-MM-YYYY');
+
 		},
 		methods: {
 			personDetail() {
@@ -785,11 +1166,99 @@
 				console.log(member);
 				this.$modal.show('family_member');
 			},
+			createMedicalCheckup(medical_checkup) {
+				console.log(medical_checkup);
+				this.$modal.show('medical_checkup');
+			},
+			uploadFile(e) {
+				var files = e.target.files || e.dataTransfer.files;
+				if (!files.length)
+					return;
+				this.createImage(files)
+			},
+
+			createImage(files) {
+				var vm = this;
+				for (var index = 0; index < files.length; index++) {
+					if (!files[index].type.match('application/pdf') && !files[index].type.match('image.*')) {
+						Swal.fire({
+							icon: 'error',
+							title: 'Oops...',
+							text: 'Please only select Image!',
+							allowOutsideClick: false,
+						})
+						return;
+					} else {
+						if(vm.fileLoopCount < vm.fileMaxLenght) {
+							var reader = new FileReader();
+								reader.onload = function(event) {
+								const imageUrl = event.target.result;
+								vm.showLoading = true;
+								axios.post('/api/image-upload', {
+									'image': imageUrl,
+									'folder': 'medicalcheckup/'
+								}, {
+									headers: {'Authorization': 'Bearer '+ this.user_token}
+								}).then((res) => {
+									vm.showLoading = false;
+									vm.images.push(res.data.url);
+								});
+							}
+							reader.readAsDataURL(files[index]);
+						} else {
+							return false;
+						}
+						vm.fileLoopCount++;
+					}
+				}
+			},
+
+			onDrop: function(e) {
+				e.stopPropagation();
+				e.preventDefault();
+				var files = e.target.files || e.dataTransfer.files;
+				this.createImage(files)
+			},
+
+			deleteImage(index) {
+				axios.post('/api/image-delete', {
+					'image': this.images[index],
+				}).then(res => {
+					this.images.splice(index, 1);
+					this.fileLoopCount--;
+				});
+			},
+
+			editImage(index, e) {
+				var vm = this;
+				var files = e.target.files || e.dataTransfer.files;
+				var reader = new FileReader();
+					reader.onload = function(event) {
+					const imageUrl = event.target.result;
+					vm.showLoading = true;
+					axios.post('/api/image-upload-edit', {
+						'image': imageUrl,
+						'oldImage': vm.images[index],
+						'folder': 'medicalcheckup/'
+					}, {
+						headers: {'Authorization': 'Bearer '+ this.user_token}
+					}).then((res) => {
+						vm.showLoading = false;
+						vm.images.splice(index, 1, res.data.url);
+					});
+				}
+				reader.readAsDataURL(files[0]);
+			},
+
 
 			hide() {
 				this.$modal.hide('family_member');
 				this.$modal.hide('certificate');
 				this.$modal.hide('other_company');
+				this.$modal.hide('medical_checkup');
+				this.$modal.hide('seaman_book');
+				this.$modal.hide('passport');
+                this.$modal.hide('all_in_one');
 
 			},
 
@@ -842,6 +1311,257 @@
 				console.log(other_company);
 				this.$modal.show('other_company');
 			},
+			createSeamanBook(seaman_book) {
+				console.log(seaman_book);
+				this.$modal.show('seaman_book');
+			},
+			uploadFileSeaman(e) {
+				var files = e.target.files || e.dataTransfer.files;
+				if (!files.length)
+					return;
+				this.createImageFormSeven(files)
+			},
+
+			createImageSeaman(files) {
+				var vm = this;
+				for (var index = 0; index < files.length; index++) {
+					if (!files[index].type.match('application/pdf') && !files[index].type.match('image.*')) {
+						Swal.fire({
+							icon: 'error',
+							title: 'Oops...',
+							text: 'Please only select Image!',
+							allowOutsideClick: false,
+						})
+						return;
+					} else {
+						if(vm.countfile < vm.fileMaxLenght) {
+							var reader = new FileReader();
+							reader.onload = function(event) {
+								const imageUrl = event.target.result;
+								vm.showLoading = true;
+								axios.post('/api/image-upload-form-seven', {
+									'image': imageUrl,
+									'folder': 'cemanbookno/'
+								}, {
+									headers: {'Authorization': 'Bearer '+ this.user_token}
+								}).then((res) => {
+									vm.showLoading = false;
+									vm.cbn_images.push(res.data.url);
+								});
+							}
+							reader.readAsDataURL(files[index]);
+						} else {
+							return false;
+						}
+						vm.countfile++;
+					}
+				}
+			},
+
+			onDropSeaman: function(e) {
+				e.stopPropagation();
+				e.preventDefault();
+				var files = e.target.files || e.dataTransfer.files;
+				this.createImageSeaman(files)
+			},
+
+			deleteImageSeaman(index) {
+				axios.post('/api/image-delete', {
+					'image': this.cbn_images[index],
+				}).then(res => {
+					this.cbn_images.splice(index, 1);
+					this.fileLoopCount--;
+				});
+			},
+
+			editImageSeaman(index, e) {
+				var vm = this;
+				var files = e.target.files || e.dataTransfer.files;
+				var reader = new FileReader();
+				reader.onload = function(event) {
+					const imageUrl = event.target.result;
+					vm.showLoading = true;
+					axios.post('/api/image-upload-edit', {
+						'image': imageUrl,
+						'oldImage': vm.cbn_images[index],
+						'folder': 'cemanbookno/'
+					}, {
+						headers: {'Authorization': 'Bearer '+ this.user_token}
+					}).then((res) => {
+						vm.showLoading = false;
+						vm.cbn_images.splice(index, 1, res.data.url);
+					});
+				}
+				reader.readAsDataURL(files[0]);
+			},
+			createPassport(passport) {
+				console.log(passport);
+				this.$modal.show('passport');
+			},
+			uploadPassportFile(e) {
+				var files = e.target.files || e.dataTransfer.files;
+				if (!files.length)
+					return;
+				this.createImages(files)
+			},
+
+			createImagesPassport(files) {
+				var vm = this;
+				for (var index = 0; index < files.length; index++) {
+					if (!files[index].type.match('application/pdf') && !files[index].type.match('image.*')) {
+						Swal.fire({
+							icon: 'error',
+							title: 'Oops...',
+							text: 'Please only select Image!',
+							allowOutsideClick: false,
+						})
+						return;
+					} else {
+						if(vm.fileLoopCount < vm.fileMaxLenght) {
+							var reader = new FileReader();
+							reader.onload = function(event) {
+								const imageUrl = event.target.result;
+								vm.showLoading = true;
+								axios.post('/api/image-upload', {
+									'image': imageUrl,
+									'folder': 'passports/'
+								}, {
+									headers: {'Authorization': 'Bearer '+ this.user_token}
+								}).then((res) => {
+                                    console.log('helo');
+									vm.showLoading = false;
+									vm.passport_images.push(res.data.url);
+								});
+							}
+							reader.readAsDataURL(files[index]);
+						} else {
+							return false;
+						}
+						vm.fileLoopCount++;
+					}
+				}
+			},
+
+			onDropPassport: function(e) {
+				e.stopPropagation();
+				e.preventDefault();
+				var files = e.target.files || e.dataTransfer.files;
+				this.createImagesPassport(files)
+			},
+
+			deletePassportImage(index) {
+				axios.post('/api/image-delete', {
+					'image': this.passport_images[index],
+				}).then(res => {
+					this.passport_images.splice(index, 1);
+					this.fileLoopCount--;
+				});
+			},
+
+			editPassportImage(index, e) {
+				var vm = this;
+				var files = e.target.files || e.dataTransfer.files;
+				var reader = new FileReader();
+				reader.onload = function(event) {
+					const imageUrl = event.target.result;
+					vm.showLoading = true;
+					axios.post('/api/image-upload-edit', {
+						'image': imageUrl,
+						'oldImage': vm.passport_images[index],
+						'folder': 'passports/'
+					}, {
+						headers: {'Authorization': 'Bearer '+ this.user_token}
+					}).then((res) => {
+						vm.showLoading = false;
+						vm.passport_images.splice(index, 1, res.data.url);
+					});
+				}
+				reader.readAsDataURL(files[0]);
+			},
+			createAllInOne(allinone) {
+				console.log(allinone);
+				this.$modal.show('all_in_one');
+			},
+			uploadAllInOneFile(e) {
+				var files = e.target.files || e.dataTransfer.files;
+				if (!files.length)
+					return;
+				this.createAllInOneImages(files)
+			},
+
+			createImagesAllInOne(files) {
+				var vm = this;
+				for (var index = 0; index < files.length; index++) {
+					if (!files[index].type.match('application/pdf') && !files[index].type.match('image.*')) {
+						Swal.fire({
+							icon: 'error',
+							title: 'Oops...',
+							text: 'Please only select Image!',
+							allowOutsideClick: false,
+						})
+						return;
+					} else {
+						if(vm.fileLoopCount < vm.fileMaxLenght) {
+							var reader = new FileReader();
+							reader.onload = function(event) {
+								const imageUrl = event.target.result;
+								vm.showLoading = true;
+								axios.post('/api/image-upload', {
+									'image': imageUrl,
+									'folder': 'allInOne/'
+								}, {
+									headers: {'Authorization': 'Bearer '+ this.user_token}
+								}).then((res) => {
+									vm.showLoading = false;
+									vm.all_images.push(res.data.url);
+								});
+							}
+							reader.readAsDataURL(files[index]);
+						} else {
+							return false;
+						}
+						vm.fileLoopCount++;
+					}
+				}
+			},
+
+			onDropAllInOne: function(e) {
+				e.stopPropagation();
+				e.preventDefault();
+				var files = e.target.files || e.dataTransfer.files;
+				this.createImages(files)
+			},
+
+			deleteAllInOneImage(index) {
+				axios.post('/api/image-delete', {
+					'image': this.all_images[index],
+				}).then(res => {
+					this.all_images.splice(index, 1);
+					this.fileLoopCount--;
+				});
+			},
+
+			editAllInOneImage(index, e) {
+				var vm = this;
+				var files = e.target.files || e.dataTransfer.files;
+				var reader = new FileReader();
+				reader.onload = function(event) {
+					const imageUrl = event.target.result;
+					vm.showLoading = true;
+					axios.post('/api/image-upload-edit', {
+						'image': imageUrl,
+						'oldImage': vm.all_images[index],
+						'folder': 'allInOne/'
+					}, {
+						headers: {'Authorization': 'Bearer '+ this.user_token}
+					}).then((res) => {
+						vm.showLoading = false;
+						vm.all_images.splice(index, 1, res.data.url);
+					});
+				}
+				reader.readAsDataURL(files[0]);
+			},
+
 
 			addClass(current) {
 				$(".card-header").removeClass("bgColor");

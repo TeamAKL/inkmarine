@@ -53,7 +53,7 @@
                 <!-- Left Side NavBar -->
                 <ul class="left-nave navbar-nav">
                     @guest
-                    <li class="{{ (request()->is('')) ? 'active' : '' }}"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
+                    <li class="{{ (request()->is('/')) ? 'active' : '' }}"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
                     @else
                     <li class="{{ (request()->is('home')) ? 'active' : '' }}"><a class="nav-link" href="{{ url('/home') }}">Home</a></li>
                     <li class="{{ (request()->is('employer/create')) ? 'active' : '' }}"><a class="nav-link" href="{{url('/employer/create')}}">Create</a></li>
