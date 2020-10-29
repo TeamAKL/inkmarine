@@ -452,7 +452,7 @@
 		</modal>
 		<!-- medical checkup -->
 		<modal name="medical_checkup" :clickToClose="false" height="auto" class="medical_checkup">
-			<div class="modal-dialog modal-fluid">
+			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">Medical Checkup</h5>
@@ -580,7 +580,7 @@
 		</modal>
 		<!-- seaman book -->
 		<modal name="seaman_book" :clickToClose="false" height="auto" class="seaman_book">
-			<div class="modal-dialog modal-fluid">
+			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">Seaman Book </h5>
@@ -644,7 +644,7 @@
 		</modal>
 		<!-- passport -->
 		<modal name="passport" :clickToClose="false" height="auto" class="passport">
-			<div class="modal-dialog modal-fluid">
+			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">Passport </h5>
@@ -708,7 +708,7 @@
 		</modal>
 		<!-- all_in_one -->
 		<modal name="all_in_one" :clickToClose="false" height="auto" class="all_in_one">
-			<div class="modal-dialog modal-fluid">
+			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">All In One </h5>
