@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{mix('css/app.css')}}">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
-    
+
     <title>{{ config('app.name', 'INK Marine Co.,Ltd.') }}</title>
     <style>
         ul.left-nave li a,ul.right-nave li a{
@@ -68,14 +68,14 @@
                 <ul class="right-nave navbar-nav">
                     @guest
                     <li class="{{ (request()->is('login')) ? 'active' : '' }}"><a class="nav-link" href="{{route('login')}}">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{route('register')}}">Register</a></li> 
+                    <li class="nav-item"><a class="nav-link" href="{{route('register')}}">Register</a></li>
                     @else
                     <li class="nav-item dropdown">
                         <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown"> {{ Auth::user()->name }}</a>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li><a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();"> 
+                                document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}</a></li>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
@@ -120,7 +120,7 @@
                 }
             });
 
-            $("h5[data-target='#collapseOne']").on("click", function() {
+            $("h5[data-toggle='collapse']").on("click", function() {
                 $(".card-header").removeClass("bgColor");
                 $(this).parent().addClass("bgColor");
             })
