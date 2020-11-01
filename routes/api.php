@@ -70,3 +70,4 @@ Route::post('get-other-company', 'DetailController@getOtherCompany');
 Route::post('get-seaman-book', 'DetailController@getSeamanBook');
 Route::post('get-passport', 'DetailController@getPassport');
 Route::post('get-allinone', 'DetailController@getAllinOne');
+Route::post('get-additional-info', 'DetailController@getAdditinalInfo');

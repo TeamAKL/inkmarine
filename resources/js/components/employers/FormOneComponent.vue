@@ -107,7 +107,6 @@ export default {
                 }
                 isValid = false;
             });
-            console.log(this.personId);
             this.$emit('on-validate', this.personId);
             return isValid;
         }

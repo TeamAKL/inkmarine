@@ -170,7 +170,7 @@ class EmployeerController extends Controller
                 'onbroadpay_currency' => $req->onbroadpay_currency,
                 'fixpay_currency' => $req->fixpay_currency,
                 'leavepay_currency' => $req->leavepay_currency,
-                'home_allowance_currency' => $req->shoe,
+                'home_allowance_currency' => $req->home_allowance_currency,
                 'total_salary_currency' => $req->total_salary_currency,
             ]
         );
