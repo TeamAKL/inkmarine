@@ -6,6 +6,10 @@ window.Vue = require('vue');
 import DataTable from 'laravel-vue-datatable';
 Vue.use(DataTable);
 
+// Carousel
+import VueCarousel from '@chenfengyuan/vue-carousel';
+Vue.use(VueCarousel);
+
 // AXIOS
 import axios from 'axios'
 import VueAxios from 'vue-axios'

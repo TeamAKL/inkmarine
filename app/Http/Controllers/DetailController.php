@@ -66,4 +66,10 @@ class DetailController extends Controller
         $allinone = AllInOne::where('employer_id', '=', $req->employer_id)->first();
         return response()->json(['allinone' => $allinone], 200);
     }
+
+    public function getAdditinalInfo(Request $req)
+    {
+        $additionalInfo = EmployeerDetail::select(DB::Raw("employeer_details.*"))->where('employer_id', '=', $req->employer_id)->first();
+        return response()->json(['additionalinfo' => $additionalInfo], 200);
+    }
 }
