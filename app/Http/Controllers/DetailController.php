@@ -39,7 +39,7 @@ class DetailController extends Controller
 
     public function getMeidicalcheckup(Request $req)
     {
-    	$medicalcheckup = MedicalCheckup::where('employer_id', '=', $req->employer_id)->first();
+    	$medicalcheckup = MedicalCheckup::select(DB::Raw("medical_checkups.*, DATE_FORMAT(medical_checkups.med_date, '%d-%m-%Y') as mdDate"))->where('employer_id', '=', $req->employer_id)->first();
     	return response()->json(['medicalcheckup' => $medicalcheckup], 200);
     }
 

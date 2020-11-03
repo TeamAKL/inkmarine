@@ -100,29 +100,22 @@
                             <img :src="certificateImage" alt="img" class="img-thumbnail">
                             <div class="image-overlay">
                                 <i class="wizard-icon ti-eye eye-icon"></i>
-<!-- <div class="footer-overlay">
-<label style="cursor: pointer">
-<input type="file" @change="editImage(index, $event)" class="d-none" accept="image/*, .pdf">
-<i class="wizard-icon ti-pencil icon-holder edit"></i>
-</label>
-<i class="wizard-icon ti-trash icon-holder delete" @click="deleteImage(index)"></i>
-</div> -->
-</div>
-</div>
-</div>
-<div class="form-group col-md-6">
-    <label for="remark">Remark</label>
-    <textarea name="remark" id="remark" cols="30" rows="10" v-model.trim="remark" class="form-control"></textarea>
-</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="remark">Remark</label>
+                        <textarea name="remark" id="remark" cols="30" rows="10" v-model.trim="remark" class="form-control"></textarea>
+                    </div>
 
-</div>
-</form>
-</div>
-<div class="modal-footer d-flex justify-content-end">
-    <button class="btn btn-primary" @click="hideModal">Cancel</button>
-    <button class="btn btn-success" @click="saveCertificate">Add</button>
-</div>
-</div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer d-flex justify-content-end">
+            <button class="btn btn-primary" @click="hideModal">Cancel</button>
+            <button class="btn btn-success" @click="saveCertificate">Add</button>
+        </div>
+    </div>
 </modal>
 </div>
 </template>
@@ -386,7 +379,8 @@
                 }, {
                     headers: {'Authorization': 'Bearer '+ this.user_token}
                 }).then(result => {
-                    this.getCertificate();
+                    this.employer_certificate_id = null;
+                    this.getEmployeCertificate();
                     this.hideModal();
                 }).catch(err => {
                     if (err.response.status == 400) {

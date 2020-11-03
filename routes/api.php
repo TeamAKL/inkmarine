@@ -64,7 +64,7 @@ Route::post('ship-delete', 'ShipController@delete');
 //Employer Detail
 Route::post('get-person-detail', 'DetailController@personDetail');
 Route::post('get-familymember', 'DetailController@familyMember');
-Route::post('get-employer-certificate', 'DetailController@getEmployerCertificate');
+Route::post('get-employer-certificate-detail', 'DetailController@getEmployerCertificate');
 Route::post('get-meidicalcheckup', 'DetailController@getMeidicalcheckup');
 Route::post('get-other-company', 'DetailController@getOtherCompany');
 Route::post('get-seaman-book', 'DetailController@getSeamanBook');
