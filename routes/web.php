@@ -16,6 +16,9 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+// Route::match(['get', 'post'], 'register', function () {
+//     return abort(403, 'Forbidden');
+// })->name('register');
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
@@ -35,8 +38,6 @@ Route::get('/certificate','CertificateController@index');
 Route::post('/company', 'CompanyController@store');
 Route::get('/company','CompanyController@index');
 
-//for ship
-
 // Route::get('/ship/create', 'ShipController@create');
 Route::post('/ship', 'ShipController@store');
 Route::get('/ship','ShipController@index');
@@ -44,3 +45,7 @@ Route::get('/ship','ShipController@index');
 Route::get('detail/{id}', function() {
 	return view('detail');
 })->middleware('auth');
+
+Route::get('users', function() {
+    return view('layouts.user');
+})->middleware(['auth', 'isadmin']);

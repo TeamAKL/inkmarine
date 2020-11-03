@@ -281,7 +281,10 @@
 								</table>
 								<hr>
 								<div class="image-show-area">
-									<img :src="image" alt="medicalcheckupImage" class="img-thumbnail" :key="image" v-for="image in medical_images" @click="downloadImage(image)">
+                                    <span :key="index" v-for="(image, index) in medImage">
+                                        <img :src="image.img" alt="medicalcheckupImage" class="img-thumbnail" @click="downloadImage(image.img)" v-if="image.ext != 'pdf'">
+                                        <img src="../../../public/pdf/pdfimage.png" class="img-thumbnail" @click="pdfOpen(image.img)" v-else/>
+                                    </span>
 								</div>
 							</div>
 						</div>
@@ -386,21 +389,13 @@
 
 				<div id="passport" class="collapse" aria-labelledby="headingpassport" data-parent="#accordion">
 					<div class="card-body">
-<<<<<<< HEAD
-						<div v-if="medicalcheckup">
-=======
 						<div v-if="passports">
->>>>>>> 23d0e3aa7d3c4694c4569f1fcee65d9977a8db30
 							<div class="d-flex justify-content-center" v-if="loading">
 								<img src="../../../public/loading/dataload.gif">
 							</div>
 							<div v-else>
 								<div class="d-flex justify-content-end mb-3">
-<<<<<<< HEAD
-									<button class="btn btn-primary" @click="editPassport(passports)">Edit</button>
-=======
 									<button class="btn btn-primary" @click="editPassportModal(passports)">Edit</button>
->>>>>>> 23d0e3aa7d3c4694c4569f1fcee65d9977a8db30
 								</div>
 								<table class="table table-hover">
 									<tbody>
@@ -412,20 +407,15 @@
 								</table>
 								<hr>
 								<div class="image-show-area">
-<<<<<<< HEAD
-									<img :src="image" alt="medicalcheckupImage" class="img-thumbnail" :key="image" v-for="image in passport_imagess">
-=======
-									<img :src="image" alt="medicalcheckupImage" class="img-thumbnail" :key="image" v-for="image in images_passport" @click="downloadImage(image)">
->>>>>>> 23d0e3aa7d3c4694c4569f1fcee65d9977a8db30
+                                    <span :key="image" v-for="image in images_passport">
+                                        <span v-if="image">{{hmm}}</span>
+                                        <img :src="image" alt="medicalcheckupImage" class="img-thumbnail"  @click="downloadImage(image)"/>
+                                    </span>
 								</div>
 							</div>
 						</div>
 						<div class="d-flex justify-content-center" v-else>
-<<<<<<< HEAD
-							<button class="btn btn-success" @click="createPassport">Create</button>
-=======
 							<button class="btn btn-success" @click="createPassport(passport)">Create</button>
->>>>>>> 23d0e3aa7d3c4694c4569f1fcee65d9977a8db30
 						</div>
 					</div>
 				</div>
@@ -813,7 +803,7 @@
 
 		</modal>
 		<!-- medical checkup -->
-		<modal name="medical_checkup" :clickToClose="false" height="auto" class="medical_checkup">
+		<modal name="medical_checkup" :clickToClose="false" height="auto" :width="w" class="medical_checkup">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">Medical Checkup</h5>
@@ -899,7 +889,7 @@
 					<div class="form-group">
 						<div class="image-holder" v-show="images.length == 0">
 							<div class="loading-area-one" v-show="showLoading">
-								<!-- <img src="../../../../public/loading/loading.gif" alt=""> -->
+								<img src="../../../public/loading/loading.gif" alt="">
 							</div>
 							<label for="medical-checkup" class="medicalcheckup" @dragover.prevent @drop="onDrop">
 								<i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
@@ -909,10 +899,11 @@
 
 						<div class="grid-container" @dragover.prevent @drop="onDrop" v-show="images.length >= 1">
 							<div class="loading-area" v-show="showLoading">
-								<!-- <img src="../../../../public/loading/loading.gif" alt=""> -->
+								<img src="../../../public/loading/loading.gif" alt="Medicalcheckup">
 							</div>
-							<div class="gird-item-image " :key="index" v-for="(image, index) in images">
-								<img :src="image" alt="image" class="images-img img-thumbnail">
+							<div class="gird-item-image " :key="index" v-for="(image, index) in imageMedical">
+								<img :src="image.img" alt="image" class="images-img img-thumbnail" v-if="image.ext != 'pdf'">
+                                <img src="../../../public/pdf/pdfimage.png" class="images-img img-thumbnail"  v-else/>
 								<div class="image-overlay">
 									<div class="ed-holder">
 										<div class="edit-delete-area">
@@ -944,16 +935,6 @@
 		</modal>
 		<!-- seaman book -->
 		<modal name="seaman_book" :clickToClose="false" height="auto" class="seaman_book">
-<<<<<<< HEAD
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Seaman Book </h5>
-						<button type="button" class="close" @click="hide" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-=======
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">Seaman Book </h5>
@@ -961,7 +942,6 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
->>>>>>> 23d0e3aa7d3c4694c4569f1fcee65d9977a8db30
 
 				<div class="modal-body">
 					<div class="form-group">
@@ -1017,21 +997,6 @@
 		</modal>
 		<!-- passport -->
 		<modal name="passport" :clickToClose="false" height="auto" class="passport">
-<<<<<<< HEAD
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Passport </h5>
-						<button type="button" class="close" @click="closePassport" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-
-					<div class="modal-body">
-						<div class="form-group row">
-							<label for="passport" class="col-sm-4 col-form-label">Passport No :</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" name="passport" v-model="passport">
-=======
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">Passport </h5>
@@ -1049,58 +1014,12 @@
 						<div class="image-holder" v-show="passport_images.length == 0">
 							<div class="loading-area-one" v-show="showLoading">
 								<img src="../../../public/loading/loading.gif" alt="">
->>>>>>> 23d0e3aa7d3c4694c4569f1fcee65d9977a8db30
 							</div>
 							<label for="ppt" class="medicalcheckup" @dragover.prevent @drop="onDropPassport">
 								<i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
 								<span class="image-lable-text" v-show="!showLoading">Choose File Here</span>
 							</label>
 						</div>
-<<<<<<< HEAD
-						<div class="form-group">
-							<div class="image-holder" v-show="passport_images.length == 0">
-								<div class="loading-area-one" v-show="showLoading">
-									<img src="../../../public/loading/loading.gif" alt="">
-								</div>
-								<label for="ppt" class="medicalcheckup" @dragover.prevent @drop="onDropPassport">
-									<i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
-									<span class="image-lable-text" v-show="!showLoading">Choose File Here</span>
-								</label>
-							</div>
-
-							<div class="grid-container" @dragover.prevent @drop="onDropPassport" v-show="passport_images.length >= 1">
-								<div class="loading-area" v-show="showLoading">
-									<img src="../../../public/loading/loading.gif" alt="">
-								</div>
-								<div class="gird-item-image " :key="index" v-for="(image, index) in passport_images">
-									{{image}}
-									<img :src="image" alt="image" class="images-img img-thumbnail">
-									<div class="image-overlay">
-										<div class="ed-holder">
-											<div class="edit-delete-area">
-												<label style="cursor: pointer">
-													<input type="file" @change="editPassportImage(index, $event)" class="d-none" accept="image/*, .pdf">
-													<i class="wizard-icon ti-pencil icon-holder edit"></i>
-												</label>
-												<i class="wizard-icon ti-trash icon-holder delete" @click="deletePassportImage(index)"></i>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="gird-item-image final-grid" v-show="fileLoopCountPassport < fileMaxLenghtPassport">
-									<label for="ppt" class="medicalcheckup" @dragover.prevent @drop="onDropPassport">
-										<i class="wizard-icon ti-cloud-up icon-image-upload"></i>
-										<span class="image-lable-text">Choose File Here</span>
-									</label>
-								</div>
-							</div>
-						</div>
-						<input type="file" multiple draggable="true" id="ppt" @change="uploadPassportFile" accept="image/*, .pdf">
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" @click="closePassport" >Close</button>
-						<button type="button" class="btn btn-success" id="create-seamanbook" @click="createNewPassport" >Save</button>
-=======
 
 						<div class="grid-container" @dragover.prevent @drop="onDropPassport" v-show="passport_images.length >= 1">
 							<div class="loading-area" v-show="showLoading">
@@ -1127,7 +1046,6 @@
 								</label>
 							</div>
 						</div>
->>>>>>> 23d0e3aa7d3c4694c4569f1fcee65d9977a8db30
 					</div>
 					<input type="file" multiple draggable="true" id="ppt" @change="uploadPassportFile" accept="image/*, .pdf">
 				</div>
@@ -1138,16 +1056,6 @@
 		</modal>
 		<!-- all_in_one -->
 		<modal name="all_in_one" :clickToClose="false" height="auto" class="all_in_one">
-<<<<<<< HEAD
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">All In One </h5>
-						<button type="button" class="close" @click="hide" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-=======
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">All In One </h5>
@@ -1155,7 +1063,6 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
->>>>>>> 23d0e3aa7d3c4694c4569f1fcee65d9977a8db30
 
 				<div class="modal-body">
 					<div class="form-row">
@@ -1413,11 +1320,7 @@
 				seamanbook: {},
 				seamanImages: {},
 				passports: {},
-<<<<<<< HEAD
-				passport_imagess: {},
-=======
 				images_passport: {},
->>>>>>> 23d0e3aa7d3c4694c4569f1fcee65d9977a8db30
 				allinone: {},
                 allinone_images: {},
                 additional_info_all: {},
@@ -1535,14 +1438,9 @@
 				passport_id: null,
 				passport_images: [],
 				showLoading: false,
-<<<<<<< HEAD
-				fileMaxLenghtPassport: 27,
-				fileLoopCountPassport: 0,
-=======
 				fileMaxLenghtPass: 27,
 				fileLoopCountPass: 0,
 
->>>>>>> 23d0e3aa7d3c4694c4569f1fcee65d9977a8db30
 				//allinone
 				coc: '',
 				gmbss: '',
@@ -1587,8 +1485,49 @@
 			this.boarding_date = moment(date).format('DD-MM-YYYY');
 			this.med_date = moment(date).format('DD-MM-YYYY');
 
-		},
+        },
+        computed: {
+            medImage: function() {
+                var images = this.medical_images;
+                var arr = [];
+                var imgarr = [];
+                var extimg = [];
+                $.each(images, function(key, value) {
+                    var obj = {};
+                    imgarr = value.split('/');
+                    extimg = imgarr[5].split('.');
+                    obj = {
+                        img: value,
+                        ext: extimg[1]
+                    }
+                    arr.push(obj)
+                })
+                return arr;
+            },
+
+            imageMedical: function() {
+                var mimages = this.images;
+                var array = [];
+                var imagearray = [];
+                var imagext = [];
+                $.each(mimages, function(key, value) {
+                    var object = {};
+                    imagearray = value.split('/');
+                    imagext = imagearray[5].split('.');
+                    object = {
+                        img: value,
+                        ext: imagext[1]
+                    }
+                    array.push(object);
+                });
+                return array;
+            }
+        },
 		methods: {
+            // ======================== OPEN PDF ======================
+            pdfOpen(pdf) {
+                window.open(pdf);
+            },
             // ========================= Get Additional Info ============================
             getadditionalinfo() {
                 this.loading = true;
@@ -1753,7 +1692,6 @@
             },
 
             familyMember() {
-				//this.addClass(evn.target);
 				this.loading = true;
 				axios.post('/api/get-familymember', {
 					user_id: this.id
@@ -1766,7 +1704,6 @@
 			},
 
 			certificate() {
-				// this.addClass(evn.target);
 				this.loading = true;
 				axios.post('/api/get-employer-certificate-detail', {
 					employer_id: this.id
@@ -1779,7 +1716,6 @@
 			},
 
 			medicalC() {
-				// this.addClass(evn.target);
 				this.loading = true;
 				axios.post('/api/get-meidicalcheckup', {
 					employer_id: this.id
@@ -1826,7 +1762,6 @@
 			},
 
 			getPassport() {
-				// this.addClass(evn.target);
 				this.loading = true;
 				axios.post('/api/get-passport', {
 					employer_id: this.id
@@ -1836,11 +1771,7 @@
 					if(result.data.passports != null) {
 						this.loading = false;
 						this.passports = result.data.passports;
-<<<<<<< HEAD
-						this.passport_imagess = JSON.parse(result.data.passports.images);
-=======
 						this.images_passport = JSON.parse(result.data.passports.images);
->>>>>>> 23d0e3aa7d3c4694c4569f1fcee65d9977a8db30
 					} else {
 						this.passports = false;
 					}
@@ -1865,20 +1796,8 @@
 
 				});
 			},
-			/* Start Family Member */
+			/*================================== Start Family Member ==========================================*/
 			editFamilyMember(item) {
-<<<<<<< HEAD
-			   console.log(item.employerId);
-			   this.showFamilyMember();
-			   this.$modal.show('family_member');
-			   this.member_name = item.name;
-               this.member_relation = item.relationship;
-               this.member_phone_number = item.phone_number;
-               this.member_dob = moment(item.dob).format('DD-MM-YYYY');
-               this.member_remark = item.remark;
-               this.user_id = this.id;
-               this.family_member_id = item.id;
-=======
 				console.log(item.employerId);
 				this.showFamilyMember();
 				this.$modal.show('family_member');
@@ -1889,7 +1808,6 @@
 				this.member_remark = item.remark;
 				this.user_id = this.id;
 				this.family_member_id = item.id;
->>>>>>> 23d0e3aa7d3c4694c4569f1fcee65d9977a8db30
 			},
 			saveFamilyMember(){
 				axios.post('/api/save-family-member', {
@@ -1937,35 +1855,6 @@
 				this.$modal.show('family_member');
 			},
 			  // Delete Family Members
-<<<<<<< HEAD
-            deleteFamilyMember(member) {
-            const vm = this;
-            return Swal.fire({
-                title: 'Are you sure?',
-                text: "You want to delete " + member.name,
-                icon: 'warning',
-                showCancelButton: true,
-                allowOutsideClick: false,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Delete'
-            }).then((result) => {
-                if(result.isConfirmed) {
-                    axios.post('/api/delete-family-member', {
-                        id: member.id,
-                        employer_id: this.id
-                    }, {
-                        headers: {'Authorization': 'Bearer '+ this.user_token}
-                    }).then(response => {
-                        vm.familyMember();
-                    })
-                }
-            });
-		},
-		/* End Family Member */
-
-            // MEDICALCHECKUP BY TT
-=======
 			  deleteFamilyMember(member) {
 			  	const vm = this;
 			  	return Swal.fire({
@@ -1990,20 +1879,8 @@
 			  		}
 			  	});
 			  },
-			  /* End Family Member */
-			  createMedicalCheckup(medical_checkup) {
-			  	console.log(medical_checkup);
-			  	this.$modal.show('medical_checkup');
-			  },
-			  uploadFile(e) {
-			  	var files = e.target.files || e.dataTransfer.files;
-			  	if (!files.length)
-			  		return;
-			  	this.createImage(files)
-			  },
-
+			/*================================ End Family Member ===============================================*/
             //=============================== MEDICALCHECKUP BY TT ==============================================
->>>>>>> 23d0e3aa7d3c4694c4569f1fcee65d9977a8db30
             createMedicalCheckup() {
             	this.$modal.show('medical_checkup');
             },
@@ -2070,14 +1947,11 @@
             		this.fileLoopCount--;
             	});
             },
-<<<<<<< HEAD
-=======
             hide() {
             	this.$modal.hide('seaman_book');
             	this.$modal.hide('passport');
             	this.$modal.hide('all_in_one');
             },
->>>>>>> 23d0e3aa7d3c4694c4569f1fcee65d9977a8db30
 
             editImage(index, e) {
             	var vm = this;
@@ -2118,14 +1992,11 @@
             	this.medicalCheckupId = medical.id;
             	this.images = JSON.parse(medical.images);
             	this.med_date = moment(medical.med_date).format('DD-MM-YYYY');
-            	console.log(moment(medical.med_date).format('DD-MM-YYYY'));
             	this.$modal.show('medical_checkup');
             },
             //================================= END MEDICALCHEKUP =========================================
-            /* Start Other Company Career */
+            /*================================= Start Other Company Career =================================*/
             editOtherCompany(item) {
-            	console.log(item);
-            	this.showOtherCompanyCareer();
             	this.company_career_id = item.id;
             	this.rank = item.rank;
             	this.grt = item.grt;
@@ -2136,7 +2007,8 @@
             	this.leaving_date = item.leaving_date;
             	this.area = item.area;
             	this.company_remark = item.remark;
-            	this.user_id = this.id;
+                this.user_id = this.id;
+                this.showOtherCompanyCareer();
             },
             showOtherCompanyCareer(){
             	this.$modal.show('other_company');
@@ -2190,18 +2062,12 @@
             	});
             },
 
-<<<<<<< HEAD
-            hide() {
-            	this.$modal.hide('other_company');
-            	this.$modal.hide('seaman_book');
-            	this.$modal.hide('all_in_one');
-=======
 			// Delete Company Career
 			deleteOtherCompany(company) {
 				const vm = this;
 				return Swal.fire({
 					title: 'Are you sure?',
-					text: "You want to delete " + company.rank,
+					text: "You want to delete " + company.ship_name,
 					icon: 'warning',
 					showCancelButton: true,
 					allowOutsideClick: false,
@@ -2222,7 +2088,6 @@
 				});
 			},
 			/* End Other Company Career */
->>>>>>> 23d0e3aa7d3c4694c4569f1fcee65d9977a8db30
 
 			createSeamanBook() {
 				this.$modal.show('seaman_book');
@@ -2276,14 +2141,6 @@
 				});
 			},
 
-			hide() {
-				this.$modal.hide('other_company');
-			},
-
-			editOtherCompany(other_company) {
-				console.log(other_company);
-				this.$modal.show('other_company');
-			},
             //============================================= CREATE CEAMANBOOK BY TT ==============================================
             createSeamanBook() {
             	this.$modal.show('seaman_book');
@@ -2350,14 +2207,6 @@
             	this.createImageFormSeven(files)
             },
 
-            deleteImage(index) {
-            	axios.post('/api/image-delete', {
-            		'image': this.cbn_images[index],
-            	}).then(res => {
-            		this.cbn_images.splice(index, 1);
-            		this.fileLoopCount--;
-            	});
-            },
 
             editImage(index, e) {
             	var vm = this;
@@ -2378,11 +2227,6 @@
             		});
             	}
             	reader.readAsDataURL(files[0]);
-<<<<<<< HEAD
-			},
-			//passport
-            createPassport() {
-=======
             },
 
             saveSeamanBook() {
@@ -2424,7 +2268,6 @@
             	this.passport_id = passport.id;
             	this.passport = passport.passport_no;
             	this.passport_images = JSON.parse(passport.images);
->>>>>>> 23d0e3aa7d3c4694c4569f1fcee65d9977a8db30
             	this.$modal.show('passport');
 			},
 			editPassport(passport){
@@ -2454,11 +2297,7 @@
             			})
             			return;
             		} else {
-<<<<<<< HEAD
-            			if(vm.fileLoopCountPassport < vm.fileMaxLenghtPassport) {
-=======
             			if(vm.fileLoopCountPass < vm.fileMaxLenghtPass) {
->>>>>>> 23d0e3aa7d3c4694c4569f1fcee65d9977a8db30
             				var reader = new FileReader();
             				reader.onload = function(event) {
             					const imageUrl = event.target.result;

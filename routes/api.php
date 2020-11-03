@@ -22,6 +22,10 @@ use Illuminate\Http\Request;
 //});
 
 Route::post("get-all-user", 'HomeController@getalluser');
+Route::post("get-users", 'HomeController@getusers');
+Route::post("reset-password", 'HomeController@resetPassword');
+Route::post("delete-user", 'HomeController@deleteUser');
+Route::post("create-user", 'HomeController@creatUser');
 Route::post("image-upload", "HomeController@imageUpload");
 Route::post("image-upload-form-seven", "HomeController@imageUpload");
 Route::post("image-upload-edit", "HomeController@imageUploadEdit");

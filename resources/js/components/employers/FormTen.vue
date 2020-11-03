@@ -96,7 +96,17 @@
 				}).then(result => {
 					this.all_in_one_id = result.data.all_in_one;
 					isValid = true;
-					$(document).find('span[class="validate-message"]').remove();
+                    $(document).find('span[class="validate-message"]').remove();
+                    Swal.fire({
+                        title: 'Woo!',
+                        text: "Successfully Complete!",
+                        icon: 'success',
+                        allowOutsideClick: false,
+                    }).then(result => {
+                        if(result.isConfirmed) {
+                            window.location = '/home';
+                        }
+                    });
 				}).catch(err => {
 					if (err.response.status == 400) {
 						Toast.fire({
@@ -111,12 +121,6 @@
 					}
 					isValid = false;
 				});
-				Swal.fire({
-	                title: 'Woo!',
-	                text: "Successfully Complete!",
-	                icon: 'success',
-	                allowOutsideClick: false,
-	            });
 	            return isValid;
 			},
 			uploadPassportFile(e) {
