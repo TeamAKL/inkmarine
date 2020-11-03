@@ -281,7 +281,10 @@
 								</table>
 								<hr>
 								<div class="image-show-area">
-									<img :src="image" alt="medicalcheckupImage" class="img-thumbnail" :key="image" v-for="image in medical_images" @click="downloadImage(image)">
+                                    <span :key="index" v-for="(image, index) in medImage">
+                                        <img :src="image.img" alt="medicalcheckupImage" class="img-thumbnail" @click="downloadImage(image.img)" v-if="image.ext != 'pdf'">
+                                        <img src="../../../public/pdf/pdfimage.png" class="img-thumbnail" @click="pdfOpen(image.img)" v-else/>
+                                    </span>
 								</div>
 							</div>
 						</div>
@@ -404,7 +407,10 @@
 								</table>
 								<hr>
 								<div class="image-show-area">
-									<img :src="image" alt="medicalcheckupImage" class="img-thumbnail" :key="image" v-for="image in images_passport" @click="downloadImage(image)">
+                                    <span :key="image" v-for="image in images_passport">
+                                        <span v-if="image">{{hmm}}</span>
+                                        <img :src="image" alt="medicalcheckupImage" class="img-thumbnail"  @click="downloadImage(image)"/>
+                                    </span>
 								</div>
 							</div>
 						</div>
@@ -797,7 +803,7 @@
 
 		</modal>
 		<!-- medical checkup -->
-		<modal name="medical_checkup" :clickToClose="false" height="auto" class="medical_checkup">
+		<modal name="medical_checkup" :clickToClose="false" height="auto" :width="w" class="medical_checkup">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">Medical Checkup</h5>
@@ -883,7 +889,7 @@
 					<div class="form-group">
 						<div class="image-holder" v-show="images.length == 0">
 							<div class="loading-area-one" v-show="showLoading">
-								<!-- <img src="../../../../public/loading/loading.gif" alt=""> -->
+								<img src="../../../public/loading/loading.gif" alt="">
 							</div>
 							<label for="medical-checkup" class="medicalcheckup" @dragover.prevent @drop="onDrop">
 								<i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
@@ -893,10 +899,11 @@
 
 						<div class="grid-container" @dragover.prevent @drop="onDrop" v-show="images.length >= 1">
 							<div class="loading-area" v-show="showLoading">
-								<!-- <img src="../../../../public/loading/loading.gif" alt=""> -->
+								<img src="../../../public/loading/loading.gif" alt="Medicalcheckup">
 							</div>
-							<div class="gird-item-image " :key="index" v-for="(image, index) in images">
-								<img :src="image" alt="image" class="images-img img-thumbnail">
+							<div class="gird-item-image " :key="index" v-for="(image, index) in imageMedical">
+								<img :src="image.img" alt="image" class="images-img img-thumbnail" v-if="image.ext != 'pdf'">
+                                <img src="../../../public/pdf/pdfimage.png" class="images-img img-thumbnail"  v-else/>
 								<div class="image-overlay">
 									<div class="ed-holder">
 										<div class="edit-delete-area">
@@ -1479,8 +1486,49 @@
 			this.boarding_date = moment(date).format('DD-MM-YYYY');
 			this.med_date = moment(date).format('DD-MM-YYYY');
 
-		},
+        },
+        computed: {
+            medImage: function() {
+                var images = this.medical_images;
+                var arr = [];
+                var imgarr = [];
+                var extimg = [];
+                $.each(images, function(key, value) {
+                    var obj = {};
+                    imgarr = value.split('/');
+                    extimg = imgarr[5].split('.');
+                    obj = {
+                        img: value,
+                        ext: extimg[1]
+                    }
+                    arr.push(obj)
+                })
+                return arr;
+            },
+
+            imageMedical: function() {
+                var mimages = this.images;
+                var array = [];
+                var imagearray = [];
+                var imagext = [];
+                $.each(mimages, function(key, value) {
+                    var object = {};
+                    imagearray = value.split('/');
+                    imagext = imagearray[5].split('.');
+                    object = {
+                        img: value,
+                        ext: imagext[1]
+                    }
+                    array.push(object);
+                });
+                return array;
+            }
+        },
 		methods: {
+            // ======================== OPEN PDF ======================
+            pdfOpen(pdf) {
+                window.open(pdf);
+            },
             // ========================= Get Additional Info ============================
             getadditionalinfo() {
                 this.loading = true;
@@ -1645,7 +1693,6 @@
             },
 
             familyMember() {
-				//this.addClass(evn.target);
 				this.loading = true;
 				axios.post('/api/get-familymember', {
 					user_id: this.id
@@ -1658,7 +1705,6 @@
 			},
 
 			certificate() {
-				// this.addClass(evn.target);
 				this.loading = true;
 				axios.post('/api/get-employer-certificate-detail', {
 					employer_id: this.id
@@ -1671,7 +1717,6 @@
 			},
 
 			medicalC() {
-				// this.addClass(evn.target);
 				this.loading = true;
 				axios.post('/api/get-meidicalcheckup', {
 					employer_id: this.id
@@ -1718,7 +1763,6 @@
 			},
 
 			getPassport() {
-				// this.addClass(evn.target);
 				this.loading = true;
 				axios.post('/api/get-passport', {
 					employer_id: this.id
@@ -1753,7 +1797,7 @@
 
 				});
 			},
-			/* Start Family Member */
+			/*================================== Start Family Member ==========================================*/
 			editFamilyMember(item) {
 				console.log(item.employerId);
 				this.showFamilyMember();
@@ -1836,18 +1880,7 @@
 			  		}
 			  	});
 			  },
-			  /* End Family Member */
-			  createMedicalCheckup(medical_checkup) {
-			  	console.log(medical_checkup);
-			  	this.$modal.show('medical_checkup');
-			  },
-			  uploadFile(e) {
-			  	var files = e.target.files || e.dataTransfer.files;
-			  	if (!files.length)
-			  		return;
-			  	this.createImage(files)
-			  },
-
+			/*================================ End Family Member ===============================================*/
             //=============================== MEDICALCHECKUP BY TT ==============================================
             createMedicalCheckup() {
             	this.$modal.show('medical_checkup');
@@ -1960,14 +1993,11 @@
             	this.medicalCheckupId = medical.id;
             	this.images = JSON.parse(medical.images);
             	this.med_date = moment(medical.med_date).format('DD-MM-YYYY');
-            	console.log(moment(medical.med_date).format('DD-MM-YYYY'));
             	this.$modal.show('medical_checkup');
             },
             //================================= END MEDICALCHEKUP =========================================
-            /* Start Other Company Career */
+            /*================================= Start Other Company Career =================================*/
             editOtherCompany(item) {
-            	console.log(item);
-            	this.showOtherCompanyCareer();
             	this.company_career_id = item.id;
             	this.rank = item.rank;
             	this.grt = item.grt;
@@ -1978,7 +2008,8 @@
             	this.leaving_date = item.leaving_date;
             	this.area = item.area;
             	this.company_remark = item.remark;
-            	this.user_id = this.id;
+                this.user_id = this.id;
+                this.showOtherCompanyCareer();
             },
             showOtherCompanyCareer(){
             	this.$modal.show('other_company');
@@ -2037,7 +2068,7 @@
 				const vm = this;
 				return Swal.fire({
 					title: 'Are you sure?',
-					text: "You want to delete " + company.rank,
+					text: "You want to delete " + company.ship_name,
 					icon: 'warning',
 					showCancelButton: true,
 					allowOutsideClick: false,
@@ -2111,14 +2142,6 @@
 				});
 			},
 
-			hide() {
-				this.$modal.hide('other_company');
-			},
-
-			editOtherCompany(other_company) {
-				console.log(other_company);
-				this.$modal.show('other_company');
-			},
             //============================================= CREATE CEAMANBOOK BY TT ==============================================
             createSeamanBook() {
             	this.$modal.show('seaman_book');
@@ -2185,14 +2208,6 @@
             	this.createImageFormSeven(files)
             },
 
-            deleteImage(index) {
-            	axios.post('/api/image-delete', {
-            		'image': this.cbn_images[index],
-            	}).then(res => {
-            		this.cbn_images.splice(index, 1);
-            		this.fileLoopCount--;
-            	});
-            },
 
             editImage(index, e) {
             	var vm = this;

@@ -100,9 +100,22 @@
                 <div class="loading-area" v-show="showLoading">
                     <img src="../../../../public/loading/loading.gif" alt="">
                 </div>
-                <div class="gird-item-image " :key="index" v-for="(image, index) in images">
-                    <img :src="image" alt="image" class="images-img img-thumbnail">
-                    <div class="image-overlay">
+                <div class="gird-item-image " :key="index" v-for="(image, index) in imageMedical">
+                    <img :src="image.img" alt="image" class="images-img img-thumbnail" v-if="image.ext != 'pdf'">
+                    <img src="../../../../public/pdf/pdfimage.png" class="images-img img-thumbnail"  v-else/>
+                    <div class="image-overlay" v-if="image.ext != 'pdf'">
+                        <div class="ed-holder">
+                            <div class="edit-delete-area">
+                                <label style="cursor: pointer">
+                                    <input type="file" @change="editImage(index, $event)" class="d-none" accept="image/*, .pdf">
+                                    <i class="wizard-icon ti-pencil icon-holder edit"></i>
+                                </label>
+                                <i class="wizard-icon ti-trash icon-holder delete" @click="deleteImage(index)"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="image-overlay" @click="pdfopen(image.img)" v-else>
                         <div class="ed-holder">
                             <div class="edit-delete-area">
                                 <label style="cursor: pointer">
@@ -124,7 +137,7 @@
         </div>
         <input type="file" multiple draggable="true" id="medical-checkup" @change="uploadFile" accept="image/*, .pdf">
 
-        
+
 
     </div>
 </template>
@@ -177,6 +190,25 @@ export default {
     created() {
         const date = new Date();
         this.med_date = moment(date).format('DD-MM-YYYY');
+    },
+    computed: {
+        imageMedical: function() {
+                var mimages = this.images;
+                var array = [];
+                var imagearray = [];
+                var imagext = [];
+                $.each(mimages, function(key, value) {
+                    var object = {};
+                    imagearray = value.split('/');
+                    imagext = imagearray[5].split('.');
+                    object = {
+                        img: value,
+                        ext: imagext[1]
+                    }
+                    array.push(object);
+                });
+                return array;
+            }
     },
     methods: {
         async validate() {
@@ -303,12 +335,13 @@ export default {
             }
             reader.readAsDataURL(files[0]);
         },
+
+        pdfopen(pdf) {
+            window.open(pdf);
+        }
     },
 
     props: ['employerId']
 }
 </script>
 
-<style scoped>
-
-</style>

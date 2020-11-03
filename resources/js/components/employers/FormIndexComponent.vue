@@ -2,9 +2,9 @@
     <div>
         <h1 class="text-center">Employeer Registeration</h1>
         <form-wizard shape="circle" color="#20a0ff">
-            <!-- <tab-content title="Personal details" icon="ti-user" :before-change="()=>validateStep('form-one')">
+            <tab-content title="Personal details" icon="ti-user" :before-change="()=>validateStep('form-one')">
                 <form-one ref="form-one" @on-validate="mergePartialModels"></form-one>
-            </tab-content> -->
+            </tab-content>
 
             <tab-content title="Additional Info" icon="ti-settings" :before-change="()=>validateStep('form-two')">
                 <form-two ref="form-two" :employerId="employerId"></form-two>
@@ -37,11 +37,6 @@
             <tab-content title="ALLINONE" icon="ti-files" :before-change="()=>validateStep('form-ten')">
                 <form-ten ref="form-ten"  :employerId="employerId"></form-ten>
             </tab-content>
-
-            <!-- <tab-content title="Last step" icon="ti-check">
-                Here is your final model:
-            <pre>{{finalModel}}</pre>
-        </tab-content> -->
     </form-wizard>
 </div>
 </template>
