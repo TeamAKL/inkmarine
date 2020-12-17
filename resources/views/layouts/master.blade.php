@@ -71,7 +71,7 @@
                 <ul class="right-nave navbar-nav">
                     @guest
                     <li class="{{ (request()->is('login')) ? 'active' : '' }}"><a class="nav-link" href="{{route('login')}}">Login</a></li>
-                    {{-- <li class="nav-item"><a class="nav-link" href="{{route('register')}}">Register</a></li> --}}
+                    <li class="nav-item"><a class="nav-link" href="{{route('register')}}">Register</a></li>
                     @else
                     <li class="nav-item dropdown">
                         <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown"> {{ Auth::user()->name }}</a>

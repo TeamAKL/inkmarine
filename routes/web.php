@@ -16,9 +16,9 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::match(['get', 'post'], 'register', function () {
-    return abort(403, 'Forbidden');
-})->name('register');
+// Route::match(['get', 'post'], 'register', function () {
+//     return abort(403, 'Forbidden');
+// })->name('register');
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 

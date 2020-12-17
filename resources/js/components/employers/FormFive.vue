@@ -256,89 +256,89 @@ export default {
             return isValid;
         },
 
-        uploadFile(e) {
-            var files = e.target.files || e.dataTransfer.files;
-            if (!files.length)
-                return;
-            this.createImage(files)
-        },
+        // uploadFile(e) {
+        //     var files = e.target.files || e.dataTransfer.files;
+        //     if (!files.length)
+        //         return;
+        //     this.createImage(files)
+        // },
 
-        createImage(files) {
-            var vm = this;
-            for (var index = 0; index < files.length; index++) {
-                if (!files[index].type.match('application/pdf') && !files[index].type.match('image.*')) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Please only select Image!',
-                        allowOutsideClick: false,
-                    })
-                    return;
-                } else {
-                    if(vm.fileLoopCount < vm.fileMaxLenght) {
-                        var reader = new FileReader();
-                            reader.onload = function(event) {
-                            const imageUrl = event.target.result;
-                            vm.showLoading = true;
-                            axios.post('/api/image-upload', {
-                                'image': imageUrl,
-                                'folder': 'medicalcheckup/'
-                            }, {
-                                headers: {'Authorization': 'Bearer '+ this.user_token}
-                            }).then((res) => {
-                                vm.showLoading = false;
-                                vm.images.push(res.data.url);
-                            });
-                        }
-                        reader.readAsDataURL(files[index]);
-                    } else {
-                        return false;
-                    }
-                    vm.fileLoopCount++;
-                }
-            }
-        },
+        // createImage(files) {
+        //     var vm = this;
+        //     for (var index = 0; index < files.length; index++) {
+        //         if (!files[index].type.match('application/pdf') && !files[index].type.match('image.*')) {
+        //             Swal.fire({
+        //                 icon: 'error',
+        //                 title: 'Oops...',
+        //                 text: 'Please only select Image!',
+        //                 allowOutsideClick: false,
+        //             })
+        //             return;
+        //         } else {
+        //             if(vm.fileLoopCount < vm.fileMaxLenght) {
+        //                 var reader = new FileReader();
+        //                     reader.onload = function(event) {
+        //                     const imageUrl = event.target.result;
+        //                     vm.showLoading = true;
+        //                     axios.post('/api/image-upload', {
+        //                         'image': imageUrl,
+        //                         'folder': 'medicalcheckup/'
+        //                     }, {
+        //                         headers: {'Authorization': 'Bearer '+ this.user_token}
+        //                     }).then((res) => {
+        //                         vm.showLoading = false;
+        //                         vm.images.push(res.data.url);
+        //                     });
+        //                 }
+        //                 reader.readAsDataURL(files[index]);
+        //             } else {
+        //                 return false;
+        //             }
+        //             vm.fileLoopCount++;
+        //         }
+        //     }
+        // },
 
-        onDrop: function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            var files = e.target.files || e.dataTransfer.files;
-            this.createImage(files)
-        },
+        // onDrop: function(e) {
+        //     e.stopPropagation();
+        //     e.preventDefault();
+        //     var files = e.target.files || e.dataTransfer.files;
+        //     this.createImage(files)
+        // },
 
-        deleteImage(index) {
-            axios.post('/api/image-delete', {
-                'image': this.images[index],
-            }).then(res => {
-                this.images.splice(index, 1);
-                this.fileLoopCount--;
-            });
-        },
+        // deleteImage(index) {
+        //     axios.post('/api/image-delete', {
+        //         'image': this.images[index],
+        //     }).then(res => {
+        //         this.images.splice(index, 1);
+        //         this.fileLoopCount--;
+        //     });
+        // },
 
-        editImage(index, e) {
-            var vm = this;
-            var files = e.target.files || e.dataTransfer.files;
-            var reader = new FileReader();
-                reader.onload = function(event) {
-                const imageUrl = event.target.result;
-                vm.showLoading = true;
-                axios.post('/api/image-upload-edit', {
-                    'image': imageUrl,
-                    'oldImage': vm.images[index],
-                    'folder': 'medicalcheckup/'
-                }, {
-                    headers: {'Authorization': 'Bearer '+ this.user_token}
-                }).then((res) => {
-                    vm.showLoading = false;
-                    vm.images.splice(index, 1, res.data.url);
-                });
-            }
-            reader.readAsDataURL(files[0]);
-        },
+        // editImage(index, e) {
+        //     var vm = this;
+        //     var files = e.target.files || e.dataTransfer.files;
+        //     var reader = new FileReader();
+        //         reader.onload = function(event) {
+        //         const imageUrl = event.target.result;
+        //         vm.showLoading = true;
+        //         axios.post('/api/image-upload-edit', {
+        //             'image': imageUrl,
+        //             'oldImage': vm.images[index],
+        //             'folder': 'medicalcheckup/'
+        //         }, {
+        //             headers: {'Authorization': 'Bearer '+ this.user_token}
+        //         }).then((res) => {
+        //             vm.showLoading = false;
+        //             vm.images.splice(index, 1, res.data.url);
+        //         });
+        //     }
+        //     reader.readAsDataURL(files[0]);
+        // },
 
-        pdfopen(pdf) {
-            window.open(pdf);
-        }
+        // pdfopen(pdf) {
+        //     window.open(pdf);
+        // }
     },
 
     props: ['employerId']

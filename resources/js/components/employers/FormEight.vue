@@ -1,55 +1,58 @@
-<!-- ==================== PASSPORT ===================== -->
+<!-- ==================== InJuery ===================== -->
 <!-- Image 27 -->
 <template>
 	<div>
 		<div class="form-group">
-			<label for="passport">Passport</label>
-			<input type="text" name="passport" id="passport" v-model="passport" class="form-control">
+			<label for="illness">Lllness</label>
+			<input type="text" name="illness" id="illness" v-model="illness" class="form-control">
 		</div>
-		<!-- Image Container -->
 		<div class="form-group">
-			<div class="image-holder" v-show="passport_images.length == 0">
-				<div class="loading-area-one" v-show="showLoading">
-					<img src="../../../../public/loading/loading.gif" alt="">
-				</div>
-				<label for="ppt" class="medicalcheckup" @dragover.prevent @drop="onDrop">
-					<i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
-					<span class="image-lable-text" v-show="!showLoading">Choose File or drag & drop here</span>
-				</label>
-			</div>
-
-			<div class="grid-container" @dragover.prevent @drop="onDrop" v-show="passport_images.length >= 1">
-				<div class="loading-area" v-show="showLoading">
-					<img src="../../../../public/loading/loading.gif" alt="">
-				</div>
-				<div class="gird-item-image " :key="index" v-for="(image, index) in passport_images">
-					<img :src="image" alt="image" class="images-img img-thumbnail">
-					<div class="image-overlay">
-						<div class="ed-holder">
-							<div class="edit-delete-area">
-								<label style="cursor: pointer">
-									<input type="file" @change="editPassportImage(index, $event)" class="d-none" accept="image/*, .pdf">
-									<i class="wizard-icon ti-pencil icon-holder edit"></i>
-								</label>
-								<i class="wizard-icon ti-trash icon-holder delete" @click="deletePassportImage(index)"></i>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="gird-item-image final-grid" v-show="fileLoopCount < fileMaxLenght">
-					<label for="ppt" class="medicalcheckup" @dragover.prevent @drop="onDrop">
-						<i class="wizard-icon ti-cloud-up icon-image-upload"></i>
-						<span class="image-lable-text">Choose File or drag & drop here</span>
-					</label>
-				</div>
-			</div>
+			<label for="medical_name">Medical Name</label>
+			<input type="text" name="medical_name" id="medical_name" v-model="medical_name" class="form-control">
 		</div>
-		<input type="file" multiple draggable="true" id="ppt" @change="uploadPassportFile" accept="image/*, .pdf">
+		<div class="form-group">
+			<label for="hospital_name">Hospital Name</label>
+			<input type="text" name="hospital_name" id="hospital_name" v-model="hospital_name" class="form-control">
+		</div>
+		<div class="form-group">
+			<label for="start_date">Start Date</label>
+            <date-picker v-model.trim="start_date" valueType="format" class="date-picker" format="DD-MM-YYYY" ></date-picker>
+		</div>
+
+		<div class="form-group">
+			<label for="recovery_date">Recovery Date</label>
+            <date-picker v-model.trim="recovery_date" valueType="format" class="date-picker" format="DD-MM-YYYY" ></date-picker>
+		</div>
+		<div class="form-group">
+            <label for="hospital_type">Hospital Type</label>
+            <multiselect v-model="hospital_type" :options="options" :searchable="false" :close-on-select="true" :show-labels="false" placeholder="Select hospital type"></multiselect>
+		</div>
+		<div class="form-group">
+			<label for="expenses_won">Expenses Won</label>
+			<input type="text" name="expenses_won" id="expenses_won" v-model="expenses_won" class="form-control">
+		</div>
+		<div class="form-group">
+			<label for="expenses_ex">Expenses Ex</label>
+			<input type="text" name="expenses_ex" id="expenses_ex" v-model="expenses_ex" class="form-control">
+		</div>
+		<div class="form-group">
+			<label for="remark">Remark</label>
+			<textarea name="remark" id="remark" cols="30" rows="10" v-model.trim="remark" class="form-control"></textarea>
+		</div>
+
 	</div>
 </template>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <script>
 	import Swal from 'sweetalert2/dist/sweetalert2.js'
-	import 'sweetalert2/src/sweetalert2.scss'
+    import 'sweetalert2/src/sweetalert2.scss'
+
+    import DatePicker from 'vue2-datepicker';
+    import 'vue2-datepicker/index.css';
+    import moment from 'moment'
+
+    import Multiselect from 'vue-multiselect'
+
 	const Toast = Swal.mixin({
 		toast: true,
 		position: 'top-end',
@@ -62,29 +65,50 @@
 		}
 	});
 	export default {
+        components: {
+            DatePicker,
+            Multiselect,
+        },
 		data() {
 			return {
-				passport: '',
-				passport_id: null,
-				user_token: `${process.env.MIX_APP_TOKEN}`,
-				passport_images: [],
-				showLoading: false,
-				fileMaxLenght: 27,
-				fileLoopCount: 0,
+				illness: '',
+                injury_id: null,
+                medical_name: '',
+                hospital_name: '',
+                start_date: '',
+                recovery_date: '',
+                hospital_type: 'Public',
+                expenses_won: '',
+                expenses_ex: '',
+                remark: '',
+                user_token: `${process.env.MIX_APP_TOKEN}`,
+                options: ['Public', 'Private']
 			}
-		},
+        },
+        created() {
+            const date = new Date();
+            this.start_date = moment(date).format('DD-MM-YYYY');
+            this.recovery_date = moment(date).format('DD-MM-YYYY');
+        },
 		methods: {
 			async validate() {
 				var isValid;
-				await axios.post('/api/save-passport', {
-					"passport": this.passport,
-					"passport_images": this.passport_images,
-					'passport_id': this.passport_id,
+				await axios.post('/api/save-injury', {
+					"illness": this.illness,
+                    'injury_id': this.injury_id,
+                    'medical_name': this.medical_name,
+                    'hospital_name': this.hospital_name,
+                    'start_date': this.start_date,
+                    'recovery_date': this.recovery_date,
+                    'hospital_type': this.hospital_type,
+                    'expenses_won': this.expenses_won,
+                    'expenses_ex': this.expenses_ex,
+                    'remark': this.remark,
 					'employer_id': this.employerId
 				}, {
 					headers: {'Authorization': 'Bearer '+ this.user_token}
 				}).then(result => {
-					this.passport_id = result.data.passport;
+					this.injury_id = result.data.injury.id;
 					isValid = true;
 					$(document).find('span[class="validate-message"]').remove();
 				}).catch(err => {
@@ -103,86 +127,6 @@
 				});
 
 				return isValid;
-			},
-			uploadPassportFile(e) {
-				var files = e.target.files || e.dataTransfer.files;
-				if (!files.length)
-					return;
-				this.createImages(files)
-			},
-
-			createImages(files) {
-				var vm = this;
-				for (var index = 0; index < files.length; index++) {
-					if (!files[index].type.match('application/pdf') && !files[index].type.match('image.*')) {
-						Swal.fire({
-							icon: 'error',
-							title: 'Oops...',
-							text: 'Please only select Image!',
-							allowOutsideClick: false,
-						})
-						return;
-					} else {
-						if(vm.fileLoopCount < vm.fileMaxLenght) {
-							var reader = new FileReader();
-							reader.onload = function(event) {
-								const imageUrl = event.target.result;
-								vm.showLoading = true;
-								axios.post('/api/image-upload', {
-									'image': imageUrl,
-									'folder': 'passports/'
-								}, {
-									headers: {'Authorization': 'Bearer '+ this.user_token}
-								}).then((res) => {
-                                    console.log('helo');
-									vm.showLoading = false;
-									vm.passport_images.push(res.data.url);
-								});
-							}
-							reader.readAsDataURL(files[index]);
-						} else {
-							return false;
-						}
-						vm.fileLoopCount++;
-					}
-				}
-			},
-
-			onDrop: function(e) {
-				e.stopPropagation();
-				e.preventDefault();
-				var files = e.target.files || e.dataTransfer.files;
-				this.createImages(files)
-			},
-
-			deletePassportImage(index) {
-				axios.post('/api/image-delete', {
-					'image': this.passport_images[index],
-				}).then(res => {
-					this.passport_images.splice(index, 1);
-					this.fileLoopCount--;
-				});
-			},
-
-			editPassportImage(index, e) {
-				var vm = this;
-				var files = e.target.files || e.dataTransfer.files;
-				var reader = new FileReader();
-				reader.onload = function(event) {
-					const imageUrl = event.target.result;
-					vm.showLoading = true;
-					axios.post('/api/image-upload-edit', {
-						'image': imageUrl,
-						'oldImage': vm.passport_images[index],
-						'folder': 'passports/'
-					}, {
-						headers: {'Authorization': 'Bearer '+ this.user_token}
-					}).then((res) => {
-						vm.showLoading = false;
-						vm.passport_images.splice(index, 1, res.data.url);
-					});
-				}
-				reader.readAsDataURL(files[0]);
 			},
 		},
 		props: ['employerId']

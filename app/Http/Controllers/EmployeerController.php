@@ -13,6 +13,8 @@ use App\MedicalCheckup;
 use App\CemanBookNumber;
 use App\Passport;
 use App\AllInOne;
+use App\Injury;
+use App\Evaluation;
 
 // use Illuminate\Support\Facades\DB;
 use DB;
@@ -35,9 +37,31 @@ class EmployeerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function saveCrewEvoluation(Request $req)
     {
-        //
+        $validator = Validator::make($req->all(), [
+            'date' => 'required',
+            'score' => 'required',
+            're_use' => 'required',
+            'rate' => 'required',
+            'detail' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 400);
+        }
+        $evaluation = Evaluation::updateOrCreate(
+            ['id' => $req->evaluation_id, 'user_id' => $req->employer_id],
+            [
+                'date' => $req->date,
+                'score' => $req->score,
+                're_use' => $req->re_use,
+                'rate' => $req->rate,
+                'detail' => $req->detail,
+                'user_id' => $req->employer_id,
+            ]
+        );
+
+        return response()->json(['message' => "Success!", 'evaluation' => $evaluation], 200);
     }
 
     /**
@@ -73,51 +97,6 @@ class EmployeerController extends Controller
             ['crew_code' => $req->crewcode, 'name' => $req->name, 'nationality' => $req->nationality, 'date_of_birth' => $format, 'place_of_birth' => $req->pob, 'education_level' => $req->edulevel, 'ship'=>$req->ship]
         );
         return response()->json(["message" => "success", "employeer" => $employeer], 200);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Employeer  $employeer
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Employeer $employeer)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Employeer  $employeer
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Employeer $employeer)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Employeer  $employeer
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Employeer $employeer)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Employeer  $employeer
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Employeer $employeer)
-    {
-        //
     }
 
 
@@ -194,6 +173,7 @@ class EmployeerController extends Controller
 
         $training_date = date("Y-m-d", strtotime($req->training_date));
         $expire_date = date("Y-m-d", strtotime($req->expire_date));
+        $images = json_encode($req->image);
         $emp_certificate = EmployerCertificate::updateOrCreate(
             ['id' => $req->id, 'employer_id' => $req->employer_id],
             [
@@ -202,7 +182,7 @@ class EmployeerController extends Controller
                 'licine_number' => $req->licine_number,
                 'training_date' => $training_date,
                 'expire_date' => $expire_date,
-                'image' => $req->image,
+                'image' => $images,
                 'remark' => $req->remark
             ]
         );
@@ -266,7 +246,16 @@ class EmployeerController extends Controller
         $leaving_format = date("Y-m-d", strtotime($request->leaving_date));
         $companyCareers = OtherCompanyCareers::updateOrCreate(
             ['id' => $request->company_career_id],
-            ['user_id' => $request->user_id, 'rank' => $request->rank, 'grt' => $request->grt, 'kw' => $request->kw, 'company_name' => $request->company_name, 'ship_name' => $request->ship_name, 'boarding_date' => $boarding_format, 'leaving_date' => $leaving_format, 'area' => $request->area, 'remark' => $request->company_remark]
+            ['user_id' => $request->user_id,
+            'rank' => $request->rank,
+            'grt' => $request->grt,
+            'kw' => $request->kw,
+            'company_name' => $request->company_name,
+            'ship_name' => $request->ship_name,
+            'boarding_date' => $boarding_format,
+            'leaving_date' => $leaving_format,
+            'area' => $request->area,
+            'remark' => $request->company_remark]
         );
         return response()->json(["message" => "success", "companyCareers" => $companyCareers], 200);
     }
@@ -350,24 +339,41 @@ class EmployeerController extends Controller
         return response()->json(['message' => 'success', 'cbn' => $cbn], 200);
     }
 
-    //Passport
-    public function savePassport(Request $req)
+    //Injury
+    public function saveInjury(Request $req)
     {
-        // dd($req->all());
         $validator = Validator::make($req->all(), [
-            'passport' => 'required'
+            'illness' => 'required',
+            'medical_name' => 'required',
+            'hospital_name' => 'required',
+            'start_date' => 'required',
+            'recovery_date' => 'required',
+            'hospital_type' => 'required',
+            'expenses_won' => 'required',
+            'expenses_ex' => 'required',
+            // 'remark' => 'required',
+            'employer_id' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()], 400);
         }
 
-        $images = json_encode($req->passport_images);
-
-        $passport = Passport::updateOrCreate(
-            ['id' => $req->passport_id, 'employer_id' => $req->employer_id],
-            ['employer_id' => $req->employer_id, 'images' => $images, 'passport_no' => $req->passport]
+        $injury = Injury::updateOrCreate(
+            ['id' => $req->injury_id, 'user_id' => $req->employer_id],
+            [
+                'user_id' => $req->employer_id,
+                'illness' => $req->illness,
+                'medical_name' => $req->medical_name,
+                'hospital_name' => $req->hospital_name,
+                'start_date' => $req->start_date,
+                'recovery_date' => $req->recovery_date,
+                'hospital_type' => $req->hospital_type,
+                'expenses_won' => $req->expenses_won,
+                'expenses_ex' => $req->expenses_ex,
+                'remark' => $req->remark,
+            ]
         );
-        return response()->json(['message' => 'success', 'passport' => $passport], 200);
+        return response()->json(['message' => 'success', 'injury' => $injury], 200);
     }
 
      //All-in-One

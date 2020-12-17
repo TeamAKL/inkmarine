@@ -50,7 +50,9 @@ Route::post("delete-family-member", "FamilyMemberController@deleteFamilyMember")
 
 Route::post('save-medical-checkup', 'EmployeerController@saveMedicalCheckup');
 Route::post('save-cbn', 'EmployeerController@saveCemanBook');
-Route::post('save-passport', 'EmployeerController@savePassport');
+
+//Injury
+Route::post('save-injury', 'EmployeerController@saveInjury');
 Route::post('save-all-in-one', 'EmployeerController@saveAllInOne');
 
 //Certificate
@@ -60,6 +62,9 @@ Route::post('certificate-delete', 'CertificateController@delete');
 //company
 Route::post('get-all-company', 'CompanyController@getAllCompany');
 Route::post('company-delete', 'CompanyController@delete');
+
+//Crew Evaluation
+Route::post('save-crew-evoluation', 'EmployeerController@saveCrewEvoluation');
 
 //ship
 Route::post('get-all-ship', 'ShipController@getAllShip');
