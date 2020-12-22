@@ -66,6 +66,9 @@ Route::post('company-delete', 'CompanyController@delete');
 //Crew Evaluation
 Route::post('save-crew-evoluation', 'EmployeerController@saveCrewEvoluation');
 
+//DMA
+Route::post('save-dma', 'EmployeerController@saveDma');
+
 //ship
 Route::post('get-all-ship', 'ShipController@getAllShip');
 Route::post('ship-delete', 'ShipController@delete');

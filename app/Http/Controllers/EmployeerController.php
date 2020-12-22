@@ -15,6 +15,7 @@ use App\Passport;
 use App\AllInOne;
 use App\Injury;
 use App\Evaluation;
+use App\Dma;
 
 // use Illuminate\Support\Facades\DB;
 use DB;
@@ -27,9 +28,24 @@ class EmployeerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function saveDma(Request $req)
     {
-        //
+        $validator = Validator::make($req->all(), [
+            'all_images' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error'=> "error"], 400);
+        }
+        $images = json_encode($req->all_images);
+        $dma = Dma::updateOrCreate(
+            ['id' => $req->evaluation_id, 'employer_id' => $req->employer_id],
+            [
+                'image' => $images,
+                'employer_id' => $req->employer_id,
+            ]
+        );
+
+        return response()->json(['message' => "Success!", 'dma' => $dma], 200);
     }
 
     /**
@@ -85,7 +101,8 @@ class EmployeerController extends Controller
             'dob' => 'required',
             'pob' => 'required',
             'edulevel' => 'required',
-            'ship'=>'required'
+            'ship'=>'required',
+
         ]);
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()], 400);
@@ -94,7 +111,16 @@ class EmployeerController extends Controller
         $format = date("Y-m-d", strtotime($req->dob));
         $employeer = Employeer::updateOrCreate(
             ['id' => $req->personId, 'crew_code' => $req->crewcode],
-            ['crew_code' => $req->crewcode, 'name' => $req->name, 'nationality' => $req->nationality, 'date_of_birth' => $format, 'place_of_birth' => $req->pob, 'education_level' => $req->edulevel, 'ship'=>$req->ship]
+            [
+                'crew_code' => $req->crewcode, 
+                'name' => $req->name, 
+                'nationality' => $req->nationality, 
+                'date_of_birth' => $format, 
+                'place_of_birth' => $req->pob, 
+                'education_level' => $req->edulevel, 
+                'ship'=>$req->ship,
+                'image' => $req->image,
+            ]
         );
         return response()->json(["message" => "success", "employeer" => $employeer], 200);
     }
@@ -107,19 +133,8 @@ class EmployeerController extends Controller
         $validator = Validator::make($req->all(), [
             'phone_number' => 'required',
             'cell_phone_number' => 'required',
-            'drinking' => 'required',
-            'smoking' => 'required',
             'rank' => 'required',
             'company' => 'required',
-            'basic_salary' => 'required',
-            'home_allowance' => 'required',
-            'total_salary' => 'required',
-            'fixed_pay' => 'required',
-            'leave_pay' => 'required',
-            'onbroad_pay' => 'required',
-            'code' => 'required',
-            'pants' => 'required',
-            'shoe' => 'required'
         ]);
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()], 400);
@@ -274,32 +289,30 @@ class EmployeerController extends Controller
     public function saveMedicalCheckup(Request $req)
     {
         $validator = Validator::make($req->all(), [
-            'med_date' => 'required',
-            'height' => 'required',
-            'weight' => 'required',
-            'checst' => 'required',
-            'tooth' => 'required',
-            'tooth_state' => 'required',
-            'color_blindness' => 'required',
-            'blood_type' => 'required',
-            'xray' => 'required',
-            'sight_right' => 'required',
-            'sight_left' => 'required',
-            'hearing_right' => 'required',
-            'hearing_left' => 'required',
-            'hospital' => 'required',
-            'decision' => 'required',
+            // 'med_date' => 'required',
+            // 'height' => 'required',
+            // 'weight' => 'required',
+            // 'checst' => 'required',
+            // 'tooth' => 'required',
+            // 'tooth_state' => 'required',
+            // 'color_blindness' => 'required',
+            // 'blood_type' => 'required',
+            // 'xray' => 'required',
+            // 'sight_right' => 'required',
+            // 'sight_left' => 'required',
+            // 'hearing_right' => 'required',
+            // 'hearing_left' => 'required',
+            // 'hospital' => 'required',
+            // 'decision' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()], 400);
         }
-        $images = json_encode($req->images);
         $date = date("Y-m-d", strtotime($req->med_date));
         $medical_checkup = MedicalCheckup::updateOrCreate(
             ['id' => $req->medicalCheckupId, 'employer_id' => $req->employerId],
             [
                 'employer_id' => $req->employerId,
-                'images' => $images,
                 'med_date' => $date,
                 'weight' => $req->weight,
                 'height' => $req->height,
