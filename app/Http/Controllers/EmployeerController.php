@@ -13,6 +13,7 @@ use App\MedicalCheckup;
 use App\CemanBookNumber;
 use App\Passport;
 use App\AllInOne;
+use App\Disease;
 
 // use Illuminate\Support\Facades\DB;
 use DB;
@@ -330,6 +331,39 @@ class EmployeerController extends Controller
         );
         return response()->json(['message' => 'success', 'mde' => $medical_checkup], 200);
     }
+    //Disease
+    public function storeDisease(Request $req)
+    {
+        $validator = Validator::make($req->all(), [
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'illness' => 'required',
+            'medicine' => 'required',
+            'other_medicine' => 'required',
+            'remark' => 'required'
+            
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 400);
+        }
+        $start_date = date("Y-m-d", strtotime($req->start_date));
+        $end_date = date("Y-m-d", strtotime($req->end_date));
+
+        $disease = Disease::updateOrCreate(
+            ['id' => $req->diseaseId, 'employer_id' => $req->employerId],
+            [
+                'employer_id' => $req->employerId,
+                'start_date' => $start_date,
+                'end_date' => $end_date,
+                'illness' => $req->illness,
+                'medicine' => $req->medicine,
+                'other_medicine' => $req->other_medicine,
+                'remark' => $req->remark
+            ]
+        );
+        return response()->json(['message' => 'success', 'mde' => $disease], 200);
+    }
+
 
     //CemanBookNumber
     public function saveCemanBook(Request $req)

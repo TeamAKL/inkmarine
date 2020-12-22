@@ -13,6 +13,8 @@ use App\OtherCompanyCareers;
 use App\CemanBookNumber;
 use App\Passport;
 use App\AllInOne;
+use App\Disease;
+use App\Accident;
 use DB;
 class DetailController extends Controller
 {
@@ -71,5 +73,15 @@ class DetailController extends Controller
     {
         $additionalInfo = EmployeerDetail::select(DB::Raw("employeer_details.*"))->where('employer_id', '=', $req->employer_id)->first();
         return response()->json(['additionalinfo' => $additionalInfo], 200);
+    }
+    public function getAllDisease(Request $req)
+    {
+        $diseases = Disease::select(DB::Raw("diseases.*, DATE_FORMAT(diseases.start_date, '%d-%m-%Y') as start_date, DATE_FORMAT(diseases.end_date, '%d-%m-%Y') as end_date"))->where('employer_id', '=', $req->employer_id)->get();
+        return response()->json(['diseases' => $diseases], 200);
+    }
+    public function getAllAccident(Request $req)
+    {
+        $accidents = Accident::select(DB::Raw("accidents.*, DATE_FORMAT(accidents.date, '%d-%m-%Y') as date"))->where('employer_id', '=', $req->employer_id)->get();
+        return response()->json(['accidents' => $accidents], 200);
     }
 }

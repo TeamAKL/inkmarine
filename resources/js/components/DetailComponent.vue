@@ -344,6 +344,102 @@
 				</div>
 			</div>
 			<div class="card">
+				<div class="card-header" id="headingDisease" >
+					<h5 class="mb-0" data-toggle="collapse" data-target="#disease" aria-expanded="true" aria-controls="disease" @click="showDisease">
+						Diseases
+					</h5>
+				</div>
+
+				<div id="disease" class="collapse" aria-labelledby="headingDisease" data-parent="#accordion">
+					<div class="card-body">
+
+						
+							<div class="d-flex justify-content-end mb-3">
+								<button type="button" class="btn btn-success" id="add-disease" @click="addDisease" >Add</button>
+							</div>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Start Date</th>
+										<th>End Date</th>
+										<th>Illness</th>
+										<th>Medicine</th>
+										<th>Other Medicine</th>
+										<th>Remark</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr :key="disease.id" v-for="disease in diseases">
+										<td>{{disease.start_date}}</td>
+										<td>{{disease.end_date}}</td>
+										<td>{{disease.illness}}</td>
+										<td>{{disease.medicine}}</td>
+										<td>{{disease.other_medicine}}</td>
+										<td>{{disease.remark}}</td>
+										<td>
+											<a href="javascript:void(0)" class="btn btn-primary btn-sm" @click="editDisease(disease)">Edit</a>
+											<a href="javascript:void(0)" class="btn btn-danger btn-sm" @click="deleteDisease(disease)">Delete</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+					</div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header" id="headingAccident" >
+					<h5 class="mb-0" data-toggle="collapse" data-target="#accident" aria-expanded="true" aria-controls="accident" @click="showAccident">
+						Accidents
+					</h5>
+				</div>
+
+				<div id="accident" class="collapse" aria-labelledby="headingAccident" data-parent="#accordion">
+					<div class="card-body">
+
+						
+							<div class="d-flex justify-content-end mb-3">
+								<button type="button" class="btn btn-success" id="add-accident" @click="addAccident" >Add</button>
+							</div>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Ship name</th>
+										<th>Rank</th>
+										<th>Date</th>
+										<th>Type</th>
+										<th>Reason</th>
+										<th>Cost</th>
+										<th>Re-use</th>
+										<th>Etc</th>
+										<th>Remark</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr :key="accident.id" v-for="accident in accidents">
+										<td>{{accident.ship_name}}</td>
+										<td>{{accident.rank}}</td>
+										<td>{{accident.date}}</td>
+										<td>{{accident.type}}</td>
+										<td>{{accident.reason}}</td>
+										<td>{{accident.cost}} {{accident.currency}}</td>
+										<td>{{accident.re_use}}</td>
+										<td>{{accident.etc}}</td>
+										<td>{{accident.remark}}</td>
+										<td>
+											<a href="javascript:void(0)" class="btn btn-primary btn-sm" @click="editAccident(accident)">Edit</a>
+											<a href="javascript:void(0)" class="btn btn-danger btn-sm" @click="deleteAccident(accident)">Delete</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+					</div>
+				</div>
+			</div>
+			<div class="card">
 				<div class="card-header" id="headingseman" >
 					<h5 class="mb-0" data-toggle="collapse" data-target="#seaman" aria-expanded="true" aria-controls="seaman" @click="seamanBook">
 						Seaman Book
@@ -464,7 +560,7 @@
 		</div>
 
 		<!-- ==================================== ADDITIONAL INFORMATION ========================== -->
-		<modal name="additionalInfo" :clickToClose="false" height="auto" :width="w" class="medical_checkup">
+		<modal name="additionalInfo" :clickToClose="false" height="auto" :width="w" class="additional_info">
 			<div class="modal-content">
 				<div class="modal-header">
                     <h5 class="modal-title">Additional Info</h5>
@@ -1052,7 +1148,9 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" @click="hiedePassportModal" >Close</button>
 					<button type="button" class="btn btn-success" id="create-seamanbook" @click="savePassport" >Save</button>
+			
 				</div>
+			</div>
 		</modal>
 		<!-- all_in_one -->
 		<modal name="all_in_one" :clickToClose="false" height="auto" class="all_in_one">
@@ -1126,7 +1224,10 @@
 		<modal name="other_company" :clickToClose="false" height="auto" class="company_career_modal">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5>Add Company Careers</h5>
+					<h5>Add Other Company Careers</h5>
+					<button type="button" class="close" @click="hideOtherCompanyCareer" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
 				<div class="modal-body">
 					<div class="form-row">
@@ -1181,6 +1282,128 @@
 				</div>
 			</div>
 		</modal>
+
+		<!-- Disease Modal -->
+		<modal name="disease_modal" :clickToClose="false" height="auto" class="disease_modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>Add Disease</h5>
+					<button type="button" class="close" @click="hideDiseaseModal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form>
+
+						<div class="form-group">
+                            <label for="start_date">Start Date</label>
+                            <date-picker v-model="disease_start_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+                        </div>
+
+						<div class="form-group">
+                            <label for="end_date">End Date</label>
+                            <date-picker v-model="disease_end_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="illness">Illness</label>
+                            <input type="text" class="form-control" id="illness" name="illness"  v-model.trim="disease_illness">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="medicine">Medicine</label>
+                            <input type="text" class="form-control" id="medicine" name="medicine" v-model.trim="disease_medicine" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="other_medicine">Other_medicine</label>
+                            <input type="text" class="form-control" id="other_medicine" name="other_medicine" v-model.trim="disease_other_medicine" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="remark">Remark</label>
+                            <textarea name="remark" id="remark" v-model.trim="disease_remark" cols="30" rows="6" class="form-control"></textarea>
+                        </div>
+                    </form>
+				</div>
+                <div class="modal-footer d-flex justify-content-end">
+                    <button class="btn btn-primary" @click="hideDiseaseModal">Cancel</button>
+                    <button class="btn btn-success" @click="saveDisease">Add</button>
+                </div>
+			</div>
+		</modal>
+		<!-- Accident Modal -->
+		<modal name="accident_modal" :clickToClose="false" height="auto" class="accident_modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>Add Accident</h5>
+					<button type="button" class="close" @click="hideAccidentModal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form>
+
+						<div class="form-group">
+                            <label for="accident_ship_name">Ship Name</label>
+                            <input type="text" class="form-control" id="accident_ship_name" name="accident_ship_name"  v-model.trim="accident_ship_name">
+                        </div>
+
+						<div class="form-group">
+                            <label for="accident_rank">Rank</label>
+                             <input type="text" class="form-control" id="accident_rank" name="accident_rank"  v-model.trim="accident_rank">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="accident_date">Date</label>
+                            <date-picker v-model="accident_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+                        </div>
+                        <div class="form-group">
+                            <label for="accident_type">Type</label>
+                            <input type="text" class="form-control" id="accident_type" name="accident_type" v-model.trim="accident_type" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="accident_reason">Reason</label>
+                            <input type="text" class="form-control" id="accident_reason" name="accident_reason" v-model.trim="accident_reason" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="accident_cost">Cost</label>
+                            <div class="row mx-1">
+                                    <input type="text" class="form-control col-8" id="accident_cost" name="accident_cost" v-model.trim="accident_cost" >
+                                
+                                    <select class="form-control col-4" v-model="accident_currency">
+                                        <option value="MMK">MMK</option>
+                                        <option value="USD">USD</option>
+                                        <option value="SGD">SGD</option>
+                                    </select>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="accident_re_use">Re-use</label>
+                            <input type="text" class="form-control" id="accident_re_use" name="accident_re_use" v-model.trim="accident_re_use" >
+                        </div>
+
+                         <div class="form-group">
+                            <label for="accident_etc">Etc</label>
+                            <input type="text" class="form-control" id="accident_etc" name="accident_etc" v-model.trim="accident_etc" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="accident_remark">Remark</label>
+                            <textarea name="remark" id="remark" v-model.trim="accident_remark" cols="30" rows="6" class="form-control"></textarea>
+                        </div>
+                    </form>
+				</div>
+                <div class="modal-footer d-flex justify-content-end">
+                    <button class="btn btn-primary" @click="hideAccidentModal">Cancel</button>
+                    <button class="btn btn-success" @click="saveAccident">Add</button>
+                </div>
+			</div>
+		</modal>
 		<!-- Carousel -->
 		<!-- <carousel :data="carousel"></carousel> -->
 	</div>
@@ -1191,7 +1414,7 @@
 .bgcolor {
 	background: red;
 }
-.medical_checkup,.seaman_book,
+.additional_info,.seaman_book,.disease_modal,.accident_modal,
 .passport,.all_in_one, .certificate_modal
 {
 	overflow-y: auto;
@@ -1317,6 +1540,8 @@
 				medicalcheckup: {},
 				medical_images: {},
 				othercompanies: {},
+				diseases:{},
+				accidents:{},
 				seamanbook: {},
 				seamanImages: {},
 				passports: {},
@@ -1469,6 +1694,27 @@
 				area: '',
 				company_remark: '',
 				company_career_id: null,
+				
+				//disease
+				disease_start_date: '',
+				disease_end_date: '',
+				disease_illness:'',
+				disease_medicine: '',
+				disease_other_medicine: '',
+				disease_remark: '',
+				diseaseId: null,
+				//accident
+				accident_ship_name: '',
+				accident_rank: '',
+				accident_date:'',
+				accident_type: '',
+				accident_reason: '',
+				accident_cost: '',
+				accident_currency:'MMK',
+				accident_re_use: '',
+				accident_etc: '',
+				accident_remark: '',
+				accidentId: null,
 			}
 		},
 		created() {
@@ -1484,6 +1730,9 @@
 			this.leaving_date = moment(date).format('DD-MM-YYYY');
 			this.boarding_date = moment(date).format('DD-MM-YYYY');
 			this.med_date = moment(date).format('DD-MM-YYYY');
+			this.disease_start_date= moment(date).format('DD-MM-YYYY');
+			this.disease_end_date= moment(date).format('DD-MM-YYYY');
+			this.accident_date=moment(date).format('DD-MM-YYYY');
 
         },
         computed: {
@@ -2655,10 +2904,231 @@
 						})
 					}
 				});
-			}
-		},
+			},
+			//disease
+			showDisease() {
+				axios.post('/api/get-all-disease-detail', {
+					employer_id: this.id
+				}, {
+					headers:{'Authorization': 'Bearer '+ this.user_token}
+				}).then(result => {
+
+					this.diseases = result.data.diseases;
+				});
+			},
+			editDisease(item) {
+			   this.addDisease();
+			   this.disease_start_date = item.start_date;
+               this.disease_end_date = item.end_date;
+			   this.disease_illness = item.illness;
+			   this.disease_medicine = item.medicine;
+               this.disease_other_medicine = item.other_medicine;
+               this.disease_remark = item.remark;
+               this.employerId = item.employer_id;
+               this.diseaseId = item.id;
+			},
+			deleteDisease(item){
+				const vm = this;
+				return Swal.fire({
+					title: 'Are you sure?',
+					text: "You want to delete " + item.illness,
+					icon: 'warning',
+					showCancelButton: true,
+					allowOutsideClick: false,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Delete'
+				}).then((result) => {
+					if(result.isConfirmed) {
+						axios.post('/api/delete-disease', {
+							id: item.id,
+							employer_id: this.id
+						}, {
+							headers: {'Authorization': 'Bearer '+ this.user_token}
+						}).then(response => {
+							vm.showDisease();
+						})
+					}
+				});
+		
+			},
+			addDisease() {
+			this.$modal.show('disease_modal');
+			},
+
+			hideDiseaseModal() {
+				this.$modal.hide('disease_modal');
+				this.disease_start_date = moment(new Date()).format('DD-MM-YYYY');
+				this.disease_end_date = moment(new Date()).format('DD-MM-YYYY');
+				this.disease_illness = '',
+				this.disease_medicine = '',
+				this.disease_other_medicine = '',
+				this.disease_remark = ''
+			},
+			saveDisease() {
+			// console.log(this.start_date);
+			// console.log(this.end_date);
+			// console.log(this.illness);
+			// console.log(this.medicine);
+			// console.log(this.start_date);
+			// console.log(this.start_date);
+            
+			 axios.post('/api/save-disease', {
+                'employerId': this.id,
+                'start_date': this.disease_start_date,
+                'end_date': this.disease_end_date,
+				'illness': this.disease_illness,
+				'medicine': this.disease_medicine,
+                'other_medicine': this.disease_other_medicine,
+				'remark': this.disease_remark,
+				'diseaseId': this.diseaseId
+            }, {
+                headers: {'Authorization': 'Bearer '+ this.user_token}
+            }).then(result => {
+               this.hideDiseaseModal();
+               $(document).find('span[class="validate-message"]').remove();
+               this.showDisease();
+               this.diseaseId = null;
+            }).catch(err => {
+                if (err.response.status == 400) {
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Please fill all required fields!'
+                    });
+                     $(document).find('span[class="validate-message"]').remove();
+                    $.each(err.response.data.error, function (i, error) {
+                        var el = $(document).find('[name="'+i+'"]');
+                        el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
+                    });
+                }
+                isValid = false;
+            });
+        
+		    },
+			//====end Disease===
+			//====Accident===
+			showAccident() {
+					axios.post('/api/get-all-accident-detail', {
+						employer_id: this.id
+					}, {
+						headers:{'Authorization': 'Bearer '+ this.user_token}
+					}).then(result => {
+
+						this.accidents = result.data.accidents;
+					});
+			},
+			addAccident(){
+				this.$modal.show('accident_modal');
+			},
+			hideAccidentModal() {
+					this.$modal.hide('accident_modal');
+					this.accident_date = moment(new Date()).format('DD-MM-YYYY');
+					this.accident_ship_name = '',
+					this.accident_rank = '',
+					this.accident_type = '',
+					this.accident_reason = '',
+					this.accident_cost = '',
+					this.accident_currency='',
+					this.accident_re_use = '',
+					this.accident_etc = '',
+					this.accident_remark = ''
+			},
+			saveAccident() {
+				//  console.log(this.accident_ship_name);
+				//  console.log(this.accident_rank);
+				//  console.log(this.accident_date);
+				//  console.log(this.accident_type);
+				//  console.log(this.accident_reason);
+				//  console.log(this.accident_cost);
+				//  console.log(this.accident_currency);
+				//  console.log(this.accident_re_use);
+				//  console.log(this.accident_etc);
+				//  console.log(this.accident_remark);
 
 
-        //============================================= END CERTIFICATE ========================================
+				axios.post('/api/save-accident', {
+					'employerId': this.id,
+					'ship_name': this.accident_ship_name,
+					'rank': this.accident_rank,
+					'date': this.accident_date,
+					'type': this.accident_type,
+					'reason': this.accident_reason,
+					'cost': this.accident_cost,
+					'currency':this.accident_currency,
+					're_use': this.accident_re_use,
+					'etc': this.accident_etc,
+					'remark': this.accident_remark,
+					'accidentId': this.accidentId
+				}, {
+					headers: {'Authorization': 'Bearer '+ this.user_token}
+				}).then(result => {
+				this.hideAccidentModal();
+				$(document).find('span[class="validate-message"]').remove();
+				this.showAccident();
+				this.accidentId = null;
+				}).catch(err => {
+					if (err.response.status == 400) {
+						Toast.fire({
+							icon: 'error',
+							title: 'Please fill all required fields!'
+						});
+						$(document).find('span[class="validate-message"]').remove();
+						$.each(err.response.data.error, function (i, error) {
+							var el = $(document).find('[name="'+i+'"]');
+							el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
+						});
+					}
+					isValid = false;
+				});
+			
+			},
+			editAccident(item){
+                this.addAccident();
+                this.accident_date = item.date;
+                this.accident_ship_name = item.ship_name;
+                this.accident_rank = item.rank;
+                this.accident_type = item.type;
+                this.accident_reason = item.reason;
+                this.accident_cost = item.cost;
+                this.accident_currency=item.currency
+                this.accident_re_use = item.re_use;
+                this.accident_etc = item.etc;
+                this.accident_remark = item.remark;
+                this.employerId = item.employer_id;
+                this.accidentId = item.id;
+			}, 
+			deleteAccident(item) {
+				const vm = this;
+				return Swal.fire({
+					title: 'Are you sure?',
+					text: "You want to delete " + item.type,
+					icon: 'warning',
+					showCancelButton: true,
+					allowOutsideClick: false,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Delete'
+				}).then((result) => {
+					if(result.isConfirmed) {
+						axios.post('/api/delete-accident', {
+							id: item.id,
+							employer_id: this.id
+						}, {
+							headers: {'Authorization': 'Bearer '+ this.user_token}
+						}).then(response => {
+							vm.showAccident();
+						})
+					}
+				});
+			},
+
+		
+	    },
+		
+
+
+		
+	
+			
     }
 </script>

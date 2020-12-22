@@ -31,6 +31,15 @@ Route::post("image-upload-form-seven", "HomeController@imageUpload");
 Route::post("image-upload-edit", "HomeController@imageUploadEdit");
 Route::post("image-delete", "HomeController@imageDelte");
 
+//disease
+Route::post("save-disease", "DiseaseController@store");
+Route::post("get-all-disease", "DiseaseController@getAllDisease");
+Route::post("delete-disease", "DiseaseController@deleteDisease");
+
+//accident
+Route::post("save-accident", "AccidentController@store");
+Route::post("get-all-accident", "AccidentController@getAllAccident");
+Route::post("delete-accident", "AccidentController@deleteAccident");
 
 Route::post("save-form-one", "EmployeerController@store");
 Route::post("save-form-two", "EmployeerController@storeFormTwo");
@@ -75,3 +84,7 @@ Route::post('get-seaman-book', 'DetailController@getSeamanBook');
 Route::post('get-passport', 'DetailController@getPassport');
 Route::post('get-allinone', 'DetailController@getAllinOne');
 Route::post('get-additional-info', 'DetailController@getAdditinalInfo');
+Route::post('get-all-disease-detail', 'DetailController@getAllDisease');
+Route::post('get-all-accident-detail', 'DetailController@getAllAccident');
+
+

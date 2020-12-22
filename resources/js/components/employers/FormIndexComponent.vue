@@ -10,7 +10,7 @@
                 <form-two ref="form-two" :employerId="employerId"></form-two>
             </tab-content>
 
-            <tab-content title="Family Member" icon="ti-id-badge" :before-change="()=>validateStep('form-four')">
+            <!-- <tab-content title="Family Member" icon="ti-id-badge" :before-change="()=>validateStep('form-four')">
                 <form-four ref="form-four" :employerId="employerId"></form-four>
             </tab-content>
 
@@ -24,17 +24,17 @@
 
             <tab-content title="Other Company Careers" icon="ti-briefcase" :before-change="()=>validateStep('form-six')">
                 <form-six ref="form-six" @on-validate="mergePartialModels" :employerId="employerId"></form-six>
-            </tab-content>
+            </tab-content> -->
 
-            <tab-content title="Seaman Book No" icon="ti-files" :before-change="()=>validateStep('form-seven')">
+            <tab-content title="Disease" icon="ti-files" :before-change="()=>validateStep('form-seven')">
                 <form-seven ref="form-seven"  :employerId="employerId"></form-seven>
             </tab-content>
 
-            <tab-content title="PASSPORT" icon="ti-files" :before-change="()=>validateStep('form-eight')">
+            <!-- <tab-content title="PASSPORT" icon="ti-files" :before-change="()=>validateStep('form-eight')">
                 <form-eight ref="form-eight"  :employerId="employerId"></form-eight>
-            </tab-content>
+            </tab-content> -->
 
-            <tab-content title="ALLINONE" icon="ti-files" :before-change="()=>validateStep('form-ten')">
+            <tab-content title="Accdient" icon="ti-files" :before-change="()=>validateStep('form-ten')">
                 <form-ten ref="form-ten"  :employerId="employerId"></form-ten>
             </tab-content>
     </form-wizard>
