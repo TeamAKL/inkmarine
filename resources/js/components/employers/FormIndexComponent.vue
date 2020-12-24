@@ -2,7 +2,7 @@
     <div>
         <h1 class="text-center">Employeer Registeration</h1>
         <form-wizard shape="circle" color="#20a0ff">
-            <!-- <tab-content title="Personal details" icon="ti-user" :before-change="()=>validateStep('form-one')">
+            <tab-content title="Personal details" icon="ti-user" :before-change="()=>validateStep('form-one')">
                 <form-one ref="form-one" @on-validate="mergePartialModels"></form-one>
             </tab-content>
 
@@ -12,13 +12,13 @@
 
             <tab-content title="Family Member" icon="ti-id-badge" :before-change="()=>validateStep('form-four')">
                 <form-four ref="form-four" :employerId="employerId"></form-four>
-            </tab-content> -->
+            </tab-content>
 
-            <!-- <tab-content title="Certificate" icon="ti-files" :before-change="()=>validateStep('form-three')">
+             <tab-content title="Certificate" icon="ti-files" :before-change="()=>validateStep('form-three')">
                 <form-three ref="form-three"  :employerId="employerId"></form-three>
-            </tab-content> -->
+            </tab-content>
 
-            <!-- <tab-content title="Medical Checkup" icon="ti-clipboard" :before-change="()=>validateStep('form-five')">
+            <tab-content title="Medical Checkup" icon="ti-clipboard" :before-change="()=>validateStep('form-five')">
                 <form-five ref="form-five" :employerId="employerId"></form-five>
             </tab-content>
 
@@ -30,13 +30,13 @@
                 <form-seven ref="form-seven"  :employerId="employerId"></form-seven>
             </tab-content> -->
 
-            <!-- <tab-content title="Injuery" icon="ti-files" :before-change="()=>validateStep('form-eight')">
+           <tab-content title="Injuery" icon="ti-files" :before-change="()=>validateStep('form-eight')">
                 <form-eight ref="form-eight"  :employerId="employerId"></form-eight>
-            </tab-content> -->
+            </tab-content>
 
-            <!-- <tab-content title="Crew Evaluation" icon="ti-files" :before-change="()=>validateStep('form-nine')">
+            <tab-content title="Crew Evaluation" icon="ti-files" :before-change="()=>validateStep('form-nine')">
                 <form-nine ref="form-nine"  :employerId="employerId"></form-nine>
-            </tab-content> -->
+            </tab-content>
 
             <tab-content title="DMA" icon="ti-files" :before-change="()=>validateStep('form-eleven')">
                 <form-eleven ref="form-eleven"  :employerId="employerId"></form-eleven>
@@ -45,23 +45,32 @@
             <tab-content title="ALLINONE" icon="ti-files" :before-change="()=>validateStep('form-ten')">
                 <form-ten ref="form-ten"  :employerId="employerId"></form-ten>
             </tab-content>
+
+            <tab-content title="Appointment Info" icon="ti-files" :before-change="()=>validateStep('form-twelve')">
+                <form-twelve ref="form-twelve"  :employerId="employerId"></form-twelve>
+            </tab-content>
+            <tab-content title="Apply For Disembarkation" icon="ti-files" :before-change="()=>validateStep('form-thirteen')">
+            <form-thirteen ref="form-thirteen"  :employerId="employerId"></form-thirteen>
+        </tab-content>
     </form-wizard>
 </div>
 </template>
 
 <script>
     import ThemifyIcon from "vue-themify-icons";
-    import FormOne from './FormOneComponent'
-    import FormTwo from './FormTwoComponent'
-    import FormThree from './FormThreeComponent'
-    import FormFour from './FormFour'
-    import FormFive from './FormFive'
-    import FormSix from './FormSix'
-    import FormSeven from './FormSeven'
-    import FormEight from './FormEight'
-    import FormTen from './FormTen'
-    import FormNine from './FormNine'
-    import FormEleven from './FormEleven'
+    import FormOne from './FormOneComponent';
+    import FormTwo from './FormTwoComponent';
+    import FormThree from './FormThreeComponent';
+    import FormFour from './FormFour';
+    import FormFive from './FormFive';
+    import FormSix from './FormSix';
+    import FormSeven from './FormSeven';
+    import FormEight from './FormEight';
+    import FormTen from './FormTen';
+    import FormNine from './FormNine';
+    import FormEleven from './FormEleven';
+    import FormTwelve from './FormTwelve';
+    import FormThirteen from './FormThirteen'
     export default {
         components: {
             ThemifyIcon,
@@ -76,10 +85,12 @@
             'form-nine': FormNine,
             'form-ten' : FormTen,
             'form-eleven': FormEleven,
+            'form-twelve': FormTwelve,
+            'form-thirteen': FormThirteen,
         },
         data() {
             return {
-                employerId: 20,
+                employerId: '',
                 finalModel: {},
             }
         },

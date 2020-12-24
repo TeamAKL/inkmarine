@@ -80,3 +80,10 @@ Route::post('get-seaman-book', 'DetailController@getSeamanBook');
 Route::post('get-passport', 'DetailController@getPassport');
 Route::post('get-allinone', 'DetailController@getAllinOne');
 Route::post('get-additional-info', 'DetailController@getAdditinalInfo');
+
+Route::post("save-appointment-info", "AppointmentInfoController@store");
+Route::post("save-apply-disembarkation", "ApplyDisembarkationController@store");
+Route::post('get-appointment-info', 'AppointmentInfoController@getAppointmentInfo');
+Route::post('get-apply-disembarkation', 'ApplyDisembarkationController@getApplyDisembarkation');
+Route::post("delete-apply-disem", "ApplyDisembarkationController@deleteApplyDisem");
+Route::post("delete-appointment-info", "AppointmentInfoController@deleteAppointmentInfo");

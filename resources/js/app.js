@@ -7,8 +7,8 @@ import DataTable from 'laravel-vue-datatable';
 Vue.use(DataTable);
 
 // Carousel
-import VueCarousel from '@chenfengyuan/vue-carousel';
-Vue.use(VueCarousel);
+// import VueCarousel from '@chenfengyuan/vue-carousel';
+// Vue.use(VueCarousel);
 
 // AXIOS
 import axios from 'axios'

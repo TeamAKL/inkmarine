@@ -461,6 +461,98 @@
 					</div>
 				</div>
 			</div>
+			<div class="card">
+				<div class="card-header" id="headingAppointmentInfo" >
+					<h5 class="mb-0" data-toggle="collapse" data-target="#appointmentInfo" aria-expanded="true" aria-controls="appointmentInfo" @click="appointmentInfo">
+						Appointment Information
+					</h5>
+				</div>
+
+				<div id="appointmentInfo" class="collapse" aria-labelledby="headingAppointmentInfo" data-parent="#accordion">
+					<div class="card-body">
+
+						<div class="d-flex justify-content-center" v-if="loading">
+							<img src="../../../public/loading/dataload.gif">
+						</div>
+						<div v-else>
+							<div class="d-flex justify-content-end mb-3">
+								<button type="button" class="btn btn-success" id="add-appInfo" @click="showAppointmentInfo" >Add</button>
+							</div>
+							<table class="table table-hover">
+								<thead>
+								<tr>
+									<th>Division</th>
+									<th>Ship Name</th>
+									<th>Rank</th>
+									<th>Boarding Date</th>
+									<th>Leaving Date</th>
+									<th>Boarding Period</th>
+									<th></th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr :key="app_info.id" v-for="app_info in appointment_infos">
+									<td>{{app_info.division}}</td>
+									<td>{{app_info.ship_name}}</td>
+									<td>{{app_info.rank}}</td>
+									<td>{{app_info.boarding_date}}</td>
+									<td>{{app_info.leaving_date}}</td>
+									<td>{{app_info.boarding_period}}</td>
+									<td>
+										<a href="javascript:void(0)" class="btn btn-primary btn-sm" @click="editAppointmentInfo(app_info)">Edit</a>
+										<a href="javascript:void(0)" class="btn btn-danger btn-sm" @click="deleteAppointmentInfo(app_info)">Delete</a>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header" id="headingApplyDisembarkation" >
+					<h5 class="mb-0" data-toggle="collapse" data-target="#applyDisembarkation" aria-expanded="true" aria-controls="applyDisembarkation" @click="getApplyDisembarkation">
+						Apply Disembarkation
+					</h5>
+				</div>
+
+				<div id="applyDisembarkation" class="collapse" aria-labelledby="headingApplyDisembarkation" data-parent="#accordion">
+					<div class="card-body">
+
+						<div class="d-flex justify-content-center" v-if="loading">
+							<img src="../../../public/loading/dataload.gif">
+						</div>
+						<div v-else>
+							<div class="d-flex justify-content-end mb-3">
+								<button type="button" class="btn btn-success" id="add-appDisembr" @click="showApplyDisembarkation" >Add</button>
+							</div>
+							<table class="table table-hover">
+								<thead>
+								<tr>
+									<th>Content</th>
+									<th>Successor</th>
+									<th>Remark</th>
+									<th></th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr :key="apply_disem.id" v-for="apply_disem in apply_disembarkations">
+									<td>{{apply_disem.content}}</td>
+									<td>{{apply_disem.successor}}</td>
+									<td>{{apply_disem.remark}}</td>
+									<td>
+										<a href="javascript:void(0)" class="btn btn-primary btn-sm" @click="editApplyDisem(apply_disem)">Edit</a>
+										<a href="javascript:void(0)" class="btn btn-danger btn-sm" @click="deleteApplyDisem(apply_disem)">Delete</a>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<!-- ==================================== ADDITIONAL INFORMATION ========================== -->
@@ -933,196 +1025,7 @@
 				</div>
 			</div>
 		</modal>
-		<!-- seaman book -->
-		<modal name="seaman_book" :clickToClose="false" height="auto" class="seaman_book">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Seaman Book </h5>
-					<button type="button" class="close" @click="closeSeaManBookModel" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
 
-				<div class="modal-body">
-					<div class="form-group">
-						<label for="cbn">Seaman Book No</label>
-						<input type="text" name="cbn" id="cbn" v-model="cbn" class="form-control">
-					</div>
-					<!-- Image Container -->
-					<div class="form-group">
-						<div class="image-holder" v-show="cbn_images.length == 0">
-							<div class="loading-area-one" v-show="showLoading">
-								<img src="../../../public/loading/loading.gif" alt="">
-							</div>
-							<label for="ctc" class="medicalcheckup" @dragover.prevent @drop="onDropFormSeven">
-								<i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
-								<span class="image-lable-text" v-show="!showLoading">Choose File or drag & drop here</span>
-							</label>
-						</div>
-
-						<div class="grid-container" @dragover.prevent @drop="onDropFormSeven" v-show="cbn_images.length >= 1">
-							<div class="loading-area" v-show="showLoading">
-								<img src="../../../public/loading/loading.gif" alt="">
-							</div>
-							<div class="gird-item-image " :key="index" v-for="(image, index) in cbn_images">
-								<img :src="image" alt="image" class="images-img img-thumbnail">
-								<div class="image-overlay">
-									<div class="ed-holder">
-										<div class="edit-delete-area">
-											<label style="cursor: pointer">
-												<input type="file" @change="editImage(index, $event)" class="d-none" accept="image/*, .pdf">
-												<i class="wizard-icon ti-pencil icon-holder edit"></i>
-											</label>
-											<i class="wizard-icon ti-trash icon-holder delete" @click="deleteImage(index)"></i>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="gird-item-image final-grid" v-show="countfile < fileMaxLenght">
-								<label for="ctc" class="medicalcheckup" @dragover.prevent @drop="onDropFormSeven">
-									<i class="wizard-icon ti-cloud-up icon-image-upload"></i>
-									<span class="image-lable-text">Choose File or drag & drop here</span>
-								</label>
-							</div>
-						</div>
-					</div>
-
-					<input type="file" multiple draggable="true" id="ctc" @change="uploadFileFormSeven" accept="image/*, .pdf">
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" @click="closeSeaManBookModel" >Close</button>
-					<button type="button" class="btn btn-success" id="create-seamanbook" @click="saveSeamanBook" >Save</button>
-				</div>
-			</div>
-		</modal>
-		<!-- passport -->
-		<modal name="passport" :clickToClose="false" height="auto" class="passport">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Passport </h5>
-					<button type="button" class="close" @click="hiedePassportModal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-
-				<div class="modal-body">
-					<div class="form-group">
-						<label for="passport">Passport</label>
-						<input type="text" name="passport" id="passport" v-model="passport" class="form-control">
-					</div>
-					<div class="form-group">
-						<div class="image-holder" v-show="passport_images.length == 0">
-							<div class="loading-area-one" v-show="showLoading">
-								<img src="../../../public/loading/loading.gif" alt="">
-							</div>
-							<label for="ppt" class="medicalcheckup" @dragover.prevent @drop="onDropPassport">
-								<i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
-								<span class="image-lable-text" v-show="!showLoading">Choose File Here</span>
-							</label>
-						</div>
-
-						<div class="grid-container" @dragover.prevent @drop="onDropPassport" v-show="passport_images.length >= 1">
-							<div class="loading-area" v-show="showLoading">
-								<img src="../../../public/loading/loading.gif" alt="">
-							</div>
-							<div class="gird-item-image " :key="index" v-for="(image, index) in passport_images">
-								<img :src="image" alt="image" class="images-img img-thumbnail">
-								<div class="image-overlay">
-									<div class="ed-holder">
-										<div class="edit-delete-area">
-											<label style="cursor: pointer">
-												<input type="file" @change="editPassportImage(index, $event)" class="d-none" accept="image/*, .pdf">
-												<i class="wizard-icon ti-pencil icon-holder edit"></i>
-											</label>
-											<i class="wizard-icon ti-trash icon-holder delete" @click="deletePassportImage(index)"></i>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="gird-item-image final-grid" v-show="fileLoopCountPass < fileMaxLenghtPass">
-								<label for="ppt" class="medicalcheckup" @dragover.prevent @drop="onDropPassport">
-									<i class="wizard-icon ti-cloud-up icon-image-upload"></i>
-									<span class="image-lable-text">Choose File Here</span>
-								</label>
-							</div>
-						</div>
-					</div>
-					<input type="file" multiple draggable="true" id="ppt" @change="uploadPassportFile" accept="image/*, .pdf">
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" @click="hiedePassportModal" >Close</button>
-					<button type="button" class="btn btn-success" id="create-seamanbook" @click="savePassport" >Save</button>
-				</div>
-			</div>
-		</modal>
-		<!-- all_in_one -->
-		<modal name="all_in_one" :clickToClose="false" height="auto" class="all_in_one">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">All In One </h5>
-					<button type="button" class="close" @click="closeAllInOneModal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-
-				<div class="modal-body">
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<label for="coc">C.O.C</label>
-							<input type="text" name="coc" id="coc" v-model="coc" class="form-control">
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<label for="gmbss">GMBSS</label>
-							<input type="text" name="gmbss" id="gmbss" v-model="gmbss" class="form-control">
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="image-holder" v-show="all_images.length == 0">
-							<div class="loading-area-one" v-show="showLoading">
-								<img src="../../../public/loading/loading.gif" alt="">
-							</div>
-							<label for="all-in-one" class="medicalcheckup" @dragover.prevent @drop="onDropAllInOne">
-								<i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
-								<span class="image-lable-text" v-show="!showLoading">Choose File Here</span>
-							</label>
-						</div>
-
-						<div class="grid-container" @dragover.prevent @drop="onDropAllInOne" v-show="all_images.length >= 1">
-							<div class="loading-area" v-show="showLoading">
-								<img src="../../../public/loading/loading.gif" alt="">
-							</div>
-							<div class="gird-item-image " :key="index" v-for="(image, index) in all_images">
-								<img :src="image" alt="image" class="images-img img-thumbnail">
-								<div class="image-overlay">
-									<div class="ed-holder">
-										<div class="edit-delete-area">
-											<label style="cursor: pointer">
-												<input type="file" @change="editAllInOneImage(index, $event)" class="d-none" accept="image/*, .pdf">
-												<i class="wizard-icon ti-pencil icon-holder edit"></i>
-											</label>
-											<i class="wizard-icon ti-trash icon-holder delete" @click="deleteAllInOneImage(index)"></i>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="gird-item-image final-grid" v-show="fileLoopCountallinone < fileMaxLenghtallinone">
-								<label for="all-in-one" class="medicalcheckup" @dragover.prevent @drop="onDropAllInOne">
-									<i class="wizard-icon ti-cloud-up icon-image-upload"></i>
-									<span class="image-lable-text">Choose File Here</span>
-								</label>
-							</div>
-						</div>
-					</div>
-					<input type="file" multiple draggable="true" id="all-in-one" @change="uploadAllInOneFile" accept="image/*, .pdf">
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" @click="closeAllInOneModal" >Close</button>
-					<button type="button" class="btn btn-success" id="create-seamanbook" @click="saveAAllInOne" >Save</button>
-				</div>
-			</div>
-		</modal>
 		<!--Other company career Modal -->
 		<modal name="other_company" :clickToClose="false" height="auto" class="company_career_modal">
 			<div class="modal-content">
@@ -1182,6 +1085,89 @@
 				</div>
 			</div>
 		</modal>
+		<!--Appointment Info Modal -->
+		<modal name="appointment_info" :clickToClose="false" height="auto" class="appointment_info_modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>Add Appointment Information</h5>
+				</div>
+				<div class="modal-body">
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="division">Division</label>
+							<input type="text" id="division" name="division" v-model.trim="division" class="form-control">
+						</div>
+
+						<div class="form-group col-md-12">
+							<label for="ship_name">Ship Name</label>
+							<input type="text" id="app_ship_name" name="ship_name" v-model.trim="ship_name" class="form-control">
+						</div>
+
+						<div class="form-group col-md-12">
+							<label for="rank">Rank</label>
+							<input type="text" id="app_rank" name="rank" v-model.trim="rank" class="form-control">
+						</div>
+
+						<div class="form-group col-md-12">
+							<label for="app_boarding_date">Boarding Date</label>
+							<date-picker v-model.trim="app_boarding_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+						</div>
+
+						<div class="form-group col-md-12">
+							<label for="app_leaving_date">Leaving Date</label>
+							<date-picker v-model.trim="app_leaving_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+						</div>
+
+						<div class="form-group col-md-12">
+							<label for="boarding_period">Boarding Period</label>
+							<input type="text" id="boarding_period" name="boarding_period" v-model.trim="boarding_period" class="form-control">
+						</div>
+
+						<div class="form-group col-md-12">
+							<label for="place">Place</label>
+							<input type="text" id="place" name="place" v-model.trim="place" class="form-control">
+						</div>
+						<div class="form-group col-md-12">
+							<label for="remark">Remark</label>
+							<input type="remark" id="app_remark" name="remark" v-model.trim="remark" class="form-control">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-end">
+					<button class="btn btn-primary" @click="hideAppointmentInfo">Cancel</button>
+					<button class="btn btn-success"  @click="saveAppointmentInfo">Add</button>
+				</div>
+			</div>
+		</modal>
+
+		<!--Apply Disembarkation Modal -->
+		<modal name="apply_disembarkation" :clickToClose="false" height="auto" class="apply_disembarkation_modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>Add Apply Disembarkation</h5>
+				</div>
+				<div class="modal-body">
+					<div class="form-group col-md-12">
+						<label for="content">Content</label>
+						<input type="text" id="content" name="content" v-model.trim="content" class="form-control">
+					</div>
+
+					<div class="form-group col-md-12">
+						<label for="successor">Successor</label>
+						<input type="text" id="successor" name="successor" v-model.trim="successor" class="form-control">
+					</div>
+
+					<div class="form-group col-md-12">
+						<label for="disembarkation_remark">Remark</label>
+						<textarea name="remark" id="disembarkation_remark" cols="30" rows="10" v-model.trim="disembarkation_remark" class="form-control"></textarea>
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-end">
+					<button class="btn btn-primary" @click="hideApplyDisembarkation">Cancel</button>
+					<button class="btn btn-success"  @click="saveApplyDisembarkation">Add</button>
+				</div>
+			</div>
+		</modal>
 		<!-- Carousel -->
 		<!-- <carousel :data="carousel"></carousel> -->
 	</div>
@@ -1193,7 +1179,7 @@
 	background: red;
 }
 .medical_checkup,.seaman_book,
-.passport,.all_in_one, .certificate_modal
+.passport,.all_in_one, .certificate_modal,.appointment_info_modal, .apply_disembarkation_modal
 {
 	overflow-y: auto;
 }
@@ -1325,6 +1311,8 @@
 				allinone: {},
                 allinone_images: {},
                 additional_info_all: {},
+				appointment_infos: {},
+                apply_disembarkations:{},
 
                 //ADDITIONAL INFO
                 phone_number: '',
@@ -1470,6 +1458,23 @@
 				area: '',
 				company_remark: '',
 				company_career_id: null,
+
+				//Appointment Info
+                division: '',
+                ship_name: '',
+                rank: '',
+                app_boarding_date: '',
+                app_leaving_date: '',
+                boarding_period: '',
+                place: '',
+                remark: '',
+                appointment_info_id: null,
+
+				//Apply Disembarkation
+                contents: '',
+                successor: '',
+                disembarkation_remark: '',
+                apply_disembarkation_id: null
 			}
 		},
 		created() {
@@ -1485,6 +1490,8 @@
 			this.leaving_date = moment(date).format('DD-MM-YYYY');
 			this.boarding_date = moment(date).format('DD-MM-YYYY');
 			this.med_date = moment(date).format('DD-MM-YYYY');
+            this.app_boarding_date = moment(date).format('DD-MM-YYYY');
+            this.app_leaving_date = moment(date).format('DD-MM-YYYY');
 
         },
         computed: {
@@ -1880,7 +1887,196 @@
 			  		}
 			  	});
 			  },
-			/*================================ End Family Member ===============================================*/
+            /*================================ End Family Member ===============================================*/
+            /*================================ Start Appointment Info ===============================================*/
+            appointmentInfo() {
+                this.loading = true;
+                axios.post('/api/get-appointment-info', {
+                    employer_id: this.id
+                }, {
+                    headers:{'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
+                    this.loading = false;
+                    this.appointment_infos = result.data.appointmentInfos;
+                });
+            },
+			saveAppointmentInfo(){
+
+                axios.post('/api/save-appointment-info', {
+                    'division': this.division,
+                    'ship_name': this.ship_name,
+                    'rank': this.rank,
+                    'app_boarding_date': this.app_boarding_date,
+                    'app_leaving_date': this.app_leaving_date,
+                    'boarding_period': this.boarding_period,
+                    'place': this.place,
+                    'remark': this.remark,
+                    'appointment_info_id': this.appointment_info_id,
+                    'user_id':this.id,
+                }, {
+                    headers: {'Authorization': 'Bearer '+ this.user_token}
+                }).then((result) => {
+                    this.hideAppointmentInfo();
+                    $(document).find('span[class="validate-message"]').remove();
+                    this.appointmentInfo();
+                    this.appointment_info_id = null;
+                }).catch((err) => {
+                    if (err.response.status == 400) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Please fill all required fields!'
+                        });
+                        $.each(err.response.data.error, function (i, error) {
+                            var el = $(document).find('[name="'+i+'"]');
+                            el.after($('<span style="color: red;">'+error[0]+'</span>'));
+                        });
+                    }
+                    isValid = false;
+                });
+                this.$emit('on-validate', this.personId);
+                return isValid;
+            },
+            editAppointmentInfo(item) {
+                this.showAppointmentInfo();
+                this.$modal.show('appointment_info');
+                this.division = item.division;
+                this.ship_name = item.ship_name;
+                this.rank = item.rank;
+                this.app_boarding_date = moment(item.boarding_date).format('DD-MM-YYYY');
+                this.app_leaving_date = moment(item.leaving_date).format('DD-MM-YYYY');;
+                this.boarding_period = item.boarding_period;
+                this.place = item.place;
+                this.remark = item.remark;
+                this.user_id = this.id;
+                this.appointment_info_id = item.id;
+            },
+            hideAppointmentInfo(){
+
+            this.division = '';
+            this.ship_name = '';
+            this.rank = '';
+            this.app_boarding_date = moment(new Date()).format('DD-MM-YYYY');
+            this.app_leaving_date = moment(new Date()).format('DD-MM-YYYY');
+            this.boarding_period = '';
+            this.place = '';
+            this.remark = '';
+			this.member_dob = moment(new Date()).format('DD-MM-YYYY');
+            this.$modal.hide('appointment_info');
+        },
+            showAppointmentInfo() {
+            this.$modal.show('appointment_info');
+        },
+            // Delete Appointment Info
+            deleteAppointmentInfo(item) {
+                const vm = this;
+                return Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You want to delete " + item.name,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Delete'
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        axios.post('/api/delete-appointment-info', {
+                            id: item.id,
+                            employer_id: this.id
+                        }, {
+                            headers: {'Authorization': 'Bearer '+ this.user_token}
+                        }).then(response => {
+                            vm.appointmentInfo();
+                        })
+                    }
+                });
+            },
+            /*================================ End Appointment Info ===============================================*/
+            /*================================ Start Apply Disembarkation ===============================================*/
+            getApplyDisembarkation() {
+                this.loading = true;
+                axios.post('/api/get-apply-disembarkation', {
+                    employer_id: this.id
+                }, {
+                    headers:{'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
+                    this.loading = false;
+                    this.apply_disembarkations = result.data.applyDisembarkations;
+                });
+            },
+			saveApplyDisembarkation(){
+                axios.post('/api/save-apply-disembarkation', {
+                    'contents': this.content,
+                    'successor': this.successor,
+                    'disembarkation_remark': this.disembarkation_remark,
+                    'apply_disembarkation_id': this.apply_disembarkation_id,
+					'user_id':this.id,
+                }, {
+                    headers: {'Authorization': 'Bearer '+ this.user_token}
+                }).then((result) => {
+                    this.hideApplyDisembarkation();
+                    $(document).find('span[class="validate-message"]').remove();
+                    this.getApplyDisembarkation();
+                    this.apply_disembarkation_id = null;
+                }).catch((err) => {
+                    if (err.response.status == 400) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Please fill all required fields!'
+                        });
+                        $.each(err.response.data.error, function (i, error) {
+                            var el = $(document).find('[name="'+i+'"]');
+                            el.after($('<span style="color: red;">'+error[0]+'</span>'));
+                        });
+                    }
+                    isValid = false;
+                });
+                this.$emit('on-validate', this.personId);
+                return isValid;
+			},
+            editApplyDisem(item) {
+                this.showApplyDisembarkation();
+                this.$modal.show('apply_disembarkation');
+                this.content = item.content;
+                this.successor = item.successor;
+                this.disembarkation_remark = item.remark;
+                this.user_id = this.id;
+                this.apply_disembarkation_id = item.id;
+            },
+            deleteApplyDisem(item) {
+                const vm = this;
+                return Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You want to delete " + item.name,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Delete'
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        axios.post('/api/delete-apply-disem', {
+                        id: item.id,
+                            employer_id: this.id
+                        }, {
+                            headers: {'Authorization': 'Bearer '+ this.user_token}
+                        }).then(response => {
+                            vm.getApplyDisembarkation();
+                        })
+                    }
+                });
+            },
+            hideApplyDisembarkation(){
+                this.contents = '';
+                this.successor = '';
+                this.disembarkation_remark = '';
+                this.$modal.hide('apply_disembarkation');
+			},
+            showApplyDisembarkation(){
+                this.$modal.show('apply_disembarkation');
+            },
+            /*================================ End Apply Disembarkation ===============================================*/
             //=============================== MEDICALCHECKUP BY TT ==============================================
             createMedicalCheckup() {
             	this.$modal.show('medical_checkup');

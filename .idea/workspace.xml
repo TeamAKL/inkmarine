@@ -2,16 +2,154 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="147d07a7-e63b-4c29-807d-5cf04f4a5ebb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/employers/FormThirteen.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/employers/FormTwelve.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inkmarine.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inkmarine.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/filesystems.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/filesystems.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/vue-themify-icons/themify-icons/themify.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/vue-themify-icons/themify-icons/themify.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employers/FormFive.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employers/FormFive.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/DetailComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/DetailComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/employers/FormIndexComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employers/FormIndexComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employers/FormOneComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employers/FormOneComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
+    <ignored path="$PROJECT_DIR$/vendor/composer/" />
+    <ignored path="$PROJECT_DIR$/vendor/dnoegel/php-xdg-base-dir/" />
+    <ignored path="$PROJECT_DIR$/vendor/doctrine/annotations/" />
+    <ignored path="$PROJECT_DIR$/vendor/doctrine/inflector/" />
+    <ignored path="$PROJECT_DIR$/vendor/doctrine/instantiator/" />
+    <ignored path="$PROJECT_DIR$/vendor/doctrine/lexer/" />
+    <ignored path="$PROJECT_DIR$/vendor/dragonmantank/cron-expression/" />
+    <ignored path="$PROJECT_DIR$/vendor/egulias/email-validator/" />
+    <ignored path="$PROJECT_DIR$/vendor/facade/flare-client-php/" />
+    <ignored path="$PROJECT_DIR$/vendor/facade/ignition/" />
+    <ignored path="$PROJECT_DIR$/vendor/facade/ignition-contracts/" />
+    <ignored path="$PROJECT_DIR$/vendor/fideloper/proxy/" />
+    <ignored path="$PROJECT_DIR$/vendor/filp/whoops/" />
+    <ignored path="$PROJECT_DIR$/vendor/fzaninotto/faker/" />
+    <ignored path="$PROJECT_DIR$/vendor/hamcrest/hamcrest-php/" />
+    <ignored path="$PROJECT_DIR$/vendor/jakub-onderka/php-console-color/" />
+    <ignored path="$PROJECT_DIR$/vendor/jakub-onderka/php-console-highlighter/" />
+    <ignored path="$PROJECT_DIR$/vendor/jamesdordoy/laravelvuedatatable/" />
+    <ignored path="$PROJECT_DIR$/vendor/jean85/pretty-package-versions/" />
+    <ignored path="$PROJECT_DIR$/vendor/laravel/framework/" />
+    <ignored path="$PROJECT_DIR$/vendor/laravel/tinker/" />
+    <ignored path="$PROJECT_DIR$/vendor/laravel/ui/" />
+    <ignored path="$PROJECT_DIR$/vendor/league/commonmark/" />
+    <ignored path="$PROJECT_DIR$/vendor/league/flysystem/" />
+    <ignored path="$PROJECT_DIR$/vendor/league/mime-type-detection/" />
+    <ignored path="$PROJECT_DIR$/vendor/maennchen/zipstream-php/" />
+    <ignored path="$PROJECT_DIR$/vendor/markbaker/complex/" />
+    <ignored path="$PROJECT_DIR$/vendor/markbaker/matrix/" />
+    <ignored path="$PROJECT_DIR$/vendor/migrify/migrify-kernel/" />
+    <ignored path="$PROJECT_DIR$/vendor/migrify/php-config-printer/" />
+    <ignored path="$PROJECT_DIR$/vendor/mockery/mockery/" />
+    <ignored path="$PROJECT_DIR$/vendor/monolog/monolog/" />
+    <ignored path="$PROJECT_DIR$/vendor/myclabs/deep-copy/" />
+    <ignored path="$PROJECT_DIR$/vendor/myclabs/php-enum/" />
+    <ignored path="$PROJECT_DIR$/vendor/nesbot/carbon/" />
+    <ignored path="$PROJECT_DIR$/vendor/nette/finder/" />
+    <ignored path="$PROJECT_DIR$/vendor/nette/robot-loader/" />
+    <ignored path="$PROJECT_DIR$/vendor/nette/utils/" />
+    <ignored path="$PROJECT_DIR$/vendor/nikic/php-parser/" />
+    <ignored path="$PROJECT_DIR$/vendor/nunomaduro/collision/" />
+    <ignored path="$PROJECT_DIR$/vendor/ondram/ci-detector/" />
+    <ignored path="$PROJECT_DIR$/vendor/opis/closure/" />
+    <ignored path="$PROJECT_DIR$/vendor/paragonie/random_compat/" />
+    <ignored path="$PROJECT_DIR$/vendor/phar-io/manifest/" />
+    <ignored path="$PROJECT_DIR$/vendor/phar-io/version/" />
+    <ignored path="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common/" />
+    <ignored path="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock/" />
+    <ignored path="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver/" />
+    <ignored path="$PROJECT_DIR$/vendor/phpoffice/phpspreadsheet/" />
+    <ignored path="$PROJECT_DIR$/vendor/phpoption/phpoption/" />
+    <ignored path="$PROJECT_DIR$/vendor/phpspec/prophecy/" />
+    <ignored path="$PROJECT_DIR$/vendor/phpstan/phpdoc-parser/" />
+    <ignored path="$PROJECT_DIR$/vendor/phpstan/phpstan/" />
+    <ignored path="$PROJECT_DIR$/vendor/phpstan/phpstan-phpunit/" />
+    <ignored path="$PROJECT_DIR$/vendor/phpunit/php-code-coverage/" />
+    <ignored path="$PROJECT_DIR$/vendor/phpunit/php-file-iterator/" />
+    <ignored path="$PROJECT_DIR$/vendor/phpunit/php-text-template/" />
+    <ignored path="$PROJECT_DIR$/vendor/phpunit/php-timer/" />
+    <ignored path="$PROJECT_DIR$/vendor/phpunit/php-token-stream/" />
+    <ignored path="$PROJECT_DIR$/vendor/phpunit/phpunit/" />
+    <ignored path="$PROJECT_DIR$/vendor/psr/cache/" />
+    <ignored path="$PROJECT_DIR$/vendor/psr/container/" />
+    <ignored path="$PROJECT_DIR$/vendor/psr/http-client/" />
+    <ignored path="$PROJECT_DIR$/vendor/psr/http-factory/" />
+    <ignored path="$PROJECT_DIR$/vendor/psr/http-message/" />
+    <ignored path="$PROJECT_DIR$/vendor/psr/log/" />
+    <ignored path="$PROJECT_DIR$/vendor/psr/simple-cache/" />
+    <ignored path="$PROJECT_DIR$/vendor/psy/psysh/" />
+    <ignored path="$PROJECT_DIR$/vendor/ramsey/uuid/" />
+    <ignored path="$PROJECT_DIR$/vendor/rector/rector/" />
+    <ignored path="$PROJECT_DIR$/vendor/scrivo/highlight.php/" />
+    <ignored path="$PROJECT_DIR$/vendor/sebastian/code-unit-reverse-lookup/" />
+    <ignored path="$PROJECT_DIR$/vendor/sebastian/comparator/" />
+    <ignored path="$PROJECT_DIR$/vendor/sebastian/diff/" />
+    <ignored path="$PROJECT_DIR$/vendor/sebastian/environment/" />
+    <ignored path="$PROJECT_DIR$/vendor/sebastian/exporter/" />
+    <ignored path="$PROJECT_DIR$/vendor/sebastian/global-state/" />
+    <ignored path="$PROJECT_DIR$/vendor/sebastian/object-enumerator/" />
+    <ignored path="$PROJECT_DIR$/vendor/sebastian/object-reflector/" />
+    <ignored path="$PROJECT_DIR$/vendor/sebastian/recursion-context/" />
+    <ignored path="$PROJECT_DIR$/vendor/sebastian/resource-operations/" />
+    <ignored path="$PROJECT_DIR$/vendor/sebastian/type/" />
+    <ignored path="$PROJECT_DIR$/vendor/sebastian/version/" />
+    <ignored path="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/cache/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/cache-contracts/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/config/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/console/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/css-selector/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/debug/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/dependency-injection/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/deprecation-contracts/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/error-handler/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/event-dispatcher/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/event-dispatcher-contracts/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/filesystem/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/finder/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/http-foundation/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/http-kernel/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/mime/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/polyfill-ctype/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/polyfill-iconv/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/polyfill-intl-idn/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/polyfill-intl-normalizer/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/polyfill-php70/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/polyfill-php72/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/polyfill-php73/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/polyfill-php80/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/process/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/routing/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/service-contracts/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/translation/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/translation-contracts/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/var-dumper/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/var-exporter/" />
+    <ignored path="$PROJECT_DIR$/vendor/symfony/yaml/" />
+    <ignored path="$PROJECT_DIR$/vendor/symplify/auto-bind-parameter/" />
+    <ignored path="$PROJECT_DIR$/vendor/symplify/autowire-array-parameter/" />
+    <ignored path="$PROJECT_DIR$/vendor/symplify/console-color-diff/" />
+    <ignored path="$PROJECT_DIR$/vendor/symplify/easy-testing/" />
+    <ignored path="$PROJECT_DIR$/vendor/symplify/package-builder/" />
+    <ignored path="$PROJECT_DIR$/vendor/symplify/set-config-resolver/" />
+    <ignored path="$PROJECT_DIR$/vendor/symplify/smart-file-system/" />
+    <ignored path="$PROJECT_DIR$/vendor/theseer/tokenizer/" />
+    <ignored path="$PROJECT_DIR$/vendor/tijsverkoyen/css-to-inline-styles/" />
+    <ignored path="$PROJECT_DIR$/vendor/tracy/tracy/" />
+    <ignored path="$PROJECT_DIR$/vendor/vlucas/phpdotenv/" />
+    <ignored path="$PROJECT_DIR$/vendor/webmozart/assert/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,7 +157,129 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="FormTwelve.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/js/components/employers/FormTwelve.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="358">
+              <caret line="77" column="27" selection-start-line="77" selection-start-column="27" selection-end-line="77" selection-end-column="27" />
+              <folding>
+                <element signature="e#2408#2449#0" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FormThirteen.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/js/components/employers/FormThirteen.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="55" column="72" selection-start-line="55" selection-start-column="16" selection-end-line="55" selection-end-column="72" />
+              <folding>
+                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="api.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/api.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="313">
+              <caret line="87" column="31" selection-start-line="87" selection-start-column="13" selection-end-line="87" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AppointmentInfoController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AppointmentInfoController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="450">
+              <caret line="55" column="42" selection-start-line="55" selection-start-column="42" selection-end-line="55" selection-end-column="42" />
+              <folding>
+                <element signature="e#40#64#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AppointmentInfo.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/AppointmentInfo.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="8" column="41" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="2020_12_17_192522_create_appointment_infos_table.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database/migrations/2020_12_17_192522_create_appointment_infos_table.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="19" column="31" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
+              <folding>
+                <element signature="e#7#52#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DetailComponent.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/js/components/DetailComponent.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="338">
+              <caret line="343" column="22" lean-forward="true" selection-start-line="343" selection-start-column="22" selection-end-line="343" selection-end-column="22" />
+              <folding>
+                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ApplyDisembarkation.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/ApplyDisembarkation.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="2020_12_20_160522_create_apply_disembarkations_table.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database/migrations/2020_12_20_160522_create_apply_disembarkations_table.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="280">
+              <caret line="17" column="35" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ApplyDisembarkationController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ApplyDisembarkationController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="384">
+              <caret line="51" column="47" selection-start-line="51" selection-start-column="47" selection-end-line="51" selection-end-column="47" />
+              <folding>
+                <element signature="e#40#68#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -30,8 +290,78 @@
     </option>
     <option name="SCHEME" value="Project" />
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>othercompanies</find>
+      <find>get-allinone</find>
+      <find>member_name</find>
+      <find>appointment_infos</find>
+      <find>getAllinone</find>
+      <find>employerId</find>
+      <find>2</find>
+      <find>getAppointmentInfo</find>
+      <find>get-appointment-info</find>
+      <find>edit</find>
+      <find>editOtherCompany</find>
+      <find>appointmentInfo</find>
+      <find>family_member</find>
+      <find>delete-family-member</find>
+      <find>20</find>
+      <find>save</find>
+      <find>save-appointment-info</find>
+      <find>modal</find>
+      <find>applyDisembarkation</find>
+      <find>Appointment Information</find>
+      <find>editAppointmentInfo</find>
+      <find>showAppointmentInfo</find>
+      <find>appointment_info</find>
+      <find>editApply</find>
+      <find>apply_disembarkation</find>
+      <find>delete-appointment-info</find>
+      <find>successor</find>
+      <find>appointment_info_id</find>
+      <find>apply_disembarkation_id</find>
+      <find>deleteApplyDisem</find>
+    </findStrings>
+    <dirStrings>
+      <dir>D:\capps-7\akl\InkMarine\inkmarine\database\migrations</dir>
+    </dirStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/database/migrations/2020_12_17_192522_create_appointment_infos_table.php" />
+        <option value="$PROJECT_DIR$/app/AppointmentInfo.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2020_12_20_160522_create_apply_disembarkations_table.php" />
+        <option value="$PROJECT_DIR$/app/ApplyDisembarkation.php" />
+        <option value="$PROJECT_DIR$/resources/js/components/employers/FormIndexComponent.vue" />
+        <option value="$PROJECT_DIR$/resources/js/components/employers/FormTwelve.vue" />
+        <option value="$PROJECT_DIR$/routes/api.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/ApplyDisembarkationController.php" />
+        <option value="$PROJECT_DIR$/resources/js/components/employers/FormThirteen.vue" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/AppointmentInfoController.php" />
+        <option value="$PROJECT_DIR$/resources/js/components/DetailComponent.vue" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
+    <package-json value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/node_modules" />
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths>
+      <path value="$PROJECT_DIR$/package.json" />
+    </packageJsonPaths>
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -164,16 +494,125 @@
       <path value="$PROJECT_DIR$/vendor/psr/http-client" />
       <path value="$PROJECT_DIR$/vendor/markbaker/matrix" />
       <path value="$PROJECT_DIR$/vendor/markbaker/complex" />
+      <path value="$PROJECT_DIR$/vendor/seld/jsonlint" />
+      <path value="$PROJECT_DIR$/vendor/seld/phar-utils" />
+      <path value="$PROJECT_DIR$/vendor/yajra/laravel-datatables-editor" />
+      <path value="$PROJECT_DIR$/vendor/yajra/laravel-datatables-buttons" />
+      <path value="$PROJECT_DIR$/vendor/yajra/laravel-datatables-html" />
+      <path value="$PROJECT_DIR$/vendor/yajra/laravel-datatables-fractal" />
+      <path value="$PROJECT_DIR$/vendor/yajra/laravel-datatables" />
+      <path value="$PROJECT_DIR$/vendor/yajra/laravel-datatables-oracle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-client-contracts" />
+      <path value="$PROJECT_DIR$/vendor/league/fractal" />
+      <path value="$PROJECT_DIR$/vendor/symplify/composer-json-manipulator" />
+      <path value="$PROJECT_DIR$/vendor/symplify/symplify-kernel" />
+      <path value="$PROJECT_DIR$/vendor/justinrainbow/json-schema" />
+      <path value="$PROJECT_DIR$/vendor/maatwebsite/excel" />
+      <path value="$PROJECT_DIR$/vendor/laravelcollective/html" />
     </include_path>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="114" />
+    <option name="y" value="7" />
+    <option name="width" value="624" />
+    <option name="height" value="446" />
   </component>
   <component name="ProjectId" id="1gfYSp4Q6zcAF1QGUTVdrsT7pwV" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="inkmarine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="inkmarine" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="inkmarine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="inkmarine" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="inkmarine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="inkmarine" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="inkmarine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="inkmarine" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="inkmarine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="inkmarine" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="inkmarine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="inkmarine" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+              <item name="migrations" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="inkmarine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="inkmarine" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="inkmarine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="inkmarine" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="inkmarine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="inkmarine" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="inkmarine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="inkmarine" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="employers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="inkmarine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="inkmarine" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="inkmarine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="inkmarine" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="layouts" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SearchEverywhereHistoryKey" value="DetailController&#9;FILE&#9;file://D:/capps-7/akl/InkMarine/inkmarine/app/Http/Controllers/DetailController.php&#10;api&#9;FILE&#9;file://D:/capps-7/akl/InkMarine/inkmarine/routes/api.php&#10;we&#9;FILE&#9;file://D:/capps-7/akl/InkMarine/inkmarine/routes/web.php&#10;app.js&#9;FILE&#9;file://D:/capps-7/akl/InkMarine/inkmarine/resources/js/app.js&#10;app.&#9;FILE&#9;file://D:/capps-7/akl/InkMarine/inkmarine/public/css/app.css" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -181,13 +620,33 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\capps-7\akl\InkMarine\inkmarine\resources\js\components\employers" />
+      <recent name="D:\capps-7\akl\InkMarine\inkmarine" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
-      <method v="2" />
     </configuration>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="147d07a7-e63b-4c29-807d-5cf04f4a5ebb" name="Default Changelist" comment="" />
@@ -207,11 +666,47 @@
       <workItem from="1599556626535" duration="9000" />
       <workItem from="1599667821010" duration="1132000" />
       <workItem from="1601969295327" duration="1640000" />
+      <workItem from="1608229787726" duration="25944000" />
+      <workItem from="1608779124990" duration="657000" />
+      <workItem from="1608840721668" duration="11212000" />
     </task>
     <servers />
   </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="37813000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="7" />
+    <editor active="true" />
+    <layout>
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info id="npm" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.5412371" />
+      <window_info anchor="bottom" id="TypeScript" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2974239" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+    </layout>
+  </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
   </component>
   <component name="WindowStateProjectService">
     <state x="743" y="311" width="424" height="491" key="FileChooserDialogImpl" timestamp="1598507818141">
@@ -236,6 +731,411 @@
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
+      <option name="time" value="1" />
     </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/DetailController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="26" column="174" selection-start-line="26" selection-start-column="167" selection-end-line="26" selection-end-column="174" />
+          <folding>
+            <element signature="e#40#68#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AppointmentInfoController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3240">
+          <caret line="108" column="272" selection-start-line="108" selection-start-column="261" selection-end-line="108" selection-end-column="272" />
+          <folding>
+            <element signature="e#40#64#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/AppointmentInfo.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="8" column="41" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_12_17_192522_create_appointment_infos_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="21" column="32" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
+          <folding>
+            <element signature="e#7#52#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/DetailComponent.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="49860">
+          <caret line="1667" column="44" selection-start-line="1667" selection-start-column="44" selection-end-line="1667" selection-end-column="44" />
+          <folding>
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/employers/FormSix.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7530">
+          <caret line="256" column="41" selection-start-line="256" selection-start-column="31" selection-end-line="256" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/employers/FormTwelve.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1620">
+          <caret line="55" column="19" selection-start-line="55" selection-start-column="19" selection-end-line="55" selection-end-column="19" />
+          <folding>
+            <element signature="e#2408#2449#0" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/employers/FormThirteen.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1140">
+          <caret line="41" column="47" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2310">
+          <caret line="77" column="50" selection-start-line="77" selection-start-column="34" selection-end-line="77" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/DetailController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="26" column="174" selection-start-line="26" selection-start-column="167" selection-end-line="26" selection-end-column="174" />
+          <folding>
+            <element signature="e#40#68#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AppointmentInfoController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3240">
+          <caret line="108" column="272" selection-start-line="108" selection-start-column="261" selection-end-line="108" selection-end-column="272" />
+          <folding>
+            <element signature="e#40#64#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/AppointmentInfo.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="8" column="41" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_12_17_192522_create_appointment_infos_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="21" column="32" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
+          <folding>
+            <element signature="e#7#52#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/DetailComponent.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50010">
+          <caret line="1667" column="44" selection-start-line="1667" selection-start-column="44" selection-end-line="1667" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/employers/FormSix.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7530">
+          <caret line="256" column="41" selection-start-line="256" selection-start-column="31" selection-end-line="256" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/app.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4230" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="33" column="36" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/employers/FormEight.vue">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/employers/FormTen.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5130" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_12_16_051822_create_evaluations_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="22" column="26" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/employers/FormSeven.vue">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/employers/FormFive.vue">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/employers/FormThreeComponent.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="348" column="20" selection-start-line="348" selection-start-column="20" selection-end-line="348" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/EmployeerController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="98" column="82" selection-start-line="98" selection-start-column="72" selection-end-line="98" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/CemanBookNumber.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="9" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/employers/FormOneComponent.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="111" column="9" selection-start-line="111" selection-start-column="9" selection-end-line="111" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/employers/FormFour.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="474">
+          <caret line="307" column="2" selection-start-line="307" selection-start-column="2" selection-end-line="307" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/employers/FormTwoComponent.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7560" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/ExampleComponent.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="35" column="35" selection-start-line="35" selection-start-column="35" selection-end-line="35" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="444">
+          <caret line="46" column="23" selection-start-line="46" selection-start-column="23" selection-end-line="46" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/detail.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/employers/FormSix.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7530">
+          <caret line="256" column="41" selection-start-line="256" selection-start-column="31" selection-end-line="256" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/vue-js-modal/types/index.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="11" column="2" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/FamilyMemberController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="112" column="5" selection-start-line="109" selection-start-column="3" selection-end-line="112" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/DetailController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="474">
+          <caret line="26" column="174" selection-start-line="26" selection-start-column="167" selection-end-line="26" selection-end-column="174" />
+          <folding>
+            <element signature="e#40#68#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="3687" column="21" selection-start-line="3687" selection-start-column="21" selection-end-line="3687" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/employers/FormIndexComponent.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="349">
+          <caret line="92" column="30" selection-start-line="92" selection-start-column="30" selection-end-line="92" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_12_20_160522_create_apply_disembarkations_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="17" column="35" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="87" column="31" selection-start-line="87" selection-start-column="13" selection-end-line="87" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/ApplyDisembarkation.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ApplyDisembarkationController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="51" column="47" selection-start-line="51" selection-start-column="47" selection-end-line="51" selection-end-column="47" />
+          <folding>
+            <element signature="e#40#68#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/employers/FormTwelve.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="358">
+          <caret line="77" column="27" selection-start-line="77" selection-start-column="27" selection-end-line="77" selection-end-column="27" />
+          <folding>
+            <element signature="e#2408#2449#0" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/employers/FormThirteen.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="55" column="72" selection-start-line="55" selection-start-column="16" selection-end-line="55" selection-end-column="72" />
+          <folding>
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/AppointmentInfo.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="8" column="41" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_12_17_192522_create_appointment_infos_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="19" column="31" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
+          <folding>
+            <element signature="e#7#52#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AppointmentInfoController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="55" column="42" selection-start-line="55" selection-start-column="42" selection-end-line="55" selection-end-column="42" />
+          <folding>
+            <element signature="e#40#64#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/DetailComponent.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="343" column="22" lean-forward="true" selection-start-line="343" selection-start-column="22" selection-end-line="343" selection-end-column="22" />
+          <folding>
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>
