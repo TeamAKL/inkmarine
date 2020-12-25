@@ -26,10 +26,6 @@
                 <form-six ref="form-six" @on-validate="mergePartialModels" :employerId="employerId"></form-six>
             </tab-content>
 
-            <tab-content title="Seaman Book No" icon="ti-files" :before-change="()=>validateStep('form-seven')">
-                <form-seven ref="form-seven"  :employerId="employerId"></form-seven>
-            </tab-content> -->
-
            <tab-content title="Injuery" icon="ti-files" :before-change="()=>validateStep('form-eight')">
                 <form-eight ref="form-eight"  :employerId="employerId"></form-eight>
             </tab-content>
@@ -42,16 +38,14 @@
                 <form-eleven ref="form-eleven"  :employerId="employerId"></form-eleven>
             </tab-content>
 
-            <tab-content title="ALLINONE" icon="ti-files" :before-change="()=>validateStep('form-ten')">
-                <form-ten ref="form-ten"  :employerId="employerId"></form-ten>
-            </tab-content>
-
             <tab-content title="Appointment Info" icon="ti-files" :before-change="()=>validateStep('form-twelve')">
                 <form-twelve ref="form-twelve"  :employerId="employerId"></form-twelve>
             </tab-content>
+
             <tab-content title="Apply For Disembarkation" icon="ti-files" :before-change="()=>validateStep('form-thirteen')">
             <form-thirteen ref="form-thirteen"  :employerId="employerId"></form-thirteen>
         </tab-content>
+
     </form-wizard>
 </div>
 </template>

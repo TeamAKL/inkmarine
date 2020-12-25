@@ -2,21 +2,172 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="147d07a7-e63b-4c29-807d-5cf04f4a5ebb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/employers/FormThirteen.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/employers/FormTwelve.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inkmarine.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inkmarine.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Dma.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_12_17_195715_create_dmas_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/vue-themify-icons/themify-icons/themify.svg" beforeDir="false" afterPath="$PROJECT_DIR$/public/fonts/vendor/vue-themify-icons/themify-icons/themify.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/EmployeerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/EmployeerController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_27_141425_create_employeer_details_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_27_141425_create_employeer_details_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_09_183928_create_medical_checkups_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_10_09_183928_create_medical_checkups_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_15_141151_create_injuries_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_12_15_141151_create_injuries_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_11.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_160.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_168.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_204.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_231.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_237.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_244.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_308.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_311.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_332.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_351.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_376.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_38.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_384.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_387.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_435.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_443.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_455.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_455.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_49.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_499.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_509.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_542.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_55.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_589.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_592.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_598.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_655.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_695.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_705.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_791.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_800.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_830.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_873.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_891.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_899.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_924.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_946.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_954.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/all/inkmarine_96.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/allInOne/inkmarine_129.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/allInOne/inkmarine_286.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/allInOne/inkmarine_389.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/allInOne/inkmarine_39.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/allInOne/inkmarine_42.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/allInOne/inkmarine_437.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/allInOne/inkmarine_469.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/allInOne/inkmarine_505.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/allInOne/inkmarine_57.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/allInOne/inkmarine_812.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/allInOne/inkmarine_832.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/allInOne/inkmarine_906.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/allInOne/medicalcheckup_651.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/allInOne/medicalcheckup_725.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/cemanbookno/inkmarine_24.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/cemanbookno/inkmarine_288.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/cemanbookno/inkmarine_305.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/cemanbookno/inkmarine_45.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/cemanbookno/inkmarine_566.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/cemanbookno/inkmarine_575.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/cemanbookno/inkmarine_692.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/cemanbookno/inkmarine_768.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/cemanbookno/inkmarine_843.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/cemanbookno/inkmarine_877.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/cemanbookno/inkmarine_898.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/cemanbookno/inkmarine_921.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/cemanbookno/medicalcheckup_208.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/cemanbookno/medicalcheckup_266.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/cemanbookno/medicalcheckup_911.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_112.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_116.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_162.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_164.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_224.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_247.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_289.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_350.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_433.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_435.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_476.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_481.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_50.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_507.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_537.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_587.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_597.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_705.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_721.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_790.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_828.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_840.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_866.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_884.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_93.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_934.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/inkmarine_940.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/certificates/medicalcheckup_233.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_163.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_172.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_197.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_239.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_257.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_274.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_280.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_294.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_308.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_357.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_390.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_433.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_471.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_495.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_498.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_516.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_536.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_572.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_624.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_635.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_640.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_659.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_737.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_739.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_75.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_763.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_807.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_901.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_951.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/inkmarine_983.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/medicalcheckup_656.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/medicalcheckup_807.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/medicalcheckup/medicalcheckup_908.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/passports/inkmarine_102.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/passports/inkmarine_103.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/passports/inkmarine_234.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/passports/inkmarine_279.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/passports/inkmarine_280.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/passports/inkmarine_294.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/passports/inkmarine_370.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/passports/inkmarine_377.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/passports/inkmarine_417.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/passports/inkmarine_488.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/passports/inkmarine_520.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/passports/inkmarine_530.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/passports/inkmarine_533.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/passports/inkmarine_746.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/passports/inkmarine_758.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/passports/inkmarine_864.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/passports/inkmarine_940.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/passports/inkmarine_945.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/passports/inkmarine_985.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/passports/medicalcheckup_708.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/passports/medicalcheckup_771.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/mix-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/mix-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/DetailComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/DetailComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/employers/FormEleven.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employers/FormEleven.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/employers/FormFive.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employers/FormFive.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/employers/FormIndexComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employers/FormIndexComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/employers/FormOneComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employers/FormOneComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
@@ -189,7 +340,7 @@
         <entry file="file://$PROJECT_DIR$/routes/api.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="313">
-              <caret line="87" column="31" selection-start-line="87" selection-start-column="13" selection-end-line="87" selection-end-column="31" />
+              <caret line="90" column="31" selection-start-line="90" selection-start-column="13" selection-end-line="90" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -230,12 +381,9 @@
       <file leaf-file-name="DetailComponent.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/js/components/DetailComponent.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="343" column="22" lean-forward="true" selection-start-line="343" selection-start-column="22" selection-end-line="343" selection-end-column="22" />
+            <state relative-caret-position="27">
+              <caret line="1809" column="13" selection-start-line="1809" selection-start-column="13" selection-end-line="1809" selection-end-column="13" />
               <folding>
-                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
@@ -249,20 +397,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="FormIndexComponent.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/js/components/employers/FormIndexComponent.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="840">
+              <caret line="46" column="16" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="ApplyDisembarkation.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/ApplyDisembarkation.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
               <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="2020_12_20_160522_create_apply_disembarkations_table.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/migrations/2020_12_20_160522_create_apply_disembarkations_table.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="17" column="35" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -337,12 +485,12 @@
         <option value="$PROJECT_DIR$/app/AppointmentInfo.php" />
         <option value="$PROJECT_DIR$/database/migrations/2020_12_20_160522_create_apply_disembarkations_table.php" />
         <option value="$PROJECT_DIR$/app/ApplyDisembarkation.php" />
-        <option value="$PROJECT_DIR$/resources/js/components/employers/FormIndexComponent.vue" />
         <option value="$PROJECT_DIR$/resources/js/components/employers/FormTwelve.vue" />
         <option value="$PROJECT_DIR$/routes/api.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/ApplyDisembarkationController.php" />
         <option value="$PROJECT_DIR$/resources/js/components/employers/FormThirteen.vue" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/AppointmentInfoController.php" />
+        <option value="$PROJECT_DIR$/resources/js/components/employers/FormIndexComponent.vue" />
         <option value="$PROJECT_DIR$/resources/js/components/DetailComponent.vue" />
       </list>
     </option>
@@ -511,7 +659,7 @@
       <path value="$PROJECT_DIR$/vendor/laravelcollective/html" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="114" />
     <option name="y" value="7" />
     <option name="width" value="624" />
@@ -668,16 +816,15 @@
       <workItem from="1601969295327" duration="1640000" />
       <workItem from="1608229787726" duration="25944000" />
       <workItem from="1608779124990" duration="657000" />
-      <workItem from="1608840721668" duration="11212000" />
+      <workItem from="1608840721668" duration="12273000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37813000" />
+    <option name="totallyTimeSpent" value="38874000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="7" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -685,9 +832,9 @@
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.5412371" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.6821306" />
       <window_info anchor="bottom" id="TypeScript" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2974239" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2974239" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -777,9 +924,6 @@
         <state relative-caret-position="49860">
           <caret line="1667" column="44" selection-start-line="1667" selection-start-column="44" selection-end-line="1667" selection-end-column="44" />
           <folding>
-            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
@@ -1031,13 +1175,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/js/components/employers/FormIndexComponent.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="92" column="30" selection-start-line="92" selection-start-column="30" selection-end-line="92" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2020_12_20_160522_create_apply_disembarkations_table.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="280">
@@ -1048,7 +1185,7 @@
     <entry file="file://$PROJECT_DIR$/routes/api.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="313">
-          <caret line="87" column="31" selection-start-line="87" selection-start-column="13" selection-end-line="87" selection-end-column="31" />
+          <caret line="90" column="31" selection-start-line="90" selection-start-column="13" selection-end-line="90" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -1117,14 +1254,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/js/components/employers/FormIndexComponent.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="840">
+          <caret line="46" column="16" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/js/components/DetailComponent.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="343" column="22" lean-forward="true" selection-start-line="343" selection-start-column="22" selection-end-line="343" selection-end-column="22" />
+        <state relative-caret-position="27">
+          <caret line="1809" column="13" selection-start-line="1809" selection-start-column="13" selection-end-line="1809" selection-end-column="13" />
           <folding>
-            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />

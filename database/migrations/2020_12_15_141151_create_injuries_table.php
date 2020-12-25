@@ -22,7 +22,9 @@ class CreateInjuriesTable extends Migration
             $table->string('recovery_date');
             $table->string('hospital_type');
             $table->string('expenses_won');
+            $table->string('expenses_won_currency')->nullable();
             $table->string('expenses_ex');
+            $table->string('expenses_ex_currency')->nullable();
             $table->string('remark');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();

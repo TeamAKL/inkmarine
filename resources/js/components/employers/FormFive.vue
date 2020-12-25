@@ -84,61 +84,6 @@
                 <input type="text" class="form-control" name="decision" v-model="decision">
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="image-holder" v-show="images.length == 0">
-                <div class="loading-area-one" v-show="showLoading">
-                    <img src="../../../../public/loading/loading.gif" alt="">
-                </div>
-                <label for="medical-checkup" class="medicalcheckup" @dragover.prevent @drop="onDrop">
-                    <i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
-                    <span class="image-lable-text" v-show="!showLoading">Choose File or drag & drop here</span>
-                </label>
-            </div>
-
-            <div class="grid-container" @dragover.prevent @drop="onDrop" v-show="images.length >= 1">
-                <div class="loading-area" v-show="showLoading">
-                    <img src="../../../../public/loading/loading.gif" alt="">
-                </div>
-                <div class="gird-item-image " :key="index" v-for="(image, index) in imageMedical">
-                    <img :src="image.img" alt="image" class="images-img img-thumbnail" v-if="image.ext != 'pdf'">
-                    <img src="../../../../public/pdf/pdfimage.png" class="images-img img-thumbnail"  v-else/>
-                    <div class="image-overlay" v-if="image.ext != 'pdf'">
-                        <div class="ed-holder">
-                            <div class="edit-delete-area">
-                                <label style="cursor: pointer">
-                                    <input type="file" @change="editImage(index, $event)" class="d-none" accept="image/*, .pdf">
-                                    <i class="wizard-icon ti-pencil icon-holder edit"></i>
-                                </label>
-                                <i class="wizard-icon ti-trash icon-holder delete" @click="deleteImage(index)"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="image-overlay" @click="pdfopen(image.img)" v-else>
-                        <div class="ed-holder">
-                            <div class="edit-delete-area">
-                                <label style="cursor: pointer">
-                                    <input type="file" @change="editImage(index, $event)" class="d-none" accept="image/*, .pdf">
-                                    <i class="wizard-icon ti-pencil icon-holder edit"></i>
-                                </label>
-                                <i class="wizard-icon ti-trash icon-holder delete" @click="deleteImage(index)"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="gird-item-image final-grid" v-show="fileLoopCount < fileMaxLenght">
-                     <label for="medical-checkup" class="medicalcheckup" @dragover.prevent @drop="onDrop">
-                        <i class="wizard-icon ti-cloud-up icon-image-upload"></i>
-                        <span class="image-lable-text">Choose File or drag & drop here</span>
-                    </label>
-                </div>
-            </div>
-        </div>
-        <input type="file" multiple draggable="true" id="medical-checkup" @change="uploadFile" accept="image/*, .pdf">
-
-
-
     </div>
 </template>
 <script>
