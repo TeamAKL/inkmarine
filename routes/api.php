@@ -31,6 +31,15 @@ Route::post("image-upload-form-seven", "HomeController@imageUpload");
 Route::post("image-upload-edit", "HomeController@imageUploadEdit");
 Route::post("image-delete", "HomeController@imageDelte");
 
+//disease
+Route::post("save-disease", "DiseaseController@store");
+Route::post("get-all-disease", "DiseaseController@getAllDisease");
+Route::post("delete-disease", "DiseaseController@deleteDisease");
+
+//accident
+Route::post("save-accident", "AccidentController@store");
+Route::post("get-all-accident", "AccidentController@getAllAccident");
+Route::post("delete-accident", "AccidentController@deleteAccident");
 
 Route::post("save-form-one", "EmployeerController@store");
 Route::post("save-form-two", "EmployeerController@storeFormTwo");
@@ -53,6 +62,11 @@ Route::post('save-cbn', 'EmployeerController@saveCemanBook');
 
 //Injury
 Route::post('save-injury', 'EmployeerController@saveInjury');
+Route::post('all-injury', 'EmployeerController@allInjury');
+Route::post('delete-injury', 'EmployeerController@deleteInjury');
+
+
+
 Route::post('save-all-in-one', 'EmployeerController@saveAllInOne');
 
 //Certificate
@@ -64,7 +78,10 @@ Route::post('get-all-company', 'CompanyController@getAllCompany');
 Route::post('company-delete', 'CompanyController@delete');
 
 //Crew Evaluation
-Route::post('save-crew-evoluation', 'EmployeerController@saveCrewEvoluation');
+Route::post('save-crew-evaluation', 'EmployeerController@saveCrewEvaluation');
+Route::post('get-all-crew-evaluation', 'EmployeerController@getAllCrewEvaluation');
+Route::post('delete-crew-evaluation', 'EmployeerController@deleteCrewEvaluation');
+
 
 //DMA
 Route::post('save-dma', 'EmployeerController@saveDma');
@@ -81,3 +98,11 @@ Route::post('get-meidicalcheckup', 'DetailController@getMeidicalcheckup');
 Route::post('get-other-company', 'DetailController@getOtherCompany');
 Route::post('get-additional-info', 'DetailController@getAdditinalInfo');
 Route::post('get-all-images', 'DetailController@getAllImage');
+Route::post('get-all-disease-detail', 'DetailController@getAllDisease');
+Route::post('get-all-accident-detail', 'DetailController@getAllAccident');
+Route::post('get-all-injury', 'DetailController@getAllInjury');
+Route::post('get-all-evaluation', 'DetailController@getAllEvaluation');
+
+
+
+

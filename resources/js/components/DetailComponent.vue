@@ -338,7 +338,7 @@
 				</div>
 			</div>
 
-			<div class="card">
+			<!-- <div class="card">
 				<div class="card-header" id="headingimageview" >
 					<h5 class="mb-0" data-toggle="collapse" data-target="#viewimages" aria-expanded="true" aria-controls="viewimages" @click="viewimages">
 						View Images
@@ -346,7 +346,7 @@
 				</div>
 				<div id="viewimages" class="collapse" aria-labelledby="headingimageview" data-parent="#accordion">
 					<div class="card-body">
-						<div class="grid-container mb-5" v-for="cert in view_certificate_images">
+						<div class="grid-container mb-5" :key="cert" v-for="cert in view_certificate_images">
 							<div class="gird-item-image" :key="index" v-for="(image, index) in cert.images" @click="downloadImage(image)">
 								<img :src="image" alt="image" class="images-img img-thumbnail">
 								<span class="text-center">{{cert.name}} ({{index + 1}})</span>
@@ -357,12 +357,204 @@
 						</div>
 					</div>
 				</div>
+			</div> -->
+
+			<div class="card">
+				<div class="card-header" id="headingDisease" >
+					<h5 class="mb-0" data-toggle="collapse" data-target="#disease" aria-expanded="true" aria-controls="disease" @click="showDisease">
+						Diseases
+					</h5>
+				</div>
+
+				<div id="disease" class="collapse" aria-labelledby="headingDisease" data-parent="#accordion">
+					<div class="card-body">
+
+
+							<div class="d-flex justify-content-end mb-3">
+								<button type="button" class="btn btn-success" id="add-disease" @click="addDisease" >Add</button>
+							</div>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Start Date</th>
+										<th>End Date</th>
+										<th>Illness</th>
+										<th>Medicine</th>
+										<th>Other Medicine</th>
+										<th>Remark</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr :key="disease.id" v-for="disease in diseases">
+										<td>{{disease.start_date}}</td>
+										<td>{{disease.end_date}}</td>
+										<td>{{disease.illness}}</td>
+										<td>{{disease.medicine}}</td>
+										<td>{{disease.other_medicine}}</td>
+										<td>{{disease.remark}}</td>
+										<td>
+											<a href="javascript:void(0)" class="btn btn-primary btn-sm" @click="editDisease(disease)">Edit</a>
+											<a href="javascript:void(0)" class="btn btn-danger btn-sm" @click="deleteDisease(disease)">Delete</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+					</div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header" id="headingInjury" >
+					<h5 class="mb-0" data-toggle="collapse" data-target="#injury" aria-expanded="true" aria-controls="injury" @click="showInjury">
+						Injuries
+					</h5>
+				</div>
+
+				<div id="injury" class="collapse" aria-labelledby="headingInjury" data-parent="#accordion">
+					<div class="card-body">
+
+
+							<div class="d-flex justify-content-end mb-3">
+								<button type="button" class="btn btn-success" id="add-injury" @click="addInjury" >Add</button>
+							</div>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Illness</th>
+										<th>Medical Name</th>
+										<th>Hospital Name</th>
+										<th>Start Date</th>
+										<th>Recovery Date</th>
+										<th>Hospital Type</th>
+										<th>Expense Won</th>
+										<th>Expense Ex</th>
+										<th>Remark</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr :key="injury.id" v-for="injury in injuries">
+										<td>{{injury.illness}}</td>
+										<td>{{injury.medical_name}}</td>
+										<td>{{injury.hospital_name}}</td>
+										<td>{{injury.start_date}}</td>
+										<td>{{injury.recovery_date}}</td>
+										<td>{{injury.hospital_type}}</td>
+										<td>{{injury.expenses_won}} {{injury.expenses_won_currency}}</td>
+										<td>{{injury.expenses_ex}} {{injury.expenses_ex_currency}}</td>
+										<td>{{injury.remark}}</td>
+										<td>
+											<a href="javascript:void(0)" class="btn btn-primary btn-sm" @click="editInjury(injury)">Edit</a>
+											<a href="javascript:void(0)" class="btn btn-danger btn-sm" @click="deleteInjury(injury)">Delete</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+					</div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header" id="headingEvaluation" >
+					<h5 class="mb-0" data-toggle="collapse" data-target="#evaluation" aria-expanded="true" aria-controls="evaluation" @click="showEvaluation">
+						Evaluations
+					</h5>
+				</div>
+
+				<div id="evaluation" class="collapse" aria-labelledby="headingEvaluation" data-parent="#accordion">
+					<div class="card-body">
+
+
+							<div class="d-flex justify-content-end mb-3">
+								<button type="button" class="btn btn-success" id="add-evaluation" @click="addEvaluation" >Add Evaluation</button>
+							</div>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Date</th>
+										<th>Score</th>
+										<th>Re-use</th>
+										<th>Rate</th>
+										<th>Detail</th>
+										<th>Hospital Type</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr :key="evaluation.id" v-for="evaluation in evaluations">
+										<td>{{evaluation.date}}</td>
+										<td>{{evaluation.score}}</td>
+										<td>{{evaluation.re_use}}</td>
+										<td>{{evaluation.rate}}</td>
+										<td>{{evaluation.detail}}</td>
+										<td>
+											<a href="javascript:void(0)" class="btn btn-primary btn-sm" @click="editEvaluation(evaluation)">Edit</a>
+											<a href="javascript:void(0)" class="btn btn-danger btn-sm" @click="deleteEvaluation(evaluation)">Delete</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+					</div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header" id="headingAccident" >
+					<h5 class="mb-0" data-toggle="collapse" data-target="#accident" aria-expanded="true" aria-controls="accident" @click="showAccident">
+						Accidents
+					</h5>
+				</div>
+
+				<div id="accident" class="collapse" aria-labelledby="headingAccident" data-parent="#accordion">
+					<div class="card-body">
+
+
+							<div class="d-flex justify-content-end mb-3">
+								<button type="button" class="btn btn-success" id="add-accident" @click="addAccident" >Add</button>
+							</div>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Ship name</th>
+										<th>Rank</th>
+										<th>Date</th>
+										<th>Type</th>
+										<th>Reason</th>
+										<th>Cost</th>
+										<th>Re-use</th>
+										<th>Etc</th>
+										<th>Remark</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr :key="accident.id" v-for="accident in accidents">
+										<td>{{accident.ship_name}}</td>
+										<td>{{accident.rank}}</td>
+										<td>{{accident.date}}</td>
+										<td>{{accident.type}}</td>
+										<td>{{accident.reason}}</td>
+										<td>{{accident.cost}} {{accident.currency}}</td>
+										<td>{{accident.re_use}}</td>
+										<td>{{accident.etc}}</td>
+										<td>{{accident.remark}}</td>
+										<td>
+											<a href="javascript:void(0)" class="btn btn-primary btn-sm" @click="editAccident(accident)">Edit</a>
+											<a href="javascript:void(0)" class="btn btn-danger btn-sm" @click="deleteAccident(accident)">Delete</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+					</div>
+				</div>
 			</div>
 
 		</div>
 
 		<!-- ==================================== ADDITIONAL INFORMATION ========================== -->
-		<modal name="additionalInfo" :clickToClose="false" height="auto" :width="w" class="medical_checkup">
+		<modal name="additionalInfo" :clickToClose="false" height="auto" :width="w" class="additional_info">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">Additional Info</h5>
@@ -547,7 +739,7 @@
 		</modal>
 		<!-- ==================================== END IMAGE SHOW MODAL ================================= -->
 		<!-- ==================================== PERSONAL DETAIL MODAL ================================= -->
-		<modal name="person_detail" :clickToClose="false" height="auto" class="medical_checkup" :width="w">
+		<modal name="person_detail" :clickToClose="false" height="auto" class="personal_detail" :width="w">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">Personal Detail</h5>
@@ -589,23 +781,6 @@
 						<label for="ship">Ship</label>
 						<input type="text" id="ship" name="ship" v-model.trim="ship" class="form-control">
 					</div>
-
-					<!-- <div class="form-group col-md-12">
-						<p>Choose Image</p>
-						<div class="custom-file col-md-12">
-							<input type="file" class="custom-file-input" id="customFile" @change="fileChange" >
-							<label class="custom-file-label" for="customFile" id="changeLabel">{{imglabel}}</label>
-							<div class="loading-container" v-show="showLoading">
-								<img src="../../../public/loading/small_loading.gif" alt="ll" >
-							</div>
-							<div class="image-container" @click="viewImage(image)">
-								<img :src="image" alt="img" class="img-thumbnail">
-								<div class="image-overlay">
-									<i class="wizard-icon ti-eye eye-icon"></i>
-								</div>
-							</div>
-						</div>
-					</div> -->
 
 					<div class="form-group col-md-12 mb-5">
 						<p>Choose Image</p>
@@ -860,11 +1035,15 @@
 				</div>
 			</div>
 		</modal>
+
 		<!--Other company career Modal -->
 		<modal name="other_company" :clickToClose="false" height="auto" class="company_career_modal">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5>Add Company Careers</h5>
+					<h5>Add Other Company Careers</h5>
+					<button type="button" class="close" @click="hideOtherCompanyCareer" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
 				<div class="modal-body">
 					<div class="form-row">
@@ -919,78 +1098,262 @@
 				</div>
 			</div>
 		</modal>
-		<!-- seaman book -->
-		<!-- <modal name="seaman_book" :clickToClose="false" height="auto" class="seaman_book">
+
+		<!-- Disease Modal -->
+		<modal name="disease_modal" :clickToClose="false" height="auto" class="disease_modal">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">Seaman Book </h5>
-					<button type="button" class="close" @click="closeSeaManBookModel" aria-label="Close">
+					<h5>Add Disease</h5>
+					<button type="button" class="close" @click="hideDiseaseModal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-
 				<div class="modal-body">
-					<div class="form-group">
-						<label for="cbn">Seaman Book No</label>
-						<input type="text" name="cbn" id="cbn" v-model="cbn" class="form-control">
-					</div>
-					<div class="form-group">
-						<div class="image-holder" v-show="cbn_images.length == 0">
-							<div class="loading-area-one" v-show="showLoading">
-								<img src="../../../public/loading/loading.gif" alt="">
-							</div>
-							<label for="ctc" class="medicalcheckup" @dragover.prevent @drop="onDropFormSeven">
-								<i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
-								<span class="image-lable-text" v-show="!showLoading">Choose File or drag & drop here</span>
-							</label>
-						</div>
+					<form>
 
-						<div class="grid-container" @dragover.prevent @drop="onDropFormSeven" v-show="cbn_images.length >= 1">
-							<div class="loading-area" v-show="showLoading">
-								<img src="../../../public/loading/loading.gif" alt="">
-							</div>
-							<div class="gird-item-image " :key="index" v-for="(image, index) in cbn_images">
-								<img :src="image" alt="image" class="images-img img-thumbnail">
-								<div class="image-overlay">
-									<div class="ed-holder">
-										<div class="edit-delete-area">
-											<label style="cursor: pointer">
-												<input type="file" @change="editImage(index, $event)" class="d-none" accept="image/*, .pdf">
-												<i class="wizard-icon ti-pencil icon-holder edit"></i>
-											</label>
-											<i class="wizard-icon ti-trash icon-holder delete" @click="deleteImage(index)"></i>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="gird-item-image final-grid" v-show="countfile < fileMaxLenght">
-								<label for="ctc" class="medicalcheckup" @dragover.prevent @drop="onDropFormSeven">
-									<i class="wizard-icon ti-cloud-up icon-image-upload"></i>
-									<span class="image-lable-text">Choose File or drag & drop here</span>
-								</label>
-							</div>
-						</div>
-					</div>
+						<div class="form-group">
+                            <label for="start_date">Start Date</label>
+                            <date-picker v-model="disease_start_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+                        </div>
 
-					<input type="file" multiple draggable="true" id="ctc" @change="uploadFileFormSeven" accept="image/*, .pdf">
+						<div class="form-group">
+                            <label for="end_date">End Date</label>
+                            <date-picker v-model="disease_end_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="illness">Illness</label>
+                            <input type="text" class="form-control" id="illness" name="illness"  v-model.trim="disease_illness">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="medicine">Medicine</label>
+                            <input type="text" class="form-control" id="medicine" name="medicine" v-model.trim="disease_medicine" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="other_medicine">Other_medicine</label>
+                            <input type="text" class="form-control" id="other_medicine" name="other_medicine" v-model.trim="disease_other_medicine" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="remark">Remark</label>
+                            <textarea name="remark" id="remark" v-model.trim="disease_remark" cols="30" rows="6" class="form-control"></textarea>
+                        </div>
+                    </form>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" @click="closeSeaManBookModel" >Close</button>
-					<button type="button" class="btn btn-success" id="create-seamanbook" @click="saveSeamanBook" >Save</button>
-				</div>
+                <div class="modal-footer d-flex justify-content-end">
+                    <button class="btn btn-primary" @click="hideDiseaseModal">Cancel</button>
+                    <button class="btn btn-success" @click="saveDisease">Add</button>
+                </div>
 			</div>
-		</modal> -->
-		
+		</modal>
+		<!-- Accident Modal -->
+		<modal name="accident_modal" :clickToClose="false" height="auto" class="accident_modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>Add Accident</h5>
+					<button type="button" class="close" @click="hideAccidentModal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form>
+
+						<div class="form-group">
+                            <label for="accident_ship_name">Ship Name</label>
+                            <input type="text" class="form-control" id="accident_ship_name" name="accident_ship_name"  v-model.trim="accident_ship_name">
+                        </div>
+
+						<div class="form-group">
+                            <label for="accident_rank">Rank</label>
+                             <input type="text" class="form-control" id="accident_rank" name="accident_rank"  v-model.trim="accident_rank">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="accident_date">Date</label>
+                            <date-picker v-model="accident_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+                        </div>
+                        <div class="form-group">
+                            <label for="accident_type">Type</label>
+                            <input type="text" class="form-control" id="accident_type" name="accident_type" v-model.trim="accident_type" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="accident_reason">Reason</label>
+                            <input type="text" class="form-control" id="accident_reason" name="accident_reason" v-model.trim="accident_reason" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="accident_cost">Cost</label>
+                            <div class="row mx-1">
+                                    <input type="text" class="form-control col-8" id="accident_cost" name="accident_cost" v-model.trim="accident_cost" >
+
+                                    <select class="form-control col-4" v-model="accident_currency">
+                                        <option value="MMK">MMK</option>
+                                        <option value="USD">USD</option>
+                                        <option value="SGD">SGD</option>
+                                    </select>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="accident_re_use">Re-use</label>
+                            <input type="text" class="form-control" id="accident_re_use" name="accident_re_use" v-model.trim="accident_re_use" >
+                        </div>
+
+                         <div class="form-group">
+                            <label for="accident_etc">Etc</label>
+                            <input type="text" class="form-control" id="accident_etc" name="accident_etc" v-model.trim="accident_etc" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="accident_remark">Remark</label>
+                            <textarea name="remark" id="remark" v-model.trim="accident_remark" cols="30" rows="6" class="form-control"></textarea>
+                        </div>
+                    </form>
+				</div>
+                <div class="modal-footer d-flex justify-content-end">
+                    <button class="btn btn-primary" @click="hideAccidentModal">Cancel</button>
+                    <button class="btn btn-success" @click="saveAccident">Add</button>
+                </div>
+			</div>
+		</modal>
+
+		<!-- injury -->
+		<modal name="injury_modal" :clickToClose="false" height="auto" class="injury_modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>Add Injury</h5>
+				</div>
+				<div class="modal-body">
+					<form>
+
+						<div class="form-group">
+                            <label for="injury_illness">Illness</label>
+                            <input type="text" class="form-control" id="injury_illness" name="injury_illness"  v-model.trim="injury_illness">
+                        </div>
+
+						<div class="form-group">
+                            <label for="injury_medical_name">Medical Name</label>
+                             <input type="text" class="form-control" id="injury_medical_name" name="injury_medical_name"  v-model.trim="injury_medical_name">
+                        </div>
+
+						<div class="form-group">
+                            <label for="injury_hospital_name">Hospital Name</label>
+                             <input type="text" class="form-control" id="injury_hospital_name" name="injury_hospital_name"  v-model.trim="injury_hospital_name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="injury_start_date">Start Date</label>
+                            <date-picker v-model="injury_start_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+                        </div>
+
+						<div class="form-group">
+                            <label for="injur_recovery_date">Recovery Date</label>
+                            <date-picker v-model="injury_recovery_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="injury_hospital_type">Hospital Type</label>
+                            <multiselect v-model="injury_hospital_type" :options="options" :searchable="false" :close-on-select="true" :show-labels="false"></multiselect>
+					    </div>
+
+                        <div class="form-group">
+                            <label for="injury_expense_won">Expenses Won</label>
+                            <div class="row mx-1">
+                                    <input type="text" class="form-control col-8" id="injury_expense_won" name="injury_expense_won" v-model.trim="injury_expenses_won" >
+
+                                    <select class="form-control col-4" v-model="injury_expenses_won_currency">
+                                        <option value="MMK">MMK</option>
+                                        <option value="USD">USD</option>
+                                        <option value="SGD">SGD</option>
+                                    </select>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="injury_expense_ex">Expense Ex</label>
+                            <div class="row mx-1">
+                                    <input type="text" class="form-control col-8" id="injury_expense_ex" name="injury_expense_ex" v-model.trim="injury_expenses_ex" >
+
+                                    <select class="form-control col-4" v-model="injury_expenses_ex_currency">
+                                        <option value="MMK">MMK</option>
+                                        <option value="USD">USD</option>
+                                        <option value="SGD">SGD</option>
+                                    </select>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="injury_remark">Remark</label>
+                            <textarea name="remark" id="remark" v-model.trim="injury_remark" cols="30" rows="6" class="form-control"></textarea>
+                        </div>
+                    </form>
+				</div>
+                <div class="modal-footer d-flex justify-content-end">
+                    <button class="btn btn-primary" @click="hideInjury">Cancel</button>
+                    <button class="btn btn-success" @click="saveInjury">Add</button>
+                </div>
+			</div>
+		</modal>
+
+		<!-- evaluation -->
+		<modal name="crew_evaluate_modal" :clickToClose="false" height="auto" class="crew_evaluate_modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>Add Crew Evaluation</h5>
+				</div>
+				<div class="modal-body">
+					<form>
+
+                        <div class="form-group">
+                            <label for="crew_date">Date</label>
+                            <date-picker v-model="crew_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+                        </div>
+
+						<div class="form-group">
+                            <label for="crew_score">Score</label>
+                            <input type="text" class="form-control" id="crew_score" name="crew_score"  v-model.trim="crew_score">
+                        </div>
+
+						<div class="form-group">
+                            <label for="crew_re_use">Re-use</label>
+                            <multiselect v-model="crew_re_use" :options="options" :searchable="false" :close-on-select="true" :show-labels="false" placeholder="---- Select Re Use -----"></multiselect>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="crew_rate">Rate</label>
+                            <input type="text" class="form-control" id="crew_rate" name="crew_rate" v-model.trim="crew_rate" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="crew_detail">Detail</label>
+                            <input type="text" class="form-control" id="crew_detail" name="crew_detail" v-model.trim="crew_detail" >
+                        </div>
+
+                    </form>
+				</div>
+                <div class="modal-footer d-flex justify-content-end">
+                    <button class="btn btn-primary" @click="hideEvaluation">Cancel</button>
+                    <button class="btn btn-success" @click="saveCrewEvaluate">Add</button>
+                </div>
+			</div>
+		</modal>
+
 	</div>
 
 </template>
 
 <style lang="scss" scoped>
+
 .bgcolor {
 	background: red;
 }
-.medical_checkup,.seaman_book,
-.passport,.all_in_one, .certificate_modal
+.additional_info,.personal_detail,.disease_modal,.accident_modal,.certificate_modal,.injury_modal
 {
 	overflow-y: auto;
 }
@@ -1093,7 +1456,6 @@
 	import DatePicker from 'vue2-datepicker';
 	import 'vue2-datepicker/index.css';
 	import moment from 'moment';
-
 	const Toast = Swal.mixin({
 		toast: true,
 		position: 'top-end',
@@ -1127,930 +1489,1375 @@
 				othercompanies: {},
 				additional_info_all: {},
 
-            //ADDITIONAL INFO
-            phone_number: '',
-            cell_phone_number: '',
-            drinking: '',
-            smoking: '',
-            deperature_date: '',
-            rank: '',
-            company: '',
-            basic_salary: '',
-            home_allowance: '',
-            total_salary: '',
-            fixed_pay: '',
-            leave_pay: '',
-            onbroad_pay: '',
-            code: 'small',
-            shoe: '',
-            pants: {
-            	size: 28
+                //ADDITIONAL INFO
+                phone_number: '',
+                cell_phone_number: '',
+                drinking: '',
+                smoking: '',
+                deperature_date: '',
+                rank: '',
+                company: '',
+                basic_salary: '',
+                home_allowance: '',
+                total_salary: '',
+                fixed_pay: '',
+                leave_pay: '',
+                onbroad_pay: '',
+                code: 'small',
+                shoe: '',
+                pants: {
+                    size: 28
+                },
+                pan: [
+                {size: 28},{size: 29},
+                {size: 30},{size: 31},{size: 32},{size: 33},{size: 34},{size: 35},{size: 36},{size: 37},{size: 38},{size: 39},{size: 40},
+                ],
+                basicsalary_currency: 'MMK',
+                onbroadpay_currency: 'MMK',
+                fixpay_currency: 'MMK',
+                leavepay_currency: 'MMK',
+                home_allowance_currency: 'MMK',
+                total_salary_currency: 'MMK',
+                employer_detail_id: null,
+
+                //Modal Certificate
+                value: { },
+                options: [],
+                licine_number: '',
+                training_date: '',
+                expire_date: '',
+                remark: '',
+                imglabel: 'Choose Image..',
+                // Image
+                all_images: [],
+                countall: 0,
+                allMaxLength: 10,
+                // showLoading: false,
+                employer_certificate_id: null,
+                columns: [
+                {
+                    label: 'Certificate',
+                    name: 'cetificates.title',
+                    orderable: true,
+                },
+                {
+                    label: 'Licine Number',
+                    name: 'employer_certificates.licine_number',
+                    orderable: true,
+                },
+                {
+                    label: 'Training Date',
+                    name: 'employer_certificates.training_date',
+                    orderable: true,
+                },
+                {
+                    label: 'Expire Date',
+                    name: 'employer_certificates.expire_date',
+                    orderable: true,
+                },
+                {
+                    label: 'Action'
+                }
+                ],
+                diseases:{},
+                accidents:{},
+                injuries:{},
+                evaluations:{},
+                additional_info_all: {},
+
+                //MEDICALCHECKUP
+                showLoading: false,
+                fileMaxLenght: 23,
+                fileLoopCount: 0,
+                images: [],
+                med_date: '',
+                height: '',
+                weight: '',
+                checst: '',
+                tooth: '',
+                tooth_state: '',
+                color_blindness: '',
+                blood_type: '',
+                xray: '',
+                sight_left: '',
+                sight_right: '',
+                hearing_left: '',
+                hearing_right: '',
+                hospital: '',
+                decision: '',
+                medicalCheckupId: null,
+                //disease
+                disease_start_date: '',
+                disease_end_date: '',
+                disease_illness:'',
+                disease_medicine: '',
+                disease_other_medicine: '',
+                disease_remark: '',
+                diseaseId: null,
+                //accident
+                accident_ship_name: '',
+                accident_rank: '',
+                accident_date:'',
+                accident_type: '',
+                accident_reason: '',
+                accident_cost: '',
+                accident_currency:'MMK',
+                accident_re_use: '',
+                accident_etc: '',
+                accident_remark: '',
+                accidentId: null,
+
+
+                //PERSONAL DETAIL
+                crewcode: '',
+                name: '',
+                nationality: '',
+                dob: '',
+                pob: '',
+                edulevel: '',
+                ship: '',
+                result: '',
+                image: '',
+                showLoading: false,
+                imglabel: 'Choose image...',
+
+                //FamilyMember
+                member_name: '',
+                member_relation: '',
+                member_phone_number: '',
+                member_dob: '',
+                member_remark: '',
+                family_member_id: null,
+
+                //OtherCompanyCareer
+                rank: '',
+                grt: '',
+                kw: '',
+                company_name: '',
+                ship_name: '',
+                boarding_date: '',
+                leaving_date: '',
+                area: '',
+                company_remark: '',
+                company_career_id: null,
+
+                view_certificate_images: [],
+                //injury
+                injury_illness: '',
+                injury_id: null,
+                injury_medical_name: '',
+                injury_hospital_name: '',
+                injury_start_date: '',
+                injury_recovery_date: '',
+                injury_hospital_type: 'Public',
+                injury_expenses_won: '',
+                injury_expenses_won_currency:'MMK',
+                injury_expenses_ex: '',
+                injury_expenses_ex_currency:'MMK',
+                injury_remark: '',
+                options: ['Public', 'Private'],
+
+                //evaluation
+                crew_date: '',
+                crew_score: null,
+                crew_re_use: '',
+                options: ['Recommendation', 'Re-use', 'Improvement', 'Impossible'],
+                crew_rate: '',
+                crew_detail: '',
+                crew_evaluation_id: null,
+		    }
+	    },
+        computed: {
+            imageAllInOne: function() {
+                var mimages = this.all_images;
+                var array = [];
+                var imagearray = [];
+                var imagext = [];
+                $.each(mimages, function(key, value) {
+                    var object = {};
+                    imagearray = value.split('/');
+                    imagext = imagearray[5].split('.');
+                    object = {
+                        img: value,
+                        ext: imagext[1]
+                    }
+                    array.push(object);
+                });
+                return array;
             },
-            pan: [
-            {size: 28},{size: 29},
-            {size: 30},{size: 31},{size: 32},{size: 33},{size: 34},{size: 35},{size: 36},{size: 37},{size: 38},{size: 39},{size: 40},
-            ],
-            basicsalary_currency: 'MMK',
-            onbroadpay_currency: 'MMK',
-            fixpay_currency: 'MMK',
-            leavepay_currency: 'MMK',
-            home_allowance_currency: 'MMK',
-            total_salary_currency: 'MMK',
-            employer_detail_id: null,
-
-			//Modal Certificate
-			value: { },
-			options: [],
-			licine_number: '',
-			training_date: '',
-			expire_date: '',
-			remark: '',
-			imglabel: 'Choose Image..',
-			// Image
-			all_images: [],
-			countall: 0,
-			allMaxLength: 10,
-			// showLoading: false,
-			employer_certificate_id: null,
-			columns: [
-			{
-				label: 'Certificate',
-				name: 'cetificates.title',
-				orderable: true,
-			},
-			{
-				label: 'Licine Number',
-				name: 'employer_certificates.licine_number',
-				orderable: true,
-			},
-			{
-				label: 'Training Date',
-				name: 'employer_certificates.training_date',
-				orderable: true,
-			},
-			{
-				label: 'Expire Date',
-				name: 'employer_certificates.expire_date',
-				orderable: true,
-			},
-			{
-				label: 'Action'
-			}
-			],
-
-			//MEDICALCHECKUP
-			images: [],
-			med_date: '',
-			height: '',
-			weight: '',
-			checst: '',
-			tooth: '',
-			tooth_state: '',
-			color_blindness: '',
-			blood_type: '',
-			xray: '',
-			sight_left: '',
-			sight_right: '',
-			hearing_left: '',
-			hearing_right: '',
-			hospital: '',
-			decision: '',
-			medicalCheckupId: null,
-
-            //PERSONAL DETAIL
-            crewcode: '',
-            name: '',
-            nationality: '',
-            dob: '',
-            pob: '',
-            edulevel: '',
-            ship: '',
-            result: '',
-            image: '',
-            showLoading: false,
-            imglabel: 'Choose image...',
-
-			//FamilyMember
-			member_name: '',
-			member_relation: '',
-			member_phone_number: '',
-			member_dob: '',
-			member_remark: '',
-			family_member_id: null,
-
-			//OtherCompanyCareer
-			rank: '',
-			grt: '',
-			kw: '',
-			company_name: '',
-			ship_name: '',
-			boarding_date: '',
-			leaving_date: '',
-			area: '',
-			company_remark: '',
-			company_career_id: null,
-
-			view_certificate_images: []
-		}
-	},
-	created() {
-		var route = window.location.pathname;
-		var arr = route.split('/');
-		this.id = arr[2];
-		this.personDetail();
-
-		const date = new Date();
-		this.member_dob = moment(date).format('DD-MM-YYYY');
-		this.training_date = moment(date).format('DD-MM-YYYY');
-		this.expire_date = moment(date).format('DD-MM-YYYY');
-		this.leaving_date = moment(date).format('DD-MM-YYYY');
-		this.boarding_date = moment(date).format('DD-MM-YYYY');
-		this.med_date = moment(date).format('DD-MM-YYYY');
-
-	},
-	computed: {
-		imageAllInOne: function() {
-			var mimages = this.all_images;
-			var array = [];
-			var imagearray = [];
-			var imagext = [];
-			$.each(mimages, function(key, value) {
-				var object = {};
-				imagearray = value.split('/');
-				imagext = imagearray[5].split('.');
-				object = {
-					img: value,
-					ext: imagext[1]
-				}
-				array.push(object);
-			});
-			return array;
-		}
-	},
-	methods: {
-            // ======================== OPEN PDF ======================
-            pdfOpen(pdf) {
-            	window.open(pdf);
+            medImage: function() {
+                var images = this.medical_images;
+                var arr = [];
+                var imgarr = [];
+                var extimg = [];
+                $.each(images, function(key, value) {
+                    var obj = {};
+                    imgarr = value.split('/');
+                    extimg = imgarr[5].split('.');
+                    obj = {
+                        img: value,
+                        ext: extimg[1]
+                    }
+                    arr.push(obj)
+                })
+                return arr;
             },
+        },
+        created() {
+            var route = window.location.pathname;
+            var arr = route.split('/');
+            this.id = arr[2];
+            this.personDetail();
+
+            const date = new Date();
+            this.member_dob = moment(date).format('DD-MM-YYYY');
+            this.training_date = moment(date).format('DD-MM-YYYY');
+            this.expire_date = moment(date).format('DD-MM-YYYY');
+            this.leaving_date = moment(date).format('DD-MM-YYYY');
+            this.boarding_date = moment(date).format('DD-MM-YYYY');
+            this.med_date = moment(date).format('DD-MM-YYYY');
+            this.disease_start_date= moment(date).format('DD-MM-YYYY');
+            this.disease_end_date= moment(date).format('DD-MM-YYYY');
+            this.accident_date=moment(date).format('DD-MM-YYYY');
+            this.injury_start_date=moment(date).format('DD-MM-YYYY');
+            this.injury_recovery_date=moment(date).format('DD-MM-YYYY');
+
+        },
+
+
+        methods: {
             // ========================= Get Additional Info ============================
             getadditionalinfo() {
-            	this.loading = true;
-            	axios.post('/api/get-additional-info', {
-            		'employer_id': this.id
-            	}, {
-            		headers: {'Authorization': 'Bearer '+ this.user_token}
-            	}).then(result => {
-            		if(result.data.additionalinfo != null) {
-            			this.loading = false;
-            			this.additional_info_all = result.data.additionalinfo;
-            		} else {
-            			this.additional_info_all = false;
-            		}
-            	});
+                this.loading = true;
+                axios.post('/api/get-additional-info', {
+                    'employer_id': this.id
+                }, {
+                    headers: {'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
+                    if(result.data.additionalinfo != null) {
+                        this.loading = false;
+                        this.additional_info_all = result.data.additionalinfo;
+                    } else {
+                        this.additional_info_all = false;
+                    }
+                });
             },
 
             hideaddinof() {
-            	this.$modal.hide('additionalInfo');
+                this.$modal.hide('additionalInfo');
             },
 
             editaddinfo(allinfo) {
-            	this.basic_salary = allinfo.basic_salary;
-            	this.basicsalary_currency = allinfo.basicsalary_currency;
-            	this.phone_number = allinfo.phone_number;
-            	this.cell_phone_number = allinfo.cell_phone_number;
-            	this.drinking = allinfo.drinking;
-            	this.smoking = allinfo.smoking;
-            	this.deperature_date = moment(allinfo.deperature_date).format('DD-MM-YYYY');
-            	this.rank = allinfo.rank;
-            	this.company = allinfo.company;
-            	this.home_allowance = allinfo.home_allowance;
-            	this.home_allowance_currency = allinfo.home_allowance_currency;
-            	this.total_salary = allinfo.total_salary;
-            	this.total_salary_currency = allinfo.total_salary_currency;
-            	this.fixed_pay = allinfo.fixed_pay;
-            	this.fixpay_currency = allinfo.fixpay_currency;
-            	this.leave_pay = allinfo.leave_pay;
-            	this.leavepay_currency = allinfo.leavepay_currency;
-            	this.onbroad_pay = allinfo.onbroad_pay;
-            	this.onbroadpay_currency = allinfo.onbroadpay_currency;
-            	this.code = allinfo.code;
-            	this.pants.size = allinfo.pants;
-            	this.shoe = allinfo.shoe;
-            	this.employer_detail_id = allinfo.id;
-            	this.$modal.show('additionalInfo');
+                this.basic_salary = allinfo.basic_salary;
+                this.basicsalary_currency = allinfo.basicsalary_currency;
+                this.phone_number = allinfo.phone_number;
+                this.cell_phone_number = allinfo.cell_phone_number;
+                this.drinking = allinfo.drinking;
+                this.smoking = allinfo.smoking;
+                this.deperature_date = moment(allinfo.deperature_date).format('DD-MM-YYYY');
+                this.rank = allinfo.rank;
+                this.company = allinfo.company;
+                this.home_allowance = allinfo.home_allowance;
+                this.home_allowance_currency = allinfo.home_allowance_currency;
+                this.total_salary = allinfo.total_salary;
+                this.total_salary_currency = allinfo.total_salary_currency;
+                this.fixed_pay = allinfo.fixed_pay;
+                this.fixpay_currency = allinfo.fixpay_currency;
+                this.leave_pay = allinfo.leave_pay;
+                this.leavepay_currency = allinfo.leavepay_currency;
+                this.onbroad_pay = allinfo.onbroad_pay;
+                this.onbroadpay_currency = allinfo.onbroadpay_currency;
+                this.code = allinfo.code;
+                this.pants.size = allinfo.pants;
+                this.shoe = allinfo.shoe;
+                this.employer_detail_id = allinfo.id;
+                this.$modal.show('additionalInfo');
             },
 
             saveaddinfo() {
-            	axios.post('/api/save-form-two', {
-            		'basic_salary': this.basic_salary,
-            		'phone_number': this.phone_number,
-            		'cell_phone_number': this.cell_phone_number,
-            		'drinking': this.drinking,
-            		'smoking': this.smoking,
-            		'deperature_date': this.deperature_date,
-            		'rank': this.rank,
-            		'company': this.company,
-            		'home_allowance': this.home_allowance,
-            		'total_salary': this.total_salary,
-            		'fixed_pay': this.fixed_pay,
-            		'leave_pay': this.leave_pay,
-            		'onbroad_pay': this.onbroad_pay,
-            		'code': this.code,
-            		'shoe': this.shoe,
-            		'pants': this.pants.size,
-            		'employer_detail_id': this.employer_detail_id,
-            		'employerId': this.id,
-            		'basicsalary_currency': this.basicsalary_currency,
-            		'onbroadpay_currency': this.onbroadpay_currency,
-            		'fixpay_currency': this.fixpay_currency,
-            		'leavepay_currency': this.leavepay_currency,
-            		'home_allowance_currency': this.home_allowance_currency,
-            		'total_salary_currency': this.total_salary_currency
-            	}, {
-            		headers: {'Authorization': 'Bearer '+ this.user_token}
-            	}).then(result => {
-            		this.getadditionalinfo();
-            		this.hideaddinof();
-            		$(document).find('span[class="validate-message"]').remove();
-            	}).catch(err => {
-            		if (err.response.status == 400) {
-            			Toast.fire({
-            				icon: 'error',
-            				title: 'Please fill all required fields!'
-            			});
-            			$(document).find('span[class="validate-message"]').remove();
-            			$.each(err.response.data.error, function (i, error) {
-            				var el = $(document).find('[name="'+i+'"]');
-            				el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
-            			});
-            		}
-            	});
+                axios.post('/api/save-form-two', {
+                    'basic_salary': this.basic_salary,
+                    'phone_number': this.phone_number,
+                    'cell_phone_number': this.cell_phone_number,
+                    'drinking': this.drinking,
+                    'smoking': this.smoking,
+                    'deperature_date': this.deperature_date,
+                    'rank': this.rank,
+                    'company': this.company,
+                    'home_allowance': this.home_allowance,
+                    'total_salary': this.total_salary,
+                    'fixed_pay': this.fixed_pay,
+                    'leave_pay': this.leave_pay,
+                    'onbroad_pay': this.onbroad_pay,
+                    'code': this.code,
+                    'shoe': this.shoe,
+                    'pants': this.pants.size,
+                    'employer_detail_id': this.employer_detail_id,
+                    'employerId': this.id,
+                    'basicsalary_currency': this.basicsalary_currency,
+                    'onbroadpay_currency': this.onbroadpay_currency,
+                    'fixpay_currency': this.fixpay_currency,
+                    'leavepay_currency': this.leavepay_currency,
+                    'home_allowance_currency': this.home_allowance_currency,
+                    'total_salary_currency': this.total_salary_currency
+                }, {
+                    headers: {'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
+                    this.getadditionalinfo();
+                    this.hideaddinof();
+                    $(document).find('span[class="validate-message"]').remove();
+                }).catch(err => {
+                    if (err.response.status == 400) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Please fill all required fields!'
+                        });
+                        $(document).find('span[class="validate-message"]').remove();
+                        $.each(err.response.data.error, function (i, error) {
+                            var el = $(document).find('[name="'+i+'"]');
+                            el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
+                        });
+                    }
+                });
             },
             // ========================= End Additional Info ============================
             //========================== Download ========================
             downloadImage(url) {
-            	this.imagShow = url;
-            	this.$modal.show('show_image');
+                this.imagShow = url;
+                this.$modal.show('show_image');
             },
 
             hideshowmodal() {
-            	this.$modal.hide('show_image');
+                this.$modal.hide('show_image');
             },
             //====================== END DOWNLOAD ========================
             //====================== PERSONAL DETAIL ========================
             editPersonalDdetail(person) {
-            	this.crewcode = person.crew_code;
-            	this.name = person.name;
-            	this.nationality = person.nationality;
-            	this.dob = moment(person.date_of_birth).format('DD-MM-YYYY');
-            	this.pob = person.place_of_birth;
-            	this.edulevel = person.education_level;
-            	this.ship = person.ship;
-            	this.image = person.image
-            	this.$modal.show('person_detail');
+                this.crewcode = person.crew_code;
+                this.name = person.name;
+                this.nationality = person.nationality;
+                this.dob = moment(person.date_of_birth).format('DD-MM-YYYY');
+                this.pob = person.place_of_birth;
+                this.edulevel = person.education_level;
+                this.ship = person.ship;
+                this.image = person.image
+                this.$modal.show('person_detail');
+                console.log("jhjhj");
             },
 
             hidePerson() {
-            	this.$modal.hide('person_detail');
+                this.$modal.hide('person_detail');
             },
 
             savePerson() {
-            	axios.post('/api/save-form-one', {
-            		'crewcode': this.crewcode,
-            		'name': this.name,
-            		'nationality': this.nationality,
-            		'dob': this.dob,
-            		'pob': this.pob,
-            		'edulevel': this.edulevel,
-            		'ship': this.ship,
-            		'personId': this.id,
-            		'image': this.image
-            	}, {
-            		headers: {'Authorization': 'Bearer '+ this.user_token}
-            	}).then((result) => {
-            		this.hidePerson();
-            		this.personDetail();
-            	}).catch((err) => {
-            		if (err.response.status == 400) {
-            			Toast.fire({
-            				icon: 'error',
-            				title: 'Please fill all required fields!'
-            			});
-            			$.each(err.response.data.error, function (i, error) {
-            				var el = $(document).find('[name="'+i+'"]');
-            				el.after($('<span style="color: red;">'+error[0]+'</span>'));
-            			});
-            		}
-            	});
+                axios.post('/api/save-form-one', {
+                    'crewcode': this.crewcode,
+                    'name': this.name,
+                    'nationality': this.nationality,
+                    'dob': this.dob,
+                    'pob': this.pob,
+                    'edulevel': this.edulevel,
+                    'ship': this.ship,
+                    'personId': this.id,
+                    'image': this.image
+                }, {
+                    headers: {'Authorization': 'Bearer '+ this.user_token}
+                }).then((result) => {
+                    this.hidePerson();
+                    this.personDetail();
+                }).catch((err) => {
+                    if (err.response.status == 400) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Please fill all required fields!'
+                        });
+                        $.each(err.response.data.error, function (i, error) {
+                            var el = $(document).find('[name="'+i+'"]');
+                            el.after($('<span style="color: red;">'+error[0]+'</span>'));
+                        });
+                    }
+                });
             },
             fileChange(e) {
-            	var files = e.target.files || e.dataTransfer.files;
-            	if (!files.length) {
-            		return;
-            	}
-            	let label = $(document).find('[id="changeLabel"]');
-            	var reader = new FileReader();
-            	var that = this;
-            	reader.onload = (e) => {
-            		that.showLoading = true;
-            		axios.post('/api/image-upload', {
-            			'image': e.target.result,
-            			'folder': 'profile/'
-            		}, {
-            			headers: {'Authorization': 'Bearer '+ that.user_token}
-            		}).then((res) => {
-            			that.image = res.data.url;
-            			that.showLoading = false;
-            		});
-            	}
-            	reader.readAsDataURL(files[0]);
-            	this.imglabel = files[0].name;
+                var files = e.target.files || e.dataTransfer.files;
+                if (!files.length) {
+                    return;
+                }
+                let label = $(document).find('[id="changeLabel"]');
+                var reader = new FileReader();
+                var that = this;
+                reader.onload = (e) => {
+                    that.showLoading = true;
+                    axios.post('/api/image-upload', {
+                        'image': e.target.result,
+                        'folder': 'profile/'
+                    }, {
+                        headers: {'Authorization': 'Bearer '+ that.user_token}
+                    }).then((res) => {
+                        that.image = res.data.url;
+                        that.showLoading = false;
+                    });
+                }
+                reader.readAsDataURL(files[0]);
+                this.imglabel = files[0].name;
             },
 
             viewImage(image) {
-            	var img = image;
-            	Swal.fire({
-            		imageUrl: img,
-            		imageWidth: 400,
-            		imageHeight: 200,
-            		imageAlt: 'Custom image',
-            		width: 80 + '%',
-            		imageWidth: null,
-            		imageHeight: null,
-            		showCloseButton: true,
-            		showConfirmButton: false,
-            		allowOutsideClick: false
-            	})
+                var img = image;
+                Swal.fire({
+                    imageUrl: img,
+                    imageWidth: 400,
+                    imageHeight: 200,
+                    imageAlt: 'Custom image',
+                    width: 80 + '%',
+                    imageWidth: null,
+                    imageHeight: null,
+                    showCloseButton: true,
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                })
             },
             //====================== END PERSONAL DETAIL ========================
             personDetail() {
-            	this.loading = true;
-            	axios.post('/api/get-person-detail', {
-            		id: this.id
-            	}, {
-            		headers:{'Authorization': 'Bearer '+ this.user_token}
-            	}).then(result => {
-            		this.loading = false;
-            		this.person_detail = result.data.person_detail;
-            		this.dob = moment(this.person_detail.date_of_birth).format('DD-MM-YYYY');
-            	});
+                this.loading = true;
+                axios.post('/api/get-person-detail', {
+                    id: this.id
+                }, {
+                    headers:{'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
+                    this.loading = false;
+                    this.person_detail = result.data.person_detail;
+                    this.dob = moment(this.person_detail.date_of_birth).format('DD-MM-YYYY');
+                });
             },
 
             familyMember() {
-            	this.loading = true;
-            	axios.post('/api/get-familymember', {
-            		user_id: this.id
-            	}, {
-            		headers:{'Authorization': 'Bearer '+ this.user_token}
-            	}).then(result => {
-            		this.loading = false;
-            		this.family_members = result.data.family_members;
-            	});
+                this.loading = true;
+                axios.post('/api/get-familymember', {
+                    user_id: this.id
+                }, {
+                    headers:{'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
+                    this.loading = false;
+                    this.family_members = result.data.family_members;
+                });
             },
 
             certificate() {
-            	this.loading = true;
-            	axios.post('/api/get-employer-certificate-detail', {
-            		employer_id: this.id
-            	}, {
-            		headers:{'Authorization': 'Bearer '+ this.user_token}
-            	}).then(result => {
-            		this.loading = false;
-            		this.certificates = result.data.certificates;
-            	});
+                this.loading = true;
+                axios.post('/api/get-employer-certificate-detail', {
+                    employer_id: this.id
+                }, {
+                    headers:{'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
+                    this.loading = false;
+                    this.certificates = result.data.certificates;
+                });
             },
 
             medicalC() {
-            	this.loading = true;
-            	axios.post('/api/get-meidicalcheckup', {
-            		employer_id: this.id
-            	}, {
-            		headers:{'Authorization': 'Bearer '+ this.user_token}
-            	}).then(result => {
-            		if(result.data.medicalcheckup != null) {
-            			this.loading = false;
-            			this.medicalcheckup = result.data.medicalcheckup;
-            		} else {
-            			this.medicalcheckup = false;
-            		}
-            	});
+                this.loading = true;
+                axios.post('/api/get-meidicalcheckup', {
+                    employer_id: this.id
+                }, {
+                    headers:{'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
+                    if(result.data.medicalcheckup != null) {
+                        this.loading = false;
+                        this.medicalcheckup = result.data.medicalcheckup;
+                    } else {
+                        this.medicalcheckup = false;
+                    }
+                });
             },
 
             otherCompanyCareer() {
-            	this.loading = true;
-            	axios.post('/api/get-other-company', {
-            		employer_id: this.id
-            	}, {
-            		headers:{'Authorization': 'Bearer '+ this.user_token}
-            	}).then(result => {
-            		this.loading = false;
-            		this.othercompanies = result.data.othercompanies;
-            	});
-            },
-
-            seamanBook() {
-            	this.loading = true;
-            	axios.post('/api/get-seaman-book', {
-            		employer_id: this.id
-            	}, {
-            		headers:{'Authorization': 'Bearer '+ this.user_token}
-            	}).then(result => {
-            		if(result.data.seamanbook != null) {
-            			this.loading = false;
-            			this.seamanbook = result.data.seamanbook;
-            			this.seamanImages = JSON.parse(result.data.seamanbook.images);
-            		} else {
-            			this.seamanbook = false;
-            		}
-            	});
+                this.loading = true;
+                axios.post('/api/get-other-company', {
+                    employer_id: this.id
+                }, {
+                    headers:{'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
+                    this.loading = false;
+                    this.othercompanies = result.data.othercompanies;
+                });
             },
 
 
             /*================================== Start Family Member ==========================================*/
             editFamilyMember(item) {
-            	console.log(item.employerId);
-            	this.showFamilyMember();
-            	this.$modal.show('family_member');
-            	this.member_name = item.name;
-            	this.member_relation = item.relationship;
-            	this.member_phone_number = item.phone_number;
-            	this.member_dob = moment(item.dob).format('DD-MM-YYYY');
-            	this.member_remark = item.remark;
-            	this.user_id = this.id;
-            	this.family_member_id = item.id;
+                console.log(item.employerId);
+                this.showFamilyMember();
+                this.$modal.show('family_member');
+                this.member_name = item.name;
+                this.member_relation = item.relationship;
+                this.member_phone_number = item.phone_number;
+                this.member_dob = moment(item.dob).format('DD-MM-YYYY');
+                this.member_remark = item.remark;
+                this.user_id = this.id;
+                this.family_member_id = item.id;
             },
             saveFamilyMember(){
-            	axios.post('/api/save-family-member', {
-            		'member_name': this.member_name,
-            		'member_relation': this.member_relation,
-            		'member_phone_number': this.member_phone_number,
-            		'member_dob': this.member_dob,
-            		'member_remark': this.member_remark,
-            		'family_member_id': this.family_member_id,
-            		'user_id':this.id,
-            	}, {
-            		headers: {'Authorization': 'Bearer '+ this.user_token}
-            	}).then(result => {
+                axios.post('/api/save-family-member', {
+                    'member_name': this.member_name,
+                    'member_relation': this.member_relation,
+                    'member_phone_number': this.member_phone_number,
+                    'member_dob': this.member_dob,
+                    'member_remark': this.member_remark,
+                    'family_member_id': this.family_member_id,
+                    'user_id':this.id,
+                }, {
+                    headers: {'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
 
-            		this.hideFamilyMember();
-            		$(document).find('span[class="validate-message"]').remove();
-            		this.familyMember();
-            		this.family_member_id = null;
-            	}).catch(err => {
-            		if (err.response.status == 400) {
-            			Toast.fire({
-            				icon: 'error',
-            				title: 'Please fill all required fields!'
-            			});
-            			$(document).find('span[class="validate-message"]').remove();
-            			$.each(err.response.data.error, function (i, error) {
-            				var el = $(document).find('[name="'+i+'"]');
-            				el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
-            			});
-            		}
-            		isValid = false;
-            	});
+                    this.hideFamilyMember();
+                    $(document).find('span[class="validate-message"]').remove();
+                    this.familyMember();
+                    this.family_member_id = null;
+                }).catch(err => {
+                    if (err.response.status == 400) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Please fill all required fields!'
+                        });
+                        $(document).find('span[class="validate-message"]').remove();
+                        $.each(err.response.data.error, function (i, error) {
+                            var el = $(document).find('[name="'+i+'"]');
+                            el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
+                        });
+                    }
+                    isValid = false;
+                });
 
             },
             hideFamilyMember(){
 
-            	this.member_name = '',
-            	this.member_relation = '',
-            	this.member_phone_number = '',
-            	this.member_dob = moment(new Date()).format('DD-MM-YYYY');
-            	this.member_remark = '',
-            	this.$modal.hide('family_member');
+                this.member_name = '',
+                this.member_relation = '',
+                this.member_phone_number = '',
+                this.member_dob = moment(new Date()).format('DD-MM-YYYY');
+                this.member_remark = '',
+                this.$modal.hide('family_member');
             },
             showFamilyMember() {
-            	this.$modal.show('family_member');
+                this.$modal.show('family_member');
             },
-			  // Delete Family Members
-			  deleteFamilyMember(member) {
-			  	const vm = this;
-			  	return Swal.fire({
-			  		title: 'Are you sure?',
-			  		text: "You want to delete " + member.name,
-			  		icon: 'warning',
-			  		showCancelButton: true,
-			  		allowOutsideClick: false,
-			  		confirmButtonColor: '#3085d6',
-			  		cancelButtonColor: '#d33',
-			  		confirmButtonText: 'Delete'
-			  	}).then((result) => {
-			  		if(result.isConfirmed) {
-			  			axios.post('/api/delete-family-member', {
-			  				id: member.id,
-			  				employer_id: this.id
-			  			}, {
-			  				headers: {'Authorization': 'Bearer '+ this.user_token}
-			  			}).then(response => {
-			  				vm.familyMember();
-			  			})
-			  		}
-			  	});
-			  },
-			  /*================================ End Family Member ===============================================*/
+            // Delete Family Members
+            deleteFamilyMember(member) {
+                const vm = this;
+                return Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You want to delete " + member.name,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Delete'
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        axios.post('/api/delete-family-member', {
+                            id: member.id,
+                            employer_id: this.id
+                        }, {
+                            headers: {'Authorization': 'Bearer '+ this.user_token}
+                        }).then(response => {
+                            vm.familyMember();
+                        })
+                    }
+                });
+            },
+            /*================================ End Family Member ===============================================*/
             //=============================== MEDICALCHECKUP BY TT ==============================================
             createMedicalCheckup() {
-            	this.$modal.show('medical_checkup');
+                this.$modal.show('medical_checkup');
             },
 
             closeMedicalcheckup() {
-            	this.$modal.hide('medical_checkup');
-            },
-
-            
-            hide() {
-            	this.$modal.hide('seaman_book');
-            	this.$modal.hide('passport');
-            	this.$modal.hide('all_in_one');
+                this.$modal.hide('medical_checkup');
             },
 
             editMedicateCheckup(medical) {
-            	this.height = medical.height;
-            	this.weight = medical.weight;
-            	this.checst = medical.checst;
-            	this.tooth = medical.tooth;
-            	this.tooth_state = medical.tooth_state;
-            	this.color_blindness = medical.color_blindness;
-            	this.blood_type = medical.blood_type;
-            	this.xray = medical.xray;
-            	this.sight_right = medical.sight_right;
-            	this.sight_left = medical.sight_left;
-            	this.hearing_left = medical.hearing_left;
-            	this.hearing_right = medical.hearing_right;
-            	this.hospital = medical.hospital;
-            	this.decision = medical.decision;
-            	this.medicalCheckupId = medical.id;
-            	this.med_date = moment(medical.med_date).format('DD-MM-YYYY');
-            	this.$modal.show('medical_checkup');
+                this.height = medical.height;
+                this.weight = medical.weight;
+                this.checst = medical.checst;
+                this.tooth = medical.tooth;
+                this.tooth_state = medical.tooth_state;
+                this.color_blindness = medical.color_blindness;
+                this.blood_type = medical.blood_type;
+                this.xray = medical.xray;
+                this.sight_right = medical.sight_right;
+                this.sight_left = medical.sight_left;
+                this.hearing_left = medical.hearing_left;
+                this.hearing_right = medical.hearing_right;
+                this.hospital = medical.hospital;
+                this.decision = medical.decision;
+                this.medicalCheckupId = medical.id;
+                this.med_date = moment(medical.med_date).format('DD-MM-YYYY');
+                this.$modal.show('medical_checkup');
             },
             //================================= END MEDICALCHEKUP =========================================
             /*================================= Start Other Company Career =================================*/
             editOtherCompany(item) {
-            	this.company_career_id = item.id;
-            	this.rank = item.rank;
-            	this.grt = item.grt;
-            	this.kw = item.kw;
-            	this.ship_name = item.ship_name;
-            	this.company_name = item.company_name;
-            	this.boarding_date =item.boarding_date;
-            	this.leaving_date = item.leaving_date;
-            	this.area = item.area;
-            	this.company_remark = item.remark;
-            	this.user_id = this.id;
-            	this.showOtherCompanyCareer();
+                this.company_career_id = item.id;
+                this.rank = item.rank;
+                this.grt = item.grt;
+                this.kw = item.kw;
+                this.ship_name = item.ship_name;
+                this.company_name = item.company_name;
+                this.boarding_date =item.boarding_date;
+                this.leaving_date = item.leaving_date;
+                this.area = item.area;
+                this.company_remark = item.remark;
+                this.user_id = this.id;
+                this.showOtherCompanyCareer();
             },
             showOtherCompanyCareer(){
-            	this.$modal.show('other_company');
+                this.$modal.show('other_company');
             },
             hideOtherCompanyCareer(){
-            	this.rank = '',
-            	this.grt = '',
-            	this.kw = '',
-            	this.company_name = '',
-            	this.ship_name = '',
-            	this.company_name = '',
-            	this.boarding_date = moment(new Date()).format('DD-MM-YYYY');
-            	this.leaving_date = moment(new Date()).format('DD-MM-YYYY');
-            	this.area = '',
-            	this.company_remark = '',
-            	this.$modal.hide('other_company');
+                this.rank = '',
+                this.grt = '',
+                this.kw = '',
+                this.company_name = '',
+                this.ship_name = '',
+                this.company_name = '',
+                this.boarding_date = moment(new Date()).format('DD-MM-YYYY');
+                this.leaving_date = moment(new Date()).format('DD-MM-YYYY');
+                this.area = '',
+                this.company_remark = '',
+                this.$modal.hide('other_company');
             },
             saveOtherCompanyCareer(){
 
-            	axios.post('/api/save-other-company-careers', {
-            		'rank': this.rank,
-            		'grt': this.grt,
-            		'kw': this.kw,
-            		'company_name': this.company_name,
-            		'ship_name': this.ship_name,
-            		'boarding_date': this.boarding_date,
-            		'leaving_date':this.leaving_date,
-            		'area': this.area,
-            		'company_remark':this.company_remark,
-            		'company_career_id' : this.company_career_id,
-            		'user_id':this.id,
-            	}, {
-            		headers: {'Authorization': 'Bearer '+ this.user_token}
-            	}).then(result => {
-            		this.hideOtherCompanyCareer();
-            		$(document).find('span[class="validate-message"]').remove();
-            		this.otherCompanyCareer();
-            	}).catch(err => {
-            		if (err.response.status == 400) {
-            			Toast.fire({
-            				icon: 'error',
-            				title: 'Please fill all required fields!'
-            			});
-            			$(document).find('span[class="validate-message"]').remove();
-            			$.each(err.response.data.error, function (i, error) {
-            				var el = $(document).find('[name="'+i+'"]');
-            				el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
-            			});
-            		}
-            		isValid = false;
-            	});
+                axios.post('/api/save-other-company-careers', {
+                    'rank': this.rank,
+                    'grt': this.grt,
+                    'kw': this.kw,
+                    'company_name': this.company_name,
+                    'ship_name': this.ship_name,
+                    'boarding_date': this.boarding_date,
+                    'leaving_date':this.leaving_date,
+                    'area': this.area,
+                    'company_remark':this.company_remark,
+                    'company_career_id' : this.company_career_id,
+                    'user_id':this.id,
+                }, {
+                    headers: {'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
+                    this.hideOtherCompanyCareer();
+                    $(document).find('span[class="validate-message"]').remove();
+                    this.otherCompanyCareer();
+                }).catch(err => {
+                    if (err.response.status == 400) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Please fill all required fields!'
+                        });
+                        $(document).find('span[class="validate-message"]').remove();
+                        $.each(err.response.data.error, function (i, error) {
+                            var el = $(document).find('[name="'+i+'"]');
+                            el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
+                        });
+                    }
+                    isValid = false;
+                });
             },
 
-			// Delete Company Career
-			deleteOtherCompany(company) {
-				const vm = this;
-				return Swal.fire({
-					title: 'Are you sure?',
-					text: "You want to delete " + company.ship_name,
-					icon: 'warning',
-					showCancelButton: true,
-					allowOutsideClick: false,
-					confirmButtonColor: '#3085d6',
-					cancelButtonColor: '#d33',
-					confirmButtonText: 'Delete'
-				}).then((result) => {
-					if(result.isConfirmed) {
-						axios.post('/api/delete-company-career', {
-							id: company.id,
-							employer_id: this.id
-						}, {
-							headers: {'Authorization': 'Bearer '+ this.user_token}
-						}).then(response => {
-							vm.otherCompanyCareer();
-						})
-					}
-				});
-			},
-			/*============== End Other Company Career =============*/
+            // Delete Company Career
+            deleteOtherCompany(company) {
+                const vm = this;
+                return Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You want to delete " + company.ship_name,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Delete'
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        axios.post('/api/delete-company-career', {
+                            id: company.id,
+                            employer_id: this.id
+                        }, {
+                            headers: {'Authorization': 'Bearer '+ this.user_token}
+                        }).then(response => {
+                            vm.otherCompanyCareer();
+                        })
+                    }
+                });
+            },
+            /*============== End Other Company Career =============*/
 
-			createNewMedicalCheckup() {
-				axios.post('/api/save-medical-checkup', {
-					'employerId': this.id,
-					'images': this.images,
-					'med_date': this.med_date,
-					'height': this.height,
-					'weight': this.weight,
-					'checst': this.checst,
-					'tooth': this.tooth,
-					'tooth_state': this.tooth_state,
-					'color_blindness': this.color_blindness,
-					'blood_type': this.blood_type,
-					'xray': this.xray,
-					'sight_right': this.sight_right,
-					'sight_left': this.sight_left,
-					'hearing_right': this.hearing_right,
-					'hearing_left': this.hearing_left,
-					'hospital': this.hospital,
-					'decision': this.decision,
-					'medicalCheckupId': this.medicalCheckupId
-				}, {
-					headers: {'Authorization': 'Bearer '+ this.user_token}
-				}).then(result => {
-					this.closeMedicalcheckup();
-					this.medicalCheckupId = result.data.mde.id;
-					$(document).find('span[class="validate-message"]').remove();
-					this.medicalC();
-				}).catch(err => {
-					if (err.response.status == 400) {
-						Toast.fire({
-							icon: 'error',
-							title: 'Please fill all required fields!'
-						});
-						$(document).find('span[class="validate-message"]').remove();
-						$.each(err.response.data.error, function (i, error) {
-							var el = $(document).find('[name="'+i+'"]');
-							el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
-						});
-					}
-				});
-			},
+            createNewMedicalCheckup() {
+                axios.post('/api/save-medical-checkup', {
+                    'employerId': this.id,
+                    'images': this.images,
+                    'med_date': this.med_date,
+                    'height': this.height,
+                    'weight': this.weight,
+                    'checst': this.checst,
+                    'tooth': this.tooth,
+                    'tooth_state': this.tooth_state,
+                    'color_blindness': this.color_blindness,
+                    'blood_type': this.blood_type,
+                    'xray': this.xray,
+                    'sight_right': this.sight_right,
+                    'sight_left': this.sight_left,
+                    'hearing_right': this.hearing_right,
+                    'hearing_left': this.hearing_left,
+                    'hospital': this.hospital,
+                    'decision': this.decision,
+                    'medicalCheckupId': this.medicalCheckupId
+                }, {
+                    headers: {'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
+                    this.closeMedicalcheckup();
+                    this.medicalCheckupId = result.data.mde.id;
+                    $(document).find('span[class="validate-message"]').remove();
+                    this.medicalC();
+                }).catch(err => {
+                    if (err.response.status == 400) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Please fill all required fields!'
+                        });
+                        $(document).find('span[class="validate-message"]').remove();
+                        $.each(err.response.data.error, function (i, error) {
+                            var el = $(document).find('[name="'+i+'"]');
+                            el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
+                        });
+                    }
+                });
+            },
 
-			// ================================================= CERTIFICATE BY TT =================================================
-			hideCertificate() {
-				this.$modal.hide('certificate');
-				this.value = {},
-				this.licine_number = '',
-				this.training_date = moment(new Date()).format('DD-MM-YYYY');
-				this.expire_date = moment(new Date()).format('DD-MM-YYYY');
-				this.all_images = [];
-				this.remark = '';
-				this.employer_certificate_id = null;
-				$(document).find('span[class="validate-message"]').remove();
-			},
+            // ================================================= CERTIFICATE BY TT =================================================
+            hideCertificate() {
+                this.$modal.hide('certificate');
+                this.value = {},
+                this.licine_number = '',
+                this.training_date = moment(new Date()).format('DD-MM-YYYY');
+                this.expire_date = moment(new Date()).format('DD-MM-YYYY');
+                this.all_images = [];
+                this.remark = '';
+                this.employer_certificate_id = null;
+                $(document).find('span[class="validate-message"]').remove();
+            },
 
-			addCertificate() {
-				this.getCertificate();
-				this.$modal.show('certificate');
-			},
+            addCertificate() {
+                this.getCertificate();
+                this.$modal.show('certificate');
+            },
 
-			editCertificate(certificate) {
-				this.value = {id: certificate.certificate_id, name: certificate.name},
-				this.licine_number = certificate.licine_number,
-				this.training_date = certificate.training_date;
-				this.expire_date = certificate.expire_date;
-				this.all_images = JSON.parse(certificate.image);
-				this.remark = certificate.remark;
-				this.employer_certificate_id = certificate.id;
-				this.$modal.show('certificate');
-			},
+            editCertificate(certificate) {
+                this.value = {id: certificate.certificate_id, name: certificate.name},
+                this.licine_number = certificate.licine_number,
+                this.training_date = certificate.training_date;
+                this.expire_date = certificate.expire_date;
+                this.all_images = JSON.parse(certificate.image);
+                this.remark = certificate.remark;
+                this.employer_certificate_id = certificate.id;
+                this.$modal.show('certificate');
+            },
 
-			saveCertificate() {
-				axios.post('/api/save-certificate', {
-					'certificate_name': this.value.id,
-					'licine_number': this.licine_number,
-					'training_date': this.training_date,
-					'expire_date': this.expire_date,
-					'image': this.all_images,
-					'remark': this.remark,
-					'employer_id': this.id,
-					'id': this.employer_certificate_id
-				}, {
-					headers: {'Authorization': 'Bearer '+ this.user_token}
-				}).then(result => {
-					this.employer_certificate_id = null;
-					this.hideCertificate();
-					this.certificate();
-				}).catch(err => {
-					if (err.response.status == 400) {
-						Toast.fire({
-							icon: 'error',
-							title: 'Please fill all required fields!'
-						});
-						$(document).find('span[class="validate-message"]').remove();
-						$.each(err.response.data.error, function (i, error) {
-							var el = $(document).find('[name="'+i+'"]');
-							el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
-						});
-					}
-				});
-			},
+            saveCertificate() {
+                axios.post('/api/save-certificate', {
+                    'certificate_name': this.value.id,
+                    'licine_number': this.licine_number,
+                    'training_date': this.training_date,
+                    'expire_date': this.expire_date,
+                    'image': this.all_images,
+                    'remark': this.remark,
+                    'employer_id': this.id,
+                    'id': this.employer_certificate_id
+                }, {
+                    headers: {'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
+                    this.employer_certificate_id = null;
+                    this.hideCertificate();
+                    this.certificate();
+                }).catch(err => {
+                    if (err.response.status == 400) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Please fill all required fields!'
+                        });
+                        $(document).find('span[class="validate-message"]').remove();
+                        $.each(err.response.data.error, function (i, error) {
+                            var el = $(document).find('[name="'+i+'"]');
+                            el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
+                        });
+                    }
+                });
+            },
 
-			viewImage(image) {
-				var img = image;
-				Swal.fire({
-					imageUrl: img,
-					imageWidth: 400,
-					imageHeight: 200,
-					imageAlt: 'Custom image',
-					width: 80 + '%',
-					imageWidth: null,
-					imageHeight: null,
-					showCloseButton: true,
-					showConfirmButton: false,
-					allowOutsideClick: false
-				})
-			},
+            viewImage(image) {
+                var img = image;
+                Swal.fire({
+                    imageUrl: img,
+                    imageWidth: 400,
+                    imageHeight: 200,
+                    imageAlt: 'Custom image',
+                    width: 80 + '%',
+                    imageWidth: null,
+                    imageHeight: null,
+                    showCloseButton: true,
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                })
+            },
 
-			getCertificate() {
-				axios.post('/api/get-certificate', {}, {
-					headers: {'Authorization': 'Bearer '+ this.user_token}
-				}).then(result => {
-					this.options = [];
-					result.data.certificates.forEach(certificate => {
-						const optionGroup = {
-							name: certificate.title,
-							id: certificate.id
-						}
-						this.options.push(optionGroup);
-					})
-				}).catch(err => {
+            getCertificate() {
+                axios.post('/api/get-certificate', {}, {
+                    headers: {'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
+                    this.options = [];
+                    result.data.certificates.forEach(certificate => {
+                        const optionGroup = {
+                            name: certificate.title,
+                            id: certificate.id
+                        }
+                        this.options.push(optionGroup);
+                    })
+                }).catch(err => {
 
-				});
-			},
+                });
+            },
 
-			deleteCertificate(certificate) {
-				const vm = this;
-				return Swal.fire({
-					title: 'Are you sure?',
-					text: "You want to delete " + certificate.name,
-					icon: 'warning',
-					showCancelButton: true,
-					allowOutsideClick: false,
-					confirmButtonColor: '#3085d6',
-					cancelButtonColor: '#d33',
-					confirmButtonText: 'Delete'
-				}).then((result) => {
-					if(result.isConfirmed) {
-						axios.post('/api/delete-certificate', {
-							id: certificate.id,
-							employer_id: this.id
-						}, {
-							headers: {'Authorization': 'Bearer '+ this.user_token}
-						}).then(response => {
-							vm.certificate();
-						})
-					}
-				});
-			},
+            deleteCertificate(certificate) {
+                const vm = this;
+                return Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You want to delete " + certificate.name,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Delete'
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        axios.post('/api/delete-certificate', {
+                            id: certificate.id,
+                            employer_id: this.id
+                        }, {
+                            headers: {'Authorization': 'Bearer '+ this.user_token}
+                        }).then(response => {
+                            vm.certificate();
+                        })
+                    }
+                });
+            },
 
-			//====================== View Images Section =========================
-			viewimages() {
-				this.loading = true;
-				axios.post('/api/get-all-images', {
-					employer_id: this.id
-				}, {
-					headers:{'Authorization': 'Bearer '+ this.user_token}
-				}).then(result => {
-					let self = this;
-					self.view_certificate_images = [];
-					$.each(result.data.images, function(index, value) {
-						const obj = {
-							'name': value.certificate.title,
-							'images': JSON.parse(value.image)
-						}
-						self.view_certificate_images.push(obj);
-					});
+            //====================== View Images Section =========================
+            showDisease() {
+                axios.post('/api/get-all-disease-detail', {
+                    employer_id: this.id
+                }, {
+                    headers:{'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
+                    let self = this;
+                    self.view_certificate_images = [];
+                    $.each(result.data.images, function(index, value) {
+                        const obj = {
+                            'name': value.certificate.title,
+                            'images': JSON.parse(value.image)
+                        }
+                        self.view_certificate_images.push(obj);
+                    });
 
-					console.log(self.view_certificate_images, result.data);
-				});
-			},
+                    console.log(self.view_certificate_images, result.data);
+                });
+            },
 
-			pdfopen(pdf) {
-				window.open(pdf);
-			},
+            pdfopen(pdf) {
+                window.open(pdf);
+            },
 
-			uploadPassportFile(e) {
-				console.log(e);
-				var files = e.target.files || e.dataTransfer.files;
-				if (!files.length)
-					return;
-				this.createPassportImg(files)
-			},
+            uploadPassportFile(e) {
+                console.log(e);
+                var files = e.target.files || e.dataTransfer.files;
+                if (!files.length)
+                    return;
+                this.createPassportImg(files)
+            },
 
-			onDropPassport: function(e) {
-				e.stopPropagation();
-				e.preventDefault();
-				var files = e.target.files || e.dataTransfer.files;
-				this.createPassportImg(files)
-			},
+            onDropPassport: function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                var files = e.target.files || e.dataTransfer.files;
+                this.createPassportImg(files)
+            },
 
-			createPassportImg(files) {
-				var vm = this;
-				for (var index = 0; index < files.length; index++) {
+            createPassportImg(files) {
+                var vm = this;
+                for (var index = 0; index < files.length; index++) {
 
-					if (!files[index].type.match('application/pdf') && !files[index].type.match('image.*')) {
+                    if (!files[index].type.match('application/pdf') && !files[index].type.match('image.*')) {
 
-						Swal.fire({
-							icon: 'error',
-							title: 'Oops...',
-							text: 'Please only select Image!',
-							allowOutsideClick: false,
-						})
-						return;
-					} else {
-						if(vm.countall < vm.allMaxLength) {
-							var reader = new FileReader();
-							reader.onload = function(event) {
-								const imageUrl = event.target.result;
-								vm.showLoading = true;
-								axios.post('/api/image-upload', {
-									'image': imageUrl,
-									'folder': 'all/'
-								}, {
-									headers: {'Authorization': 'Bearer '+ this.user_token}
-								}).then((res) => {
-									vm.showLoading = false;
-									vm.all_images.push(res.data.url);
-								});
-							}
-							reader.readAsDataURL(files[index]);
-						} else {
-							return false;
-						}
-						vm.countall++;
-					}
-				}
-			},
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Please only select Image!',
+                            allowOutsideClick: false,
+                        })
+                        return;
+                    } else {
+                        if(vm.countall < vm.allMaxLength) {
+                            var reader = new FileReader();
+                                reader.onload = function(event) {
+                                const imageUrl = event.target.result;
+                                vm.showLoading = true;
+                                axios.post('/api/image-upload', {
+                                    'image': imageUrl,
+                                    'folder': 'all/'
+                                }, {
+                                    headers: {'Authorization': 'Bearer '+ this.user_token}
+                                }).then((res) => {
+                                    vm.showLoading = false;
+                                    vm.all_images.push(res.data.url);
+                                });
+                            }
+                            reader.readAsDataURL(files[index]);
+                        } else {
+                            return false;
+                        }
+                        vm.countall++;
+                    }
+                }
+            },
 
-			editImage(index, e) {
-				e.preventDefault();
-				var vm = this;
-				var files = e.target.files || e.dataTransfer.files;
-				var reader = new FileReader();
-				reader.onload = function(event) {
-					const imageUrl = event.target.result;
-					vm.showLoading = true;
-					axios.post('/api/image-upload-edit', {
-						'image': imageUrl,
-						'oldImage': vm.all_images[index],
-						'folder': 'all/'
-					}, {
-						headers: {'Authorization': 'Bearer '+ this.user_token}
-					}).then((res) => {
-						vm.showLoading = false;
-						vm.all_images.splice(index, 1, res.data.url);
-					});
-				}
-				reader.readAsDataURL(files[0]);
-			},
+            editImage(index, e) {
+                e.preventDefault();
+                var vm = this;
+                var files = e.target.files || e.dataTransfer.files;
+                var reader = new FileReader();
+                    reader.onload = function(event) {
+                    const imageUrl = event.target.result;
+                    vm.showLoading = true;
+                    axios.post('/api/image-upload-edit', {
+                        'image': imageUrl,
+                        'oldImage': vm.all_images[index],
+                        'folder': 'all/'
+                    }, {
+                        headers: {'Authorization': 'Bearer '+ this.user_token}
+                    }).then((res) => {
+                        vm.showLoading = false;
+                        vm.all_images.splice(index, 1, res.data.url);
+                    });
+                }
+                reader.readAsDataURL(files[0]);
+            },
 
-			deleteImage(index, e) {
-				axios.post('/api/image-delete', {
-					'image': this.all_images[index],
-				}).then(res => {
-					this.all_images.splice(index, 1);
-					this.countall--;
-				});
-			},
-			//====================== View Images Section =========================
+            deleteImage(index, e) {
+                axios.post('/api/image-delete', {
+                    'image': this.all_images[index],
+                }).then(res => {
+                    this.all_images.splice(index, 1);
+                    this.countall--;
+                });
+                e.stopPropagation();
+            },
 
-		},
-	}
+            editDisease(item) {
+            this.addDisease();
+            this.disease_start_date = item.start_date;
+            this.disease_end_date = item.end_date;
+            this.disease_illness = item.illness;
+            this.disease_medicine = item.medicine;
+            this.disease_other_medicine = item.other_medicine;
+            this.disease_remark = item.remark;
+            this.employerId = item.employer_id;
+            this.diseaseId = item.id;
+            },
+            deleteDisease(item){
+                const vm = this;
+                return Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You want to delete " + item.illness,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Delete'
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        axios.post('/api/delete-disease', {
+                            id: item.id,
+                            employer_id: this.id
+                        }, {
+                            headers: {'Authorization': 'Bearer '+ this.user_token}
+                        }).then(response => {
+                            vm.showDisease();
+                        })
+                    }
+                });
+
+            },
+            addDisease() {
+            this.$modal.show('disease_modal');
+            },
+
+            hideDiseaseModal() {
+                this.$modal.hide('disease_modal');
+                this.disease_start_date = moment(new Date()).format('DD-MM-YYYY');
+                this.disease_end_date = moment(new Date()).format('DD-MM-YYYY');
+                this.disease_illness = '',
+                this.disease_medicine = '',
+                this.disease_other_medicine = '',
+                this.disease_remark = ''
+            },
+            saveDisease() {
+
+            axios.post('/api/save-disease', {
+                'employerId': this.id,
+                'start_date': this.disease_start_date,
+                'end_date': this.disease_end_date,
+                'illness': this.disease_illness,
+                'medicine': this.disease_medicine,
+                'other_medicine': this.disease_other_medicine,
+                'remark': this.disease_remark,
+                'diseaseId': this.diseaseId
+            }, {
+                headers: {'Authorization': 'Bearer '+ this.user_token}
+            }).then(result => {
+            this.hideDiseaseModal();
+            $(document).find('span[class="validate-message"]').remove();
+            this.showDisease();
+            this.diseaseId = null;
+            }).catch(err => {
+                if (err.response.status == 400) {
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Please fill all required fields!'
+                    });
+                    $(document).find('span[class="validate-message"]').remove();
+                    $.each(err.response.data.error, function (i, error) {
+                        var el = $(document).find('[name="'+i+'"]');
+                        el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
+                    });
+                }
+                isValid = false;
+            });
+
+            },
+            //====end Disease===
+            //====Accident===
+            showAccident() {
+                    axios.post('/api/get-all-accident-detail', {
+                        employer_id: this.id
+                    }, {
+                        headers:{'Authorization': 'Bearer '+ this.user_token}
+                    }).then(result => {
+
+                        this.accidents = result.data.accidents;
+                    });
+            },
+            addAccident(){
+                this.$modal.show('accident_modal');
+            },
+            hideAccidentModal() {
+                    this.$modal.hide('accident_modal');
+                    this.accident_date = moment(new Date()).format('DD-MM-YYYY');
+                    this.accident_ship_name = '',
+                    this.accident_rank = '',
+                    this.accident_type = '',
+                    this.accident_reason = '',
+                    this.accident_cost = '',
+                    this.accident_currency='',
+                    this.accident_re_use = '',
+                    this.accident_etc = '',
+                    this.accident_remark = ''
+            },
+            saveAccident() {
+
+                axios.post('/api/save-accident', {
+                    'employerId': this.id,
+                    'ship_name': this.accident_ship_name,
+                    'rank': this.accident_rank,
+                    'date': this.accident_date,
+                    'type': this.accident_type,
+                    'reason': this.accident_reason,
+                    'cost': this.accident_cost,
+                    'currency':this.accident_currency,
+                    're_use': this.accident_re_use,
+                    'etc': this.accident_etc,
+                    'remark': this.accident_remark,
+                    'accidentId': this.accidentId
+                }, {
+                    headers: {'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
+                this.hideAccidentModal();
+                $(document).find('span[class="validate-message"]').remove();
+                this.showAccident();
+                this.accidentId = null;
+                }).catch(err => {
+                    if (err.response.status == 400) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Please fill all required fields!'
+                        });
+                        $(document).find('span[class="validate-message"]').remove();
+                        $.each(err.response.data.error, function (i, error) {
+                            var el = $(document).find('[name="'+i+'"]');
+                            el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
+                        });
+                    }
+                    isValid = false;
+                });
+
+            },
+            editAccident(item){
+                this.addAccident();
+                this.accident_date = item.date;
+                this.accident_ship_name = item.ship_name;
+                this.accident_rank = item.rank;
+                this.accident_type = item.type;
+                this.accident_reason = item.reason;
+                this.accident_cost = item.cost;
+                this.accident_currency=item.currency
+                this.accident_re_use = item.re_use;
+                this.accident_etc = item.etc;
+                this.accident_remark = item.remark;
+                this.employerId = item.employer_id;
+                this.accidentId = item.id;
+            },
+            deleteAccident(item) {
+                const vm = this;
+                return Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You want to delete " + item.type,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Delete'
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        axios.post('/api/delete-accident', {
+                            id: item.id,
+                            employer_id: this.id
+                        }, {
+                            headers: {'Authorization': 'Bearer '+ this.user_token}
+                        }).then(response => {
+                            vm.showAccident();
+                        })
+                    }
+                });
+            },
+            //injury
+            showInjury() {
+                    axios.post('/api/get-all-injury', {
+                        employer_id: this.id
+                    }, {
+                        headers:{'Authorization': 'Bearer '+ this.user_token}
+                    }).then(result => {
+
+                        this.injuries = result.data.injuries;
+                    });
+            },
+            addInjury() {
+                this.$modal.show('injury_modal');
+            },
+
+            hideInjury() {
+                this.$modal.hide('injury_modal');
+                this.clearInjuryForm();
+                },
+            saveInjury() {
+
+                axios.post('/api/save-injury', {
+                    'employer_id': this.id,
+                    'illness': this.injury_illness,
+                    'medical_name': this.injury_medical_name,
+                    'hospital_name': this.injury_hospital_name,
+                    'start_date': this.injury_start_date,
+                    'recovery_date': this.injury_recovery_date,
+                    'hospital_type': this.injury_hospital_type,
+                    'expenses_won': this.injury_expenses_won,
+                    'expenses_won_currency':this.injury_expenses_won_currency,
+                    'expenses_ex': this.injury_expenses_ex,
+                    'expenses_ex_currency': this.injury_expenses_ex_currency,
+                    'remark': this.injury_remark,
+                    'injury_id': this.injury_id
+                }, {
+                    headers: {'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
+                this.hideInjury();
+                $(document).find('span[class="validate-message"]').remove();
+                this.showInjury();
+                this.injury_id = null;
+                }).catch(err => {
+                    if (err.response.status == 400) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Please fill all required fields!'
+                        });
+                        $(document).find('span[class="validate-message"]').remove();
+                        $.each(err.response.data.error, function (i, error) {
+                            var el = $(document).find('[name="'+i+'"]');
+                            el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
+                        });
+                    }
+                });
+
+            },
+            clearInjuryForm(){
+                    this.injury_start_date = moment(new Date()).format('DD-MM-YYYY');
+                    this.injury_recovery_date = moment(new Date()).format('DD-MM-YYYY');
+                    this.injury_illness = '',
+                    this.injury_medical_name = '',
+                    this.injury_hospital_name = '',
+                    this.injury_hospital_type = 'Public',
+                    this.injury_expenses_won = '',
+                    this.injury_expenses_won_currency='MMK',
+                    this.injury_expenses_ex = '',
+                    this.injury_expenses_ex_currency = 'MMK',
+                    this.injury_remark = ''
+            },
+            editInjury(item){
+                        this.$modal.show('injury_modal');
+                        this.injury_start_date = item.start_date,
+                        this.injury_recovery_date = item.recovery_date,
+                        this.injury_illness = item.illness,
+                        this.injury_medical_name = item.medical_name,
+                        this.injury_hospital_name = item.hospital_name,
+                        this.injury_hospital_type =item.hospital_type,
+                        this.injury_expenses_won = item.expenses_won,
+                        this.injury_expenses_won_currency=item.expenses_won_currency,
+                        this.injury_expenses_ex = item.expenses_ex,
+                        this.injury_expenses_ex_currency = item.expenses_ex_currency,
+                        this.injury_remark = item.remark
+            },
+
+            deleteInjury(member) {
+                    const vm = this;
+                    return Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You want to delete " + member.type,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Delete'
+                    }).then((result) => {
+                        if(result.isConfirmed) {
+                            axios.post('/api/delete-injury', {
+                                id: member.id,
+                                employer_id: this.id
+                            }, {
+                                headers: {'Authorization': 'Bearer '+ this.user_token}
+                            }).then(response => {
+                                vm.showInjury();
+                            })
+                        }
+                    });
+            },
+            //evaluation
+            showEvaluation() {
+                    axios.post('/api/get-all-evaluation', {
+                        employer_id: this.id
+                    }, {
+                        headers:{'Authorization': 'Bearer '+ this.user_token}
+                    }).then(result => {
+
+                        this.evaluations = result.data.evaluations;
+                    });
+            },
+            addEvaluation(){
+            this.$modal.show('crew_evaluate_modal');
+            },
+
+            hideEvaluation() {
+                    this.$modal.hide('crew_evaluate_modal');
+                    this.clearEvaluation();
+            },
+
+            saveCrewEvaluate() {
+
+                axios.post('/api/save-crew-evaluation', {
+                    'employer_id': this.id,
+                    'date': this.crew_date,
+                    'score': this.crew_score,
+                    're_use': this.crew_re_use,
+                    'rate': this.crew_rate,
+                    'detail': this.crew_detail,
+                    'evaluation_id': this.crew_evaluation_id
+                }, {
+                    headers: {'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
+                this.hideEvaluation();
+                $(document).find('span[class="validate-message"]').remove();
+                this.showEvaluation();
+                this.crew_evaluation_id = null;
+                }).catch(err => {
+                    if (err.response.status == 400) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Please fill all required fields!'
+                        });
+                        $(document).find('span[class="validate-message"]').remove();
+                        $.each(err.response.data.error, function (i, error) {
+                            var el = $(document).find('[name="'+i+'"]');
+                            el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
+                        });
+                    }
+                });
+
+            },
+            clearEvaluation(){
+                this.crew_date = moment(new Date()).format('DD-MM-YYYY');
+                this.crew_score = '',
+                this.crew_re_use = '',
+                this.crew_rate = '',
+                this.crew_detail = ''
+            },
+
+            reloadTable(tableProps){
+            this.tableProps = tableProps;
+                this.getData(tableProps);
+            },
+            editEvaluation(item){
+                this.$modal.show('crew_evaluate_modal');
+                this.crew_date = moment(item.date).format('DD-MM-YYYY');
+                this.crew_score = item.score;
+                this.crew_re_use = item.re_use;
+                this.crew_rate = item.rate;
+                this.crew_detail = item.detail;
+                this.employerId = item.user_id;
+                this.crew_evaluation_id = item.id;
+            },
+
+            // Delete Family Members
+            deleteEvaluation(member) {
+                const vm = this;
+                return Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You want to delete " + member.type,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Delete'
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        axios.post('/api/delete-crew-evaluation', {
+                            id: member.id,
+                            employer_id: this.id
+                        }, {
+                            headers: {'Authorization': 'Bearer '+ this.user_token}
+                        }).then(response => {
+                            vm.showEvaluation();
+                        })
+                    }
+                });
+            },
+        }
+    }
 </script>

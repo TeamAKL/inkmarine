@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <h1 class="text-center">Employeer Registeration</h1>
         <form-wizard shape="circle" color="#20a0ff">
             <tab-content title="Personal details" icon="ti-user" :before-change="()=>validateStep('form-one')">
@@ -10,25 +10,25 @@
                 <form-two ref="form-two" :employerId="employerId"></form-two>
             </tab-content>
 
-            <tab-content title="Family Member" icon="ti-id-badge" :before-change="()=>validateStep('form-four')">
+            <!-- <tab-content title="Family Member" icon="ti-id-badge" :before-change="()=>validateStep('form-four')">
                 <form-four ref="form-four" :employerId="employerId"></form-four>
             </tab-content>
 
             <tab-content title="Certificate" icon="ti-files" :before-change="()=>validateStep('form-three')">
                 <form-three ref="form-three"  :employerId="employerId"></form-three>
-            </tab-content>
+            </tab-content> -->
 
-            <tab-content title="Medical Checkup" icon="ti-clipboard" :before-change="()=>validateStep('form-five')">
+            <!-- <tab-content title="Medical Checkup" icon="ti-clipboard" :before-change="()=>validateStep('form-five')">
                 <form-five ref="form-five" :employerId="employerId"></form-five>
             </tab-content>
 
             <tab-content title="Other Company Careers" icon="ti-briefcase" :before-change="()=>validateStep('form-six')">
                 <form-six ref="form-six" @on-validate="mergePartialModels" :employerId="employerId"></form-six>
-            </tab-content>
-
-            <!-- <tab-content title="Seaman Book No" icon="ti-files" :before-change="()=>validateStep('form-seven')">
-                <form-seven ref="form-seven"  :employerId="employerId"></form-seven>
             </tab-content> -->
+
+            <tab-content title="Disease" icon="ti-files" :before-change="()=>validateStep('form-seven')">
+                <form-seven ref="form-seven"  :employerId="employerId"></form-seven>
+            </tab-content>
 
             <tab-content title="Injuery" icon="ti-files" :before-change="()=>validateStep('form-eight')">
                 <form-eight ref="form-eight"  :employerId="employerId"></form-eight>
@@ -37,18 +37,18 @@
             <tab-content title="Crew Evaluation" icon="ti-files" :before-change="()=>validateStep('form-nine')">
                 <form-nine ref="form-nine"  :employerId="employerId"></form-nine>
             </tab-content>
+             <tab-content title="Accident" icon="ti-files" :before-change="()=>validateStep('form-ten')">
+                <form-ten ref="form-ten"  :employerId="employerId"></form-ten>
+            </tab-content>
 
             <tab-content title="DMA" icon="ti-files" :before-change="()=>validateStep('form-eleven')">
                 <form-eleven ref="form-eleven"  :employerId="employerId"></form-eleven>
             </tab-content>
 
-            <!-- <tab-content title="ALLINONE" icon="ti-files" :before-change="()=>validateStep('form-ten')">
-                <form-ten ref="form-ten"  :employerId="employerId"></form-ten>
-            </tab-content> -->
+           
     </form-wizard>
 </div>
 </template>
-
 <script>
     import ThemifyIcon from "vue-themify-icons";
     import FormOne from './FormOneComponent'
