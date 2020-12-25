@@ -55,21 +55,15 @@ class DetailController extends Controller
         return response()->json(['seamanbook' => $seamanbook], 200);
     }
 
-    public function getPassport(Request $req)
-    {
-        $passports = Passport::where('employer_id', '=', $req->employer_id)->first();
-        return response()->json(['passports' => $passports], 200);
-    }
-
-    public function getAllinOne(Request $req)
-    {
-        $allinone = AllInOne::where('employer_id', '=', $req->employer_id)->first();
-        return response()->json(['allinone' => $allinone], 200);
-    }
-
     public function getAdditinalInfo(Request $req)
     {
         $additionalInfo = EmployeerDetail::select(DB::Raw("employeer_details.*"))->where('employer_id', '=', $req->employer_id)->first();
         return response()->json(['additionalinfo' => $additionalInfo], 200);
+    }
+
+    public function getAllImage(Request $req)
+    {
+        $getimages = EmployerCertificate::with('certificate')->where('employer_id', '=', $req->employer_id)->get();
+        return response()->json(['message' => 'success', 'images' => $getimages]);
     }
 }

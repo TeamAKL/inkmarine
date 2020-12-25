@@ -337,6 +337,28 @@
 					</div>
 				</div>
 			</div>
+
+			<div class="card">
+				<div class="card-header" id="headingimageview" >
+					<h5 class="mb-0" data-toggle="collapse" data-target="#viewimages" aria-expanded="true" aria-controls="viewimages" @click="viewimages">
+						View Images
+					</h5>
+				</div>
+				<div id="viewimages" class="collapse" aria-labelledby="headingimageview" data-parent="#accordion">
+					<div class="card-body">
+						<div class="grid-container mb-5" v-for="cert in view_certificate_images">
+							<div class="gird-item-image" :key="index" v-for="(image, index) in cert.images" @click="downloadImage(image)">
+								<img :src="image" alt="image" class="images-img img-thumbnail">
+								<span class="text-center">{{cert.name}} ({{index + 1}})</span>
+								<div class="image-overlay">
+									<i class="wizard-icon ti-eye icon-holder eyeicon" @click="downloadImage(image)"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 
 		<!-- ==================================== ADDITIONAL INFORMATION ========================== -->
@@ -568,7 +590,7 @@
 						<input type="text" id="ship" name="ship" v-model.trim="ship" class="form-control">
 					</div>
 
-					<div class="form-group col-md-12">
+					<!-- <div class="form-group col-md-12">
 						<p>Choose Image</p>
 						<div class="custom-file col-md-12">
 							<input type="file" class="custom-file-input" id="customFile" @change="fileChange" >
@@ -577,6 +599,23 @@
 								<img src="../../../public/loading/small_loading.gif" alt="ll" >
 							</div>
 							<div class="image-container" @click="viewImage(image)">
+								<img :src="image" alt="img" class="img-thumbnail">
+								<div class="image-overlay">
+									<i class="wizard-icon ti-eye eye-icon"></i>
+								</div>
+							</div>
+						</div>
+					</div> -->
+
+					<div class="form-group col-md-12 mb-5">
+						<p>Choose Image</p>
+						<div class="custom-file col-md-12">
+							<input type="file" class="custom-file-input" id="customFile" @change="fileChange" >
+							<label class="custom-file-label" for="customFile" id="changeLabel">{{imglabel}}</label>
+							<div class="loading-container" v-show="showLoading">
+								<img src="../../../public/loading/small_loading.gif" alt="ll" >
+							</div>
+							<div class="image-container" v-if="image" @click="viewImage(image)">
 								<img :src="image" alt="img" class="img-thumbnail">
 								<div class="image-overlay">
 									<i class="wizard-icon ti-eye eye-icon"></i>
@@ -670,21 +709,55 @@
 							<textarea name="remark" id="remark" cols="30" rows="10" v-model.trim="remark" class="form-control"></textarea>
 						</div>
 						<div class="form-group">
-							<div class="custom-file">
-								<p>Choose Image</p>
-								<input type="file" class="custom-file-input" id="customFile" @change="fileChange" >
-								<label class="custom-file-label" for="customFile" id="changeLabel">{{imglabel}}</label>
+							<div class="image-holder" v-show="all_images.length == 0">
+								<div class="loading-area-one" v-show="showLoading">
+									<img src="../../../public/loading/loading.gif" alt="">
+								</div>
+								<label for="all-images" class="medicalcheckup" @dragover.prevent @drop="onDropPassport">
+									<i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
+									<span class="image-lable-text" v-show="!showLoading">Choose File or drag & drop here</span>
+								</label>
+							</div>
+							<div class="grid-container" @dragover.prevent @drop="onDropPassport" v-show="all_images.length >= 1">
+								<div class="loading-area" v-show="showLoading">
+									<img src="../../../public/loading/loading.gif" alt="">
+								</div>
+								<div class="gird-item-image " :key="index" v-for="(image, index) in imageAllInOne">
+									<img :src="image.img" alt="image" class="images-img img-thumbnail" v-if="image.ext != 'pdf'">
+									<img src="../../../public/pdf/pdfimage.png" class="images-img img-thumbnail"  v-else/>
+									<div class="image-overlay" v-if="image.ext != 'pdf'">
+										<div class="ed-holder">
+											<div class="edit-delete-area">
+												<label style="cursor: pointer">
+													<input type="file" @change="editImage(index, $event)" class="d-none" accept="image/*, .pdf">
+													<i class="wizard-icon ti-pencil icon-holder edit"></i>
+												</label>
+												<i class="wizard-icon ti-trash icon-holder delete" @click="deleteImage(index)"></i>
+											</div>
+										</div>
+									</div>
 
-							</div>
-							<div class="loading-container " v-show="showLoading">
-								<img src="../../../public/loading/small_loading.gif" alt="ll" >
-							</div>
-							<div class="image-container " v-if="certificateImage" @click="viewImage(certificateImage)">
-								<img :src="certificateImage" alt="img" class="img-thumbnail">
-								<div class="image-overlay">
-									<i class="wizard-icon ti-eye eye-icon"></i>
+									<div class="image-overlay" v-else>
+										<div class="main-ovl">
+											<div class="ovly" @click="pdfopen(image.img)"></div>
+											<div class="dele-ar">
+												<label style="cursor: pointer">
+													<input type="file" @change="editImage(index, $event)" class="d-none" accept="image/*, .pdf">
+													<i class="wizard-icon ti-pencil icon-holder edit"></i>
+												</label>
+												<i class="wizard-icon ti-trash icon-holder delete" @click="deleteImage(index, $event)"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="gird-item-image final-grid" v-show="countall < allMaxLength">
+									<label for="all-images" class="medicalcheckup" @dragover.prevent @drop="onDropPassport">
+										<i class="wizard-icon ti-cloud-up icon-image-upload"></i>
+										<span class="image-lable-text">Choose File or drag & drop here</span>
+									</label>
 								</div>
 							</div>
+							<input type="file" multiple draggable="true" id="all-images" @change="uploadPassportFile" accept="image/*, .pdf">
 						</div>
 					</form>
 				</div>
@@ -998,6 +1071,18 @@
 	color: #fff;
 }
 
+.grid-container {
+	border: none !important;
+	min-height: 0 !important;
+}
+
+.eyeicon {
+	position: absolute;
+	left: 45%;
+	top: 47%;
+	color: #fff;
+	font-size: 20px;
+}
 
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
@@ -1078,10 +1163,13 @@
 			options: [],
 			licine_number: '',
 			training_date: '',
-			certificateImage: '',
 			expire_date: '',
 			remark: '',
 			imglabel: 'Choose Image..',
+			// Image
+			all_images: [],
+			countall: 0,
+			allMaxLength: 10,
 			// showLoading: false,
 			employer_certificate_id: null,
 			columns: [
@@ -1161,6 +1249,8 @@
 			area: '',
 			company_remark: '',
 			company_career_id: null,
+
+			view_certificate_images: []
 		}
 	},
 	created() {
@@ -1179,26 +1269,8 @@
 
 	},
 	computed: {
-		medImage: function() {
-			var images = this.medical_images;
-			var arr = [];
-			var imgarr = [];
-			var extimg = [];
-			$.each(images, function(key, value) {
-				var obj = {};
-				imgarr = value.split('/');
-				extimg = imgarr[5].split('.');
-				obj = {
-					img: value,
-					ext: extimg[1]
-				}
-				arr.push(obj)
-			})
-			return arr;
-		},
-
-		imageMedical: function() {
-			var mimages = this.images;
+		imageAllInOne: function() {
+			var mimages = this.all_images;
 			var array = [];
 			var imagearray = [];
 			var imagext = [];
@@ -1334,6 +1406,7 @@
             	this.pob = person.place_of_birth;
             	this.edulevel = person.education_level;
             	this.ship = person.ship;
+            	this.image = person.image
             	this.$modal.show('person_detail');
             },
 
@@ -1350,7 +1423,8 @@
             		'pob': this.pob,
             		'edulevel': this.edulevel,
             		'ship': this.ship,
-            		'personId': this.id
+            		'personId': this.id,
+            		'image': this.image
             	}, {
             		headers: {'Authorization': 'Bearer '+ this.user_token}
             	}).then((result) => {
@@ -1370,44 +1444,44 @@
             	});
             },
             fileChange(e) {
-                    var files = e.target.files || e.dataTransfer.files;
-                    if (!files.length) {
-                        return;
-                    }
-                    let label = $(document).find('[id="changeLabel"]');
-                    var reader = new FileReader();
-                    var that = this;
-                    reader.onload = (e) => {
-                        that.showLoading = true;
-                        axios.post('/api/image-upload', {
-                            'image': e.target.result,
-                            'folder': 'profile/'
-                        }, {
-                            headers: {'Authorization': 'Bearer '+ that.user_token}
-                        }).then((res) => {
-                            that.image = res.data.url;
-                            that.showLoading = false;
-                        });
-                    }
-                    reader.readAsDataURL(files[0]);
-                    this.imglabel = files[0].name;
-                },
+            	var files = e.target.files || e.dataTransfer.files;
+            	if (!files.length) {
+            		return;
+            	}
+            	let label = $(document).find('[id="changeLabel"]');
+            	var reader = new FileReader();
+            	var that = this;
+            	reader.onload = (e) => {
+            		that.showLoading = true;
+            		axios.post('/api/image-upload', {
+            			'image': e.target.result,
+            			'folder': 'profile/'
+            		}, {
+            			headers: {'Authorization': 'Bearer '+ that.user_token}
+            		}).then((res) => {
+            			that.image = res.data.url;
+            			that.showLoading = false;
+            		});
+            	}
+            	reader.readAsDataURL(files[0]);
+            	this.imglabel = files[0].name;
+            },
 
-                viewImage(image) {
-                    var img = image;
-                    Swal.fire({
-                        imageUrl: img,
-                        imageWidth: 400,
-                        imageHeight: 200,
-                        imageAlt: 'Custom image',
-                        width: 80 + '%',
-                        imageWidth: null,
-                        imageHeight: null,
-                        showCloseButton: true,
-                        showConfirmButton: false,
-                        allowOutsideClick: false
-                    })
-                },
+            viewImage(image) {
+            	var img = image;
+            	Swal.fire({
+            		imageUrl: img,
+            		imageWidth: 400,
+            		imageHeight: 200,
+            		imageAlt: 'Custom image',
+            		width: 80 + '%',
+            		imageWidth: null,
+            		imageHeight: null,
+            		showCloseButton: true,
+            		showConfirmButton: false,
+            		allowOutsideClick: false
+            	})
+            },
             //====================== END PERSONAL DETAIL ========================
             personDetail() {
             	this.loading = true;
@@ -1755,7 +1829,7 @@
 				this.licine_number = '',
 				this.training_date = moment(new Date()).format('DD-MM-YYYY');
 				this.expire_date = moment(new Date()).format('DD-MM-YYYY');
-				this.certificateImage = '';
+				this.all_images = [];
 				this.remark = '';
 				this.employer_certificate_id = null;
 				$(document).find('span[class="validate-message"]').remove();
@@ -1771,7 +1845,7 @@
 				this.licine_number = certificate.licine_number,
 				this.training_date = certificate.training_date;
 				this.expire_date = certificate.expire_date;
-				this.certificateImage = certificate.image;
+				this.all_images = JSON.parse(certificate.image);
 				this.remark = certificate.remark;
 				this.employer_certificate_id = certificate.id;
 				this.$modal.show('certificate');
@@ -1783,7 +1857,7 @@
 					'licine_number': this.licine_number,
 					'training_date': this.training_date,
 					'expire_date': this.expire_date,
-					'image': this.certificateImage,
+					'image': this.all_images,
 					'remark': this.remark,
 					'employer_id': this.id,
 					'id': this.employer_certificate_id
@@ -1806,30 +1880,6 @@
 						});
 					}
 				});
-			},
-
-			fileChange(e) {
-				var files = e.target.files || e.dataTransfer.files;
-				if (!files.length) {
-					return;
-				}
-				let label = $(document).find('[id="changeLabel"]');
-				var reader = new FileReader();
-				var that = this;
-				reader.onload = (e) => {
-					that.showLoading = true;
-					axios.post('/api/image-upload', {
-						'image': e.target.result,
-						'folder': 'certificates/'
-					}, {
-						headers: {'Authorization': 'Bearer '+ that.user_token}
-					}).then((res) => {
-						that.certificateImage = res.data.url;
-						that.showLoading = false;
-					});
-				}
-				reader.readAsDataURL(files[0]);
-				this.imglabel = files[0].name;
 			},
 
 			viewImage(image) {
@@ -1888,10 +1938,119 @@
 						})
 					}
 				});
-			}
+			},
+
+			//====================== View Images Section =========================
+			viewimages() {
+				this.loading = true;
+				axios.post('/api/get-all-images', {
+					employer_id: this.id
+				}, {
+					headers:{'Authorization': 'Bearer '+ this.user_token}
+				}).then(result => {
+					let self = this;
+					self.view_certificate_images = [];
+					$.each(result.data.images, function(index, value) {
+						const obj = {
+							'name': value.certificate.title,
+							'images': JSON.parse(value.image)
+						}
+						self.view_certificate_images.push(obj);
+					});
+
+					console.log(self.view_certificate_images, result.data);
+				});
+			},
+
+			pdfopen(pdf) {
+				window.open(pdf);
+			},
+
+			uploadPassportFile(e) {
+				console.log(e);
+				var files = e.target.files || e.dataTransfer.files;
+				if (!files.length)
+					return;
+				this.createPassportImg(files)
+			},
+
+			onDropPassport: function(e) {
+				e.stopPropagation();
+				e.preventDefault();
+				var files = e.target.files || e.dataTransfer.files;
+				this.createPassportImg(files)
+			},
+
+			createPassportImg(files) {
+				var vm = this;
+				for (var index = 0; index < files.length; index++) {
+
+					if (!files[index].type.match('application/pdf') && !files[index].type.match('image.*')) {
+
+						Swal.fire({
+							icon: 'error',
+							title: 'Oops...',
+							text: 'Please only select Image!',
+							allowOutsideClick: false,
+						})
+						return;
+					} else {
+						if(vm.countall < vm.allMaxLength) {
+							var reader = new FileReader();
+							reader.onload = function(event) {
+								const imageUrl = event.target.result;
+								vm.showLoading = true;
+								axios.post('/api/image-upload', {
+									'image': imageUrl,
+									'folder': 'all/'
+								}, {
+									headers: {'Authorization': 'Bearer '+ this.user_token}
+								}).then((res) => {
+									vm.showLoading = false;
+									vm.all_images.push(res.data.url);
+								});
+							}
+							reader.readAsDataURL(files[index]);
+						} else {
+							return false;
+						}
+						vm.countall++;
+					}
+				}
+			},
+
+			editImage(index, e) {
+				e.preventDefault();
+				var vm = this;
+				var files = e.target.files || e.dataTransfer.files;
+				var reader = new FileReader();
+				reader.onload = function(event) {
+					const imageUrl = event.target.result;
+					vm.showLoading = true;
+					axios.post('/api/image-upload-edit', {
+						'image': imageUrl,
+						'oldImage': vm.all_images[index],
+						'folder': 'all/'
+					}, {
+						headers: {'Authorization': 'Bearer '+ this.user_token}
+					}).then((res) => {
+						vm.showLoading = false;
+						vm.all_images.splice(index, 1, res.data.url);
+					});
+				}
+				reader.readAsDataURL(files[0]);
+			},
+
+			deleteImage(index, e) {
+				axios.post('/api/image-delete', {
+					'image': this.all_images[index],
+				}).then(res => {
+					this.all_images.splice(index, 1);
+					this.countall--;
+				});
+			},
+			//====================== View Images Section =========================
+
 		},
-
-
-        //============================================= END CERTIFICATE ========================================
-    }
+	}
 </script>
