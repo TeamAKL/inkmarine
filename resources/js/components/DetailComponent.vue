@@ -45,6 +45,12 @@
 										<td class="wd-70">Education Level:</td>
 										<td>{{person_detail.education_level}}</td>
 									</tr>
+									<tr>
+										<td class="wd-70">Image</td>
+										<td>
+											<img :src="person_detail.image" alt="Certificate Image" class="certificate-image">
+										</td>
+									</tr>
 
 								</tbody>
 							</table>
@@ -195,7 +201,6 @@
 										<th scope="col">License Number</th>
 										<th scope="col">Training Date</th>
 										<th scope="col">Expire Date</th>
-										<th>Image</th>
 										<th scope="col">Action</th>
 									</tr>
 								</thead>
@@ -204,11 +209,7 @@
 										<td>{{certificate.name}}</td>
 										<td>{{certificate.licine_number}}</td>
 										<td>{{certificate.training_date}}</td>
-										<td>{{certificate.expire_date}}</td>
-										<td>
-											<img :src="certificate.image" alt="Certificate Image" class="certificate-image">
-										</td>
-										<td>
+										<td>{{certificate.expire_date}}</td>									<td>
 											<a href="javascript:void(0)" class="btn btn-primary btn-sm" @click="editCertificate(certificate)">Edit</a>
 											<a href="javascript:void(0)" class="btn btn-danger btn-sm" @click="deleteCertificate(certificate)">Delete</a>
 										</td>
@@ -218,78 +219,71 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="card">
-				<div class="card-header" id="headingmedicalcheck">
-					<h5 class="mb-0" data-toggle="collapse" data-target="#medicalcheckup" aria-expanded="false" aria-controls="medicalcheckup" @click="medicalC">
-						Medical Checkup
-					</h5>
-				</div>
-				<div id="medicalcheckup" class="collapse" aria-labelledby="headingmedicalcheck" data-parent="#accordion">
-					<div class="card-body">
-						<div v-if="medicalcheckup">
-							<div class="d-flex justify-content-center" v-if="loading">
-								<img src="../../../public/loading/dataload.gif">
-							</div>
-							<div v-else>
-								<div class="d-flex justify-content-end mb-3">
-									<button class="btn btn-primary" @click="editMedicateCheckup(medicalcheckup)">Edit</button>
+				<div class="card">
+					<div class="card-header" id="headingmedicalcheck">
+						<h5 class="mb-0" data-toggle="collapse" data-target="#medicalcheckup" aria-expanded="false" aria-controls="medicalcheckup" @click="medicalC">
+							Medical Checkup
+						</h5>
+					</div>
+					<div id="medicalcheckup" class="collapse" aria-labelledby="headingmedicalcheck" data-parent="#accordion">
+						<div class="card-body">
+							<div v-if="medicalcheckup">
+								<div class="d-flex justify-content-center" v-if="loading">
+									<img src="../../../public/loading/dataload.gif">
 								</div>
-								<table class="table table-hover">
-									<tbody>
-										<tr>
-											<th>Date:</th>
-											<td>{{medicalcheckup.mdDate}}</td>
-											<th>Height:</th>
-											<td>{{medicalcheckup.height}}</td>
-											<th>Weight:</th>
-											<td>{{medicalcheckup.weight}}</td>
-										</tr>
-										<tr>
-											<th>Checst:</th>
-											<td>{{medicalcheckup.checst}}</td>
-											<th>Tooth:</th>
-											<td>{{medicalcheckup.tooth}}</td>
-											<th>Tooth State:</th>
-											<td>{{medicalcheckup.tooth_state}}</td>
-										</tr>
-										<tr>
-											<th>Color Blindness:</th>
-											<td>{{medicalcheckup.color_blindness}}</td>
-											<th>Blood Type:</th>
-											<td>{{medicalcheckup.blood_type}}</td>
-											<th>XRay:</th>
-											<td>{{medicalcheckup.xray}}</td>
-										</tr>
-										<tr>
-											<th>Hospital: </th>
-											<td>{{medicalcheckup.hospital}}</td>
-											<th>Decision:</th>
-											<td>{{medicalcheckup.decision}}</td>
-											<th>Sight (Left):</th>
-											<td>{{medicalcheckup.sight_left}}</td>
-										</tr>
-										<tr>
-											<th>Hearing (Left)</th>
-											<td>{{medicalcheckup.hearing_left}}</td>
-											<th>Hearing (Right)</th>
-											<td>{{medicalcheckup.hearing_right}}</td>
-											<th>Sight (Right):</th>
-											<td>{{medicalcheckup.sight_right}}</td>
-										</tr>
-									</tbody>
-								</table>
-								<hr>
-								<div class="image-show-area">
-                                    <span :key="index" v-for="(image, index) in medImage">
-                                        <img :src="image.img" alt="medicalcheckupImage" class="img-thumbnail" @click="downloadImage(image.img)" v-if="image.ext != 'pdf'">
-                                        <img src="../../../public/pdf/pdfimage.png" class="img-thumbnail" @click="pdfOpen(image.img)" v-else/>
-                                    </span>
+								<div v-else>
+									<div class="d-flex justify-content-end mb-3">
+										<button class="btn btn-primary" @click="editMedicateCheckup(medicalcheckup)">Edit</button>
+									</div>
+									<table class="table table-hover">
+										<tbody>
+											<tr>
+												<th>Date:</th>
+												<td>{{medicalcheckup.mdDate}}</td>
+												<th>Height:</th>
+												<td>{{medicalcheckup.height}}</td>
+												<th>Weight:</th>
+												<td>{{medicalcheckup.weight}}</td>
+											</tr>
+											<tr>
+												<th>Checst:</th>
+												<td>{{medicalcheckup.checst}}</td>
+												<th>Tooth:</th>
+												<td>{{medicalcheckup.tooth}}</td>
+												<th>Tooth State:</th>
+												<td>{{medicalcheckup.tooth_state}}</td>
+											</tr>
+											<tr>
+												<th>Color Blindness:</th>
+												<td>{{medicalcheckup.color_blindness}}</td>
+												<th>Blood Type:</th>
+												<td>{{medicalcheckup.blood_type}}</td>
+												<th>XRay:</th>
+												<td>{{medicalcheckup.xray}}</td>
+											</tr>
+											<tr>
+												<th>Hospital: </th>
+												<td>{{medicalcheckup.hospital}}</td>
+												<th>Decision:</th>
+												<td>{{medicalcheckup.decision}}</td>
+												<th>Sight (Left):</th>
+												<td>{{medicalcheckup.sight_left}}</td>
+											</tr>
+											<tr>
+												<th>Hearing (Left)</th>
+												<td>{{medicalcheckup.hearing_left}}</td>
+												<th>Hearing (Right)</th>
+												<td>{{medicalcheckup.hearing_right}}</td>
+												<th>Sight (Right):</th>
+												<td>{{medicalcheckup.sight_right}}</td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
 							</div>
-						</div>
-						<div class="d-flex justify-content-center" v-else>
-							<button class="btn btn-success" @click="createMedicalCheckup">Create</button>
+							<div class="d-flex justify-content-center" v-else>
+								<button class="btn btn-success" @click="createMedicalCheckup">Create</button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -389,6 +383,101 @@
 				</div>
 			</div>
 			<div class="card">
+				<div class="card-header" id="headingInjury" >
+					<h5 class="mb-0" data-toggle="collapse" data-target="#injury" aria-expanded="true" aria-controls="injury" @click="showInjury">
+						Injuries
+					</h5>
+				</div>
+
+				<div id="injury" class="collapse" aria-labelledby="headingInjury" data-parent="#accordion">
+					<div class="card-body">
+
+						
+							<div class="d-flex justify-content-end mb-3">
+								<button type="button" class="btn btn-success" id="add-injury" @click="addInjury" >Add</button>
+							</div>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Illness</th>
+										<th>Medical Name</th>
+										<th>Hospital Name</th>
+										<th>Start Date</th>
+										<th>Recovery Date</th>
+										<th>Hospital Type</th>
+										<th>Expense Won</th>
+										<th>Expense Ex</th>
+										<th>Remark</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr :key="injury.id" v-for="injury in injuries">
+										<td>{{injury.illness}}</td>
+										<td>{{injury.medical_name}}</td>
+										<td>{{injury.hospital_name}}</td>
+										<td>{{injury.start_date}}</td>
+										<td>{{injury.recovery_date}}</td>
+										<td>{{injury.hospital_type}}</td>
+										<td>{{injury.expenses_won}} {{injury.expenses_won_currency}}</td>
+										<td>{{injury.expenses_ex}} {{injury.expenses_ex_currency}}</td>
+										<td>{{injury.remark}}</td>
+										<td>
+											<a href="javascript:void(0)" class="btn btn-primary btn-sm" @click="editInjury(injury)">Edit</a>
+											<a href="javascript:void(0)" class="btn btn-danger btn-sm" @click="deleteInjury(injury)">Delete</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+					</div>
+				</div>
+			</div>
+				<div class="card">
+				<div class="card-header" id="headingEvaluation" >
+					<h5 class="mb-0" data-toggle="collapse" data-target="#evaluation" aria-expanded="true" aria-controls="evaluation" @click="showEvaluation">
+						Evaluations
+					</h5>
+				</div>
+
+				<div id="evaluation" class="collapse" aria-labelledby="headingEvaluation" data-parent="#accordion">
+					<div class="card-body">
+
+						
+							<div class="d-flex justify-content-end mb-3">
+								<button type="button" class="btn btn-success" id="add-evaluation" @click="addEvaluation" >Add Evaluation</button>
+							</div>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>Date</th>
+										<th>Score</th>
+										<th>Re-use</th>
+										<th>Rate</th>
+										<th>Detail</th>
+										<th>Hospital Type</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr :key="evaluation.id" v-for="evaluation in evaluations">
+										<td>{{evaluation.date}}</td>
+										<td>{{evaluation.score}}</td>
+										<td>{{evaluation.re_use}}</td>
+										<td>{{evaluation.rate}}</td>
+										<td>{{evaluation.detail}}</td>
+										<td>
+											<a href="javascript:void(0)" class="btn btn-primary btn-sm" @click="editEvaluation(evaluation)">Edit</a>
+											<a href="javascript:void(0)" class="btn btn-danger btn-sm" @click="deleteEvaluation(evaluation)">Delete</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+
+					</div>
+				</div>
+			</div>
+			<div class="card">
 				<div class="card-header" id="headingAccident" >
 					<h5 class="mb-0" data-toggle="collapse" data-target="#accident" aria-expanded="true" aria-controls="accident" @click="showAccident">
 						Accidents
@@ -439,131 +528,14 @@
 					</div>
 				</div>
 			</div>
-			<div class="card">
-				<div class="card-header" id="headingseman" >
-					<h5 class="mb-0" data-toggle="collapse" data-target="#seaman" aria-expanded="true" aria-controls="seaman" @click="seamanBook">
-						Seaman Book
-					</h5>
-				</div>
-
-				<div id="seaman" class="collapse" aria-labelledby="headingseman" data-parent="#accordion">
-					<div class="card-body">
-						<div v-if="seamanbook">
-							<div class="d-flex justify-content-center" v-if="loading">
-								<img src="../../../public/loading/dataload.gif">
-							</div>
-							<div v-else>
-								<div class="d-flex justify-content-end mb-3">
-									<button class="btn btn-primary" @click="editCemanBookModal(seamanbook)">Edit</button>
-								</div>
-								<table class="table table-hover">
-									<tbody>
-										<tr>
-											<th class="wd-70">SeaMan Book:</th>
-											<td>{{seamanbook.cbn}}</td>
-										</tr>
-									</tbody>
-								</table>
-								<hr>
-								<div class="image-show-area">
-									<img :src="image" alt="medicalcheckupImage" class="img-thumbnail" :key="image" v-for="image in seamanImages" @click="downloadImage(image)">
-								</div>
-							</div>
-						</div>
-						<div class="d-flex justify-content-center" v-else>
-							<button class="btn btn-success" @click="createSeamanBook">Create</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="card">
-				<div class="card-header" id="headingpassport" >
-					<h5 class="mb-0" data-toggle="collapse" data-target="#passport" aria-expanded="true" aria-controls="passport" @click="getPassport">
-						Passport
-					</h5>
-				</div>
-
-				<div id="passport" class="collapse" aria-labelledby="headingpassport" data-parent="#accordion">
-					<div class="card-body">
-						<div v-if="passports">
-							<div class="d-flex justify-content-center" v-if="loading">
-								<img src="../../../public/loading/dataload.gif">
-							</div>
-							<div v-else>
-								<div class="d-flex justify-content-end mb-3">
-									<button class="btn btn-primary" @click="editPassportModal(passports)">Edit</button>
-								</div>
-								<table class="table table-hover">
-									<tbody>
-										<tr>
-											<th class="wd-70">Passport Number:</th>
-											<td>{{passports.passport_no}}</td>
-										</tr>
-									</tbody>
-								</table>
-								<hr>
-								<div class="image-show-area">
-                                    <span :key="image" v-for="image in images_passport">
-                                        <span v-if="image">{{hmm}}</span>
-                                        <img :src="image" alt="medicalcheckupImage" class="img-thumbnail"  @click="downloadImage(image)"/>
-                                    </span>
-								</div>
-							</div>
-						</div>
-						<div class="d-flex justify-content-center" v-else>
-							<button class="btn btn-success" @click="createPassport(passport)">Create</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="card">
-				<div class="card-header" id="headingallinone" >
-					<h5 class="mb-0" data-toggle="collapse" data-target="#allinone" aria-expanded="true" aria-controls="allinone" @click="getAllinone">
-						Allinone
-					</h5>
-				</div>
-
-				<div id="allinone" class="collapse" aria-labelledby="headingallinone" data-parent="#accordion">
-					<div class="card-body">
-						<div v-if="allinone">
-							<div class="d-flex justify-content-center" v-if="loading">
-								<img src="../../../public/loading/dataload.gif">
-							</div>
-							<div v-else>
-								<div class="d-flex justify-content-end mb-3">
-									<button class="btn btn-primary" @click="editAllInOneModal(allinone)">Edit</button>
-								</div>
-								<table class="table table-hover">
-									<tbody>
-										<tr>
-											<th class="wd-70">C.O.C:</th>
-											<td>{{allinone.coc}}</td>
-										</tr>
-										<tr>
-											<th class="wd-70">GMBSS:</th>
-											<td>{{allinone.gmbss}}</td>
-										</tr>
-									</tbody>
-								</table>
-								<hr>
-								<div class="image-show-area">
-									<img :src="image" alt="medicalcheckupImage" class="img-thumbnail" :key="image" v-for="image in allinone_images" @click="downloadImage(image)">
-								</div>
-							</div>
-						</div>
-						<div class="d-flex justify-content-center" v-else>
-							<button class="btn btn-success" @click="createAllInOne">Create</button>
-						</div>
-					</div>
-				</div>
-			</div>
+		
 		</div>
 
 		<!-- ==================================== ADDITIONAL INFORMATION ========================== -->
 		<modal name="additionalInfo" :clickToClose="false" height="auto" :width="w" class="additional_info">
 			<div class="modal-content">
 				<div class="modal-header">
-                    <h5 class="modal-title">Additional Info</h5>
+					<h5 class="modal-title">Additional Info</h5>
 					<button type="button" class="close" @click="hideaddinof" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -745,7 +717,7 @@
 		</modal>
 		<!-- ==================================== END IMAGE SHOW MODAL ================================= -->
 		<!-- ==================================== PERSONAL DETAIL MODAL ================================= -->
-		<modal name="person_detail" :clickToClose="false" height="auto" class="medical_checkup">
+		<modal name="person_detail" :clickToClose="false" height="auto" class="personal_detail" :width="w">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">Personal Detail</h5>
@@ -786,6 +758,23 @@
 					<div class="form-group col-md-12">
 						<label for="ship">Ship</label>
 						<input type="text" id="ship" name="ship" v-model.trim="ship" class="form-control">
+					</div>
+
+					<div class="form-group col-md-12">
+						<p>Choose Image</p>
+						<div class="custom-file col-md-12">
+							<input type="file" class="custom-file-input" id="customFile" @change="fileChange" >
+							<label class="custom-file-label" for="customFile" id="changeLabel">{{imglabel}}</label>
+							<div class="loading-container" v-show="showLoading">
+								<img src="../../../public/loading/small_loading.gif" alt="ll" >
+							</div>
+							<div class="image-container" @click="viewImage(image)">
+								<img :src="image" alt="img" class="img-thumbnail">
+								<div class="image-overlay">
+									<i class="wizard-icon ti-eye eye-icon"></i>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -982,45 +971,6 @@
 							<input type="text" class="form-control" name="decision" v-model="decision">
 						</div>
 					</div>
-					<div class="form-group">
-						<div class="image-holder" v-show="images.length == 0">
-							<div class="loading-area-one" v-show="showLoading">
-								<img src="../../../public/loading/loading.gif" alt="">
-							</div>
-							<label for="medical-checkup" class="medicalcheckup" @dragover.prevent @drop="onDrop">
-								<i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
-								<span class="image-lable-text" v-show="!showLoading">Choose File Here</span>
-							</label>
-						</div>
-
-						<div class="grid-container" @dragover.prevent @drop="onDrop" v-show="images.length >= 1">
-							<div class="loading-area" v-show="showLoading">
-								<img src="../../../public/loading/loading.gif" alt="Medicalcheckup">
-							</div>
-							<div class="gird-item-image " :key="index" v-for="(image, index) in imageMedical">
-								<img :src="image.img" alt="image" class="images-img img-thumbnail" v-if="image.ext != 'pdf'">
-                                <img src="../../../public/pdf/pdfimage.png" class="images-img img-thumbnail"  v-else/>
-								<div class="image-overlay">
-									<div class="ed-holder">
-										<div class="edit-delete-area">
-											<label style="cursor: pointer">
-												<input type="file" @change="editImage(index, $event)" class="d-none" accept="image/*, .pdf">
-												<i class="wizard-icon ti-pencil icon-holder edit"></i>
-											</label>
-											<i class="wizard-icon ti-trash icon-holder delete" @click="deleteImage(index)"></i>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="gird-item-image final-grid" v-show="fileLoopCount < fileMaxLenght">
-								<label for="medical-checkup" class="medicalcheckup" @dragover.prevent @drop="onDrop">
-									<i class="wizard-icon ti-cloud-up icon-image-upload"></i>
-									<span class="image-lable-text">Choose File Here</span>
-								</label>
-							</div>
-						</div>
-					</div>
-					<input type="file" multiple draggable="true" id="medical-checkup" @change="uploadFile" accept="image/*, .pdf">
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" @click="closeMedicalcheckup" >Close</button>
 						<button type="button" class="btn btn-success" id="create_medical_checkup" @click="createNewMedicalCheckup" >Save</button>
@@ -1029,8 +979,67 @@
 				</div>
 			</div>
 		</modal>
+		<!--Other company career Modal -->
+		<!-- <modal name="other_company" :clickToClose="false" height="auto" class="company_career_modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>Add Company Careers</h5>
+				</div>
+				<div class="modal-body">
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label class="typo__label" for="">Company</label>
+							<input type="text" class="form-control" id="company_name" name="company_name"  v-model.trim="company_name">
+						</div>
+						<div class="form-group col-md-6">
+							<label class="typo__label" for="">Ship Name</label>
+							<input type="text" class="form-control" id="ship_name" name="ship_name"  v-model.trim="ship_name">
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="col-md-4 form-group">
+							<label for="">Rank</label>
+							<input type="text" class="form-control" id="rank" name="rank"  v-model.trim="rank">
+						</div>
+						<div class="col-md-4 form-group">
+							<label for="">GRT</label>
+							<input type="text" class="form-control" id="grt" name="grt"  v-model.trim="grt">
+						</div>
+						<div class="col-md-4 form-group">
+							<label for="">KW</label>
+							<input type="text" class="form-control" id="kw" name="kw"  v-model.trim="kw">
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label for="">Boarding Date</label>
+							<date-picker v-model="boarding_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+						</div>
+						<div class="form-group col-md-4">
+							<label for="">Leaving Date</label>
+							<date-picker v-model="leaving_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+						</div>
+						<div class="form-group col-md-4">
+							<label for="">Area</label>
+							<input type="text" class="form-control" id="area" name="area"  v-model.trim="area">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="">Remark</label>
+						<textarea name="company_remark" id="company_remark" v-model.trim="company_remark" cols="30" rows="6" class="form-control"></textarea>
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-end">
+					<button class="btn btn-primary" @click="hideOtherCompanyCareer">Cancel</button>
+					<button class="btn btn-success"  @click="saveOtherCompanyCareer">Add</button>
+				</div>
+			</div>
+		</modal> -->
 		<!-- seaman book -->
-		<modal name="seaman_book" :clickToClose="false" height="auto" class="seaman_book">
+		<!-- <modal name="seaman_book" :clickToClose="false" height="auto" class="seaman_book">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">Seaman Book </h5>
@@ -1044,7 +1053,6 @@
 						<label for="cbn">Seaman Book No</label>
 						<input type="text" name="cbn" id="cbn" v-model="cbn" class="form-control">
 					</div>
-					<!-- Image Container -->
 					<div class="form-group">
 						<div class="image-holder" v-show="cbn_images.length == 0">
 							<div class="loading-area-one" v-show="showLoading">
@@ -1090,136 +1098,10 @@
 					<button type="button" class="btn btn-success" id="create-seamanbook" @click="saveSeamanBook" >Save</button>
 				</div>
 			</div>
-		</modal>
-		<!-- passport -->
-		<modal name="passport" :clickToClose="false" height="auto" class="passport">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Passport </h5>
-					<button type="button" class="close" @click="hiedePassportModal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-
-				<div class="modal-body">
-					<div class="form-group">
-						<label for="passport">Passport</label>
-						<input type="text" name="passport" id="passport" v-model="passport" class="form-control">
-					</div>
-					<div class="form-group">
-						<div class="image-holder" v-show="passport_images.length == 0">
-							<div class="loading-area-one" v-show="showLoading">
-								<img src="../../../public/loading/loading.gif" alt="">
-							</div>
-							<label for="ppt" class="medicalcheckup" @dragover.prevent @drop="onDropPassport">
-								<i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
-								<span class="image-lable-text" v-show="!showLoading">Choose File Here</span>
-							</label>
-						</div>
-
-						<div class="grid-container" @dragover.prevent @drop="onDropPassport" v-show="passport_images.length >= 1">
-							<div class="loading-area" v-show="showLoading">
-								<img src="../../../public/loading/loading.gif" alt="">
-							</div>
-							<div class="gird-item-image " :key="index" v-for="(image, index) in passport_images">
-								<img :src="image" alt="image" class="images-img img-thumbnail">
-								<div class="image-overlay">
-									<div class="ed-holder">
-										<div class="edit-delete-area">
-											<label style="cursor: pointer">
-												<input type="file" @change="editPassportImage(index, $event)" class="d-none" accept="image/*, .pdf">
-												<i class="wizard-icon ti-pencil icon-holder edit"></i>
-											</label>
-											<i class="wizard-icon ti-trash icon-holder delete" @click="deletePassportImage(index)"></i>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="gird-item-image final-grid" v-show="fileLoopCountPass < fileMaxLenghtPass">
-								<label for="ppt" class="medicalcheckup" @dragover.prevent @drop="onDropPassport">
-									<i class="wizard-icon ti-cloud-up icon-image-upload"></i>
-									<span class="image-lable-text">Choose File Here</span>
-								</label>
-							</div>
-						</div>
-					</div>
-					<input type="file" multiple draggable="true" id="ppt" @change="uploadPassportFile" accept="image/*, .pdf">
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" @click="hiedePassportModal" >Close</button>
-					<button type="button" class="btn btn-success" id="create-seamanbook" @click="savePassport" >Save</button>
-			
-				</div>
-			</div>
-		</modal>
-		<!-- all_in_one -->
-		<modal name="all_in_one" :clickToClose="false" height="auto" class="all_in_one">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">All In One </h5>
-					<button type="button" class="close" @click="closeAllInOneModal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-
-				<div class="modal-body">
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<label for="coc">C.O.C</label>
-							<input type="text" name="coc" id="coc" v-model="coc" class="form-control">
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<label for="gmbss">GMBSS</label>
-							<input type="text" name="gmbss" id="gmbss" v-model="gmbss" class="form-control">
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="image-holder" v-show="all_images.length == 0">
-							<div class="loading-area-one" v-show="showLoading">
-								<img src="../../../public/loading/loading.gif" alt="">
-							</div>
-							<label for="all-in-one" class="medicalcheckup" @dragover.prevent @drop="onDropAllInOne">
-								<i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
-								<span class="image-lable-text" v-show="!showLoading">Choose File Here</span>
-							</label>
-						</div>
-
-						<div class="grid-container" @dragover.prevent @drop="onDropAllInOne" v-show="all_images.length >= 1">
-							<div class="loading-area" v-show="showLoading">
-								<img src="../../../public/loading/loading.gif" alt="">
-							</div>
-							<div class="gird-item-image " :key="index" v-for="(image, index) in all_images">
-								<img :src="image" alt="image" class="images-img img-thumbnail">
-								<div class="image-overlay">
-									<div class="ed-holder">
-										<div class="edit-delete-area">
-											<label style="cursor: pointer">
-												<input type="file" @change="editAllInOneImage(index, $event)" class="d-none" accept="image/*, .pdf">
-												<i class="wizard-icon ti-pencil icon-holder edit"></i>
-											</label>
-											<i class="wizard-icon ti-trash icon-holder delete" @click="deleteAllInOneImage(index)"></i>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="gird-item-image final-grid" v-show="fileLoopCountallinone < fileMaxLenghtallinone">
-								<label for="all-in-one" class="medicalcheckup" @dragover.prevent @drop="onDropAllInOne">
-									<i class="wizard-icon ti-cloud-up icon-image-upload"></i>
-									<span class="image-lable-text">Choose File Here</span>
-								</label>
-							</div>
-						</div>
-					</div>
-					<input type="file" multiple draggable="true" id="all-in-one" @change="uploadAllInOneFile" accept="image/*, .pdf">
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" @click="closeAllInOneModal" >Close</button>
-					<button type="button" class="btn btn-success" id="create-seamanbook" @click="saveAAllInOne" >Save</button>
-				</div>
-			</div>
-		</modal>
+		</modal> -->
+		
+	
+		
 		<!--Other company career Modal -->
 		<modal name="other_company" :clickToClose="false" height="auto" class="company_career_modal">
 			<div class="modal-content">
@@ -1404,18 +1286,140 @@
                 </div>
 			</div>
 		</modal>
-		<!-- Carousel -->
-		<!-- <carousel :data="carousel"></carousel> -->
+
+		<!-- injury -->
+		<modal name="injury_modal" :clickToClose="false" height="auto" class="injury_modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>Add Injury</h5>
+				</div>
+				<div class="modal-body">
+					<form>
+
+						<div class="form-group">
+                            <label for="injury_illness">Illness</label>
+                            <input type="text" class="form-control" id="injury_illness" name="injury_illness"  v-model.trim="injury_illness">
+                        </div>
+
+						<div class="form-group">
+                            <label for="injury_medical_name">Medical Name</label>
+                             <input type="text" class="form-control" id="injury_medical_name" name="injury_medical_name"  v-model.trim="injury_medical_name">
+                        </div>
+
+						<div class="form-group">
+                            <label for="injury_hospital_name">Hospital Name</label>
+                             <input type="text" class="form-control" id="injury_hospital_name" name="injury_hospital_name"  v-model.trim="injury_hospital_name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="injury_start_date">Start Date</label>
+                            <date-picker v-model="injury_start_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+                        </div>
+
+						<div class="form-group">
+                            <label for="injur_recovery_date">Recovery Date</label>
+                            <date-picker v-model="injury_recovery_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="injury_hospital_type">Hospital Type</label>
+                            <multiselect v-model="injury_hospital_type" :options="options" :searchable="false" :close-on-select="true" :show-labels="false"></multiselect>               
+					    </div>
+
+                        <div class="form-group">
+                            <label for="injury_expense_won">Expenses Won</label>
+                            <div class="row mx-1">
+                                    <input type="text" class="form-control col-8" id="injury_expense_won" name="injury_expense_won" v-model.trim="injury_expenses_won" >
+                                
+                                    <select class="form-control col-4" v-model="injury_expenses_won_currency">
+                                        <option value="MMK">MMK</option>
+                                        <option value="USD">USD</option>
+                                        <option value="SGD">SGD</option>
+                                    </select>
+                                
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="injury_expense_ex">Expense Ex</label>
+                            <div class="row mx-1">
+                                    <input type="text" class="form-control col-8" id="injury_expense_ex" name="injury_expense_ex" v-model.trim="injury_expenses_ex" >
+                                
+                                    <select class="form-control col-4" v-model="injury_expenses_ex_currency">
+                                        <option value="MMK">MMK</option>
+                                        <option value="USD">USD</option>
+                                        <option value="SGD">SGD</option>
+                                    </select>
+                                
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="injury_remark">Remark</label>
+                            <textarea name="remark" id="remark" v-model.trim="injury_remark" cols="30" rows="6" class="form-control"></textarea>
+                        </div>
+                    </form>
+				</div>
+                <div class="modal-footer d-flex justify-content-end">
+                    <button class="btn btn-primary" @click="hideInjury">Cancel</button>
+                    <button class="btn btn-success" @click="saveInjury">Add</button>
+                </div>
+			</div>
+		</modal>
+
+		<!-- evaluation -->
+		<modal name="crew_evaluate_modal" :clickToClose="false" height="auto" class="crew_evaluate_modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>Add Crew Evaluation</h5>
+				</div>
+				<div class="modal-body">
+					<form>
+
+                        <div class="form-group">
+                            <label for="crew_date">Date</label>
+                            <date-picker v-model="crew_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+                        </div>
+
+						<div class="form-group">
+                            <label for="crew_score">Score</label>
+                            <input type="text" class="form-control" id="crew_score" name="crew_score"  v-model.trim="crew_score">
+                        </div>
+
+						<div class="form-group">
+                            <label for="crew_re_use">Re-use</label>
+                            <multiselect v-model="crew_re_use" :options="options" :searchable="false" :close-on-select="true" :show-labels="false" placeholder="---- Select Re Use -----"></multiselect>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="crew_rate">Rate</label>
+                            <input type="text" class="form-control" id="crew_rate" name="crew_rate" v-model.trim="crew_rate" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="crew_detail">Detail</label>
+                            <input type="text" class="form-control" id="crew_detail" name="crew_detail" v-model.trim="crew_detail" >
+                        </div>
+                           
+                    </form>
+				</div>
+                <div class="modal-footer d-flex justify-content-end">
+                    <button class="btn btn-primary" @click="hideEvaluation">Cancel</button>
+                    <button class="btn btn-success" @click="saveCrewEvaluate">Add</button>
+                </div>
+			</div>
+		</modal>
+	
 	</div>
 
 </template>
 
 <style lang="scss" scoped>
+
 .bgcolor {
 	background: red;
 }
-.additional_info,.seaman_book,.disease_modal,.accident_modal,
-.passport,.all_in_one, .certificate_modal
+.additional_info,.personal_detail,.disease_modal,.accident_modal,.certificate_modal,.injury_modal
 {
 	overflow-y: auto;
 }
@@ -1506,7 +1510,6 @@
 	import DatePicker from 'vue2-datepicker';
 	import 'vue2-datepicker/index.css';
 	import moment from 'moment';
-
 	const Toast = Swal.mixin({
 		toast: true,
 		position: 'top-end',
@@ -1529,7 +1532,6 @@
 				h: '50%',
 				w: '70%',
 				imagShow: '',
-				carousel: ["<div class='sas' >One</div>", "<div calss='sas'>Two</div>"],
 				loading: true,
 				id: '',
 				user_token: `${process.env.MIX_APP_TOKEN}`,
@@ -1538,16 +1540,11 @@
 				family_members: {},
 				certificates: {},
 				medicalcheckup: {},
-				medical_images: {},
 				othercompanies: {},
 				diseases:{},
 				accidents:{},
-				seamanbook: {},
-				seamanImages: {},
-				passports: {},
-				images_passport: {},
-				allinone: {},
-                allinone_images: {},
+				injuries:{},
+				evaluations:{},
                 additional_info_all: {},
 
                 //ADDITIONAL INFO
@@ -1715,8 +1712,118 @@
 				accident_etc: '',
 				accident_remark: '',
 				accidentId: null,
-			}
+			
+
+			//MEDICALCHECKUP
+			images: [],
+			med_date: '',
+			height: '',
+			weight: '',
+			checst: '',
+			tooth: '',
+			tooth_state: '',
+			color_blindness: '',
+			blood_type: '',
+			xray: '',
+			sight_left: '',
+			sight_right: '',
+			hearing_left: '',
+			hearing_right: '',
+			hospital: '',
+			decision: '',
+			medicalCheckupId: null,
+
+            //PERSONAL DETAIL
+            crewcode: '',
+            name: '',
+            nationality: '',
+            dob: '',
+            pob: '',
+            edulevel: '',
+            ship: '',
+            result: '',
+            image: '',
+            showLoading: false,
+            imglabel: 'Choose image...',
+
+			//FamilyMember
+			member_name: '',
+			member_relation: '',
+			member_phone_number: '',
+			member_dob: '',
+			member_remark: '',
+			family_member_id: null,
+
+			//OtherCompanyCareer
+			rank: '',
+			grt: '',
+			kw: '',
+			company_name: '',
+			ship_name: '',
+			boarding_date: '',
+			leaving_date: '',
+			area: '',
+			company_remark: '',
+			company_career_id: null,
+			//injury
+			injury_illness: '',
+			injury_id: null,
+			injury_medical_name: '',
+			injury_hospital_name: '',
+			injury_start_date: '',
+			injury_recovery_date: '',
+			injury_hospital_type: 'Public',
+			injury_expenses_won: '',
+			injury_expenses_won_currency:'MMK',
+			injury_expenses_ex: '',
+			injury_expenses_ex_currency:'MMK',
+			injury_remark: '',
+			options: ['Public', 'Private'],
+
+			//evaluation
+			crew_date: '',
+			crew_score: null,
+			crew_re_use: '',
+			options: ['Recommendation', 'Re-use', 'Improvement', 'Impossible'],
+			crew_rate: '',
+			crew_detail: '',
+			crew_evaluation_id: null,
+		}
+	},
+	// created() {
+	// 	var route = window.location.pathname;
+	// 	var arr = route.split('/');
+	// 	this.id = arr[2];
+	// 	this.personDetail();
+
+	// 	const date = new Date();
+	// 	this.member_dob = moment(date).format('DD-MM-YYYY');
+	// 	this.training_date = moment(date).format('DD-MM-YYYY');
+	// 	this.expire_date = moment(date).format('DD-MM-YYYY');
+	// 	this.leaving_date = moment(date).format('DD-MM-YYYY');
+	// 	this.boarding_date = moment(date).format('DD-MM-YYYY');
+	// 	this.med_date = moment(date).format('DD-MM-YYYY');
+
+	// },
+	computed: {
+		medImage: function() {
+			var images = this.medical_images;
+			var arr = [];
+			var imgarr = [];
+			var extimg = [];
+			$.each(images, function(key, value) {
+				var obj = {};
+				imgarr = value.split('/');
+				extimg = imgarr[5].split('.');
+				obj = {
+					img: value,
+					ext: extimg[1]
+				}
+				arr.push(obj)
+			})
+			return arr;
 		},
+	},
 		created() {
 			var route = window.location.pathname;
 			var arr = route.split('/');
@@ -1733,143 +1840,110 @@
 			this.disease_start_date= moment(date).format('DD-MM-YYYY');
 			this.disease_end_date= moment(date).format('DD-MM-YYYY');
 			this.accident_date=moment(date).format('DD-MM-YYYY');
+			this.injury_start_date=moment(date).format('DD-MM-YYYY');
+			this.injury_recovery_date=moment(date).format('DD-MM-YYYY');
 
         },
-        computed: {
-            medImage: function() {
-                var images = this.medical_images;
-                var arr = [];
-                var imgarr = [];
-                var extimg = [];
-                $.each(images, function(key, value) {
-                    var obj = {};
-                    imgarr = value.split('/');
-                    extimg = imgarr[5].split('.');
-                    obj = {
-                        img: value,
-                        ext: extimg[1]
-                    }
-                    arr.push(obj)
-                })
-                return arr;
-            },
-
-            imageMedical: function() {
-                var mimages = this.images;
-                var array = [];
-                var imagearray = [];
-                var imagext = [];
-                $.each(mimages, function(key, value) {
-                    var object = {};
-                    imagearray = value.split('/');
-                    imagext = imagearray[5].split('.');
-                    object = {
-                        img: value,
-                        ext: imagext[1]
-                    }
-                    array.push(object);
-                });
-                return array;
-            }
-        },
-		methods: {
+       
+	
+	methods: {
             // ======================== OPEN PDF ======================
             pdfOpen(pdf) {
-                window.open(pdf);
+            	window.open(pdf);
             },
             // ========================= Get Additional Info ============================
             getadditionalinfo() {
-                this.loading = true;
-                axios.post('/api/get-additional-info', {
-                    'employer_id': this.id
-                }, {
-                     headers: {'Authorization': 'Bearer '+ this.user_token}
-                }).then(result => {
-                    if(result.data.additionalinfo != null) {
-                        this.loading = false;
-						this.additional_info_all = result.data.additionalinfo;
-					} else {
-						this.additional_info_all = false;
-					}
-                });
+            	this.loading = true;
+            	axios.post('/api/get-additional-info', {
+            		'employer_id': this.id
+            	}, {
+            		headers: {'Authorization': 'Bearer '+ this.user_token}
+            	}).then(result => {
+            		if(result.data.additionalinfo != null) {
+            			this.loading = false;
+            			this.additional_info_all = result.data.additionalinfo;
+            		} else {
+            			this.additional_info_all = false;
+            		}
+            	});
             },
 
             hideaddinof() {
-                this.$modal.hide('additionalInfo');
+            	this.$modal.hide('additionalInfo');
             },
 
             editaddinfo(allinfo) {
-                this.basic_salary = allinfo.basic_salary;
-                this.basicsalary_currency = allinfo.basicsalary_currency;
-                this.phone_number = allinfo.phone_number;
-                this.cell_phone_number = allinfo.cell_phone_number;
-                this.drinking = allinfo.drinking;
-                this.smoking = allinfo.smoking;
-                this.deperature_date = moment(allinfo.deperature_date).format('DD-MM-YYYY');
-                this.rank = allinfo.rank;
-                this.company = allinfo.company;
-                this.home_allowance = allinfo.home_allowance;
-                this.home_allowance_currency = allinfo.home_allowance_currency;
-                this.total_salary = allinfo.total_salary;
-                this.total_salary_currency = allinfo.total_salary_currency;
-                this.fixed_pay = allinfo.fixed_pay;
-                this.fixpay_currency = allinfo.fixpay_currency;
-                this.leave_pay = allinfo.leave_pay;
-                this.leavepay_currency = allinfo.leavepay_currency;
-                this.onbroad_pay = allinfo.onbroad_pay;
-                this.onbroadpay_currency = allinfo.onbroadpay_currency;
-                this.code = allinfo.code;
-                this.pants.size = allinfo.pants;
-                this.shoe = allinfo.shoe;
-                this.employer_detail_id = allinfo.id;
+            	this.basic_salary = allinfo.basic_salary;
+            	this.basicsalary_currency = allinfo.basicsalary_currency;
+            	this.phone_number = allinfo.phone_number;
+            	this.cell_phone_number = allinfo.cell_phone_number;
+            	this.drinking = allinfo.drinking;
+            	this.smoking = allinfo.smoking;
+            	this.deperature_date = moment(allinfo.deperature_date).format('DD-MM-YYYY');
+            	this.rank = allinfo.rank;
+            	this.company = allinfo.company;
+            	this.home_allowance = allinfo.home_allowance;
+            	this.home_allowance_currency = allinfo.home_allowance_currency;
+            	this.total_salary = allinfo.total_salary;
+            	this.total_salary_currency = allinfo.total_salary_currency;
+            	this.fixed_pay = allinfo.fixed_pay;
+            	this.fixpay_currency = allinfo.fixpay_currency;
+            	this.leave_pay = allinfo.leave_pay;
+            	this.leavepay_currency = allinfo.leavepay_currency;
+            	this.onbroad_pay = allinfo.onbroad_pay;
+            	this.onbroadpay_currency = allinfo.onbroadpay_currency;
+            	this.code = allinfo.code;
+            	this.pants.size = allinfo.pants;
+            	this.shoe = allinfo.shoe;
+            	this.employer_detail_id = allinfo.id;
             	this.$modal.show('additionalInfo');
             },
 
             saveaddinfo() {
-                axios.post('/api/save-form-two', {
-	                'basic_salary': this.basic_salary,
-	                'phone_number': this.phone_number,
-	                'cell_phone_number': this.cell_phone_number,
-	                'drinking': this.drinking,
-	                'smoking': this.smoking,
-	                'deperature_date': this.deperature_date,
-	                'rank': this.rank,
-	                'company': this.company,
-	                'home_allowance': this.home_allowance,
-	                'total_salary': this.total_salary,
-	                'fixed_pay': this.fixed_pay,
-	                'leave_pay': this.leave_pay,
-	                'onbroad_pay': this.onbroad_pay,
-	                'code': this.code,
-	                'shoe': this.shoe,
-	                'pants': this.pants.size,
-	                'employer_detail_id': this.employer_detail_id,
-	                'employerId': this.id,
-	                'basicsalary_currency': this.basicsalary_currency,
-	                'onbroadpay_currency': this.onbroadpay_currency,
-	                'fixpay_currency': this.fixpay_currency,
-	                'leavepay_currency': this.leavepay_currency,
-	                'home_allowance_currency': this.home_allowance_currency,
-	                'total_salary_currency': this.total_salary_currency
-	            }, {
-	                headers: {'Authorization': 'Bearer '+ this.user_token}
-	            }).then(result => {
-                    this.getadditionalinfo();
-                    this.hideaddinof();
-	                $(document).find('span[class="validate-message"]').remove();
-	            }).catch(err => {
-	                if (err.response.status == 400) {
-	                    Toast.fire({
-	                        icon: 'error',
-	                        title: 'Please fill all required fields!'
-	                    });
-	                    $(document).find('span[class="validate-message"]').remove();
-	                    $.each(err.response.data.error, function (i, error) {
-	                        var el = $(document).find('[name="'+i+'"]');
-	                          el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
-	                    });
-	                }
-	            });
+            	axios.post('/api/save-form-two', {
+            		'basic_salary': this.basic_salary,
+            		'phone_number': this.phone_number,
+            		'cell_phone_number': this.cell_phone_number,
+            		'drinking': this.drinking,
+            		'smoking': this.smoking,
+            		'deperature_date': this.deperature_date,
+            		'rank': this.rank,
+            		'company': this.company,
+            		'home_allowance': this.home_allowance,
+            		'total_salary': this.total_salary,
+            		'fixed_pay': this.fixed_pay,
+            		'leave_pay': this.leave_pay,
+            		'onbroad_pay': this.onbroad_pay,
+            		'code': this.code,
+            		'shoe': this.shoe,
+            		'pants': this.pants.size,
+            		'employer_detail_id': this.employer_detail_id,
+            		'employerId': this.id,
+            		'basicsalary_currency': this.basicsalary_currency,
+            		'onbroadpay_currency': this.onbroadpay_currency,
+            		'fixpay_currency': this.fixpay_currency,
+            		'leavepay_currency': this.leavepay_currency,
+            		'home_allowance_currency': this.home_allowance_currency,
+            		'total_salary_currency': this.total_salary_currency
+            	}, {
+            		headers: {'Authorization': 'Bearer '+ this.user_token}
+            	}).then(result => {
+            		this.getadditionalinfo();
+            		this.hideaddinof();
+            		$(document).find('span[class="validate-message"]').remove();
+            	}).catch(err => {
+            		if (err.response.status == 400) {
+            			Toast.fire({
+            				icon: 'error',
+            				title: 'Please fill all required fields!'
+            			});
+            			$(document).find('span[class="validate-message"]').remove();
+            			$.each(err.response.data.error, function (i, error) {
+            				var el = $(document).find('[name="'+i+'"]');
+            				el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
+            			});
+            		}
+            	});
             },
             // ========================= End Additional Info ============================
             //========================== Download ========================
@@ -1926,6 +2000,45 @@
             		}
             	});
             },
+            fileChange(e) {
+                    var files = e.target.files || e.dataTransfer.files;
+                    if (!files.length) {
+                        return;
+                    }
+                    let label = $(document).find('[id="changeLabel"]');
+                    var reader = new FileReader();
+                    var that = this;
+                    reader.onload = (e) => {
+                        that.showLoading = true;
+                        axios.post('/api/image-upload', {
+                            'image': e.target.result,
+                            'folder': 'profile/'
+                        }, {
+                            headers: {'Authorization': 'Bearer '+ that.user_token}
+                        }).then((res) => {
+                            that.image = res.data.url;
+                            that.showLoading = false;
+                        });
+                    }
+                    reader.readAsDataURL(files[0]);
+                    this.imglabel = files[0].name;
+                },
+
+                viewImage(image) {
+                    var img = image;
+                    Swal.fire({
+                        imageUrl: img,
+                        imageWidth: 400,
+                        imageHeight: 200,
+                        imageAlt: 'Custom image',
+                        width: 80 + '%',
+                        imageWidth: null,
+                        imageHeight: null,
+                        showCloseButton: true,
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    })
+                },
             //====================== END PERSONAL DETAIL ========================
             personDetail() {
             	this.loading = true;
@@ -1941,168 +2054,133 @@
             },
 
             familyMember() {
-				this.loading = true;
-				axios.post('/api/get-familymember', {
-					user_id: this.id
-				}, {
-					headers:{'Authorization': 'Bearer '+ this.user_token}
-				}).then(result => {
-					this.loading = false;
-					this.family_members = result.data.family_members;
-				});
-			},
+            	this.loading = true;
+            	axios.post('/api/get-familymember', {
+            		user_id: this.id
+            	}, {
+            		headers:{'Authorization': 'Bearer '+ this.user_token}
+            	}).then(result => {
+            		this.loading = false;
+            		this.family_members = result.data.family_members;
+            	});
+            },
 
-			certificate() {
-				this.loading = true;
-				axios.post('/api/get-employer-certificate-detail', {
-					employer_id: this.id
-				}, {
-					headers:{'Authorization': 'Bearer '+ this.user_token}
-				}).then(result => {
-					this.loading = false;
-					this.certificates = result.data.certificates;
-				});
-			},
+            certificate() {
+            	this.loading = true;
+            	axios.post('/api/get-employer-certificate-detail', {
+            		employer_id: this.id
+            	}, {
+            		headers:{'Authorization': 'Bearer '+ this.user_token}
+            	}).then(result => {
+            		this.loading = false;
+            		this.certificates = result.data.certificates;
+            	});
+            },
 
-			medicalC() {
-				this.loading = true;
-				axios.post('/api/get-meidicalcheckup', {
-					employer_id: this.id
-				}, {
-					headers:{'Authorization': 'Bearer '+ this.user_token}
-				}).then(result => {
-					if(result.data.medicalcheckup != null) {
-						this.loading = false;
-						this.medicalcheckup = result.data.medicalcheckup;
-						this.medical_images = JSON.parse(result.data.medicalcheckup.images);
-					} else {
-						this.medicalcheckup = false;
-					}
-				});
-			},
+            medicalC() {
+            	this.loading = true;
+            	axios.post('/api/get-meidicalcheckup', {
+            		employer_id: this.id
+            	}, {
+            		headers:{'Authorization': 'Bearer '+ this.user_token}
+            	}).then(result => {
+            		if(result.data.medicalcheckup != null) {
+            			this.loading = false;
+            			this.medicalcheckup = result.data.medicalcheckup;
+            		} else {
+            			this.medicalcheckup = false;
+            		}
+            	});
+            },
 
-			otherCompanyCareer() {
-				this.loading = true;
-				axios.post('/api/get-other-company', {
-					employer_id: this.id
-				}, {
-					headers:{'Authorization': 'Bearer '+ this.user_token}
-				}).then(result => {
-					this.loading = false;
-					this.othercompanies = result.data.othercompanies;
-				});
-			},
+            otherCompanyCareer() {
+            	this.loading = true;
+            	axios.post('/api/get-other-company', {
+            		employer_id: this.id
+            	}, {
+            		headers:{'Authorization': 'Bearer '+ this.user_token}
+            	}).then(result => {
+            		this.loading = false;
+            		this.othercompanies = result.data.othercompanies;
+            	});
+            },
 
-			seamanBook() {
-				this.loading = true;
-				axios.post('/api/get-seaman-book', {
-					employer_id: this.id
-				}, {
-					headers:{'Authorization': 'Bearer '+ this.user_token}
-				}).then(result => {
-					if(result.data.seamanbook != null) {
-						this.loading = false;
-						this.seamanbook = result.data.seamanbook;
-						this.seamanImages = JSON.parse(result.data.seamanbook.images);
-					} else {
-						this.seamanbook = false;
-					}
-				});
-			},
+            seamanBook() {
+            	this.loading = true;
+            	axios.post('/api/get-seaman-book', {
+            		employer_id: this.id
+            	}, {
+            		headers:{'Authorization': 'Bearer '+ this.user_token}
+            	}).then(result => {
+            		if(result.data.seamanbook != null) {
+            			this.loading = false;
+            			this.seamanbook = result.data.seamanbook;
+            			this.seamanImages = JSON.parse(result.data.seamanbook.images);
+            		} else {
+            			this.seamanbook = false;
+            		}
+            	});
+            },
 
-			getPassport() {
-				this.loading = true;
-				axios.post('/api/get-passport', {
-					employer_id: this.id
-				}, {
-					headers:{'Authorization': 'Bearer '+ this.user_token}
-				}).then(result => {
-					if(result.data.passports != null) {
-						this.loading = false;
-						this.passports = result.data.passports;
-						this.images_passport = JSON.parse(result.data.passports.images);
-					} else {
-						this.passports = false;
-					}
 
-				});
-			},
+            /*================================== Start Family Member ==========================================*/
+            editFamilyMember(item) {
+            	console.log(item.employerId);
+            	this.showFamilyMember();
+            	this.$modal.show('family_member');
+            	this.member_name = item.name;
+            	this.member_relation = item.relationship;
+            	this.member_phone_number = item.phone_number;
+            	this.member_dob = moment(item.dob).format('DD-MM-YYYY');
+            	this.member_remark = item.remark;
+            	this.user_id = this.id;
+            	this.family_member_id = item.id;
+            },
+            saveFamilyMember(){
+            	axios.post('/api/save-family-member', {
+            		'member_name': this.member_name,
+            		'member_relation': this.member_relation,
+            		'member_phone_number': this.member_phone_number,
+            		'member_dob': this.member_dob,
+            		'member_remark': this.member_remark,
+            		'family_member_id': this.family_member_id,
+            		'user_id':this.id,
+            	}, {
+            		headers: {'Authorization': 'Bearer '+ this.user_token}
+            	}).then(result => {
 
-			getAllinone() {
-				this.loading = true;
-				axios.post('/api/get-allinone', {
-					employer_id: this.id
-				}, {
-					headers:{'Authorization': 'Bearer '+ this.user_token}
-				}).then(result => {
-					if(result.data.allinone != null) {
-						this.loading = false;
-						this.allinone = result.data.allinone;
-						this.allinone_images = JSON.parse(result.data.allinone.images);
-					} else {
-						this.allinone = false;
-					}
+            		this.hideFamilyMember();
+            		$(document).find('span[class="validate-message"]').remove();
+            		this.familyMember();
+            		this.family_member_id = null;
+            	}).catch(err => {
+            		if (err.response.status == 400) {
+            			Toast.fire({
+            				icon: 'error',
+            				title: 'Please fill all required fields!'
+            			});
+            			$(document).find('span[class="validate-message"]').remove();
+            			$.each(err.response.data.error, function (i, error) {
+            				var el = $(document).find('[name="'+i+'"]');
+            				el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
+            			});
+            		}
+            		isValid = false;
+            	});
 
-				});
-			},
-			/*================================== Start Family Member ==========================================*/
-			editFamilyMember(item) {
-				console.log(item.employerId);
-				this.showFamilyMember();
-				this.$modal.show('family_member');
-				this.member_name = item.name;
-				this.member_relation = item.relationship;
-				this.member_phone_number = item.phone_number;
-				this.member_dob = moment(item.dob).format('DD-MM-YYYY');
-				this.member_remark = item.remark;
-				this.user_id = this.id;
-				this.family_member_id = item.id;
-			},
-			saveFamilyMember(){
-				axios.post('/api/save-family-member', {
-					'member_name': this.member_name,
-					'member_relation': this.member_relation,
-					'member_phone_number': this.member_phone_number,
-					'member_dob': this.member_dob,
-					'member_remark': this.member_remark,
-					'family_member_id': this.family_member_id,
-					'user_id':this.id,
-				}, {
-					headers: {'Authorization': 'Bearer '+ this.user_token}
-				}).then(result => {
+            },
+            hideFamilyMember(){
 
-					this.hideFamilyMember();
-					$(document).find('span[class="validate-message"]').remove();
-					this.familyMember();
-					this.family_member_id = null;
-				}).catch(err => {
-					if (err.response.status == 400) {
-						Toast.fire({
-							icon: 'error',
-							title: 'Please fill all required fields!'
-						});
-						$(document).find('span[class="validate-message"]').remove();
-						$.each(err.response.data.error, function (i, error) {
-							var el = $(document).find('[name="'+i+'"]');
-							el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
-						});
-					}
-					isValid = false;
-				});
-
-			},
-			hideFamilyMember(){
-
-				this.member_name = '',
-				this.member_relation = '',
-				this.member_phone_number = '',
-				this.member_dob = moment(new Date()).format('DD-MM-YYYY');
-				this.member_remark = '',
-				this.$modal.hide('family_member');
-			},
-			showFamilyMember() {
-				this.$modal.show('family_member');
-			},
+            	this.member_name = '',
+            	this.member_relation = '',
+            	this.member_phone_number = '',
+            	this.member_dob = moment(new Date()).format('DD-MM-YYYY');
+            	this.member_remark = '',
+            	this.$modal.hide('family_member');
+            },
+            showFamilyMember() {
+            	this.$modal.show('family_member');
+            },
 			  // Delete Family Members
 			  deleteFamilyMember(member) {
 			  	const vm = this;
@@ -2128,7 +2206,7 @@
 			  		}
 			  	});
 			  },
-			/*================================ End Family Member ===============================================*/
+			  /*================================ End Family Member ===============================================*/
             //=============================== MEDICALCHECKUP BY TT ==============================================
             createMedicalCheckup() {
             	this.$modal.show('medical_checkup');
@@ -2138,89 +2216,11 @@
             	this.$modal.hide('medical_checkup');
             },
 
-            uploadFile(e) {
-            	var files = e.target.files || e.dataTransfer.files;
-            	if (!files.length)
-            		return;
-            	this.createImage(files)
-            },
-
-            createImage(files) {
-            	var vm = this;
-            	for (var index = 0; index < files.length; index++) {
-            		if (!files[index].type.match('application/pdf') && !files[index].type.match('image.*')) {
-            			Swal.fire({
-            				icon: 'error',
-            				title: 'Oops...',
-            				text: 'Please only select Image!',
-            				allowOutsideClick: false,
-            			})
-            			return;
-            		} else {
-            			if(vm.fileLoopCount < vm.fileMaxLenght) {
-            				var reader = new FileReader();
-            				reader.onload = function(event) {
-            					const imageUrl = event.target.result;
-            					vm.showLoading = true;
-            					axios.post('/api/image-upload', {
-            						'image': imageUrl,
-            						'folder': 'medicalcheckup/'
-            					}, {
-            						headers: {'Authorization': 'Bearer '+ this.user_token}
-            					}).then((res) => {
-            						vm.showLoading = false;
-            						vm.images.push(res.data.url);
-            					});
-            				}
-            				reader.readAsDataURL(files[index]);
-            			} else {
-            				return false;
-            			}
-            			vm.fileLoopCount++;
-            		}
-            	}
-            },
-
-            onDrop: function(e) {
-            	e.stopPropagation();
-            	e.preventDefault();
-            	var files = e.target.files || e.dataTransfer.files;
-            	this.createImage(files)
-            },
-
-            deleteImage(index) {
-            	axios.post('/api/image-delete', {
-            		'image': this.images[index],
-            	}).then(res => {
-            		this.images.splice(index, 1);
-            		this.fileLoopCount--;
-            	});
-            },
+            
             hide() {
             	this.$modal.hide('seaman_book');
             	this.$modal.hide('passport');
             	this.$modal.hide('all_in_one');
-            },
-
-            editImage(index, e) {
-            	var vm = this;
-            	var files = e.target.files || e.dataTransfer.files;
-            	var reader = new FileReader();
-            	reader.onload = function(event) {
-            		const imageUrl = event.target.result;
-            		vm.showLoading = true;
-            		axios.post('/api/image-upload-edit', {
-            			'image': imageUrl,
-            			'oldImage': vm.images[index],
-            			'folder': 'medicalcheckup/'
-            		}, {
-            			headers: {'Authorization': 'Bearer '+ this.user_token}
-            		}).then((res) => {
-            			vm.showLoading = false;
-            			vm.images.splice(index, 1, res.data.url);
-            		});
-            	}
-            	reader.readAsDataURL(files[0]);
             },
 
             editMedicateCheckup(medical) {
@@ -2239,7 +2239,6 @@
             	this.hospital = medical.hospital;
             	this.decision = medical.decision;
             	this.medicalCheckupId = medical.id;
-            	this.images = JSON.parse(medical.images);
             	this.med_date = moment(medical.med_date).format('DD-MM-YYYY');
             	this.$modal.show('medical_checkup');
             },
@@ -2256,8 +2255,8 @@
             	this.leaving_date = item.leaving_date;
             	this.area = item.area;
             	this.company_remark = item.remark;
-                this.user_id = this.id;
-                this.showOtherCompanyCareer();
+            	this.user_id = this.id;
+            	this.showOtherCompanyCareer();
             },
             showOtherCompanyCareer(){
             	this.$modal.show('other_company');
@@ -2336,17 +2335,7 @@
 					}
 				});
 			},
-			/* End Other Company Career */
-
-			createSeamanBook() {
-				this.$modal.show('seaman_book');
-			},
-			uploadFileSeaman(e) {
-				var files = e.target.files || e.dataTransfer.files;
-				if (!files.length)
-					return;
-				this.createImageFormSeven(files)
-			},
+			/*============== End Other Company Career =============*/
 
 			createNewMedicalCheckup() {
 				axios.post('/api/save-medical-checkup', {
@@ -2389,380 +2378,6 @@
 					}
 				});
 			},
-
-            //============================================= CREATE CEAMANBOOK BY TT ==============================================
-            createSeamanBook() {
-            	this.$modal.show('seaman_book');
-            },
-
-            editCemanBookModal(smb) {
-            	this.cbn_id = smb.id;
-            	this.cbn = smb.cbn;
-            	this.cbn_images = JSON.parse(smb.images);
-            	this.$modal.show('seaman_book');
-            },
-
-            closeSeaManBookModel() {
-            	this.$modal.hide('seaman_book');
-            },
-
-            uploadFileFormSeven(e) {
-            	var files = e.target.files || e.dataTransfer.files;
-            	if (!files.length)
-            		return;
-            	this.createImageFormSeven(files)
-            },
-
-            createImageFormSeven(files) {
-            	var vm = this;
-            	for (var index = 0; index < files.length; index++) {
-            		if (!files[index].type.match('application/pdf') && !files[index].type.match('image.*')) {
-            			Swal.fire({
-            				icon: 'error',
-            				title: 'Oops...',
-            				text: 'Please only select Image!',
-            				allowOutsideClick: false,
-            			})
-            			return;
-            		} else {
-            			if(vm.countfile < vm.fileMaxLenght) {
-            				var reader = new FileReader();
-            				reader.onload = function(event) {
-            					const imageUrl = event.target.result;
-            					vm.showLoading = true;
-            					axios.post('/api/image-upload-form-seven', {
-            						'image': imageUrl,
-            						'folder': 'cemanbookno/'
-            					}, {
-            						headers: {'Authorization': 'Bearer '+ this.user_token}
-            					}).then((res) => {
-            						vm.showLoading = false;
-            						vm.cbn_images.push(res.data.url);
-            					});
-            				}
-            				reader.readAsDataURL(files[index]);
-            			} else {
-            				return false;
-            			}
-            			vm.countfile++;
-            		}
-            	}
-            },
-
-            onDropFormSeven: function(e) {
-            	e.stopPropagation();
-            	e.preventDefault();
-            	var files = e.target.files || e.dataTransfer.files;
-            	this.createImageFormSeven(files)
-            },
-
-
-            editImage(index, e) {
-            	var vm = this;
-            	var files = e.target.files || e.dataTransfer.files;
-            	var reader = new FileReader();
-            	reader.onload = function(event) {
-            		const imageUrl = event.target.result;
-            		vm.showLoading = true;
-            		axios.post('/api/image-upload-edit', {
-            			'image': imageUrl,
-            			'oldImage': vm.cbn_images[index],
-            			'folder': 'cemanbookno/'
-            		}, {
-            			headers: {'Authorization': 'Bearer '+ this.user_token}
-            		}).then((res) => {
-            			vm.showLoading = false;
-            			vm.cbn_images.splice(index, 1, res.data.url);
-            		});
-            	}
-            	reader.readAsDataURL(files[0]);
-            },
-
-            saveSeamanBook() {
-            	axios.post('/api/save-cbn', {
-            		"cbn": this.cbn,
-            		"cbn_images": this.cbn_images,
-            		'cbn_id': this.cbn_id,
-            		'employer_id': this.id
-            	}, {
-            		headers: {'Authorization': 'Bearer '+ this.user_token}
-            	}).then(result => {
-            		this.closeSeaManBookModel();
-            		$(document).find('span[class="validate-message"]').remove();
-            		this.seamanBook();
-            	}).catch(err => {
-            		if (err.response.status == 400) {
-            			Toast.fire({
-            				icon: 'error',
-            				title: 'Please fill all required fields!'
-            			});
-            			$(document).find('span[class="validate-message"]').remove();
-            			$.each(err.response.data.error, function (i, error) {
-            				var el = $(document).find('[name="'+i+'"]');
-            				el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
-            			});
-            		}
-            	});
-            },
-            //================================================= END SEAMAN BOOK ==============================================================
-            //================================================= PASSPORT BY TT ===============================================================
-            createPassport(passport) {
-            	this.$modal.show('passport');
-            	this.passport_id = null;
-            },
-            hiedePassportModal() {
-            	this.$modal.hide('passport');
-            },
-            editPassportModal(passport) {
-            	this.passport_id = passport.id;
-            	this.passport = passport.passport_no;
-            	this.passport_images = JSON.parse(passport.images);
-            	this.$modal.show('passport');
-			},
-			editPassport(passport){
-                this.passport = passport.passport_no;
-				this.passport_images = JSON.parse(passport.images);
-				this.$modal.show('passport');
-			},
-			closePassport(){
-           	    this.$modal.hide('passport');
-			},
-            uploadPassportFile(e) {
-            	var files = e.target.files || e.dataTransfer.files;
-            	if (!files.length)
-            		return;
-            	this.createImagesPassport(files)
-            },
-            
-            createImagesPassport(files) {
-            	var vm = this;
-            	for (var index = 0; index < files.length; index++) {
-            		if (!files[index].type.match('application/pdf') && !files[index].type.match('image.*')) {
-            			Swal.fire({
-            				icon: 'error',
-            				title: 'Oops...',
-            				text: 'Please only select Image!',
-            				allowOutsideClick: false,
-            			})
-            			return;
-            		} else {
-            			if(vm.fileLoopCountPass < vm.fileMaxLenghtPass) {
-            				var reader = new FileReader();
-            				reader.onload = function(event) {
-            					const imageUrl = event.target.result;
-            					vm.showLoading = true;
-            					axios.post('/api/image-upload', {
-            						'image': imageUrl,
-            						'folder': 'passports/'
-            					}, {
-            						headers: {'Authorization': 'Bearer '+ this.user_token}
-            					}).then((res) => {
-            						console.log(res.data.url);
-            						vm.showLoading = false;
-									vm.passport_images.push(res.data.url);
-									console.log(vm.passport_images);
-            					});
-            				}
-            				reader.readAsDataURL(files[index]);
-            			} else {
-            				return false;
-            			}
-            			vm.fileLoopCountPass++;
-            		}
-            	}
-            },
-
-            onDropPassport: function(e) {
-            	e.stopPropagation();
-            	e.preventDefault();
-            	var files = e.target.files || e.dataTransfer.files;
-            	this.createImagesPassport(files)
-            },
-
-            deletePassportImage(index) {
-            	axios.post('/api/image-delete', {
-            		'image': this.passport_images[index],
-            	}).then(res => {
-            		this.passport_images.splice(index, 1);
-            		this.fileLoopCountPassport--;
-            	});
-            },
-
-            editPassportImage(index, e) {
-            	var vm = this;
-            	var files = e.target.files || e.dataTransfer.files;
-            	var reader = new FileReader();
-            	reader.onload = function(event) {
-            		const imageUrl = event.target.result;
-            		vm.showLoading = true;
-            		axios.post('/api/image-upload-edit', {
-            			'image': imageUrl,
-            			'oldImage': vm.passport_image[index],
-            			'folder': 'passports/'
-            		}, {
-            			headers: {'Authorization': 'Bearer '+ this.user_token}
-            		}).then((res) => {
-            			vm.showLoading = false;
-            			vm.passport_image.splice(index, 1, res.data.url);
-            		});
-            	}
-            	reader.readAsDataURL(files[0]);
-            },
-
-            savePassport() {
-            	axios.post('/api/save-passport', {
-            		"passport": this.passport,
-            		"passport_images": this.passport_images,
-            		'passport_id': this.passport_id,
-            		'employer_id': this.id
-            	}, {
-            		headers: {'Authorization': 'Bearer '+ this.user_token}
-            	}).then(result => {
-            		this.hiedePassportModal();
-            		this.getPassport();
-            		$(document).find('span[class="validate-message"]').remove();
-            	}).catch(err => {
-            		if (err.response.status == 400) {
-            			Toast.fire({
-            				icon: 'error',
-            				title: 'Please fill all required fields!'
-            			});
-            			$(document).find('span[class="validate-message"]').remove();
-            			$.each(err.response.data.error, function (i, error) {
-            				var el = $(document).find('[name="'+i+'"]');
-            				el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
-            			});
-            		}
-            	});
-            },
-
-            //===================== END PASSPORT ==================================
-            //========================= START ALL IN ONE BY TT =================================
-            createAllInOne() {
-            	this.$modal.show('all_in_one');
-            },
-
-            closeAllInOneModal() {
-            	this.$modal.hide('all_in_one');
-            },
-
-            editAllInOneModal(allinone) {
-            	this.all_in_one_id = allinone.id;
-            	this.gmbss = allinone.gmbss;
-            	this.coc = allinone.coc;
-            	this.all_images = JSON.parse(allinone.images);
-            	this.$modal.show('all_in_one');
-            },
-
-            uploadAllInOneFile(e) {
-            	var files = e.target.files || e.dataTransfer.files;
-            	if (!files.length)
-            		return;
-            	this.createImagesAllInOne(files)
-            },
-
-            createImagesAllInOne(files) {
-            	var vm = this;
-            	for (var index = 0; index < files.length; index++) {
-            		if (!files[index].type.match('application/pdf') && !files[index].type.match('image.*')) {
-            			Swal.fire({
-            				icon: 'error',
-            				title: 'Oops...',
-            				text: 'Please only select Image!',
-            				allowOutsideClick: false,
-            			})
-            			return;
-            		} else {
-            			if(vm.fileLoopCountallinone < vm.fileMaxLenghtallinone) {
-            				var reader = new FileReader();
-            				reader.onload = function(event) {
-            					const imageUrl = event.target.result;
-            					vm.showLoading = true;
-            					axios.post('/api/image-upload', {
-            						'image': imageUrl,
-            						'folder': 'allInOne/'
-            					}, {
-            						headers: {'Authorization': 'Bearer '+ this.user_token}
-            					}).then((res) => {
-            						vm.showLoading = false;
-            						vm.all_images.push(res.data.url);
-            					});
-            				}
-            				reader.readAsDataURL(files[index]);
-            			} else {
-            				return false;
-            			}
-            			vm.fileLoopCount++;
-            		}
-            	}
-            },
-
-            onDropAllInOne: function(e) {
-            	e.stopPropagation();
-            	e.preventDefault();
-            	var files = e.target.files || e.dataTransfer.files;
-            	this.createImagesAllInOne(files)
-            },
-
-            deleteAllInOneImage(index) {
-            	axios.post('/api/image-delete', {
-            		'image': this.all_images[index],
-            	}).then(res => {
-            		this.all_images.splice(index, 1);
-            		this.fileLoopCount--;
-            	});
-            },
-
-            editAllInOneImage(index, e) {
-            	var vm = this;
-            	var files = e.target.files || e.dataTransfer.files;
-            	var reader = new FileReader();
-            	reader.onload = function(event) {
-            		const imageUrl = event.target.result;
-            		vm.showLoading = true;
-            		axios.post('/api/image-upload-edit', {
-            			'image': imageUrl,
-            			'oldImage': vm.all_images[index],
-            			'folder': 'allInOne/'
-            		}, {
-            			headers: {'Authorization': 'Bearer '+ this.user_token}
-            		}).then((res) => {
-            			vm.showLoading = false;
-            			vm.all_images.splice(index, 1, res.data.url);
-            		});
-            	}
-            	reader.readAsDataURL(files[0]);
-            },
-
-            saveAAllInOne() {
-            	axios.post('/api/save-all-in-one', {
-            		"coc": this.coc,
-            		"gmbss": this.gmbss,
-            		"all_images": this.all_images,
-            		'all_in_one_id': this.all_in_one_id,
-            		'employer_id': this.id
-            	}, {
-            		headers: {'Authorization': 'Bearer '+ this.user_token}
-            	}).then(result => {
-            		this.getAllinone();
-            		this.closeAllInOneModal();
-            		$(document).find('span[class="validate-message"]').remove();
-            	}).catch(err => {
-            		if (err.response.status == 400) {
-            			Toast.fire({
-            				icon: 'error',
-            				title: 'Please fill all required fields!'
-            			});
-            			$(document).find('span[class="validate-message"]').remove();
-            			$.each(err.response.data.error, function (i, error) {
-            				var el = $(document).find('[name="'+i+'"]');
-            				el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
-            			});
-            		}
-            	});
-            },
-
-           //========================================================== END ALL IN ONE =====================================================
 
 			// ================================================= CERTIFICATE BY TT =================================================
 			hideCertificate() {
@@ -3034,17 +2649,6 @@
 					this.accident_remark = ''
 			},
 			saveAccident() {
-				//  console.log(this.accident_ship_name);
-				//  console.log(this.accident_rank);
-				//  console.log(this.accident_date);
-				//  console.log(this.accident_type);
-				//  console.log(this.accident_reason);
-				//  console.log(this.accident_cost);
-				//  console.log(this.accident_currency);
-				//  console.log(this.accident_re_use);
-				//  console.log(this.accident_etc);
-				//  console.log(this.accident_remark);
-
 
 				axios.post('/api/save-accident', {
 					'employerId': this.id,
@@ -3121,14 +2725,220 @@
 					}
 				});
 			},
+			//injury
+			showInjury() {
+					axios.post('/api/get-all-injury', {
+						employer_id: this.id
+					}, {
+						headers:{'Authorization': 'Bearer '+ this.user_token}
+					}).then(result => {
 
-		
-	    },
-		
+						this.injuries = result.data.injuries;
+					});
+			},
+			addInjury() {
+                 this.$modal.show('injury_modal');
+            },
 
+            hideInjury() {
+                this.$modal.hide('injury_modal');
+                this.clearInjuryForm();
+                },
+            saveInjury() {
 
-		
-	
+				axios.post('/api/save-injury', {
+					'employer_id': this.id,
+					'illness': this.injury_illness,
+					'medical_name': this.injury_medical_name,
+					'hospital_name': this.injury_hospital_name,
+					'start_date': this.injury_start_date,
+					'recovery_date': this.injury_recovery_date,
+					'hospital_type': this.injury_hospital_type,
+					'expenses_won': this.injury_expenses_won,
+					'expenses_won_currency':this.injury_expenses_won_currency,
+					'expenses_ex': this.injury_expenses_ex,
+					'expenses_ex_currency': this.injury_expenses_ex_currency,
+					'remark': this.injury_remark,
+					'injury_id': this.injury_id
+				}, {
+					headers: {'Authorization': 'Bearer '+ this.user_token}
+				}).then(result => {
+				this.hideInjury();
+				$(document).find('span[class="validate-message"]').remove();
+				this.showInjury();
+				this.injury_id = null;
+				}).catch(err => {
+					if (err.response.status == 400) {
+						Toast.fire({
+							icon: 'error',
+							title: 'Please fill all required fields!'
+						});
+						$(document).find('span[class="validate-message"]').remove();
+						$.each(err.response.data.error, function (i, error) {
+							var el = $(document).find('[name="'+i+'"]');
+							el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
+						});
+					}
+				});
 			
-    }
+			},
+			clearInjuryForm(){
+					this.injury_start_date = moment(new Date()).format('DD-MM-YYYY');
+					this.injury_recovery_date = moment(new Date()).format('DD-MM-YYYY');
+					this.injury_illness = '',
+					this.injury_medical_name = '',
+					this.injury_hospital_name = '',
+					this.injury_hospital_type = 'Public',
+					this.injury_expenses_won = '',
+					this.injury_expenses_won_currency='MMK',
+					this.injury_expenses_ex = '',
+					this.injury_expenses_ex_currency = 'MMK',
+					this.injury_remark = ''
+			},
+			editInjury(item){
+				        this.$modal.show('injury_modal');
+						this.injury_start_date = item.start_date,
+						this.injury_recovery_date = item.recovery_date,
+						this.injury_illness = item.illness,
+						this.injury_medical_name = item.medical_name,
+						this.injury_hospital_name = item.hospital_name,
+						this.injury_hospital_type =item.hospital_type,
+						this.injury_expenses_won = item.expenses_won,
+						this.injury_expenses_won_currency=item.expenses_won_currency,
+						this.injury_expenses_ex = item.expenses_ex,
+						this.injury_expenses_ex_currency = item.expenses_ex_currency,
+						this.injury_remark = item.remark
+			}, 
+
+			deleteInjury(member) {
+					const vm = this;
+					return Swal.fire({
+						title: 'Are you sure?',
+						text: "You want to delete " + member.type,
+						icon: 'warning',
+						showCancelButton: true,
+						allowOutsideClick: false,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33',
+						confirmButtonText: 'Delete'
+					}).then((result) => {
+						if(result.isConfirmed) {
+							axios.post('/api/delete-injury', {
+								id: member.id,
+								employer_id: this.id
+							}, {
+								headers: {'Authorization': 'Bearer '+ this.user_token}
+							}).then(response => {
+								vm.showInjury();
+							})
+						}
+					});
+			},
+			//evaluation
+			showEvaluation() {
+					axios.post('/api/get-all-evaluation', {
+						employer_id: this.id
+					}, {
+						headers:{'Authorization': 'Bearer '+ this.user_token}
+					}).then(result => {
+
+						this.evaluations = result.data.evaluations;
+					});
+			},
+			addEvaluation(){
+               this.$modal.show('crew_evaluate_modal');
+			},
+
+            hideEvaluation() {
+                    this.$modal.hide('crew_evaluate_modal');
+                    this.clearEvaluation();
+            },
+
+            saveCrewEvaluate() {
+
+                axios.post('/api/save-crew-evaluation', {
+                    'employer_id': this.id,
+                    'date': this.crew_date,
+                    'score': this.crew_score,
+                    're_use': this.crew_re_use,
+                    'rate': this.crew_rate,
+                    'detail': this.crew_detail,
+                    'evaluation_id': this.crew_evaluation_id
+                }, {
+                    headers: {'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
+                this.hideEvaluation();
+                $(document).find('span[class="validate-message"]').remove();
+                this.showEvaluation();
+                this.crew_evaluation_id = null;
+                }).catch(err => {
+                    if (err.response.status == 400) {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Please fill all required fields!'
+                        });
+                        $(document).find('span[class="validate-message"]').remove();
+                        $.each(err.response.data.error, function (i, error) {
+                            var el = $(document).find('[name="'+i+'"]');
+                            el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
+                        });
+                    }
+                });
+            
+            },
+            clearEvaluation(){
+                this.crew_date = moment(new Date()).format('DD-MM-YYYY');
+                this.crew_score = '',
+                this.crew_re_use = '',
+                this.crew_rate = '',
+                this.crew_detail = ''
+            },
+
+			reloadTable(tableProps){
+			this.tableProps = tableProps;
+				this.getData(tableProps);
+			},
+			editEvaluation(item){
+				this.$modal.show('crew_evaluate_modal');
+				this.crew_date = moment(item.date).format('DD-MM-YYYY');
+				this.crew_score = item.score;
+				this.crew_re_use = item.re_use;
+				this.crew_rate = item.rate;
+				this.crew_detail = item.detail;
+				this.employerId = item.user_id;
+				this.crew_evaluation_id = item.id;
+			}, 
+
+            // Delete Family Members
+            deleteEvaluation(member) {
+                const vm = this;
+                return Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You want to delete " + member.type,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Delete'
+                }).then((result) => {
+                    if(result.isConfirmed) {
+                        axios.post('/api/delete-crew-evaluation', {
+                            id: member.id,
+                            employer_id: this.id
+                        }, {
+                            headers: {'Authorization': 'Bearer '+ this.user_token}
+                        }).then(response => {
+                            vm.showEvaluation();
+                        })
+                    }
+                });
+            },
+
+
+		
+	},
+		
+		
+}
 </script>

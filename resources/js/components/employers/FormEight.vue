@@ -1,55 +1,165 @@
-<!-- ==================== PASSPORT ===================== -->
+<!-- ==================== InJuery ===================== -->
 <!-- Image 27 -->
 <template>
-	<div>
-		<div class="form-group">
-			<label for="passport">Passport</label>
-			<input type="text" name="passport" id="passport" v-model="passport" class="form-control">
-		</div>
-		<!-- Image Container -->
-		<div class="form-group">
-			<div class="image-holder" v-show="passport_images.length == 0">
-				<div class="loading-area-one" v-show="showLoading">
-					<img src="../../../../public/loading/loading.gif" alt="">
-				</div>
-				<label for="ppt" class="medicalcheckup" @dragover.prevent @drop="onDrop">
-					<i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
-					<span class="image-lable-text" v-show="!showLoading">Choose File or drag & drop here</span>
-				</label>
-			</div>
+    <div>
+        <!-- Button trigger cmodal -->
+        <div class="d-flex justify-content-end mb-3">
+            <button class="btn btn-primary" @click="showModal">Add Injury</button>
+        </div>
 
-			<div class="grid-container" @dragover.prevent @drop="onDrop" v-show="passport_images.length >= 1">
-				<div class="loading-area" v-show="showLoading">
-					<img src="../../../../public/loading/loading.gif" alt="">
+        <!-- DataTable -->
+        <div class="container">
+            <data-table
+                :columns="columns"
+                :data = "users"
+                :per-page="perPage"
+                @onTablePropsChanged="reloadTable"
+            >
+                <div slot="filters" slot-scope="{ tableData, perPage }">
+                    <div class="row mb-2">
+                        <div class="col-md-4">
+                            <select class="form-control" v-model="tableData.length">
+                                <option :key="page" v-for="page in perPage">{{ page }}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 offset-md-4">
+                            <input
+                                class="form-control"
+                                v-model="tableData.search"
+                                placeholder="Search Injury">
+                        </div>
+                    </div>
+                </div>
+                <tbody slot="body" slot-scope="{ data }">
+                <tr
+                    :key="item.id"
+                    v-for="item in data">
+                    <td class="text-left">{{item.illness}}</td>
+                    <td class="text-left">{{item.medical_name}}</td>
+                    <td class="text-left">{{item.hospital_name}}</td>
+                    <td class="text-left">{{item.start_date}}</td>
+                    <td class="text-left">{{item.recovery_date}}</td>
+                    <!-- <td class="text-left">{{item.hospital_type}}</td> -->
+                    <td class="text-left">{{item.expenses_won}} {{item.expenses_won_currency}}</td>
+					<td class="text-left">{{item.expenses_ex}} {{item.expenses_ex_currency}}</td>
+                    <!-- <td class="text-left">{{item.remark}}</td> -->
+                    <td class="text-left">
+                        <button :class="'btn btn-md btn-primary'" @click="EditItem(item)" title="Edit">
+                            <span>
+                                <i class="mdi mdi-grease-pencil" aria-hidden="true"></i>
+                            </span>
+                            &nbsp;
+                            Edit
+                        </button>
+                        <button :class="'btn btn-md btn-danger'" @click="onDeleteItem(item)" title="Delete">
+                            <span>
+                                <i class="mdi mdi-delete" aria-hidden="true"></i>
+                            </span>
+                            &nbsp;
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </data-table>
+        </div>
+
+        <!-- Modal -->
+		<modal name="injury_modal" :clickToClose="false" height="auto" class="injury_modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>Add Injury</h5>
 				</div>
-				<div class="gird-item-image " :key="index" v-for="(image, index) in passport_images">
-					<img :src="image" alt="image" class="images-img img-thumbnail">
-					<div class="image-overlay">
-						<div class="ed-holder">
-							<div class="edit-delete-area">
-								<label style="cursor: pointer">
-									<input type="file" @change="editPassportImage(index, $event)" class="d-none" accept="image/*, .pdf">
-									<i class="wizard-icon ti-pencil icon-holder edit"></i>
-								</label>
-								<i class="wizard-icon ti-trash icon-holder delete" @click="deletePassportImage(index)"></i>
-							</div>
-						</div>
-					</div>
+				<div class="modal-body">
+					<form>
+
+						<div class="form-group">
+                            <label for="injury_illness">Illness</label>
+                            <input type="text" class="form-control" id="injury_illness" name="injury_illness"  v-model.trim="injury_illness">
+                        </div>
+
+						<div class="form-group">
+                            <label for="injury_medical_name">Medical Name</label>
+                             <input type="text" class="form-control" id="injury_medical_name" name="injury_medical_name"  v-model.trim="injury_medical_name">
+                        </div>
+
+						<div class="form-group">
+                            <label for="injury_hospital_name">Hospital Name</label>
+                             <input type="text" class="form-control" id="injury_hospital_name" name="injury_hospital_name"  v-model.trim="injury_hospital_name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="injury_start_date">Start Date</label>
+                            <date-picker v-model="injury_start_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+                        </div>
+
+						<div class="form-group">
+                            <label for="injur_recovery_date">Recovery Date</label>
+                            <date-picker v-model="injury_recovery_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="injury_hospital_type">Hospital Type</label>
+                            <multiselect v-model="injury_hospital_type" :options="options" :searchable="false" :close-on-select="true" :show-labels="false"></multiselect>               
+					    </div>
+
+                        <div class="form-group">
+                            <label for="injury_expense_won">Expenses Won</label>
+                            <div class="row mx-1">
+                                    <input type="text" class="form-control col-8" id="injury_expense_won" name="injury_expense_won" v-model.trim="injury_expenses_won" >
+                                
+                                    <select class="form-control col-4" v-model="injury_expenses_won_currency">
+                                        <option value="MMK">MMK</option>
+                                        <option value="USD">USD</option>
+                                        <option value="SGD">SGD</option>
+                                    </select>
+                                
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="injury_expense_ex">Expense Ex</label>
+                            <div class="row mx-1">
+                                    <input type="text" class="form-control col-8" id="injury_expense_ex" name="injury_expense_ex" v-model.trim="injury_expenses_ex" >
+                                
+                                    <select class="form-control col-4" v-model="injury_expenses_ex_currency">
+                                        <option value="MMK">MMK</option>
+                                        <option value="USD">USD</option>
+                                        <option value="SGD">SGD</option>
+                                    </select>
+                                
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="injury_remark">Remark</label>
+                            <textarea name="remark" id="remark" v-model.trim="injury_remark" cols="30" rows="6" class="form-control"></textarea>
+                        </div>
+                    </form>
 				</div>
-				<div class="gird-item-image final-grid" v-show="fileLoopCount < fileMaxLenght">
-					<label for="ppt" class="medicalcheckup" @dragover.prevent @drop="onDrop">
-						<i class="wizard-icon ti-cloud-up icon-image-upload"></i>
-						<span class="image-lable-text">Choose File or drag & drop here</span>
-					</label>
-				</div>
+                <div class="modal-footer d-flex justify-content-end">
+                    <button class="btn btn-primary" @click="hideModal">Cancel</button>
+                    <button class="btn btn-success" @click="saveInjury">Add</button>
+                </div>
 			</div>
-		</div>
-		<input type="file" multiple draggable="true" id="ppt" @change="uploadPassportFile" accept="image/*, .pdf">
-	</div>
+		</modal>
+    </div>
 </template>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+<style scoped>
+	.injury_modal {
+		overflow: auto !important;
+	}
+</style>
 <script>
 	import Swal from 'sweetalert2/dist/sweetalert2.js'
-	import 'sweetalert2/src/sweetalert2.scss'
+    import 'sweetalert2/src/sweetalert2.scss'
+
+    import DatePicker from 'vue2-datepicker';
+    import 'vue2-datepicker/index.css';
+    import moment from 'moment';
+    import Multiselect from 'vue-multiselect';
+
 	const Toast = Swal.mixin({
 		toast: true,
 		position: 'top-end',
@@ -62,129 +172,219 @@
 		}
 	});
 	export default {
+        components: {
+            DatePicker,
+            Multiselect,
+        },
 		data() {
 			return {
-				passport: '',
-				passport_id: null,
-				user_token: `${process.env.MIX_APP_TOKEN}`,
-				passport_images: [],
-				showLoading: false,
-				fileMaxLenght: 27,
-				fileLoopCount: 0,
+				injury_illness: '',
+                injury_id: null,
+                injury_medical_name: '',
+                injury_hospital_name: '',
+                injury_start_date: '',
+                injury_recovery_date: '',
+                injury_hospital_type: 'Public',
+				injury_expenses_won: '',
+				injury_expenses_won_currency:'MMK',
+				injury_expenses_ex: '',
+				injury_expenses_ex_currency:'MMK',
+                injury_remark: '',
+                user_token: `${process.env.MIX_APP_TOKEN}`,
+				options: ['Public', 'Private'],
+				
+				 perPage: [10, 25, 100],
+                users: {},
+                default_order_column:'id',
+                default_order_dir:'desc',
+                tableProps: {
+                    search: '',
+                    length: 10,
+                    column: 'id',
+                    dir: 'desc',
+                },
+                columns: [
+                    {
+                        label: 'Illness',
+						name: 'illness',
+                    },
+                    {
+                        label: 'Medical Name',
+						name: 'medical_name',			
+                    },
+                      {
+                        label: 'Hospital Name',
+						name: 'hospital_name',
+                    },
+                      {
+                        label: 'Start Date',
+						name: 'start_date',
+					},
+					 {
+                        label: 'Recovery Date',
+						name: 'recovery_date',
+					},
+					//  {
+                    //     label: 'Hospital Type',
+					// 	name: 'hospital_type',
+                    // },
+					 {
+                        label: 'Expense Won',
+						name: 'expense_won',
+					},
+					 {
+                        label: 'Expense Ex',
+						name: 'expense_ex',
+					},
+					//  {
+                    //     label: 'Remark',
+					// 	name: 'remark',
+                    // },
+                    {
+						label: 'Action',
+                    }
+                ]
 			}
-		},
-		methods: {
-			async validate() {
-				var isValid;
-				await axios.post('/api/save-passport', {
-					"passport": this.passport,
-					"passport_images": this.passport_images,
-					'passport_id': this.passport_id,
-					'employer_id': this.employerId
-				}, {
-					headers: {'Authorization': 'Bearer '+ this.user_token}
-				}).then(result => {
-					this.passport_id = result.data.passport;
-					isValid = true;
-					$(document).find('span[class="validate-message"]').remove();
-				}).catch(err => {
-					if (err.response.status == 400) {
-						Toast.fire({
-							icon: 'error',
-							title: 'Please fill all required fields!'
-						});
-						$(document).find('span[class="validate-message"]').remove();
-						$.each(err.response.data.error, function (i, error) {
-							var el = $(document).find('[name="'+i+'"]');
-							el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
-						});
-					}
-					isValid = false;
-				});
+        },
+        created() {
+            const date = new Date();
+            this.injury_start_date = moment(date).format('DD-MM-YYYY');
+            this.injury_recovery_date = moment(date).format('DD-MM-YYYY');
+        },
+		  methods: {
+      validate() {
+            return Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to go next step ",
+                icon: 'warning',
+                showCancelButton: true,
+                allowOutsideClick: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                if(result.isConfirmed) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        },
+         showModal() {
+           this.$modal.show('injury_modal');
+            },
 
-				return isValid;
-			},
-			uploadPassportFile(e) {
-				var files = e.target.files || e.dataTransfer.files;
-				if (!files.length)
-					return;
-				this.createImages(files)
-			},
+            hideModal() {
+                this.$modal.hide('injury_modal');
+                this.clearForm();
+                },
 
-			createImages(files) {
-				var vm = this;
-				for (var index = 0; index < files.length; index++) {
-					if (!files[index].type.match('application/pdf') && !files[index].type.match('image.*')) {
-						Swal.fire({
-							icon: 'error',
-							title: 'Oops...',
-							text: 'Please only select Image!',
-							allowOutsideClick: false,
-						})
-						return;
-					} else {
-						if(vm.fileLoopCount < vm.fileMaxLenght) {
-							var reader = new FileReader();
-							reader.onload = function(event) {
-								const imageUrl = event.target.result;
-								vm.showLoading = true;
-								axios.post('/api/image-upload', {
-									'image': imageUrl,
-									'folder': 'passports/'
-								}, {
-									headers: {'Authorization': 'Bearer '+ this.user_token}
-								}).then((res) => {
-                                    console.log('helo');
-									vm.showLoading = false;
-									vm.passport_images.push(res.data.url);
-								});
-							}
-							reader.readAsDataURL(files[index]);
-						} else {
-							return false;
-						}
-						vm.fileLoopCount++;
-					}
-				}
-			},
+        saveInjury() {
 
-			onDrop: function(e) {
-				e.stopPropagation();
-				e.preventDefault();
-				var files = e.target.files || e.dataTransfer.files;
-				this.createImages(files)
-			},
+			 axios.post('/api/save-injury', {
+                'employer_id': this.employerId,
+                'illness': this.injury_illness,
+				'medical_name': this.injury_medical_name,
+				'hospital_name': this.injury_hospital_name,
+				'start_date': this.injury_start_date,
+				'recovery_date': this.injury_recovery_date,
+				'hospital_type': this.injury_hospital_type,
+                'expenses_won': this.injury_expenses_won,
+                'expenses_won_currency':this.injury_expenses_won_currency,
+                'expenses_ex': this.injury_expenses_ex,
+                'expenses_ex_currency': this.injury_expenses_ex_currency,
+                'remark': this.injury_remark,
+				'injury_id': this.injury_id
+            }, {
+                headers: {'Authorization': 'Bearer '+ this.user_token}
+            }).then(result => {
+               this.hideModal();
+               $(document).find('span[class="validate-message"]').remove();
+               this.getData();
+               this.injury_id = null;
+            }).catch(err => {
+                if (err.response.status == 400) {
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Please fill all required fields!'
+                    });
+                     $(document).find('span[class="validate-message"]').remove();
+                    $.each(err.response.data.error, function (i, error) {
+                        var el = $(document).find('[name="'+i+'"]');
+                        el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
+                    });
+                }
+            });
+        
+        },
+        clearForm(){
+			this.injury_start_date = moment(new Date()).format('DD-MM-YYYY');
+			this.injury_recovery_date = moment(new Date()).format('DD-MM-YYYY');
+            this.injury_illness = '',
+            this.injury_medical_name = '',
+            this.injury_hospital_name = '',
+            this.injury_hospital_type = 'Public',
+            this.injury_expenses_won = '',
+            this.injury_expenses_won_currency='MMK',
+            this.injury_expenses_ex = '',
+            this.injury_expenses_ex_currency = 'MMK',
+            this.injury_remark = ''
+        },
+         getData() {
+                axios.post('/api/all-injury', {
+                    ...this.tableProps,
+                    'user_id' : this.employerId
+                }, {
+                    headers:{'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
+                    this.users = result.data;
+                });
+            },
 
-			deletePassportImage(index) {
-				axios.post('/api/image-delete', {
-					'image': this.passport_images[index],
-				}).then(res => {
-					this.passport_images.splice(index, 1);
-					this.fileLoopCount--;
-				});
-			},
+            reloadTable(tableProps){
+               this.tableProps = tableProps;
+                this.getData(tableProps);
+            },
+            EditItem(item){
+                this.injury_start_date = item.start_date,
+				this.injury_recovery_date = item.recovery_date,
+				this.injury_illness = item.illness,
+				this.injury_medical_name = item.medical_name,
+				this.injury_hospital_name = item.hospital_name,
+				this.injury_hospital_type =item.hospital_type,
+				this.injury_expenses_won = item.expenses_won,
+				this.injury_expenses_won_currency=item.expenses_won_currency,
+				this.injury_expenses_ex = item.expenses_ex,
+				this.injury_expenses_ex_currency = item.expenses_ex_currency,
+				this.injury_remark = item.remark
+            }, 
 
-			editPassportImage(index, e) {
-				var vm = this;
-				var files = e.target.files || e.dataTransfer.files;
-				var reader = new FileReader();
-				reader.onload = function(event) {
-					const imageUrl = event.target.result;
-					vm.showLoading = true;
-					axios.post('/api/image-upload-edit', {
-						'image': imageUrl,
-						'oldImage': vm.passport_images[index],
-						'folder': 'passports/'
-					}, {
-						headers: {'Authorization': 'Bearer '+ this.user_token}
-					}).then((res) => {
-						vm.showLoading = false;
-						vm.passport_images.splice(index, 1, res.data.url);
-					});
-				}
-				reader.readAsDataURL(files[0]);
-			},
-		},
+         // Delete Family Members
+        onDeleteItem(member) {
+            const vm = this;
+            return Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to delete " + member.type,
+                icon: 'warning',
+                showCancelButton: true,
+                allowOutsideClick: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Delete'
+            }).then((result) => {
+                if(result.isConfirmed) {
+                    axios.post('/api/delete-injury', {
+                        id: member.id,
+                        employer_id: this.employerId
+                    }, {
+                        headers: {'Authorization': 'Bearer '+ this.user_token}
+                    }).then(response => {
+                        vm.getData();
+                    })
+                }
+            });
+        },
+    },
 		props: ['employerId']
 	}
 </script>

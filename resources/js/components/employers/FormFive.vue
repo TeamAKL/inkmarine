@@ -84,61 +84,6 @@
                 <input type="text" class="form-control" name="decision" v-model="decision">
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="image-holder" v-show="images.length == 0">
-                <div class="loading-area-one" v-show="showLoading">
-                    <img src="../../../../public/loading/loading.gif" alt="">
-                </div>
-                <label for="medical-checkup" class="medicalcheckup" @dragover.prevent @drop="onDrop">
-                    <i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
-                    <span class="image-lable-text" v-show="!showLoading">Choose File or drag & drop here</span>
-                </label>
-            </div>
-
-            <div class="grid-container" @dragover.prevent @drop="onDrop" v-show="images.length >= 1">
-                <div class="loading-area" v-show="showLoading">
-                    <img src="../../../../public/loading/loading.gif" alt="">
-                </div>
-                <div class="gird-item-image " :key="index" v-for="(image, index) in imageMedical">
-                    <img :src="image.img" alt="image" class="images-img img-thumbnail" v-if="image.ext != 'pdf'">
-                    <img src="../../../../public/pdf/pdfimage.png" class="images-img img-thumbnail"  v-else/>
-                    <div class="image-overlay" v-if="image.ext != 'pdf'">
-                        <div class="ed-holder">
-                            <div class="edit-delete-area">
-                                <label style="cursor: pointer">
-                                    <input type="file" @change="editImage(index, $event)" class="d-none" accept="image/*, .pdf">
-                                    <i class="wizard-icon ti-pencil icon-holder edit"></i>
-                                </label>
-                                <i class="wizard-icon ti-trash icon-holder delete" @click="deleteImage(index)"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="image-overlay" @click="pdfopen(image.img)" v-else>
-                        <div class="ed-holder">
-                            <div class="edit-delete-area">
-                                <label style="cursor: pointer">
-                                    <input type="file" @change="editImage(index, $event)" class="d-none" accept="image/*, .pdf">
-                                    <i class="wizard-icon ti-pencil icon-holder edit"></i>
-                                </label>
-                                <i class="wizard-icon ti-trash icon-holder delete" @click="deleteImage(index)"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="gird-item-image final-grid" v-show="fileLoopCount < fileMaxLenght">
-                     <label for="medical-checkup" class="medicalcheckup" @dragover.prevent @drop="onDrop">
-                        <i class="wizard-icon ti-cloud-up icon-image-upload"></i>
-                        <span class="image-lable-text">Choose File or drag & drop here</span>
-                    </label>
-                </div>
-            </div>
-        </div>
-        <input type="file" multiple draggable="true" id="medical-checkup" @change="uploadFile" accept="image/*, .pdf">
-
-
-
     </div>
 </template>
 <script>
@@ -256,89 +201,89 @@ export default {
             return isValid;
         },
 
-        uploadFile(e) {
-            var files = e.target.files || e.dataTransfer.files;
-            if (!files.length)
-                return;
-            this.createImage(files)
-        },
+        // uploadFile(e) {
+        //     var files = e.target.files || e.dataTransfer.files;
+        //     if (!files.length)
+        //         return;
+        //     this.createImage(files)
+        // },
 
-        createImage(files) {
-            var vm = this;
-            for (var index = 0; index < files.length; index++) {
-                if (!files[index].type.match('application/pdf') && !files[index].type.match('image.*')) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Please only select Image!',
-                        allowOutsideClick: false,
-                    })
-                    return;
-                } else {
-                    if(vm.fileLoopCount < vm.fileMaxLenght) {
-                        var reader = new FileReader();
-                            reader.onload = function(event) {
-                            const imageUrl = event.target.result;
-                            vm.showLoading = true;
-                            axios.post('/api/image-upload', {
-                                'image': imageUrl,
-                                'folder': 'medicalcheckup/'
-                            }, {
-                                headers: {'Authorization': 'Bearer '+ this.user_token}
-                            }).then((res) => {
-                                vm.showLoading = false;
-                                vm.images.push(res.data.url);
-                            });
-                        }
-                        reader.readAsDataURL(files[index]);
-                    } else {
-                        return false;
-                    }
-                    vm.fileLoopCount++;
-                }
-            }
-        },
+        // createImage(files) {
+        //     var vm = this;
+        //     for (var index = 0; index < files.length; index++) {
+        //         if (!files[index].type.match('application/pdf') && !files[index].type.match('image.*')) {
+        //             Swal.fire({
+        //                 icon: 'error',
+        //                 title: 'Oops...',
+        //                 text: 'Please only select Image!',
+        //                 allowOutsideClick: false,
+        //             })
+        //             return;
+        //         } else {
+        //             if(vm.fileLoopCount < vm.fileMaxLenght) {
+        //                 var reader = new FileReader();
+        //                     reader.onload = function(event) {
+        //                     const imageUrl = event.target.result;
+        //                     vm.showLoading = true;
+        //                     axios.post('/api/image-upload', {
+        //                         'image': imageUrl,
+        //                         'folder': 'medicalcheckup/'
+        //                     }, {
+        //                         headers: {'Authorization': 'Bearer '+ this.user_token}
+        //                     }).then((res) => {
+        //                         vm.showLoading = false;
+        //                         vm.images.push(res.data.url);
+        //                     });
+        //                 }
+        //                 reader.readAsDataURL(files[index]);
+        //             } else {
+        //                 return false;
+        //             }
+        //             vm.fileLoopCount++;
+        //         }
+        //     }
+        // },
 
-        onDrop: function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            var files = e.target.files || e.dataTransfer.files;
-            this.createImage(files)
-        },
+        // onDrop: function(e) {
+        //     e.stopPropagation();
+        //     e.preventDefault();
+        //     var files = e.target.files || e.dataTransfer.files;
+        //     this.createImage(files)
+        // },
 
-        deleteImage(index) {
-            axios.post('/api/image-delete', {
-                'image': this.images[index],
-            }).then(res => {
-                this.images.splice(index, 1);
-                this.fileLoopCount--;
-            });
-        },
+        // deleteImage(index) {
+        //     axios.post('/api/image-delete', {
+        //         'image': this.images[index],
+        //     }).then(res => {
+        //         this.images.splice(index, 1);
+        //         this.fileLoopCount--;
+        //     });
+        // },
 
-        editImage(index, e) {
-            var vm = this;
-            var files = e.target.files || e.dataTransfer.files;
-            var reader = new FileReader();
-                reader.onload = function(event) {
-                const imageUrl = event.target.result;
-                vm.showLoading = true;
-                axios.post('/api/image-upload-edit', {
-                    'image': imageUrl,
-                    'oldImage': vm.images[index],
-                    'folder': 'medicalcheckup/'
-                }, {
-                    headers: {'Authorization': 'Bearer '+ this.user_token}
-                }).then((res) => {
-                    vm.showLoading = false;
-                    vm.images.splice(index, 1, res.data.url);
-                });
-            }
-            reader.readAsDataURL(files[0]);
-        },
+        // editImage(index, e) {
+        //     var vm = this;
+        //     var files = e.target.files || e.dataTransfer.files;
+        //     var reader = new FileReader();
+        //         reader.onload = function(event) {
+        //         const imageUrl = event.target.result;
+        //         vm.showLoading = true;
+        //         axios.post('/api/image-upload-edit', {
+        //             'image': imageUrl,
+        //             'oldImage': vm.images[index],
+        //             'folder': 'medicalcheckup/'
+        //         }, {
+        //             headers: {'Authorization': 'Bearer '+ this.user_token}
+        //         }).then((res) => {
+        //             vm.showLoading = false;
+        //             vm.images.splice(index, 1, res.data.url);
+        //         });
+        //     }
+        //     reader.readAsDataURL(files[0]);
+        // },
 
-        pdfopen(pdf) {
-            window.open(pdf);
-        }
+        // pdfopen(pdf) {
+        //     window.open(pdf);
+        // }
     },
 
     props: ['employerId']

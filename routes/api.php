@@ -59,7 +59,14 @@ Route::post("delete-family-member", "FamilyMemberController@deleteFamilyMember")
 
 Route::post('save-medical-checkup', 'EmployeerController@saveMedicalCheckup');
 Route::post('save-cbn', 'EmployeerController@saveCemanBook');
-Route::post('save-passport', 'EmployeerController@savePassport');
+
+//Injury
+Route::post('save-injury', 'EmployeerController@saveInjury');
+Route::post('all-injury', 'EmployeerController@allInjury');
+Route::post('delete-injury', 'EmployeerController@deleteInjury');
+
+
+
 Route::post('save-all-in-one', 'EmployeerController@saveAllInOne');
 
 //Certificate
@@ -69,6 +76,15 @@ Route::post('certificate-delete', 'CertificateController@delete');
 //company
 Route::post('get-all-company', 'CompanyController@getAllCompany');
 Route::post('company-delete', 'CompanyController@delete');
+
+//Crew Evaluation
+Route::post('save-crew-evaluation', 'EmployeerController@saveCrewEvaluation');
+Route::post('get-all-crew-evaluation', 'EmployeerController@getAllCrewEvaluation');
+Route::post('delete-crew-evaluation', 'EmployeerController@deleteCrewEvaluation');
+
+
+//DMA
+Route::post('save-dma', 'EmployeerController@saveDma');
 
 //ship
 Route::post('get-all-ship', 'ShipController@getAllShip');
@@ -86,5 +102,9 @@ Route::post('get-allinone', 'DetailController@getAllinOne');
 Route::post('get-additional-info', 'DetailController@getAdditinalInfo');
 Route::post('get-all-disease-detail', 'DetailController@getAllDisease');
 Route::post('get-all-accident-detail', 'DetailController@getAllAccident');
+Route::post('get-all-injury', 'DetailController@getAllInjury');
+Route::post('get-all-evaluation', 'DetailController@getAllEvaluation');
+
+
 
 

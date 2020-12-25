@@ -14,6 +14,9 @@ use App\CemanBookNumber;
 use App\Passport;
 use App\AllInOne;
 use App\Disease;
+use App\Injury;
+use App\Evaluation;
+use App\Dma;
 
 // use Illuminate\Support\Facades\DB;
 use DB;
@@ -26,9 +29,20 @@ class EmployeerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function saveDma(Request $req)
     {
-        //
+      
+      
+        $images = json_encode($req->all_images);
+        $dma = Dma::updateOrCreate(
+            ['id' => $req->evaluation_id, 'employer_id' => $req->employer_id],
+            [
+                'image' => $images,
+                'employer_id' => $req->employer_id,
+            ]
+        );
+
+        return response()->json(['message' => "Success!", 'dma' => $dma], 200);
     }
 
     /**
@@ -36,9 +50,40 @@ class EmployeerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function saveCrewEvaluation(Request $req)
     {
-        //
+        $validator = Validator::make($req->all(), [
+            'date' => 'required',
+            'score' => 'required',
+            're_use' => 'required',
+            'rate' => 'required',
+            'detail' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 400);
+        }
+        $evaluation = Evaluation::updateOrCreate(
+            ['id' => $req->evaluation_id, 'user_id' => $req->employer_id],
+            [
+                'date' => $req->date,
+                'score' => $req->score,
+                're_use' => $req->re_use,
+                'rate' => $req->rate,
+                'detail' => $req->detail,
+                'user_id' => $req->employer_id,
+            ]
+        );
+
+        return response()->json(['message' => "Success!", 'evaluation' => $evaluation], 200);
+    }
+    public function getAllCrewEvaluation(Request $request){
+        $evaluation = Evaluation::where('user_id', '=', $request->user_id)->paginate(2);
+         return new DataTableCollectionResource($evaluation);
+    }
+
+    public function deleteCrewEvaluation(Request $request){
+        Evaluation::where('id', '=', $request->id)->where('user_id', '=', $request->employer_id)->delete();
+        return response()->json(['message' => 'success'], 200);
     }
 
     /**
@@ -62,7 +107,9 @@ class EmployeerController extends Controller
             'dob' => 'required',
             'pob' => 'required',
             'edulevel' => 'required',
-            'ship'=>'required'
+            'ship'=>'required',
+            'image'=>'required'
+
         ]);
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()], 400);
@@ -71,54 +118,18 @@ class EmployeerController extends Controller
         $format = date("Y-m-d", strtotime($req->dob));
         $employeer = Employeer::updateOrCreate(
             ['id' => $req->personId, 'crew_code' => $req->crewcode],
-            ['crew_code' => $req->crewcode, 'name' => $req->name, 'nationality' => $req->nationality, 'date_of_birth' => $format, 'place_of_birth' => $req->pob, 'education_level' => $req->edulevel, 'ship'=>$req->ship]
+            [
+                'crew_code' => $req->crewcode, 
+                'name' => $req->name, 
+                'nationality' => $req->nationality, 
+                'date_of_birth' => $format, 
+                'place_of_birth' => $req->pob, 
+                'education_level' => $req->edulevel, 
+                'ship'=>$req->ship,
+                'image' => $req->image,
+            ]
         );
         return response()->json(["message" => "success", "employeer" => $employeer], 200);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Employeer  $employeer
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Employeer $employeer)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Employeer  $employeer
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Employeer $employeer)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Employeer  $employeer
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Employeer $employeer)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Employeer  $employeer
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Employeer $employeer)
-    {
-        //
     }
 
 
@@ -129,19 +140,8 @@ class EmployeerController extends Controller
         $validator = Validator::make($req->all(), [
             'phone_number' => 'required',
             'cell_phone_number' => 'required',
-            'drinking' => 'required',
-            'smoking' => 'required',
             'rank' => 'required',
             'company' => 'required',
-            'basic_salary' => 'required',
-            'home_allowance' => 'required',
-            'total_salary' => 'required',
-            'fixed_pay' => 'required',
-            'leave_pay' => 'required',
-            'onbroad_pay' => 'required',
-            'code' => 'required',
-            'pants' => 'required',
-            'shoe' => 'required'
         ]);
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()], 400);
@@ -195,6 +195,7 @@ class EmployeerController extends Controller
 
         $training_date = date("Y-m-d", strtotime($req->training_date));
         $expire_date = date("Y-m-d", strtotime($req->expire_date));
+        $images = json_encode($req->image);
         $emp_certificate = EmployerCertificate::updateOrCreate(
             ['id' => $req->id, 'employer_id' => $req->employer_id],
             [
@@ -203,7 +204,7 @@ class EmployeerController extends Controller
                 'licine_number' => $req->licine_number,
                 'training_date' => $training_date,
                 'expire_date' => $expire_date,
-                'image' => $req->image,
+                'image' => $images,
                 'remark' => $req->remark
             ]
         );
@@ -267,7 +268,16 @@ class EmployeerController extends Controller
         $leaving_format = date("Y-m-d", strtotime($request->leaving_date));
         $companyCareers = OtherCompanyCareers::updateOrCreate(
             ['id' => $request->company_career_id],
-            ['user_id' => $request->user_id, 'rank' => $request->rank, 'grt' => $request->grt, 'kw' => $request->kw, 'company_name' => $request->company_name, 'ship_name' => $request->ship_name, 'boarding_date' => $boarding_format, 'leaving_date' => $leaving_format, 'area' => $request->area, 'remark' => $request->company_remark]
+            ['user_id' => $request->user_id,
+            'rank' => $request->rank,
+            'grt' => $request->grt,
+            'kw' => $request->kw,
+            'company_name' => $request->company_name,
+            'ship_name' => $request->ship_name,
+            'boarding_date' => $boarding_format,
+            'leaving_date' => $leaving_format,
+            'area' => $request->area,
+            'remark' => $request->company_remark]
         );
         return response()->json(["message" => "success", "companyCareers" => $companyCareers], 200);
     }
@@ -286,32 +296,30 @@ class EmployeerController extends Controller
     public function saveMedicalCheckup(Request $req)
     {
         $validator = Validator::make($req->all(), [
-            'med_date' => 'required',
-            'height' => 'required',
-            'weight' => 'required',
-            'checst' => 'required',
-            'tooth' => 'required',
-            'tooth_state' => 'required',
-            'color_blindness' => 'required',
-            'blood_type' => 'required',
-            'xray' => 'required',
-            'sight_right' => 'required',
-            'sight_left' => 'required',
-            'hearing_right' => 'required',
-            'hearing_left' => 'required',
-            'hospital' => 'required',
-            'decision' => 'required',
+            // 'med_date' => 'required',
+            // 'height' => 'required',
+            // 'weight' => 'required',
+            // 'checst' => 'required',
+            // 'tooth' => 'required',
+            // 'tooth_state' => 'required',
+            // 'color_blindness' => 'required',
+            // 'blood_type' => 'required',
+            // 'xray' => 'required',
+            // 'sight_right' => 'required',
+            // 'sight_left' => 'required',
+            // 'hearing_right' => 'required',
+            // 'hearing_left' => 'required',
+            // 'hospital' => 'required',
+            // 'decision' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()], 400);
         }
-        $images = json_encode($req->images);
         $date = date("Y-m-d", strtotime($req->med_date));
         $medical_checkup = MedicalCheckup::updateOrCreate(
             ['id' => $req->medicalCheckupId, 'employer_id' => $req->employerId],
             [
                 'employer_id' => $req->employerId,
-                'images' => $images,
                 'med_date' => $date,
                 'weight' => $req->weight,
                 'height' => $req->height,
@@ -366,42 +374,70 @@ class EmployeerController extends Controller
 
 
     //CemanBookNumber
-    public function saveCemanBook(Request $req)
+    // public function saveCemanBook(Request $req)
+    // {
+    //     $validator = Validator::make($req->all(), [
+    //         'cbn' => 'required'
+    //     ]);
+    //     if ($validator->fails()) {
+    //         return response()->json(['error'=>$validator->errors()], 400);
+    //     }
+
+    //     $images = json_encode($req->cbn_images);
+
+    //     $cbn = CemanBookNumber::updateOrCreate(
+    //         ['id' => $req->cbn_id, 'employer_id' => $req->employer_id],
+    //         ['employer_id' => $req->employer_id, 'images' => $images, 'cbn' => $req->cbn]
+    //     );
+    //     return response()->json(['message' => 'success', 'cbn' => $cbn], 200);
+    // }
+
+    //Injury
+    public function saveInjury(Request $req)
     {
         $validator = Validator::make($req->all(), [
-            'cbn' => 'required'
+            'illness' => 'required',
+            'medical_name' => 'required',
+            'hospital_name' => 'required',
+            'start_date' => 'required',
+            'recovery_date' => 'required',
+            'hospital_type' => 'required',
+            'expenses_won' => 'required',
+            'expenses_ex' => 'required',
+            // 'remark' => 'required',
+            'employer_id' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()], 400);
         }
 
-        $images = json_encode($req->cbn_images);
-
-        $cbn = CemanBookNumber::updateOrCreate(
-            ['id' => $req->cbn_id, 'employer_id' => $req->employer_id],
-            ['employer_id' => $req->employer_id, 'images' => $images, 'cbn' => $req->cbn]
+        $injury = Injury::updateOrCreate(
+            ['id' => $req->injury_id, 'user_id' => $req->employer_id],
+            [
+                'user_id' => $req->employer_id,
+                'illness' => $req->illness,
+                'medical_name' => $req->medical_name,
+                'hospital_name' => $req->hospital_name,
+                'start_date' => $req->start_date,
+                'recovery_date' => $req->recovery_date,
+                'hospital_type' => $req->hospital_type,
+                'expenses_won' => $req->expenses_won,
+                'expenses_won_currency'=>$req->expenses_won_currency,
+                'expenses_ex' => $req->expenses_ex,
+                'expenses_ex_currency'=>$req->expenses_ex_currency,
+                'remark' => $req->remark,
+            ]
         );
-        return response()->json(['message' => 'success', 'cbn' => $cbn], 200);
+        return response()->json(['message' => 'success', 'injury' => $injury], 200);
+    }
+    public function allInjury(Request $request){
+        $injury = Injury::where('user_id', '=', $request->user_id)->paginate(2);
+         return new DataTableCollectionResource($injury);
     }
 
-    //Passport
-    public function savePassport(Request $req)
-    {
-        // dd($req->all());
-        $validator = Validator::make($req->all(), [
-            'passport' => 'required'
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 400);
-        }
-
-        $images = json_encode($req->passport_images);
-
-        $passport = Passport::updateOrCreate(
-            ['id' => $req->passport_id, 'employer_id' => $req->employer_id],
-            ['employer_id' => $req->employer_id, 'images' => $images, 'passport_no' => $req->passport]
-        );
-        return response()->json(['message' => 'success', 'passport' => $passport], 200);
+    public function deleteInjury(Request $request){
+        Injury::where('id', '=', $request->id)->where('user_id', '=', $request->employer_id)->delete();
+        return response()->json(['message' => 'success'], 200);
     }
 
      //All-in-One

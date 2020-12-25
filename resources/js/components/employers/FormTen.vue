@@ -24,7 +24,7 @@
                             <input
                                 class="form-control"
                                 v-model="tableData.search"
-                                placeholder="Search Email or Name">
+                                placeholder="Search Accident">
                         </div>
                     </div>
                 </div>

@@ -15,6 +15,8 @@ use App\Passport;
 use App\AllInOne;
 use App\Disease;
 use App\Accident;
+use App\Injury;
+use App\Evaluation;
 use DB;
 class DetailController extends Controller
 {
@@ -83,5 +85,15 @@ class DetailController extends Controller
     {
         $accidents = Accident::select(DB::Raw("accidents.*, DATE_FORMAT(accidents.date, '%d-%m-%Y') as date"))->where('employer_id', '=', $req->employer_id)->get();
         return response()->json(['accidents' => $accidents], 200);
+    }
+    public function getAllInjury(Request $req)
+    {
+        $injuries = Injury::select(DB::Raw("injuries.*"))->where('user_id', '=', $req->employer_id)->get();
+        return response()->json(['injuries' => $injuries], 200);
+    }
+    public function getAllEvaluation(Request $req)
+    {
+        $evaluations = Evaluation::select(DB::Raw("evaluations.*"))->where('user_id', '=', $req->employer_id)->get();
+        return response()->json(['evaluations' => $evaluations], 200);
     }
 }
