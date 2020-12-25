@@ -337,28 +337,6 @@
 					</div>
 				</div>
 			</div>
-
-			<!-- <div class="card">
-				<div class="card-header" id="headingimageview" >
-					<h5 class="mb-0" data-toggle="collapse" data-target="#viewimages" aria-expanded="true" aria-controls="viewimages" @click="viewimages">
-						View Images
-					</h5>
-				</div>
-				<div id="viewimages" class="collapse" aria-labelledby="headingimageview" data-parent="#accordion">
-					<div class="card-body">
-						<div class="grid-container mb-5" :key="cert" v-for="cert in view_certificate_images">
-							<div class="gird-item-image" :key="index" v-for="(image, index) in cert.images" @click="downloadImage(image)">
-								<img :src="image" alt="image" class="images-img img-thumbnail">
-								<span class="text-center">{{cert.name}} ({{index + 1}})</span>
-								<div class="image-overlay">
-									<i class="wizard-icon ti-eye icon-holder eyeicon" @click="downloadImage(image)"></i>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div> -->
-
 			<div class="card">
 				<div class="card-header" id="headingDisease" >
 					<h5 class="mb-0" data-toggle="collapse" data-target="#disease" aria-expanded="true" aria-controls="disease" @click="showDisease">
@@ -551,6 +529,27 @@
 				</div>
 			</div>
 
+            <!-- View Image Card -->
+            <div class="card">
+                <div class="card-header" id="headingimageview" >
+                    <h5 class="mb-0" data-toggle="collapse" data-target="#viewimages" aria-expanded="true" aria-controls="viewimages" @click="viewimages">
+                        View Images
+                    </h5>
+                </div>
+                <div id="viewimages" class="collapse" aria-labelledby="headingimageview" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="grid-container mb-3" :key="cert.id" v-for="cert in view_certificate_images">
+                            <div class="gird-item-image mb-5" :key="index" v-for="(image, index) in cert.images" @click="downloadImage(image)">
+                                <img :src="image" alt="image" class="images-img img-thumbnail">
+                                <span class="text-center">{{cert.name}} ({{index + 1}})</span>
+                                <div class="image-overlay">
+                                    <i class="wizard-icon ti-eye icon-holder eyeicon" @click="downloadImage(image)"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 		</div>
 
 		<!-- ==================================== ADDITIONAL INFORMATION ========================== -->
@@ -1322,7 +1321,7 @@
 
 						<div class="form-group">
                             <label for="crew_re_use">Re-use</label>
-                            <multiselect v-model="crew_re_use" :options="options" :searchable="false" :close-on-select="true" :show-labels="false" placeholder="---- Select Re Use -----"></multiselect>
+                            <multiselect v-model="crew_re_use" :options="crewoptions" :searchable="false" :close-on-select="true" :show-labels="false" placeholder="---- Select Re Use -----"></multiselect>
                         </div>
 
                         <div class="form-group">
@@ -1661,7 +1660,7 @@
                 crew_date: '',
                 crew_score: null,
                 crew_re_use: '',
-                options: ['Recommendation', 'Re-use', 'Improvement', 'Impossible'],
+                crewoptions: ['Recommendation', 'Re-use', 'Improvement', 'Impossible'],
                 crew_rate: '',
                 crew_detail: '',
                 crew_evaluation_id: null,
@@ -2858,6 +2857,27 @@
                     }
                 });
             },
+
+            // =================== View Image ========================
+            viewimages() {
+                let self = this;
+                self.loading = true;
+                axios.post('/api/get-all-images', {
+                    'employer_id': this.id
+                },{
+                    headers: {'Authorization': 'Bearer '+ this.user_token}
+                }).then(response => {
+                    self.view_certificate_images = [];
+                    $.each(response.data.images, function(index, value) {
+                        const obj = {
+                            'name': value.certificate.title,
+                            'images': JSON.parse(value.image)
+                        };
+
+                        self.view_certificate_images.push(obj);
+                    })
+                })
+            }
         }
     }
 </script>

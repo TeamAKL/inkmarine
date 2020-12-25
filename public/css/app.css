@@ -4935,6 +4935,11 @@ input[type=button].btn-block {
   color: #fff;
 }
 
+.ccontainer {
+  width: 80%;
+  margin: 0 auto !important;
+}
+
 .card {
   position: relative;
   display: flex;
