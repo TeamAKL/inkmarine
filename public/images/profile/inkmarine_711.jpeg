@@ -1,0 +1,33 @@
+1) appointement info
+====================
+id, devision, shipnae, rank, boarding date, leaving date, boarding period, place, remak, user_id
+
+
+2) injury
+===========
+id, illness, medical_name, hospital_name, treatment start date, recoverydate, hospital_type, expenses_won, expenses_ex, remark
+
+
+3) disease
+============
+id, start_date, end_date, illness, medicine, other medicine, remark
+
+
+4) applying for disembarkation
+===============================
+id, content, successor, remark
+
+
+5) crew Evaluation
+===================
+id, date, score, re_user, rate, detail
+
+
+6) accident
+===========
+id, ship_name, rank, date, type, reason, cost, re_use, etc, remark
+
+
+7) dma
+======
+id, pdf, image
