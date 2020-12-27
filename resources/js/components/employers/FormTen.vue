@@ -1,208 +1,398 @@
-<!-- ==================== All In One ===================== -->
-<!-- Image 27 -->
 <template>
-	<div>
-		<div class="form-row">
-			<div class="form-group col-md-12">
-					<label for="coc">C.O.C</label>
-			<input type="text" name="coc" id="coc" v-model="coc" class="form-control">
-			</div>
-		</div>
-		<div class="form-row">
-			<div class="form-group col-md-12">
-			<label for="gmbss">GMBSS</label>
-			<input type="text" name="gmbss" id="gmbss" v-model="gmbss" class="form-control">
-			</div>
-		</div>
-		<!-- Image Container -->
-		<div class="form-group">
-			<div class="image-holder" v-show="all_images.length == 0">
-				<div class="loading-area-one" v-show="showLoading">
-					<img src="../../../../public/loading/loading.gif" alt="">
-				</div>
-				<label for="all-in-one" class="medicalcheckup" @dragover.prevent @drop="onDrop">
-					<i class="wizard-icon ti-cloud-up icon-image-upload" v-show="!showLoading"></i>
-					<span class="image-lable-text" v-show="!showLoading">Choose File or drag & drop here</span>
-				</label>
-			</div>
+    <div>
+        <!-- Button trigger cmodal -->
+        <div class="d-flex justify-content-end mb-3">
+            <button class="btn btn-primary" @click="showModal">Add Accident</button>
+        </div>
 
-			<div class="grid-container" @dragover.prevent @drop="onDrop" v-show="all_images.length >= 1">
-				<div class="loading-area" v-show="showLoading">
-					<img src="../../../../public/loading/loading.gif" alt="">
+        <!-- DataTable -->
+        <div class="container">
+            <data-table
+                :columns="columns"
+                :data = "users"
+                :per-page="perPage"
+                @onTablePropsChanged="reloadTable"
+            >
+                <div slot="filters" slot-scope="{ tableData, perPage }">
+                    <div class="row mb-2">
+                        <div class="col-md-4">
+                            <select class="form-control" v-model="tableData.length">
+                                <option :key="page" v-for="page in perPage">{{ page }}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 offset-md-4">
+                            <input
+                                class="form-control"
+                                v-model="tableData.search"
+                                placeholder="Search Accident">
+                        </div>
+                    </div>
+                </div>
+                <tbody slot="body" slot-scope="{ data }">
+                <tr
+                    :key="item.id"
+                    v-for="item in data">
+                    <td class="text-left">{{item.ship_name}}</td>
+                    <td class="text-left">{{item.rank}}</td>
+                    <td class="text-left">{{item.date}}</td>
+                    <td class="text-left">{{item.type}}</td>
+                    <td class="text-left">{{item.reason}}</td>
+                    <td class="text-left">{{item.cost}} {{item.currency}}</td>
+                    <td class="text-left">{{item.re_use}}</td>
+                    <td class="text-left">{{item.etc}}</td>
+                    <td class="text-left">{{item.remark}}</td>
+                    <td class="text-left">
+                        <button :class="'btn btn-xs btn-primary'" @click="EditItem(item)" title="Edit">
+                            <span>
+                                <i class="mdi mdi-grease-pencil" aria-hidden="true"></i>
+                            </span>
+                            &nbsp;
+                            Edit
+                        </button>
+                        <button :class="'btn btn-xs btn-danger'" @click="onDeleteItem(item)" title="Delete">
+                            <span>
+                                <i class="mdi mdi-delete" aria-hidden="true"></i>
+                            </span>
+                            &nbsp;
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </data-table>
+        </div>
+
+        <!-- Modal -->
+		<modal name="accident_modal" :clickToClose="false" height="auto" class="accident_modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>Add Accident</h5>
 				</div>
-				<div class="gird-item-image " :key="index" v-for="(image, index) in all_images">
-					<img :src="image" alt="image" class="images-img img-thumbnail">
-					<div class="image-overlay">
-						<div class="ed-holder">
-							<div class="edit-delete-area">
-								<label style="cursor: pointer">
-									<input type="file" @change="editPassportImage(index, $event)" class="d-none" accept="image/*, .pdf">
-									<i class="wizard-icon ti-pencil icon-holder edit"></i>
-								</label>
-								<i class="wizard-icon ti-trash icon-holder delete" @click="deletePassportImage(index)"></i>
-							</div>
-						</div>
-					</div>
+				<div class="modal-body">
+					<form>
+
+						<div class="form-group">
+                            <label for="accident_ship_name">Ship Name</label>
+                            <input type="text" class="form-control" id="accident_ship_name" name="accident_ship_name"  v-model.trim="accident_ship_name">
+                        </div>
+
+						<div class="form-group">
+                            <label for="accident_rank">Rank</label>
+                             <input type="text" class="form-control" id="accident_rank" name="accident_rank"  v-model.trim="accident_rank">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="accident_date">Date</label>
+                            <date-picker v-model="accident_date" valueType="format" class="date-picker" format="DD-MM-YYYY"></date-picker>
+                        </div>
+                        <div class="form-group">
+                            <label for="accident_type">Type</label>
+                            <input type="text" class="form-control" id="accident_type" name="accident_type" v-model.trim="accident_type" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="accident_reason">Reason</label>
+                            <input type="text" class="form-control" id="accident_reason" name="accident_reason" v-model.trim="accident_reason" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="accident_cost">Cost</label>
+                            <div class="row mx-1">
+                                    <input type="text" class="form-control col-8" id="accident_cost" name="accident_cost" v-model.trim="accident_cost" >
+                                
+                                    <select class="form-control col-4" v-model="accident_currency">
+                                        <option value="MMK">MMK</option>
+                                        <option value="USD">USD</option>
+                                        <option value="SGD">SGD</option>
+                                    </select>
+                                
+                            </div>
+                        </div>
+                        
+                           
+
+                        <div class="form-group">
+                            <label for="accident_re_use">Re-use</label>
+                            <input type="text" class="form-control" id="accident_re_use" name="accident_re_use" v-model.trim="accident_re_use" >
+                        </div>
+
+                         <div class="form-group">
+                            <label for="accident_etc">Etc</label>
+                            <input type="text" class="form-control" id="accident_etc" name="accident_etc" v-model.trim="accident_etc" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="accident_remark">Remark</label>
+                            <textarea name="remark" id="remark" v-model.trim="accident_remark" cols="30" rows="6" class="form-control"></textarea>
+                        </div>
+                    </form>
 				</div>
-				<div class="gird-item-image final-grid" v-show="fileLoopCount < fileMaxLenght">
-					<label for="all-in-one" class="medicalcheckup" @dragover.prevent @drop="onDrop">
-						<i class="wizard-icon ti-cloud-up icon-image-upload"></i>
-						<span class="image-lable-text">Choose File or drag & drop here</span>
-					</label>
-				</div>
+                <div class="modal-footer d-flex justify-content-end">
+                    <button class="btn btn-primary" @click="hideModal">Cancel</button>
+                    <button class="btn btn-success" @click="saveAccident">Add</button>
+                </div>
 			</div>
-		</div>
-		<input type="file" multiple draggable="true" id="all-in-one" @change="uploadPassportFile" accept="image/*, .pdf">
-	</div>
+		</modal>
+    </div>
 </template>
+<style scoped>
+.accident_modal {
+    overflow: auto !important;
+}
+</style>
+
 <script>
-	import Swal from 'sweetalert2/dist/sweetalert2.js'
-	import 'sweetalert2/src/sweetalert2.scss'
-	const Toast = Swal.mixin({
-		toast: true,
-		position: 'top-end',
-		showConfirmButton: false,
-		timer: 3000,
-		timerProgressBar: true,
-		onOpen: (toast) => {
-			toast.addEventListener('mouseenter', Swal.stopTimer)
-			toast.addEventListener('mouseleave', Swal.resumeTimer)
-		}
-	});
-	export default {
-		data() {
-			return {
-				coc: '',
-				gmbss: '',
-				all_in_one_id: null,
-				user_token: `${process.env.MIX_APP_TOKEN}`,
-				all_images: [],
-				showLoading: false,
-				fileMaxLenght: 15,
-				fileLoopCount: 0,
-			}
-		},
-		methods: {
-			async validate() {
-				var isValid;
-				await axios.post('/api/save-all-in-one', {
-					"coc": this.coc,
-					"gmbss": this.gmbss,
-					"all_images": this.all_images,
-					'all_in_one_id': this.all_in_one_id,
-					'employer_id': this.employerId
-				}, {
-					headers: {'Authorization': 'Bearer '+ this.user_token}
-				}).then(result => {
-					this.all_in_one_id = result.data.all_in_one;
-					isValid = true;
-                    $(document).find('span[class="validate-message"]').remove();
-                    Swal.fire({
-                        title: 'Woo!',
-                        text: "Successfully Complete!",
-                        icon: 'success',
-                        allowOutsideClick: false,
-                    }).then(result => {
-                        if(result.isConfirmed) {
-                            window.location = '/home';
-                        }
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  onOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+});
+
+import DatePicker from 'vue2-datepicker';
+import 'vue2-datepicker/index.css';
+import moment from 'moment'
+ export  default {
+     components: {
+        DatePicker
+    },
+    data() {
+        return {
+            //Modal
+            czindex: -100,
+            copacity: 0,
+            cvisibility: 'hidden',
+            cstyle:  'translateY(-100%)',
+
+            user_token: `${process.env.MIX_APP_TOKEN}`,
+            accident_ship_name: '',
+			accident_rank: '',
+			accident_date:'',
+            accident_type: '',
+            accident_reason: '',
+            accident_cost: '',
+            accident_currency:'MMK',
+            accident_re_use: '',
+            accident_etc: '',
+			accident_remark: '',
+			accidentId: null,
+
+             perPage: [10, 25, 100],
+                users: {},
+                default_order_column:'id',
+                default_order_dir:'desc',
+                tableProps: {
+                    search: '',
+                    length: 10,
+                    column: 'id',
+                    dir: 'desc',
+                },
+                columns: [
+                    {
+                        label: 'Ship Name',
+						name: 'ship_name',
+                    },
+                    {
+                        label: 'Rank',
+						name: 'rank',
+
+						
+                    },
+                      {
+                        label: 'Date',
+						name: 'date',
+                    },
+                      {
+                        label: 'Type',
+						name: 'type',
+					},
+					 {
+                        label: 'Reason',
+						name: 'reason',
+                    },
+                    {
+                        label: 'Cost',
+						name: 'cost',
+					},
+					 {
+                        label: 'Re-use',
+						name: 're_use',
+                    },
+                    {
+                        label: 'Etc',
+						name: 'etc',
+					},
+					 {
+                        label: 'Remark',
+						name: 'remark',
+                    },
+                    {
+						label: 'Action',
+                    }
+                ]
+        }
+    },
+    created() {
+        const date = new Date();
+		this.accident_date = moment(date).format('DD-MM-YYYY');
+        this.getData();
+    },
+    methods: {
+      validate() {
+            return Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to go next step ",
+                icon: 'warning',
+                showCancelButton: true,
+                allowOutsideClick: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                if(result.isConfirmed) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        },
+         showModal() {
+           this.$modal.show('accident_modal');
+            },
+
+            hideModal() {
+                this.$modal.hide('accident_modal');
+                this.clearForm();
+                },
+
+        saveAccident() {
+            //  console.log(this.accident_ship_name);
+            //  console.log(this.accident_rank);
+            //  console.log(this.accident_date);
+            //  console.log(this.accident_type);
+            //  console.log(this.accident_reason);
+            //  console.log(this.accident_cost);
+            //  console.log(this.accident_currency);
+            //  console.log(this.accident_re_use);
+            //  console.log(this.accident_etc);
+            //  console.log(this.accident_remark);
+
+
+			 axios.post('/api/save-accident', {
+                'employerId': this.employerId,
+                'ship_name': this.accident_ship_name,
+                'rank': this.accident_rank,
+				'date': this.accident_date,
+				'type': this.accident_type,
+                'reason': this.accident_reason,
+                'cost': this.accident_cost,
+                'currency':this.accident_currency,
+                're_use': this.accident_re_use,
+                'etc': this.accident_etc,
+                'remark': this.accident_remark,
+				'accidentId': this.accidentId
+            }, {
+                headers: {'Authorization': 'Bearer '+ this.user_token}
+            }).then(result => {
+               this.hideModal();
+               $(document).find('span[class="validate-message"]').remove();
+               this.getData();
+               this.accidentId = null;
+            }).catch(err => {
+                if (err.response.status == 400) {
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Please fill all required fields!'
                     });
-				}).catch(err => {
-					if (err.response.status == 400) {
-						Toast.fire({
-							icon: 'error',
-							title: 'Please fill all required fields!'
-						});
-						$(document).find('span[class="validate-message"]').remove();
-						$.each(err.response.data.error, function (i, error) {
-							var el = $(document).find('[name="'+i+'"]');
-							el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
-						});
-					}
-					isValid = false;
-				});
-	            return isValid;
-			},
-			uploadPassportFile(e) {
-				var files = e.target.files || e.dataTransfer.files;
-				if (!files.length)
-					return;
-				this.createImages(files)
-			},
+                     $(document).find('span[class="validate-message"]').remove();
+                    $.each(err.response.data.error, function (i, error) {
+                        var el = $(document).find('[name="'+i+'"]');
+                        el.after($('<span style="color: red;" class="validate-message" >'+error[0]+'</span>'));
+                    });
+                }
+                isValid = false;
+            });
+        
+        },
+        clearForm(){
+            this.accident_date = moment(new Date()).format('DD-MM-YYYY');
+            this.accident_ship_name = '',
+            this.accident_rank = '',
+            this.accident_type = '',
+            this.accident_reason = '',
+            this.accident_cost = '',
+            this.accident_currency='',
+            this.accident_re_use = '',
+            this.accident_etc = '',
+            this.accident_remark = ''
+        },
+         getData() {
+                axios.post('/api/get-all-accident', {
+                    ...this.tableProps,
+                    'user_id' : this.employerId
+                }, {
+                    headers:{'Authorization': 'Bearer '+ this.user_token}
+                }).then(result => {
+                    this.users = result.data;
+                });
+            },
 
-			createImages(files) {
-				var vm = this;
-				for (var index = 0; index < files.length; index++) {
-					if (!files[index].type.match('application/pdf') && !files[index].type.match('image.*')) {
-						Swal.fire({
-							icon: 'error',
-							title: 'Oops...',
-							text: 'Please only select Image!',
-							allowOutsideClick: false,
-						})
-						return;
-					} else {
-						if(vm.fileLoopCount < vm.fileMaxLenght) {
-							var reader = new FileReader();
-							reader.onload = function(event) {
-								const imageUrl = event.target.result;
-								vm.showLoading = true;
-								axios.post('/api/image-upload', {
-									'image': imageUrl,
-									'folder': 'allInOne/'
-								}, {
-									headers: {'Authorization': 'Bearer '+ this.user_token}
-								}).then((res) => {
-									vm.showLoading = false;
-									vm.all_images.push(res.data.url);
-								});
-							}
-							reader.readAsDataURL(files[index]);
-						} else {
-							return false;
-						}
-						vm.fileLoopCount++;
-					}
-				}
-			},
+            reloadTable(tableProps){
+               this.tableProps = tableProps;
+                this.getData(tableProps);
+            },
+            EditItem(item){
+                this.showModal();
+                this.accident_date = moment(item.date).format('DD-MM-YYYY');
+                this.accident_ship_name = item.ship_name;
+                this.accident_rank = item.rank;
+                this.accident_type = item.type;
+                this.accident_reason = item.reason;
+                this.accident_cost = item.cost;
+                this.accident_currency=item.currency
+                this.accident_re_use = item.re_use;
+                this.accident_etc = item.etc;
+                this.accident_remark = item.remark;
+                this.employerId = item.employer_id;
+                this.accidentId = item.id;
+            }, 
 
-			onDrop: function(e) {
-				e.stopPropagation();
-				e.preventDefault();
-				var files = e.target.files || e.dataTransfer.files;
-				this.createImages(files)
-			},
-
-			deletePassportImage(index) {
-				axios.post('/api/image-delete', {
-					'image': this.all_images[index],
-				}).then(res => {
-					this.all_images.splice(index, 1);
-					this.fileLoopCount--;
-				});
-			},
-
-			editPassportImage(index, e) {
-				var vm = this;
-				var files = e.target.files || e.dataTransfer.files;
-				var reader = new FileReader();
-				reader.onload = function(event) {
-					const imageUrl = event.target.result;
-					vm.showLoading = true;
-					axios.post('/api/image-upload-edit', {
-						'image': imageUrl,
-						'oldImage': vm.all_images[index],
-						'folder': 'allInOne/'
-					}, {
-						headers: {'Authorization': 'Bearer '+ this.user_token}
-					}).then((res) => {
-						vm.showLoading = false;
-						vm.all_images.splice(index, 1, res.data.url);
-					});
-				}
-				reader.readAsDataURL(files[0]);
-			},
-		},
-		props: ['employerId']
-	}
+         // Delete Family Members
+        onDeleteItem(member) {
+            const vm = this;
+            return Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to delete " + member.type,
+                icon: 'warning',
+                showCancelButton: true,
+                allowOutsideClick: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Delete'
+            }).then((result) => {
+                if(result.isConfirmed) {
+                    axios.post('/api/delete-accident', {
+                        id: member.id,
+                        employer_id: this.employerId
+                    }, {
+                        headers: {'Authorization': 'Bearer '+ this.user_token}
+                    }).then(response => {
+                        vm.getData();
+                    })
+                }
+            });
+        },
+    },
+    
+	props: ['employerId']
+	
+}
 </script>

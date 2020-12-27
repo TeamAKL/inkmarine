@@ -50,7 +50,7 @@ class ApplyDisembarkationController extends Controller
 
         $apply = ApplyDisembarkation::updateOrCreate(
             ['id' => $request->apply_disembarkation_id],
-            ['user_id' => $request->user_id, 'content' => $request->contents, 'successor' => $request->successor, 'remark' => $request->disembarkation_remark]
+            ['user_id' => $request->user_id, 'content' => $request->content, 'successor' => $request->successor, 'remark' => $request->disembarkation_remark]
         );
         return response()->json(["message" => "success", "applyDisembarkation" => $apply], 200);
     }

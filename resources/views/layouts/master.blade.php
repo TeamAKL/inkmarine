@@ -55,7 +55,7 @@
                     @guest
                     <li class="{{ (request()->is('/')) ? 'active' : '' }}"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
                     @else
-                    <li class="{{ (request()->is('home')) ? 'active' : '' }}"><a class="nav-link" href="{{ url('/home') }}">Home</a></li>
+                    <li class="{{ (request()->is('home')||Request::is( 'detail/*')) ? 'active' : '' }}"><a class="nav-link" href="{{ url('/home') }}">Home</a></li>
                     @if(Auth::user()->role_id == 1)
                     <li class="{{ (request()->is('users')) ? 'active' : '' }}"><a class="nav-link" href="{{ url('/users') }}">Users</a></li>
                     @endif

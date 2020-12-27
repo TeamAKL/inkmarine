@@ -13,6 +13,7 @@ use App\MedicalCheckup;
 use App\CemanBookNumber;
 use App\Passport;
 use App\AllInOne;
+use App\Disease;
 use App\Injury;
 use App\Evaluation;
 use App\Dma;
@@ -30,12 +31,8 @@ class EmployeerController extends Controller
      */
     public function saveDma(Request $req)
     {
-        $validator = Validator::make($req->all(), [
-            'all_images' => 'required',
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['error'=> "error"], 400);
-        }
+      
+      
         $images = json_encode($req->all_images);
         $dma = Dma::updateOrCreate(
             ['id' => $req->evaluation_id, 'employer_id' => $req->employer_id],
@@ -53,7 +50,7 @@ class EmployeerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function saveCrewEvoluation(Request $req)
+    public function saveCrewEvaluation(Request $req)
     {
         $validator = Validator::make($req->all(), [
             'date' => 'required',
@@ -79,6 +76,15 @@ class EmployeerController extends Controller
 
         return response()->json(['message' => "Success!", 'evaluation' => $evaluation], 200);
     }
+    public function getAllCrewEvaluation(Request $request){
+        $evaluation = Evaluation::where('user_id', '=', $request->user_id)->paginate(2);
+         return new DataTableCollectionResource($evaluation);
+    }
+
+    public function deleteCrewEvaluation(Request $request){
+        Evaluation::where('id', '=', $request->id)->where('user_id', '=', $request->employer_id)->delete();
+        return response()->json(['message' => 'success'], 200);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -102,6 +108,7 @@ class EmployeerController extends Controller
             'pob' => 'required',
             'edulevel' => 'required',
             'ship'=>'required',
+            'image'=>'required'
 
         ]);
         if ($validator->fails()) {
@@ -332,25 +339,58 @@ class EmployeerController extends Controller
         );
         return response()->json(['message' => 'success', 'mde' => $medical_checkup], 200);
     }
-
-    //CemanBookNumber
-    public function saveCemanBook(Request $req)
+    //Disease
+    public function storeDisease(Request $req)
     {
         $validator = Validator::make($req->all(), [
-            'cbn' => 'required'
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'illness' => 'required',
+            'medicine' => 'required',
+            'other_medicine' => 'required',
+            'remark' => 'required'
+            
         ]);
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()], 400);
         }
+        $start_date = date("Y-m-d", strtotime($req->start_date));
+        $end_date = date("Y-m-d", strtotime($req->end_date));
 
-        $images = json_encode($req->cbn_images);
-
-        $cbn = CemanBookNumber::updateOrCreate(
-            ['id' => $req->cbn_id, 'employer_id' => $req->employer_id],
-            ['employer_id' => $req->employer_id, 'images' => $images, 'cbn' => $req->cbn]
+        $disease = Disease::updateOrCreate(
+            ['id' => $req->diseaseId, 'employer_id' => $req->employerId],
+            [
+                'employer_id' => $req->employerId,
+                'start_date' => $start_date,
+                'end_date' => $end_date,
+                'illness' => $req->illness,
+                'medicine' => $req->medicine,
+                'other_medicine' => $req->other_medicine,
+                'remark' => $req->remark
+            ]
         );
-        return response()->json(['message' => 'success', 'cbn' => $cbn], 200);
+        return response()->json(['message' => 'success', 'mde' => $disease], 200);
     }
+
+
+    //CemanBookNumber
+    // public function saveCemanBook(Request $req)
+    // {
+    //     $validator = Validator::make($req->all(), [
+    //         'cbn' => 'required'
+    //     ]);
+    //     if ($validator->fails()) {
+    //         return response()->json(['error'=>$validator->errors()], 400);
+    //     }
+
+    //     $images = json_encode($req->cbn_images);
+
+    //     $cbn = CemanBookNumber::updateOrCreate(
+    //         ['id' => $req->cbn_id, 'employer_id' => $req->employer_id],
+    //         ['employer_id' => $req->employer_id, 'images' => $images, 'cbn' => $req->cbn]
+    //     );
+    //     return response()->json(['message' => 'success', 'cbn' => $cbn], 200);
+    // }
 
     //Injury
     public function saveInjury(Request $req)
@@ -382,11 +422,22 @@ class EmployeerController extends Controller
                 'recovery_date' => $req->recovery_date,
                 'hospital_type' => $req->hospital_type,
                 'expenses_won' => $req->expenses_won,
+                'expenses_won_currency'=>$req->expenses_won_currency,
                 'expenses_ex' => $req->expenses_ex,
+                'expenses_ex_currency'=>$req->expenses_ex_currency,
                 'remark' => $req->remark,
             ]
         );
         return response()->json(['message' => 'success', 'injury' => $injury], 200);
+    }
+    public function allInjury(Request $request){
+        $injury = Injury::where('user_id', '=', $request->user_id)->paginate(2);
+         return new DataTableCollectionResource($injury);
+    }
+
+    public function deleteInjury(Request $request){
+        Injury::where('id', '=', $request->id)->where('user_id', '=', $request->employer_id)->delete();
+        return response()->json(['message' => 'success'], 200);
     }
 
      //All-in-One

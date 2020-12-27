@@ -31,7 +31,7 @@
                     <td class="text-left">{{ item.ship }}</td>
                     <td class="text-left">{{ item.employeer_details.phone_number }}</td>
                     <td class="text-left">{{ item.employeer_details.rank }}</td>
-                    <td class="text-left">{{ item.employeer_details.deperature_date }}</td>
+                    <td class="text-left" >{{ item.format }}</td>
                     <td class="text-left">
                         <a :href="'detail/'+item.id" class="btn btn-success">Detail</a>
                     </td>
@@ -42,6 +42,7 @@
 </template>
 
 <script>
+    import moment from 'moment'
     export default {
         data() {
             return {
@@ -95,6 +96,17 @@
         },
         created() {
             this.getData();
+        },
+        watch: {
+            'users.data': {
+                handler (newValue, oldValue) {
+                    newValue.forEach((item) => {
+                      console.log(item);
+                      item.format = moment(item.employeer_details.deperature_date).format('DD-MM-YYYY');
+                  })
+                },
+                deep: true
+            }
         },
         methods: {
             getData() {

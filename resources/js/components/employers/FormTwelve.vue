@@ -3,7 +3,8 @@
         <div class="form-row">
             <div class="form-group col-md-12">
                 <label for="division">Division</label>
-                <input type="text" id="division" name="division" v-model.trim="division" class="form-control">
+                <!-- <input type="text" id="division" name="division" v-model.trim="division" class="form-control"> -->
+                <multiselect v-model="division" :options="options_division" :searchable="false" :close-on-select="true" :show-labels="false" placeholder="---- Select Division -----"></multiselect>
             </div>
 
             <div class="form-group col-md-12">
@@ -37,13 +38,14 @@
             </div>
             <div class="form-group col-md-12">
                 <label for="remark">Remark</label>
-                <input type="remark" id="remark" name="remark" v-model.trim="remark" class="form-control">
+            <textarea name="remark" id="remark" cols="30" rows="10" v-model.trim="remark" class="form-control"></textarea>
             </div>
         </div>
     </div>
 </template>
-
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <script>
+import Multiselect from 'vue-multiselect'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 const Toast = Swal.mixin({
@@ -62,12 +64,14 @@ import 'vue2-datepicker/index.css';
 import moment from 'moment'
 export default {
     components: {
-        DatePicker
+        DatePicker,
+        Multiselect
     },
     data() {
         return {
             user_token: `${process.env.MIX_APP_TOKEN}`,
             division: '',
+            options_division: ['SIGN ON', 'SIGN OFF'],
             ship_name: '',
             rank: '',
             app_boarding_date: '',

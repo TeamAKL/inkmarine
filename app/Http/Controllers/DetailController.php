@@ -13,6 +13,10 @@ use App\OtherCompanyCareers;
 use App\CemanBookNumber;
 use App\Passport;
 use App\AllInOne;
+use App\Disease;
+use App\Accident;
+use App\Injury;
+use App\Evaluation;
 use DB;
 class DetailController extends Controller
 {
@@ -55,21 +59,35 @@ class DetailController extends Controller
         return response()->json(['seamanbook' => $seamanbook], 200);
     }
 
-    public function getPassport(Request $req)
-    {
-        $passports = Passport::where('employer_id', '=', $req->employer_id)->first();
-        return response()->json(['passports' => $passports], 200);
-    }
-
-    public function getAllinOne(Request $req)
-    {
-        $allinone = AllInOne::where('employer_id', '=', $req->employer_id)->first();
-        return response()->json(['allinone' => $allinone], 200);
-    }
-
     public function getAdditinalInfo(Request $req)
     {
         $additionalInfo = EmployeerDetail::select(DB::Raw("employeer_details.*"))->where('employer_id', '=', $req->employer_id)->first();
         return response()->json(['additionalinfo' => $additionalInfo], 200);
+    }
+
+    public function getAllImage(Request $req)
+    {
+        $getimages = EmployerCertificate::with('certificate')->where('employer_id', '=', $req->employer_id)->get();
+        return response()->json(['message' => 'success', 'images' => $getimages]);
+    }
+    public function getAllDisease(Request $req)
+    {
+        $diseases = Disease::select(DB::Raw("diseases.*, DATE_FORMAT(diseases.start_date, '%d-%m-%Y') as start_date, DATE_FORMAT(diseases.end_date, '%d-%m-%Y') as end_date"))->where('employer_id', '=', $req->employer_id)->get();
+        return response()->json(['diseases' => $diseases], 200);
+    }
+    public function getAllAccident(Request $req)
+    {
+        $accidents = Accident::select(DB::Raw("accidents.*, DATE_FORMAT(accidents.date, '%d-%m-%Y') as date"))->where('employer_id', '=', $req->employer_id)->get();
+        return response()->json(['accidents' => $accidents], 200);
+    }
+    public function getAllInjury(Request $req)
+    {
+        $injuries = Injury::select(DB::Raw("injuries.*"))->where('user_id', '=', $req->employer_id)->get();
+        return response()->json(['injuries' => $injuries], 200);
+    }
+    public function getAllEvaluation(Request $req)
+    {
+        $evaluations = Evaluation::select(DB::Raw("evaluations.*"))->where('user_id', '=', $req->employer_id)->get();
+        return response()->json(['evaluations' => $evaluations], 200);
     }
 }

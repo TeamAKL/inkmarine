@@ -36,6 +36,7 @@ class AppointmentInfoController extends Controller
      */
     public function store(Request $request)
     {
+        
 //        $validator = Validator::make($request->all(), [
 //            'division' => 'required',
 //            'ship_name' => 'required',
